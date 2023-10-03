@@ -2,6 +2,7 @@
 // AppError에 name 값으로 들어가는 것
 const commonErrors = {
   dummyError: `Dummy Error`,
+  requestValidationError: `Request Validation Error`,
 };
 
 module.exports = commonErrors;
