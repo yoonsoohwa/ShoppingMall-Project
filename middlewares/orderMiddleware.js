@@ -1,6 +1,7 @@
 const AppError = require("../common/AppError");
 const commonErrors = require("../common/commonErrors");
 
+// status가 알맞게 들어왔는지 검사하는 미들웨어
 const validateOrderStatus = (from) => (req, res, next) => {
   const { status } = req[from];
 
