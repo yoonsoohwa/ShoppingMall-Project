@@ -24,7 +24,7 @@ mongoose
 app.use("/api/ping", pingRouter);
 
 // error handling
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Something went wrong.";
   res.status(statusCode);
