@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const itemsRouter = require("./routes/ItemsRouter"); 
 
 const app = express();
 
@@ -30,8 +31,12 @@ mongoose
   .catch((err) => console.log(err));
 
 // router
+
 app.use("/api/v1/ping", pingRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/ping", pingRouter);
+app.use("/api/v1/items", itemsRouter);
+
 
 // error handling
 app.use((err, req, res, next) => {
