@@ -4,13 +4,22 @@ const dotenv = require("dotenv");
 
 const app = express();
 
-const pingRouter = require("./router/PingRouter");
+const pingRouter = require("./routes/PingRouter");
+const orderRouter = require("./routes/OrderRouter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // dotenv
-dotenv.config();
+console.log(
+  `어플리케이션 서버를 다음 환경으로 시작합니다: ${process.env.NODE_ENV}`
+);
+if (process.env.NODE_ENV === "dev") {
+  dotenv.config({ path: ".env" });
+}
+if (process.env.NODE_ENV === "prod") {
+  dotenv.config({ path: ".env.prod" });
+}
 
 // mongoose
 mongoose
@@ -21,7 +30,8 @@ mongoose
   .catch((err) => console.log(err));
 
 // router
-app.use("/api/ping", pingRouter);
+app.use("/api/v1/ping", pingRouter);
+app.use("/api/v1/orders", orderRouter);
 
 // error handling
 app.use((err, req, res, next) => {
