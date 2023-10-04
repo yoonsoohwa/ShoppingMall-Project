@@ -8,16 +8,6 @@ const { credential } = require('./Credential');
 
 
 const userSchema = new Schema({
-    uuid: {
-        type: String,
-        default: uuid.v4,
-        unique: true,
-    },
-    userid: {
-        type: String,
-        unique: true,
-        required: true,
-    },
     name: {
         type: String,
         maxlength: 50,
@@ -79,7 +69,7 @@ userSchema.methods.comparePassword = async function (plainPassword) {
 userSchema.methods.generateToken = async function () {
     try {
         const user = this;
-        const token = jwt.sign(user._id.toHexString(), 'secret'); // jwt 토큰 생성
+        const token = jwt.sign(user._id.toHexString(), process.env.SECRET_KEY); // jwt 토큰 생성
         const oneHour = moment().add(1, 'hour').valueOf();
         // user.tokenExp, user.token 속성 업데이트한 뒤 사용자 저장
         user.tokenExp = oneHour;
