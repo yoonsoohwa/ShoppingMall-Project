@@ -4,14 +4,19 @@ const orderSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Types.ObjectId,
-      // ref: 'User'
+      ref: "User",
     },
     items: [
       {
         type: mongoose.Types.ObjectId,
-        // ref: 'Item'
+        ref: "Item",
       },
     ],
+    address: {
+      type: mongoose.Types.ObjectId,
+      ref: "Address",
+      required: true,
+    },
     totalPrice: {
       type: Number,
       required: true,
