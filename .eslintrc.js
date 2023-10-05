@@ -21,6 +21,7 @@ module.exports = {
     ecmaVersion: "latest",
   },
   rules: {
+    // _id 예외
     "no-underscore-dangle": ["error", { allow: ["_id"] }],
   },
 };
