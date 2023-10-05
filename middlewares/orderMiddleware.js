@@ -5,11 +5,16 @@ const commonErrors = require("../common/commonErrors");
 const validateOrderStatus = (from) => (req, res, next) => {
   const { status } = req[from];
 
-  if (status !== "주문대기" && status !== "결제완료") {
+  if (
+    status !== "주문대기" &&
+    status !== "결제완료" &&
+    status !== "배송중" &&
+    status !== "배송완료"
+  ) {
     next(
       new AppError(
         commonErrors.requestValidationError,
-        `${from}: status는 "주문대기", "결제완료" 중 하나여야 합니다.`,
+        `${from}: status는 "주문대기", "결제완료", "배송중", "배송완료" 중 하나여야 합니다.`,
         400
       )
     );
