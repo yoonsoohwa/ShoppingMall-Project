@@ -7,7 +7,7 @@ const itemSchema = new Schema(
   {
     category: {
       // ref
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
     },
@@ -19,7 +19,8 @@ const itemSchema = new Schema(
     },
     detail_image: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Image",
       },
     ],
     name: {
@@ -31,9 +32,26 @@ const itemSchema = new Schema(
       required: true,
     },
     option: {
-      // 배열로 할 지 지켜봐야함...
-      size: String,
-      color: String,
+      size: [
+        {
+          type: String,
+        },
+      ],
+      color: [
+        {
+          type: String,
+        },
+      ],
+    },
+    option: {
+      size: {
+        type: String,
+        enum: ["S", "M", "L", "XL"],
+      },
+      color: {
+        type: String,
+        enum: ["black", "white", "red", "blue", "green", "pink"],
+      },
     },
     content: {
       type: String, // 필요에 따라 추가 정보를 담을 수 있는 필드

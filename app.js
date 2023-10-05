@@ -1,12 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const itemsRouter = require("./routes/ItemsRouter"); 
 
 const app = express();
 
 const pingRouter = require("./routes/PingRouter");
 const orderRouter = require("./routes/OrderRouter");
+const itemsRouter = require("./routes/ItemsRouter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,9 +34,7 @@ mongoose
 
 app.use("/api/v1/ping", pingRouter);
 app.use("/api/v1/orders", orderRouter);
-app.use("/api/ping", pingRouter);
 app.use("/api/v1/items", itemsRouter);
-
 
 // error handling
 app.use((err, req, res, next) => {
@@ -44,6 +42,7 @@ app.use((err, req, res, next) => {
   const message = err.message || "Something went wrong.";
   res.status(statusCode);
   res.json({ message });
+  next();
 });
 
 // port

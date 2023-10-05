@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Item } = require("../models/items");
+const { Item } = require("../models/Item");
 
 const itemsRouter = Router();
 
@@ -17,7 +17,7 @@ itemsRouter.get("/", async (req, res, next) => {
 itemsRouter.get("/:category", async (req, res, next) => {
   const { category } = req.params;
   try {
-    const itemsInCategory = await Item.find({ Category: category });
+    const itemsInCategory = await Item.find({ category });
     res.status(200).json(itemsInCategory);
   } catch (err) {
     next(err);
@@ -29,7 +29,9 @@ itemsRouter.post("/", async (req, res, next) => {
   const newItem = new Item(req.body);
   try {
     await newItem.save();
-    res.status(201).json({ message: "아이템이 성공적으로 추가되었습니다.", item: newItem });
+    res
+      .status(201)
+      .json({ message: "아이템이 성공적으로 추가되었습니다.", item: newItem });
   } catch (err) {
     next(err);
   }
