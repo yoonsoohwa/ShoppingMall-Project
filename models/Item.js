@@ -43,16 +43,6 @@ const itemSchema = new Schema(
         },
       ],
     },
-    option: {
-      size: {
-        type: String,
-        enum: ["S", "M", "L", "XL"],
-      },
-      color: {
-        type: String,
-        enum: ["black", "white", "red", "blue", "green", "pink"],
-      },
-    },
     content: {
       type: String, // 필요에 따라 추가 정보를 담을 수 있는 필드
     },
