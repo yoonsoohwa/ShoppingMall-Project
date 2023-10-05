@@ -42,7 +42,6 @@ app.use((err, req, res, next) => {
   const message = err.message || "Something went wrong.";
   res.status(statusCode);
   res.json({ message });
-  next();
 });
 
 // port
