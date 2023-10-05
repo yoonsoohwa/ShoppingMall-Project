@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { encrypt } = require("../utils/crypto");
+
 const addressSchema = mongoose.Schema(
   {
     postnumber: {
@@ -17,10 +19,12 @@ const addressSchema = mongoose.Schema(
     },
     detail: {
       encryptedData: {
+        // 암호화된 detail 주소값
         type: String,
         required: true,
       },
       authTag: {
+        // 식별자
         type: String,
         required: true,
       },

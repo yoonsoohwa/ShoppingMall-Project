@@ -6,6 +6,7 @@ function encrypt(data) {
     process.env.CRYPTO_SECRET,
     process.env.CRYPTO_IV
   );
+
   let encryptedData = cipher.update(data, "utf-8", "hex");
   encryptedData += cipher.final("hex");
   const authTag = cipher.getAuthTag().toString("hex");
@@ -19,6 +20,7 @@ function decrypt(encryptedData, authTag) {
     process.env.CRYPTO_SECRET,
     process.env.CRYPTO_IV
   );
+
   decipher.setAuthTag(Buffer.from(authTag, "hex"));
   const decryptedData = Buffer.concat([
     decipher.update(Buffer.from(encryptedData, "hex")),

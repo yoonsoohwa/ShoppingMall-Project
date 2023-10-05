@@ -9,16 +9,15 @@ const orderRouter = Router();
 
 // POST /api/v1/orders
 orderRouter.post("/", validateOrderStatus("body"), async (req, res, next) => {
-  const { address } = req.body;
+  const { address, ...orderData } = req.body;
 
   try {
-    address.detail = String(address.detail);
-    address.detail = encrypt(address.detail); // detail address encrypt
+    const encryptedDetail = encrypt(address.detail); // 상세 주소 암호화
 
-    const newAddress = new Address({ ...address });
+    const newAddress = new Address({ ...address, detail: encryptedDetail });
     await newAddress.save();
 
-    const order = new Order({ ...req.body, address: newAddress });
+    const order = new Order({ ...orderData, address: newAddress });
     await order.save();
 
     res.status(201).json({ message: "주문이 성공적으로 이뤄졌습니다.", order });
@@ -37,14 +36,17 @@ orderRouter.get("/", async (req, res, next) => {
   }
 });
 
+function decryptDetail(address) {
+  const { encryptedData, authTag } = address.detail;
+  return decrypt(encryptedData, authTag); // 상세주소 복호화
+}
+
 // GET /api/v1/orders/id
 orderRouter.get("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const order = await Order.findById(id).populate("address");
-
-    const { encryptedData, authTag } = order.address.detail;
-    const decryptedDetail = decrypt(encryptedData, authTag);
+    const decryptedDetail = decryptDetail(order.address);
 
     res.status(200).json({
       message: "주문이 성공적으로 조회되었습니다.",
