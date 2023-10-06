@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-const { encrypt } = require("../utils/crypto");
-
 const addressSchema = mongoose.Schema(
   {
     postnumber: {
