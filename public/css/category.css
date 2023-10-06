@@ -1,10 +1,14 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 a {
     text-decoration-line: none;
     color: black;
 }
 
 ul {
-    padding: 0px;
     list-style: none;
 }
 
@@ -22,12 +26,6 @@ header {
     margin-top: 50px;
 }
 
-.best-products-container ul li {
-    display: flex;
-    flex-direction: column;
-
-}
-
 .categories-container ul a {
     margin: 0 5px 0 5px;
 }
@@ -43,7 +41,7 @@ header {
     justify-content: center;
 }
 
-.best-products-container ul {
+.best-products-slide {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -52,6 +50,7 @@ header {
 
 .best-products-slide li {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -69,31 +68,65 @@ header {
     text-align: center;
 }
 
-.twenty-products-title {
+.products-title {
     padding-left: 80px;
     font-size: 25px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
-.twenty-products-container {
+.products-container {
     display: flex;
     justify-content: center;
 }
 
-.twenty-products-container ul {
+.products {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
-.best-products-slide li {
+.products li {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-.twenty-products-container img {
-    width: 250px;
-    height: 250px;
-    margin: 10px;
-    float: left;
+.products img {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+.swiper-prev-controller {
+    display: flex;
+    width: 40px;
+    height: 40px;
+}
+
+.swiper-next-controller {
+    width: 40px;
+    height: 40px;
+}
+
+.page-controller {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.page-arrow {
+    width: 15px;
+    height: 15px;
+    margin: 0 3px 0 3px;
+}
+
+.page-button {
+    padding: 3px;
+    margin: 0 3px 0 3px;
+}
+
+footer {
+    height: 70px;
+    border-top: 1px solid black;
+    text-align: center;
 }
