@@ -3,6 +3,8 @@ const { Schema } = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
+const AppError = require("../common/AppError");
+const commonErrors = require("../common/commonErrors");
 
 const userSchema = new Schema(
   {
@@ -66,7 +68,11 @@ userSchema.methods.comparePassword = async function comparePassword(
 ) {
   const isMatch = await bcrypt.compare(plainPassword, this.password);
   if (!isMatch) {
-    throw new Error("비밀번호가 일치하지 않습니다.");
+    throw new AppError(
+      commonErrors.requestValidationError,
+      "비밀번호가 일치하지 않습니다.",
+      404
+    );
   }
   return isMatch;
 };
@@ -74,7 +80,11 @@ userSchema.methods.comparePassword = async function comparePassword(
 // 사용자 인스턴스에 대한 JWT 토큰을 생성하고 저장하는 메서드(로그인 시 사용)
 userSchema.methods.generateToken = async function generateToken() {
   const user = this;
-  const token = jwt.sign(user._id.toHexString(), process.env.SECRET_KEY); // jwt 토큰 생성
+  const payload = {
+    _id: user._id.toHexString(),
+    roll: user.roll,
+  };
+  const token = jwt.sign(payload, process.env.SECRET_KEY); // jwt 토큰 생성
   const oneHour = moment().add(1, "hour").valueOf();
   // user.tokenExp, user.token 속성 업데이트한 뒤 사용자 저장
   user.tokenExp = oneHour;
@@ -87,9 +97,13 @@ userSchema.methods.generateToken = async function generateToken() {
 userSchema.statics.findByToken = async function findByToken(token) {
   const user = this;
   const decode = jwt.verify(token, process.env.SECRET_KEY); // 토큰 검증
-  const foundUser = await user.findOne({ _id: decode, token }); // 토큰 유효한 경우 사용자 찾기
+  const foundUser = await user.findOne({ _id: decode._id, token });
   if (!foundUser) {
-    throw new Error("사용자를 찾을 수 없습니다.");
+    throw new AppError(
+      commonErrors.requestValidationError,
+      "사용자를 찾을 수 없습니다.",
+      404
+    );
   }
   return foundUser;
 };

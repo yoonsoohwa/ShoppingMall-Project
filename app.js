@@ -7,6 +7,7 @@ const app = express();
 const pingRouter = require("./routes/PingRouter");
 const orderRouter = require("./routes/OrderRouter");
 const itemsRouter = require("./routes/ItemsRouter");
+const userRouter = require("./routes/UserRouter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,6 +36,7 @@ mongoose
 app.use("/api/v1/ping", pingRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/items", itemsRouter);
+app.use("/api/v1/users", userRouter);
 
 // error handling
 app.use((err, req, res, next) => {
@@ -42,7 +44,6 @@ app.use((err, req, res, next) => {
   const message = err.message || "Something went wrong.";
   res.status(statusCode);
   res.json({ message });
-  next();
 });
 
 // port
