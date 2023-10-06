@@ -17,8 +17,7 @@
 <body>
   <!-- header -->
   <div class="payment-header d-flex justify-content-between">
-    <div>
-      <a href="#"><i class="bi bi-arrow-left float-start ms-2"></i></a></div>
+    <div><i class="bi bi-arrow-left float-start ms-2"></i></div>
     <div>
       <a href="../Mainpage/main.html"><div id="logo">Logo</div></a></div>
     <div>
@@ -28,7 +27,7 @@
   </div>
 
   <!-- main => 비회원 주문-->
-  <div class="payment-main">
+  <div class="payment-main pb-2">
     <div class="payment-title text-center d-block p-2">주문/결제</div>
     <div class="container billing-info mt-2 p-2">
       <p><strong>주문 정보</strong></p>
@@ -100,7 +99,7 @@
               <div class="col-sm-5">
                 <input type="text" class="form-control" id="postalCode" placeholder="우편번호">
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm">
                 <button type="button" class="btn btn-outline-secondary">주소찾기</button>
               </div>
             </div>
@@ -129,8 +128,31 @@
     <div class="container order-product-info mt-2 p-2">
       <p><strong>주문 상품</strong></p>
       <div class="products"></div>
+      <span><strong>배송비</strong></span>
+      <span class="float-end">무료</span>
+    </div>
+    <div class="container payment-info mt-2 p-2">
+      <p><strong>결제 정보</strong></p>
+      <div class="d-flex mb-3">
+        <div>주문상품</div>
+        <div class="ms-auto" id="total-price"></div>
+      </div>
+      <div class="d-flex mb-3">
+        <div>배송비</div>
+        <div class="ms-auto" id="delivery-charge">+0</div>
+      </div>
+      <div class="d-flex" style="background-color: aliceblue;">
+        <div class="total-pay p-1">최종 결제 금액</div>
+        <div class="ms-auto total-pay" id="total-pay"></div>
+      </div>
+    </div>
+    <div class="container pay-method mt-2 p-2">
+      <p><strong>결제 수단</strong></p>
+      <button type="button" class="btn btn-outline-secondary w-100">가상계좌</button>
     </div>
   </div>
-  
+  <div class="pay-submit d-flex">
+    <button type="button" class="btn btn-secondary" id="submit-btn"><span id="final-pay"></span>결제하기</button>
+  </div>
 </body>
 </html>
