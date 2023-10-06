@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 const { Address } = require("../models/Address");
 const { Order } = require("../models/Order");
 const { encrypt, decrypt } = require("../utils/crypto");
