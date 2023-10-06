@@ -6,7 +6,7 @@ const id = document.getElementById('pro-id');
 id.innerHTML = queryId
 const mCategory = document.getElementById('m-category-input');
 const mImage = document.getElementById('m-img-input');
-const mDetailImage = document.getElementById('m-detail-img-input'); //>>수정
+const mDetailImage = document.getElementById('m-detail-img-input');
 const mName = document.getElementById('m-name-input');
 const mPrice = document.getElementById('m-price-input');
 const mColor = document.getElementById('m-color-input');
@@ -28,7 +28,12 @@ async function getProductData(id) {
     mCategory.value = data.category;
     imagePreview.innerHTML = `<img src="${data.image}" style="max-width: 150px">`;
     data.detail_image.forEach((val) => {
-      detailImagePreview += `<img src="${val}" style="max-width: 150px">`
+      detailImagePreview += `
+        <div style="display: inline-block">
+          <img src="${val}" style="max-width: 150px">
+          <input type="checkbox" class="position-absolute" id="delete-check-btn">
+        </div>
+      `;
     })
     mName.placeholder = data.name;
     mPrice.placeholder = data.price;
@@ -43,13 +48,15 @@ async function getProductData(id) {
 getProductData(queryId);
 
 
-
+/* !!! 이미지 호스팅 코드로 변경 필요 !!! */
 
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
+let mImgName
 mImage.addEventListener('change', function (e) {
   const file = e.target.files[0];
+  mImgName = file.name
 
   if (file) {
     const reader = new FileReader();
@@ -140,6 +147,7 @@ delDetailImgBtn.addEventListener('click', () => {
   // selectedImages가 없으면, 삭제버튼 안보이도록
   if (!selectedImages) {
     delDetailImgBtn.style.display = 'none'; 
+    mDetailImage.value = ''; 
   }
 });
 
@@ -155,7 +163,7 @@ async function handleSubmit(e) {
   
   // 입력값 가져오기
   const category = mCategory.value
-  const image = mImage.value
+  const image = mImgName ? mImgName : imagePreview.img.src
   const detail_image = selectedImages
   const name = mName.value
   const price = mPrice.value

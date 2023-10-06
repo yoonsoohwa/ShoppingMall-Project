@@ -30,7 +30,7 @@ async function insertProductData() {
 /* 총 개수 */
 const total = document.querySelector('.total');
 const allRow = document.querySelectorAll('tr');
-total.innerHTML = `[총 ${allRow.length - 1}개]`;
+total.innerHTML = allRow.length > 1 ? `[총 ${allRow.length - 1}개]` : `[총 0개]`;
 
 
 /* 상품 삭제 */

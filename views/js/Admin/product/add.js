@@ -14,11 +14,15 @@ const delDetailImgBtn = document.querySelector('.delete-detimg')
 
 
 
+/* !!! 이미지 호스팅 코드로 변경 필요 !!! */
+
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
+let imgName
 imageInput.addEventListener('change', function (e) {
   const file = e.target.files[0];
+  imgName = file.name
 
   if (file) {
     const reader = new FileReader();
@@ -116,9 +120,9 @@ delDetailImgBtn.addEventListener('click', () => {
   // selectedImages가 없으면, 삭제버튼 안보이도록
   if (!selectedImages) {
     delDetailImgBtn.style.display = 'none'; 
+    detailImageInput.value = ''; 
   }
 });
-
 
 
 
@@ -131,7 +135,7 @@ async function handleSubmit(e) {
   
   // 입력값 가져오기
   const category = categoryInput.value
-  const image = imageInput.value
+  const image = imgName
   const detail_image = selectedImages
   const name = nameInput.value
   const price = priceInput.value
