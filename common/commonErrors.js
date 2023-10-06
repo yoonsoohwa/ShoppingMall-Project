@@ -3,6 +3,7 @@
 const commonErrors = {
   dummyError: `Dummy Error`,
   requestValidationError: `Request Validation Error`,
+  resourceNotFoundError: `Resource Not Found Error`,
 };
 
 module.exports = commonErrors;
