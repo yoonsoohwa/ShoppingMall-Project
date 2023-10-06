@@ -1,0 +1,187 @@
+.basketdiv {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.basketdiv .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.basketdiv .row.head {
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.basketdiv .row.data {
+    border-bottom: 1px dashed #888;
+    box-sizing: border-box;
+    line-height: 40px;
+    display: flex;
+
+}
+
+.basketdiv .row .subdiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.basketdiv .row.head .subdiv {
+    padding: 12px 0;
+}
+
+.basketdiv .row.data .subdiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.basketdiv .row .subdiv:nth-child(1) {
+    width: 50%;
+}
+
+.basketdiv .row .subdiv:nth-child(2) {
+    width: 40%;
+}
+
+.basketdiv .row .subdiv:nth-child(3) {
+    width: 10%;
+}
+
+
+.basketdiv .row>div>div {
+    flex-direction: row;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* 첫번째 블록 */
+.basketdiv .all-check {
+    width: 10%;
+}
+
+.basketdiv .img {
+    width: 30%;
+}
+
+.basketdiv .pname {
+    width: 45%;
+}
+
+.basketdiv .num {
+    width: 15%;
+
+}
+
+/* 두번째 블록 */
+.basketdiv .price {
+    width: 33%;
+}
+
+.basketdiv .delivery {
+    width: 33%;
+}
+
+.basketdiv .sum {
+    width: 34%;
+}
+
+/* 세번째 블록 */
+.basketdiv .point {
+    width: 50%
+}
+
+.basketdiv .check {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.basketdiv .basketcmd {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.basketdiv .data .pname {
+    text-align: left !important;
+    line-height: 1.2 !important;
+    display: block;
+    padding: 20px;
+}
+
+.basketdiv .data .pname span {
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.basketcmd .btn {
+    width: 100%;
+}
+
+.opt-btn {
+    margin-left: 0 !important;
+}
+
+.num {
+    line-height: 2px !important;
+}
+
+.basketdiv .num input {
+    width: 30px;
+}
+
+.num .updown .btn-light {
+    font-size: 5px;
+    width: 15px;
+    height: 15px;
+    margin: 1px !important;
+}
+
+.btn-group-vertical .btn i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.basketrowcmd {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.buttongroup {
+    padding: 11px 0;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.buttongroup .btn {
+    width: 150px;
+    height: 60px;
+    /* font-size: 16px; */
+    font-weight: bold;
+}
+/* 
+.total {
+    text-align: right;
+    font-size: 16px;
+    margin: 10px;
+    font-weight: bold;
+} */
