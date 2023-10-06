@@ -1,115 +1,139 @@
-const productImage = document.getElementById('product-image');
-const colorSelector = document.getElementById('color-selector');
-const sizeSelector = document.getElementById('size-selector');
-const selectedList = document.getElementById('selected-list');
-const productName = document.getElementById('product-name');
-const productPrice = document.getElementById('product-price');
-const productDescription = document.getElementById('product-description');
+const productImageEl = document.getElementById('product-image');
+const colorSelectorEl = document.getElementById('color-selector');
+const sizeSelectorEl = document.getElementById('size-selector');
+const colorOptionEl = document.getElementById('color-option');
+const sizeOptionEl = document.getElementById('size-option');
+const selectedListEl = document.getElementById('selected-list');
+const optionSelectionEl = document.getElementById('option-selections');
+const productNameEl = document.getElementById('product-name');
+const productPriceEl = document.getElementById('product-price');
+const productDescriptionEl = document.getElementById('product-description');
+const buyNowBtn = document.getElementById('buy-now-button');
+const addToCartBtn = document.getElementById('add-to-cart-button');
+const totalEl = document.querySelector('#total-details > span');
 
 let optionNum = 0;
+let productPrice;
 
-function setImage(image, detailImage) {
-    detailImage.unshift(image);
+// 총 가격 및 수량 설정
+function setTotal() {
+    const quantityList = document.querySelectorAll('.quantity');
 
-    for (let i = 0; i < detailImage.length; i += 1) {
-        const imageEl = document.createElement('img');
-        imageEl.setAttribute('src', detailImage[i]);
-        productImage.appendChild(imageEl);
+    let totalPrice = 0;
+    let totalQuantity = 0;
+
+    for (let i = 0; i < quantityList.length; i += 1) {
+        totalPrice += productPrice * Number(quantityList[i].innerText);
+        totalQuantity += Number(quantityList[i].innerText);
     }
+
+    totalEl.innerHTML = `<span> <strong class="total-price">${totalPrice.toLocaleString()}원</strong>(${totalQuantity}개) </span>`
 }
 
-function setInfo(name, price, content) {
-    productName.innerText = name;
-    productPrice.innerText = `${price}원`;
-    productDescription.innerText = content;
+// 수량 증가 버튼을 클릭했을 때 발생하는 함수
+function increaseQuantity(e, quantityEl) {
+    e.preventDefault();
+    const quantityElement = quantityEl;
+    let quantity = Number(quantityEl.innerText);
+
+    quantity += 1;
+    quantityElement.innerText = quantity;
+    setTotal();
 }
 
-function setOption(option) {
-    const { color, size } = option;
+// 수량 감수 버튼을 클릭했을 때 발생하는 함수
+function decreaseQuantity(e, quantityEl) {
+    e.preventDefault();
+    const quantityElement = quantityEl;
+    let quantity = Number(quantityEl.innerText);
 
-    const colorEl = `<option value="${color}">${color}</option>`;
-    const sizeEl = `<option value="${size}">${size}</option>`;
-
-    colorSelector.insertAdjacentHTML('beforeend', colorEl);
-    sizeSelector.insertAdjacentHTML('beforeend', sizeEl);
-}
-
-function insertProductElement() {
-    fetch('../../js/product/data.json')
-        .then((res) => res.json())
-        .then(data => {
-            const { name, option, image, detail_image: detailImage, content, price } = data;
-
-            setInfo(name, price, content);
-            setImage(image, detailImage);
-            setOption(option);
-        });
-}
-
-function selectOption() {
-    const color = colorSelector.options[colorSelector.selectedIndex].value;
-    const size = sizeSelector.options[sizeSelector.selectedIndex].value;
-    
-    const selectedOptions = document.querySelectorAll('td.product > span');
-
-    if (size === "none") {
+    if (quantity <= 1) {
         return;
     }
 
-    for (let i = 0; i < selectedOptions.length; i += 1) {
-        if (selectedOptions[i].innerText === `${color} / ${size}`) {
-            // eslint-disable-next-line no-alert
-            alert('아래 리스트에서 이미 선택된 옵션을 삭제 후 다시 선택해 주세요.');
-            return;
-        }
-    }
+    quantity -= 1;
+    quantityElement.innerText = quantity;
+    setTotal();
+}
 
+// 선택한 옵션의 삭제 버튼을 클릭했을 때 발생하는 함수
+function deleteSelectedOption(e) {
+    e.preventDefault();
+    const greatGrandParent = e.currentTarget.parentNode.parentNode.parentNode;
+    greatGrandParent.remove();
+    setTotal();
+}
+
+// 선택한 옵션의 정보를 생성하여 화면에 보여줌
+function addSelectedOption() {
     optionNum += 1;
-
-    const element = `<tr data-option-index=${optionNum}>
-    <td class="product">
-        <p>${productName}</p>
-         - 
-        <span>${color} / ${size}</span>
+    const element = `<tr>
+    <td id="product-${optionNum}"class="product">
+        <p>${productNameEl.innerText}</p>
     </td>
     <td class="text-center">
         <a href="#" id="decrease-quantity-${optionNum}"><i class="bi bi-dash-square"></i></a>
-        <span id="quantity-${optionNum}">1</span>
+        <span id="quantity-${optionNum}" class="quantity">1</span>
         <a href="#" id="increase-quantity-${optionNum}"><i class="bi bi-plus-square"></i></a>
     </td>
-    <td class="text-end">${productPrice}
+    <td class="text-end">${productPrice.toLocaleString()}원
         <a href="#"
           ><i id="product-delete-${optionNum}" class="bi bi-x-square-fill"></i></a>
         <!-- <i class="bi bi-x-circle-fill"></i> -->
     </td>
   </tr>`
 
-    selectedList.insertAdjacentHTML('beforeend', element);
+    selectedListEl.insertAdjacentHTML('beforeend', element);
+    setTotal();
 
     const quantityEl = document.getElementById(`quantity-${optionNum}`);
 
-    document.getElementById(`increase-quantity-${optionNum}`).addEventListener('click', (e) => {
-        e.preventDefault();
-        quantityEl.innerText = Number(quantityEl.innerHTML) + 1;
-    });
-
-    document.getElementById(`decrease-quantity-${optionNum}`).addEventListener('click', (e) => {
-        e.preventDefault();
-        if (Number(quantityEl.innerHTML) <= 1) {
-            return;
-        }
-        quantityEl.innerText = Number(quantityEl.innerHTML) - 1;
-    });
-
-    document.getElementById(`product-delete-${optionNum}`).addEventListener('click', (e) => {
-        e.preventDefault();
-        const greatGrandParent = e.currentTarget.parentNode.parentNode.parentNode;
-        greatGrandParent.remove();
-    });
+    document.getElementById(`increase-quantity-${optionNum}`).addEventListener('click', (e) => increaseQuantity(e, quantityEl));
+    document.getElementById(`decrease-quantity-${optionNum}`).addEventListener('click', (e) => decreaseQuantity(e, quantityEl));
+    document.getElementById(`product-delete-${optionNum}`).addEventListener('click', deleteSelectedOption);
 }
 
+// 옵션을 선택했을 때 실행
+function selectOption(optionSelectionState) {
+    const color = colorSelectorEl.options[colorSelectorEl.selectedIndex].value;
+    const size = sizeSelectorEl.options[sizeSelectorEl.selectedIndex].value;
+
+    const selectedOptions = document.querySelectorAll('td.product > span');
+    let option = '';
+
+    if (optionSelectionState === "both") {  // 선택해야 하는 옵션이 color와 size인 경우
+        if (size === "none") {
+            return;
+        }
+        option = ` - ${color} / ${size}`;
+    } else if (optionSelectionState === "colorOnly") {  // 선택해야 하는 옵션이 color만 있는 경우
+        if (color === "none") {
+            return;
+        }
+        option = ` - ${color}`;
+    } else if (optionSelectionState === "sizeOnly") {   // 선택해야 하는 옵션이 size만 있는 경우
+        if (size === "none") {
+            return;
+        }
+        option = ` - ${size}`
+    }
+
+    // 선택한 옵션이 이미 리스트에 있는 경우
+    for (let i = 0; i < selectedOptions.length; i += 1) {
+        if (selectedOptions[i].textContent === option) {
+            // eslint-disable-next-line no-alert
+            alert('아래 리스트에서 이미 선택된 옵션을 삭제 후 다시 선택해 주세요.');
+            return;
+        }
+    }
+
+    addSelectedOption();
+    document.getElementById(`product-${optionNum}`).insertAdjacentHTML('beforeend', `<span>${option}</span>`)
+}
+
+// color와 size를 모두 선택해야 될 때 size를 먼저 선택한 경우
 function isColorSelected() {
-    const color = colorSelector.options[colorSelector.selectedIndex].value;
+    const color = colorSelectorEl.options[colorSelectorEl.selectedIndex].value;
     const options = document.querySelectorAll('#size-selector > option');
 
     if (color === "none") {
@@ -123,6 +147,108 @@ function isColorSelected() {
     }
 }
 
+// 상품 이미지 설정
+function setImage(image, detailImage) {
+    detailImage.unshift(image);
+
+    for (let i = 0; i < detailImage.length; i += 1) {
+        const imageEl = document.createElement('img');
+        imageEl.setAttribute('src', detailImage[i]);
+        productImageEl.appendChild(imageEl);
+    }
+}
+
+// 상품 정보 설정
+function setInfo(name, price, content) {
+    productNameEl.innerText = name;
+    productPriceEl.innerText = `${price}원`;
+    productDescriptionEl.innerText = content;
+    productPrice = price;
+}
+
+// 옵션(color, size)을 선택했을 때 발생하는 이벤트 설정
+function handleOptionSelectChange() {
+    const colorOptionDisplay = getComputedStyle(colorOptionEl).display;
+    const sizeOptionDisplay = getComputedStyle(sizeOptionEl).display;
+
+    if (colorOptionDisplay !== "none" && sizeOptionDisplay !== "none") {
+        sizeSelectorEl.addEventListener('focus', isColorSelected);
+        sizeSelectorEl.addEventListener('change', () => selectOption("both"));
+        colorSelectorEl.addEventListener('change', () => {
+            sizeSelectorEl.options[0].selected = true;
+        });
+    } else if (sizeOptionDisplay === "none") {
+        colorSelectorEl.addEventListener('change', () => selectOption("colorOnly"));
+    } else if (colorOptionDisplay === "none") {
+        sizeSelectorEl.addEventListener('change', () => selectOption('sizeOnly'));
+
+    }
+}
+
+// 옵션 설정창 설정
+function setOption(option) {
+    const { color, size } = option;
+
+    // color와 size가 없을 경우
+    if (color === null && size === null) {
+        optionSelectionEl.style.display = "none";
+        addSelectedOption();
+        document.getElementById(`product-delete-${optionNum}`).remove();
+        document.getElementById('selected-option').style.borderTop = "1px solid #c0c0c0";
+    }
+
+    // color 옵션만 선택하는 경우
+    if (color !== null) {
+        for (let i = 0; i < color.length; i += 1) {
+            const colorEl = `<option value="${color[i]}">${color[i]}</option>`;
+            colorSelectorEl.insertAdjacentHTML('beforeend', colorEl);
+        }
+    } else {
+        colorOptionEl.style.display = "none";
+    }
+
+    // size 옵션만 선택하는 경우
+    if (size !== null) {
+        for (let i = 0; i < size.length; i += 1) {
+            const sizeEl = `<option value="${size[i]}">${size[i]}</option>`;
+            sizeSelectorEl.insertAdjacentHTML('beforeend', sizeEl);
+        }
+    } else {
+        sizeOptionEl.style.display = "none";
+    }
+    
+    handleOptionSelectChange();
+}
+
+function addToCart() {
+
+}
+
+function redirectToOrderPage() {
+
+}
+
+// 특정 상품의 정보데이터 받아오기
+async function insertProductElement() {
+    // const url = '../../js/product/data.json';    // 임시 데이터
+    const url = '';
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const { name, option, image, detail_image: detailImage, content, price } = data;
+
+        setInfo(name, price, content);
+        setImage(image, detailImage);
+        setOption(option);
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 insertProductElement();
-sizeSelector.addEventListener('focus', isColorSelected);
-sizeSelector.addEventListener('change', selectOption);
+
+buyNowBtn.addEventListener('click', redirectToOrderPage);
+addToCartBtn.addEventListener('click', addToCart);

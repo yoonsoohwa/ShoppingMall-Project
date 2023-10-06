@@ -22,12 +22,19 @@ body {
     flex: 1;
 }
 
+#fix-option {
+    flex: 1;
+    padding-left: 15px;
+    position: relative;
+}
+
 #product-options {
     width: 100%;
     height: fit-content;
-    padding: 15px 35px;
-    flex: 1;
+    padding: 15px 20px;
     border: 2px solid #f5f5dc;
+    position: sticky;
+    top: 50px;
 }
 
 #product-info {
@@ -38,17 +45,17 @@ body {
 
 #product-info h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 24px;
 }
 
 #product-info p {
     margin: 0;
-    padding: 16px 0;
-    font-size: 19px;
+    padding: 10px 0;
+    font-size: 16px;
     font-weight: lighter;
 }
 
-#product-selections {
+#option-selections {
     width: 100%;
     height: fit-content;
     border-top: 1px solid #c0c0c0;
@@ -56,21 +63,21 @@ body {
     padding: 10px 0;
 }
 
-#product-selections>div {
+#option-selections>div {
     padding: 10px 0;
 }
 
-#product-selections>div>label {
-    font-size: 15px;
+#option-selections>div>label {
+    font-size: 16px;
     align-self: center;
 }
 
-#product-selections>div>select {
+#option-selections>div>select {
     margin-right: 10px;
 }
 
 #selected-option {
-    padding-top: 25px;
+    margin-top: 10px;
 }
 
 #selected-option>table {
@@ -78,11 +85,11 @@ body {
 }
 
 #selected-option>table>tbody>tr>td {
-    padding: 12px 0;
+    padding: 8px 0;
 }
 
 #selected-option td.product {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #selected-option td.product p {
@@ -100,19 +107,19 @@ body {
     text-decoration: none;
 }
 
-#total-price {
-    font-size: 15px;
+#total-details {
+    font-size: 16px;
     text-align: end;
 }
 
-#total-price>strong {
-    font-size: 18px;
+#total-details>strong {
+    font-size: 16px;
     padding-right: 2px;
     font-weight: 400;
 }
 
-#total-price>span>strong {
-    font-size: 25px;
+.total-price {
+    font-size: 24px;
     padding: 0 2px 0 4px;
 }
 
@@ -122,13 +129,18 @@ body {
 }
 
 #product-actions>button {
-    margin: 20px;
+    margin: 13px;
     flex: 1;
     font-size: 16px;
 }
 
 #product-description-container {
     text-align: center;
+    margin-top: 15px;
+    padding: 25px 10px;
+    border-style: solid;
+    border-color: #808080;
+    border-width: 1px 0 1px;
 }
 
 img {
