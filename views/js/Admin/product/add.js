@@ -14,7 +14,6 @@ const delDetailImgBtn = document.querySelector('.delete-detimg')
 
 
 
-/* !!! 이미지 호스팅 코드로 변경 필요 !!! */
 
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
@@ -30,14 +29,12 @@ imageInput.addEventListener('change', function (e) {
       const img = document.createElement('img');
       img.src = e.target.result;
       img.style.maxWidth = '150px';
-      imagePreview.innerHTML = ''; // 이미지를 미리보기 전에 이전 이미지를 지웁니다.
+      imagePreview.innerHTML = ''; // 초기화
       imagePreview.appendChild(img);
-      // 이미지를 Base64로 인코딩
-      const base64Image = e.target.result.split(',')[1];
-      mainImage = base64Image
+      mainImage = file
+      delImgBtn.style.display = "block";
     };
     reader.readAsDataURL(file);
-    delImgBtn.style.display = "block";
   } 
 });
 
@@ -52,7 +49,7 @@ delImgBtn.addEventListener('click', () => {
 
 
 // 상세 이미지
-let detailImages = []; // ex) ["첫번째 이미지 base64인코딩값", "두번째 이미지 base64인코딩값", ...]
+let detailImages = []; 
 const maxImageSize = 5 * 1024 * 1024  // 최대 용량 5MB
 
 
@@ -65,6 +62,7 @@ function addImagesToDetailImgs(files) {
   let totalSize = 0
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
+
     if (file.type.startsWith('image/')) {
       const fileSize = file.size
       // 용량 제한
@@ -75,10 +73,7 @@ function addImagesToDetailImgs(files) {
           const img = document.createElement('img');
           img.src = e.target.result;
           img.style.maxWidth = '150px';
-
-          // Base64로 이미지 인코딩
-          const base64Image = e.target.result.split(',')[1];
-          detailImages.push(base64Image);
+          detailImages.push(file);
 
           // 체크박스 생성
           const deleteCheckbox = document.createElement('input');
@@ -114,9 +109,8 @@ delDetailImgBtn.addEventListener('click', () => {
       const parentDiv = checkbox.parentNode;
       parentDiv.remove();
 
-      // 체크된 이미지의 base64 인코딩값 추출
-      const imgUrl = parentDiv.querySelector('img').src.split(',')[1];
-      delImages.push(imgUrl)
+      const imgSrc = parentDiv.querySelector('img').src;
+      delImages.push(imgSrc);
     }
   });
 
@@ -139,46 +133,31 @@ submitBtn.addEventListener('click', handleSubmit)
 async function handleSubmit(e) {
   e.preventDefault()
   
-  // 입력값 가져오기
-  const category = categoryInput.value
-  const image = mainImage
-  const detail_image = detailImages
-  const name = nameInput.value
-  const price = priceInput.value
-  const color = colorInput.value.replace(/\s/g, '').split(',')
-  const size = sizeInput.value.replace(/\s/g, '').split(',')
-  const content = contentInput.value
-  
   // 필수 입력 필드 검사
-  if (!category || !name || !price || !image) {
+  if (!categoryInput.value || !nameInput.value || !priceInput.value || !mainImage) {
     alert('카테고리, 이름, 가격, 대표 이미지는 필수 입력 필드입니다. 모든 필수 입력 필드를 작성하세요.');
     return; 
   }
 
-  const data = {
-    category: category,
-    image: image,
-    detail_image: detail_image,
-    name: name,
-    price: Number(price),
-    option: {
-      color: color,
-      size: size,
-    },
-    content: content,
+  const formData = new FormData();
+  formData.append('category', categoryInput.value);
+  formData.append('name', nameInput.value);
+  formData.append('price', Number(priceInput.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detailImages', detailImages[i]);
   }
-  
-  const dataJson = JSON.stringify(data)
+  formData.append('option[color]', colorInput.value.replace(/\s/g, '').split(','));
+  formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
+  formData.append('content', contentInput.value);
+
   
   const apiUrl = `` // url 추가
 
   try {
     const res = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: dataJson,
+      body: formData,
     }); 
     if (res.ok) {
       alert('상품 등록이 완료되었습니다!')
