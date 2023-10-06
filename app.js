@@ -13,15 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // dotenv
-console.log(
-  `어플리케이션 서버를 다음 환경으로 시작합니다: ${process.env.NODE_ENV}`
-);
-if (process.env.NODE_ENV === "dev") {
-  dotenv.config({ path: ".env" });
-}
-if (process.env.NODE_ENV === "prod") {
-  dotenv.config({ path: ".env.prod" });
-}
+dotenv.config();
 
 // mongoose
 mongoose
@@ -39,7 +31,7 @@ app.use("/api/v1/items", itemsRouter);
 app.use("/api/v1/users", userRouter);
 
 // error handling
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Something went wrong.";
   res.status(statusCode);
