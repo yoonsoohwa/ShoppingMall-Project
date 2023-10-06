@@ -53,10 +53,9 @@ getProductData(queryId);
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
-let mImgName
+let mainImage = imagePreview.img.src.split(',')[1]
 mImage.addEventListener('change', function (e) {
   const file = e.target.files[0];
-  mImgName = file.name
 
   if (file) {
     const reader = new FileReader();
@@ -67,6 +66,9 @@ mImage.addEventListener('change', function (e) {
       img.style.maxWidth = '150px';
       imagePreview.innerHTML = ''; // 초기화
       imagePreview.appendChild(img);
+      // 이미지를 Base64로 인코딩
+      const base64Image = e.target.result.split(',')[1];
+      mainImage = base64Image
     };
     reader.readAsDataURL(file);
   } else {
@@ -76,16 +78,28 @@ mImage.addEventListener('change', function (e) {
 
 
 // 상세 이미지
-let selectedImages = []; // ex) ["a.png", "b.png", "c.jpg", ...]
+let detailImages = []; // ex) ["첫번째 이미지 base64인코딩값", "두번째 이미지 base64인코딩값", ...]
 const maxImageSize = 5 * 1024 * 1024  // 최대 용량 5MB
+
+
+// detailImages의 기본값 (get으로 받아온 데이터)
+const imageDivs = document.querySelectorAll('div[style="display: inline-block"]');
+
+// 각 이미지 요소의 img 태그에서 src를 추출하여 detailImages 배열에 추가합니다.
+imageDivs.forEach((div) => {
+  const img = div.querySelector('img');
+  const src = img.src;
+  const base64Image = src.split(',')[1];
+  detailImages.push(base64Image);
+});
 
 
 mDetailImage.addEventListener('change', function () {
   const files = mDetailImage.files;
-  addImagesToSelected(files);
+  addImagesToDetailImgs(files);
 });
 
-function addImagesToSelected(files) {
+function addImagesToDetailImgs(files) {
   let totalSize = 0
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
@@ -93,12 +107,6 @@ function addImagesToSelected(files) {
       const fileSize = file.size
       // 용량 제한
       if (totalSize + fileSize <= maxImageSize) {
-        selectedImages.push(file.name);
-        totalSize += fileSize;
-
-        const parentDiv = document.createElement('div'); // img, checkbox의 부모div
-        parentDiv.style.display = 'inline-block'
-
         const reader = new FileReader();
 
         reader.onload = function (e) {
@@ -106,17 +114,25 @@ function addImagesToSelected(files) {
           img.src = e.target.result;
           img.style.maxWidth = '150px';
 
+          // Base64로 이미지 인코딩
+          const base64Image = e.target.result.split(',')[1];
+          detailImages.push(base64Image);
+
           // 체크박스 생성
           const deleteCheckbox = document.createElement('input');
           deleteCheckbox.type = 'checkbox';
           deleteCheckbox.className = 'position-absolute';
           deleteCheckbox.id = 'delete-check-btn';
+
+          const parentDiv = document.createElement('div'); // img, checkbox의 부모div
+          parentDiv.style.display = 'inline-block'
           parentDiv.appendChild(img);
           parentDiv.appendChild(deleteCheckbox);
           detailImagePreview.appendChild(parentDiv); // 미리보기에 img,checkbox 담기
           delDetailImgBtn.style.display = "block";
         };
         reader.readAsDataURL(file);
+        totalSize += fileSize;
       } else {
         alert('이미지 용량이 최대 용량을 초과했습니다.');
         mDetailImage.value = '';
@@ -135,17 +151,17 @@ delDetailImgBtn.addEventListener('click', () => {
       const parentDiv = checkbox.parentNode;
       parentDiv.remove();
 
-      // 체크된 이미지의 이름 추출
-      const imgName = parentDiv.querySelector('img').src.split('/').pop();
-      delImages.push(imgName)
+      // 체크된 이미지의 base64 인코딩값 추출
+      const imgUrl = parentDiv.querySelector('img').src.split(',')[1];
+      delImages.push(imgUrl)
     }
   });
 
   // selectedImages 배열에서 삭제
-  selectedImages = selectedImages.filter((image) => !delImages.includes(image));
+  detailImages = detailImages.filter((image) => !delImages.includes(image));
 
   // selectedImages가 없으면, 삭제버튼 안보이도록
-  if (!selectedImages) {
+  if (!detailImages) {
     delDetailImgBtn.style.display = 'none'; 
     mDetailImage.value = ''; 
   }
@@ -163,8 +179,8 @@ async function handleSubmit(e) {
   
   // 입력값 가져오기
   const category = mCategory.value
-  const image = mImgName ? mImgName : imagePreview.img.src
-  const detail_image = selectedImages
+  const image = mainImage
+  const detail_image = detailImages
   const name = mName.value
   const price = mPrice.value
   const color = mColor.value.replace(/\s/g, '').split(',')
