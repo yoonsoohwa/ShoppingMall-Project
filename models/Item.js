@@ -35,11 +35,13 @@ const itemSchema = new Schema(
       size: [
         {
           type: String,
+          default: null,
         },
       ],
       color: [
         {
           type: String,
+          default: null,
         },
       ],
     },
