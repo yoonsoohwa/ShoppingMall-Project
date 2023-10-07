@@ -3,9 +3,9 @@
  * 한인호 코치님 강의자료 중 0919 05_board_api에 있는 코드 참조
  */
 class AppError extends Error {
-  constructor(message, httpCode) {
+  constructor(message, statusCode) {
     super(message);
-    this.httpCode = httpCode;
+    this.statusCode = statusCode;
     Error.captureStackTrace(this);
   }
 }

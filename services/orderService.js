@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-const NotFoundError = require('../common/NotFoundError');
+const { NotFoundError } = require('../common/NotFoundError');
 const { Address } = require('../models/Address');
 const { Order } = require('../models/Order');
 const { encrypt, decrypt } = require('../utils/crypto');
@@ -44,45 +44,41 @@ class OrderService {
   }
 
   async updateOrderStatus({ id, status }) {
-    const order = await Order.findById(id);
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }, // 업데이트된 객체를 반환
+    ).populate('address');
 
-    if (order === null || order.deletedAt !== null) {
+    if (!order || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order
-      .updateOne(
-        id,
-        { status },
-        { new: true }, // 업데이트된 객체를 반환
-      )
-      .populate('address');
-
-    return updatedOrder;
+    return order;
   }
 
   async updateOrderItems({ id, items }) {
-    const order = await Order.findById(id);
+    const order = await Order.findByIdAndUpdate(id, { items }, { new: true });
 
     if (order === null || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order.update(id, { items }, { new: true });
-
-    return updatedOrder;
+    return order;
   }
 
   async deleteOrder(id) {
     const order = await Order.findById(id);
 
-    if (order === null || order.deletedAt !== null) {
+    if (!order || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order.update(id, { deletedAt: Date.now() }, { new: true });
+    const deletedOrder = await Order.findByIdAndUpdate(id, { deletedAt: Date.now() }, { new: true }).populate(
+      'address',
+    );
 
-    return updatedOrder;
+    return deletedOrder;
   }
 }
 

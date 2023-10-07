@@ -3,10 +3,8 @@ const AppError = require('./AppError');
 
 class BadRequestError extends AppError {
   constructor(message) {
-    super(message, StatusCodes.BadRequestError);
+    super(message, StatusCodes.BAD_REQUEST);
   }
 }
 
-module.exports = {
-  BadRequestError,
-};
+module.exports = { BadRequestError };

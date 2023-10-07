@@ -1,12 +1,12 @@
-const StatusCodes = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 const AppError = require('./AppError');
 
-class NotFoundError extends AppError {
+class MethodNotAllowedError extends AppError {
   constructor(message) {
     super(message, StatusCodes.METHOD_NOT_ALLOWED);
   }
 }
 
 module.exports = {
-  NotFoundError,
+  MethodNotAllowedError,
 };
