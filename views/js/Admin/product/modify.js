@@ -54,7 +54,7 @@ getProductData(queryId);
 
 // 대표 이미지
 let mainImage = imagePreview.img.src
-mImage.addEventListener('change', function (e) {
+mImage.addEventListener('change', (e) => {
   const file = e.target.files[0];
 
   if (file) {
@@ -90,8 +90,8 @@ imageDivs.forEach((div) => {
 });
 
 
-mDetailImage.addEventListener('change', function () {
-  const files = mDetailImage.files;
+mDetailImage.addEventListener('change', () => {
+  const {files} = mDetailImage;
   addImagesToDetailImgs(files);
 });
 
@@ -139,7 +139,7 @@ function addImagesToDetailImgs(files) {
 // 부분 이미지 파일 삭제
 delDetailImgBtn.addEventListener('click', () => {
   const checkedItems = document.querySelectorAll('#delete-check-btn');
-  let delImages = []; // 삭제된 이미지들
+  const delImages = []; // 삭제된 이미지들
   
   checkedItems.forEach((checkbox) => {
     if (checkbox.checked) {

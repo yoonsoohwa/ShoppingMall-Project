@@ -19,7 +19,7 @@ const delDetailImgBtn = document.querySelector('.delete-detimg')
 
 // 대표 이미지
 let mainImage
-imageInput.addEventListener('change', function (e) {
+imageInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
 
   if (file) {
@@ -53,8 +53,8 @@ let detailImages = [];
 const maxImageSize = 5 * 1024 * 1024  // 최대 용량 5MB
 
 
-detailImageInput.addEventListener('change', function () {
-  const files = detailImageInput.files;
+detailImageInput.addEventListener('change', () => {
+  const {files} = detailImageInput;
   addImagesToDetailImgs(files);
 });
 
@@ -102,7 +102,7 @@ function addImagesToDetailImgs(files) {
 // 부분 이미지 파일 삭제
 delDetailImgBtn.addEventListener('click', () => {
   const checkedItems = document.querySelectorAll('#delete-check-btn');
-  let delImages = []; // 삭제된 이미지들
+  const delImages = []; // 삭제된 이미지들
   
   checkedItems.forEach((checkbox) => {
     if (checkbox.checked) {
@@ -126,7 +126,7 @@ delDetailImgBtn.addEventListener('click', () => {
 
 
 
-/* db에 생성한 정보 전달 (post)*/
+/* db에 생성한 정보 전달 (post) */
 const submitBtn = document.querySelector('.submit')
 submitBtn.addEventListener('click', handleSubmit)
 

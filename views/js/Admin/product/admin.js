@@ -133,7 +133,7 @@ document.addEventListener('click', (e) => {
     // 쿼리스트링 사용 > id 값이 일치하는 데이터 값을 modify.html로 불러옴
     // 데이터를 URL 매개변수로 인코딩하여 수정 페이지로 전달
     const queryParams = `?${productId}`;
-    const modifyPageURL = './modify.html' + queryParams;  // url 수정
+    const modifyPageURL = `./modify.html${  queryParams}`;  // url 수정
     
     // 수정 페이지를 새 창으로 열어 이동
     // 새 창의 크기 조절

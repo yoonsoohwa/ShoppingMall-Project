@@ -25,8 +25,8 @@ export const addBasket = (name, count, option) => {
 
   const parseProduct = {
     ...selectedProduct,
-    count: count,
-    option: option,
+    count,
+    option,
   };
   const basket = getBasket();
   basket.push(parseProduct);

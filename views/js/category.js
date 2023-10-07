@@ -18,7 +18,7 @@ const swiper = document.querySelector('.best-products-swipe');
 // console.log(swiper.children[3].innerHTML);
 // console.log(swiper.lastElementChild.innerHTML);
 
-let bestProductsList = [];
+const bestProductsList = [];
 for(let i = 0; i < swiper.childElementCount; i++){
     bestProductsList.push(swiper.children[i].innerHTML)
 }
@@ -44,7 +44,7 @@ prevButton.addEventListener('click', () => {
     swiper.style.transform = `translateX(${currentIndex}px)`
 })
 function showItem(index) {
-    let item = bestProductsList[index];
+    const item = bestProductsList[index];
 }
 
 // 다음 아이템으로 이동

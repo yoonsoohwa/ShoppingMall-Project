@@ -35,8 +35,8 @@ function selectAll(selectAll) {
 
 // 삭제 하기 버튼
 
-let oneDelete = document.getElementById("one-delete");
-let goodsData = document.getElementsByClassName("row data");
+const oneDelete = document.getElementById("one-delete");
+const goodsData = document.getElementsByClassName("row data");
 
 oneDelete.addEventListener("click", () => {
   for (let i = 0; i < goodsData.length; i++) {
@@ -62,8 +62,8 @@ modalCloseButton.addEventListener("click", () => {
 
 // 전체 삭제
 
-let basketWrapper = document.getElementsByClassName("basket-wrapper");
-let clearCart = document.getElementById("clear-cart");
+const basketWrapper = document.getElementsByClassName("basket-wrapper");
+const clearCart = document.getElementById("clear-cart");
 
 clearCart.addEventListener("click", () => {
   while (basketWrapper.length > 0) {
@@ -71,7 +71,7 @@ clearCart.addEventListener("click", () => {
   }
 });
 
-////////////////////////////
+/// /////////////////////////
 
 //  localStorage에서 저장된 장바구니 항목을 불러옵니다.
 function loadCart() {
