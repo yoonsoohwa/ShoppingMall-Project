@@ -1,0 +1,23 @@
+[
+  {
+    "id": "P0001",
+    "image": "//ulkin.co.kr/web/product/small/202309/19b4596d0e91c03d535b4da0cbff8d5b.jpg",
+    "name": "Frame Brief Tote Bag",
+    "option": {
+      "color": "black"
+    },
+    "count": 1,
+    "price": 429000
+  },
+  {
+    "id": "P0002",
+    "image": "//ulkin.co.kr/web/product/medium/202309/d42693944473ac50b6a714d7c2f3f5a8.jpg",
+    "name": "[Runway] MUGUNG Knit Pullover_Blue",
+    "option": {
+      "color": "Blue",
+      "size": "M"
+    },
+    "count": 4,
+    "price": 198000
+  }
+]
