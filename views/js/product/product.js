@@ -17,41 +17,36 @@ let productPrice;
 
 // 총 가격 및 수량 설정
 function setTotal() {
-    const quantityList = document.querySelectorAll('.quantity');
+    const quantityList = [...document.querySelectorAll('.quantity')];
 
-    let totalPrice = 0;
-    let totalQuantity = 0;
-
-    for (let i = 0; i < quantityList.length; i += 1) {
-        totalPrice += productPrice * Number(quantityList[i].innerText);
-        totalQuantity += Number(quantityList[i].innerText);
-    }
+    const [totalPrice, totalQuantity] = quantityList.reduce(([accPrice, accQuantity], quantityEl) => {
+        const quantity = Number(quantityEl.innerText);
+        return [accPrice + productPrice * quantity, accQuantity + quantity];
+    }, [0, 0]);
 
     totalEl.innerHTML = `<span> <strong class="total-price">${totalPrice.toLocaleString()}원</strong>(${totalQuantity}개) </span>`
 }
 
-// 수량 증가 버튼을 클릭했을 때 발생하는 함수
-function increaseQuantity(e, quantityEl) {
-    e.preventDefault();
-    const quantityElement = quantityEl;
-    let quantity = Number(quantityEl.innerText);
-
-    quantity += 1;
-    quantityElement.innerText = quantity;
-    setTotal();
-}
-
-// 수량 감수 버튼을 클릭했을 때 발생하는 함수
-function decreaseQuantity(e, quantityEl) {
-    e.preventDefault();
-    const quantityElement = quantityEl;
-    let quantity = Number(quantityEl.innerText);
-
-    if (quantity <= 1) {
-        return;
+// 수량 증가 및 감소하는 함수
+function upDownQuantity(e, type, quantityEl) {
+    if (e) {
+        e.preventDefault();
     }
 
-    quantity -= 1;
+    const quantityElement = quantityEl;
+    let quantity = Number(quantityEl.innerText);
+
+    if (type === "UP") {
+        quantity += 1;
+    }
+
+    if (type === "DOWN") {
+        if (quantity <= 1) {
+            return;
+        }
+        quantity -= 1;
+    }
+
     quantityElement.innerText = quantity;
     setTotal();
 }
@@ -88,8 +83,8 @@ function addSelectedOption() {
 
     const quantityEl = document.getElementById(`quantity-${optionNum}`);
 
-    document.getElementById(`increase-quantity-${optionNum}`).addEventListener('click', (e) => increaseQuantity(e, quantityEl));
-    document.getElementById(`decrease-quantity-${optionNum}`).addEventListener('click', (e) => decreaseQuantity(e, quantityEl));
+    document.getElementById(`increase-quantity-${optionNum}`).addEventListener('click', (e) => upDownQuantity(e, "UP", quantityEl));
+    document.getElementById(`decrease-quantity-${optionNum}`).addEventListener('click', (e) => upDownQuantity(e, "DOWN", quantityEl));
     document.getElementById(`product-delete-${optionNum}`).addEventListener('click', deleteSelectedOption);
 }
 
@@ -121,8 +116,11 @@ function selectOption(optionSelectionState) {
     // 선택한 옵션이 이미 리스트에 있는 경우
     for (let i = 0; i < selectedOptions.length; i += 1) {
         if (selectedOptions[i].textContent === option) {
+            const id = selectedOptions[i].parentNode.getAttribute('id').replace('product', 'quantity');
+            const quantityEl = document.getElementById(id);
+            upDownQuantity(null, "UP", quantityEl);
             // eslint-disable-next-line no-alert
-            alert('아래 리스트에서 이미 선택된 옵션을 삭제 후 다시 선택해 주세요.');
+            alert('선택된 옵션의 수량이 증가되었습니다.');
             return;
         }
     }
@@ -134,28 +132,25 @@ function selectOption(optionSelectionState) {
 // color와 size를 모두 선택해야 될 때 size를 먼저 선택한 경우
 function isColorSelected() {
     const color = colorSelectorEl.options[colorSelectorEl.selectedIndex].value;
-    const options = document.querySelectorAll('#size-selector > option');
+    const options = Array.from(document.querySelectorAll('#size-selector > option'));
 
-    if (color === "none") {
-        for (let i = 2; i < options.length; i += 1) {
-            options[i].style.display = "none";
+    options.forEach((op, i) => {
+        const option = op;
+        if (i >= 2) {
+            option.style.display = color === "none" ? "none" : "block";
         }
-    } else {
-        for (let i = 2; i < options.length; i += 1) {
-            options[i].style.display = "block";
-        }
-    }
+    });
 }
 
 // 상품 이미지 설정
 function setImage(image, detailImage) {
     detailImage.unshift(image);
 
-    for (let i = 0; i < detailImage.length; i += 1) {
+    detailImage.forEach((img) => {
         const imageEl = document.createElement('img');
-        imageEl.setAttribute('src', detailImage[i]);
+        imageEl.setAttribute('src', img);
         productImageEl.appendChild(imageEl);
-    }
+    });
 }
 
 // 상품 정보 설정
@@ -216,7 +211,7 @@ function setOption(option) {
     } else {
         sizeOptionEl.style.display = "none";
     }
-    
+
     handleOptionSelectChange();
 }
 
@@ -244,7 +239,10 @@ async function insertProductElement() {
         setOption(option);
 
     } catch (err) {
+        // eslint-disable-next-line no-console
         console.log(err);
+        // eslint-disable-next-line no-alert
+        alert('상품 정보 요청 중 오류 발생 : ', err);
     }
 }
 
