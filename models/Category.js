@@ -6,23 +6,12 @@ const { Schema } = mongoose;
 
 const categorySchema = new Schema(
   {
-    type: {
-      type: String,
-      enum: [
-        "All",
-        "Top",
-        "Outer",
-        "Bottom",
-        "Dress",
-        "Bag",
-        "Shoes",
-        "Hat",
-        "Acc",
-        "Etc",
-      ],
-      default: "All",
-      required: true,
-    },
+    type: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     items: [
       // 카테고리에 속한 Item ObjectID배열
       {
