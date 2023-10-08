@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const addressSchema = mongoose.Schema(
   {
@@ -10,7 +10,7 @@ const addressSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    pAddress: {
+    addressExceptDetail: {
       // detail 주소를 제외한 앞의 주소
       type: String,
       required: true,
@@ -30,9 +30,9 @@ const addressSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Address = mongoose.model("Address", addressSchema);
+const Address = mongoose.model('Address', addressSchema);
 
 module.exports = { Address };

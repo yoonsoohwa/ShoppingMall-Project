@@ -5,7 +5,7 @@ const { Order } = require('../models/Order');
 const { encrypt, decrypt } = require('../utils/crypto');
 
 class OrderService {
-  async createOrder({ address, totalPrice, status }) {
+  async createOrder({ address, user, items, isRegistered, totalPrice, status }) {
     const encryptedDetail = encrypt(address.detail); // 상세 주소 암호화
 
     const newAddress = await Address.create({
@@ -14,6 +14,9 @@ class OrderService {
     });
 
     const order = await Order.create({
+      user,
+      items,
+      isRegistered,
       totalPrice,
       status,
       address: newAddress,
@@ -23,7 +26,7 @@ class OrderService {
   }
 
   async getOrders() {
-    const orders = await Order.find({}).populate('address');
+    const orders = await Order.find({}).populate('user').populate('items').populate('address');
     return orders;
   }
 
@@ -33,7 +36,7 @@ class OrderService {
   }
 
   async getOrderById(id) {
-    const order = await Order.findById(id).populate('address');
+    const order = await Order.findById(id).populate('user').populate('items').populate('address');
 
     if (order === null || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -48,7 +51,10 @@ class OrderService {
       id,
       { status },
       { new: true }, // 업데이트된 객체를 반환
-    ).populate('address');
+    )
+      .populate('user')
+      .populate('items')
+      .populate('address');
 
     if (!order || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -74,9 +80,10 @@ class OrderService {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const deletedOrder = await Order.findByIdAndUpdate(id, { deletedAt: Date.now() }, { new: true }).populate(
-      'address',
-    );
+    const deletedOrder = await Order.findByIdAndUpdate(id, { deletedAt: Date.now() }, { new: true })
+      .populate('user')
+      .populate('items')
+      .populate('address');
 
     return deletedOrder;
   }
