@@ -6,7 +6,7 @@ export class Pagination {
     constructor({currentPage, pages}) {
         this.pages = pages;
         this._currentPage = currentPage;
-        this.pageCount = 10;
+        this.pageCount = 5;
         const xmlString = `
             <nav aria-label="Page navigation example" class="page-controller">
                 <ul class="pagination">

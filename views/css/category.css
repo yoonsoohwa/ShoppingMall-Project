@@ -29,11 +29,13 @@ button {
 }
 
 .best-products-container {
+    display: flex;
     overflow: hidden;
 }
 
 .best-products-swipe {
     display: flex;
+    transition: 0.2s;
 }
 
 .swiper-next-controller {
@@ -69,13 +71,15 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 24px;
 }
 
 .product {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 12px;
+
+    cursor: pointer;
 }
 
 .main-product-date {
