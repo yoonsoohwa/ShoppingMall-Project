@@ -20,6 +20,9 @@ body{
   color:#ffffff;
 }
 
+ul, li {
+  list-style: none;
+}
 a {
   text-decoration: none;
   color: black;
@@ -41,4 +44,27 @@ a {
   color: #ffffff;
   background-color: #3971FF;
   border-radius: 0;
+}
+
+.bi-asterisk {
+  font-size: 10px;
+  color: #3971FF
+}
+
+.product {
+  box-sizing: border-box;
+  position: relative;
+  /* border: 2px solid red; */
+}
+
+.btn-close {
+  position: absolute;
+  top:0;
+  right: 0;
+  border: 1px solid #808080;
+  border-radius: 0;
+}
+
+.description {
+  font-size: 12px;
 }
