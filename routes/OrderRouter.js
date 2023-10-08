@@ -7,12 +7,12 @@ const orderRouter = Router();
 
 // POST /api/v1/orders
 orderRouter.post('/', validateOrderStatus('body'), async (req, res, next) => {
-  const { address, user, items, isRegistered, totalPrice, status } = req.body;
+  const { address, isRegistered, totalPrice, status } = req.body;
 
   try {
     const order = await OrderService.createOrder({
-      user,
-      items,
+      // userId,
+      // items,
       isRegistered,
       address,
       totalPrice,
@@ -43,6 +43,23 @@ orderRouter.get('/:id', async (req, res, next) => {
       message: '주문이 성공적으로 조회되었습니다.',
       order,
       decryptedDetail,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/v1/orders/order-list  pagination
+orderRouter.get('/page/:page/:limit', async (req, res, next) => {
+  const { page = 1, limit = 20 } = req.params;
+
+  try {
+    const { orders, count } = await OrderService.getPagination({ page, limit });
+    res.status(200).json({
+      message: '주문이 성공적으로 조회되었습니다.',
+      orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
     });
   } catch (err) {
     next(err);

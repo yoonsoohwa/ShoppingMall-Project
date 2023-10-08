@@ -1,11 +1,19 @@
 /* eslint-disable class-methods-use-this */
+// const userService = require('./userService');
+
 const { NotFoundError } = require('../common/NotFoundError');
 const { Address } = require('../models/Address');
 const { Order } = require('../models/Order');
 const { encrypt, decrypt } = require('../utils/crypto');
 
 class OrderService {
-  async createOrder({ address, user, items, isRegistered, totalPrice, status }) {
+  async createOrder({ address, isRegistered, totalPrice, status }) {
+    // const user = userService.getUserById(userId);
+
+    // if (user === null) {
+    //   throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    // }
+
     const encryptedDetail = encrypt(address.detail); // 상세 주소 암호화
 
     const newAddress = await Address.create({
@@ -14,8 +22,6 @@ class OrderService {
     });
 
     const order = await Order.create({
-      user,
-      items,
       isRegistered,
       totalPrice,
       status,
@@ -26,7 +32,7 @@ class OrderService {
   }
 
   async getOrders() {
-    const orders = await Order.find({}).populate('user').populate('items').populate('address');
+    const orders = await Order.find().populate('user').populate('items').populate('address');
     return orders;
   }
 
@@ -44,6 +50,20 @@ class OrderService {
 
     const decryptedDetail = this.decryptDetail(order.address);
     return { order, decryptedDetail };
+  }
+
+  async getPagination({ page, limit }) {
+    const orders = await Order.find()
+      .populate('user')
+      .populate('items')
+      .populate('address')
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit);
+
+    const count = await Order.countDocuments();
+
+    return { orders, count };
   }
 
   async updateOrderStatus({ id, status }) {
