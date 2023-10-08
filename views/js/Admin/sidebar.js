@@ -29,8 +29,8 @@ function loadSidebar() {
           </div>
       </div>
   `;
-  
+
   document.getElementById('sidebar-container').innerHTML = sidebar;
 }
 
-loadSidebar()
+loadSidebar();
