@@ -5,13 +5,11 @@ const credentialSchema = new Schema(
   {
     phoneNumber: {
       type: Number,
-      match: /\d{3}-\d{3,4}-\d{4}/,
     },
     email: {
       type: String,
       trim: true,
       unique: true,
-      match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       required: true,
     },
   },

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "NODE_ENV=dev nodemon app.js",
+    "start": "pm2 start ecosystem.config.js --only projectName-product --env prod",
+    "del": "pm2 del all"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,9 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
+    "moment": "^2.29.4",
     "mongoose": "^7.5.3"
   },
   "devDependencies": {

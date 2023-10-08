@@ -19,7 +19,6 @@ const basket = [
 localStorage.setItem("basket", JSON.stringify(basket));
 
 export const drawBasket = () => {
-
   const totalWrapperElement = document.querySelector(".total-wrapper");
 
   const products = getBasket();
@@ -30,18 +29,22 @@ export const drawBasket = () => {
     let totalPrice = product.price * product.count;
 
     if (deliveryPrice !== "무료") {
-      totalPrice = totalPrice + deliveryPrice + "원";
+      totalPrice = `${totalPrice + deliveryPrice  }원`;
     }
-
-  
 
     return `
     <div class="total-row">
-      <div class="goods-price col-3" id="total-goods-price">${product.price.toLocaleString("en")}원</div>
+      <div class="goods-price col-3" id="total-goods-price">${product.price.toLocaleString(
+        "en"
+      )}원</div>
       <div class="plus col-1">+</div>
-      <div class="delivery-price col-2" id="total-delivery-price">${deliveryPrice.toLocaleString("en")}</div>
+      <div class="delivery-price col-2" id="total-delivery-price">${deliveryPrice.toLocaleString(
+        "en"
+      )}</div>
       <div class="equal col-1">=</div>
-      <div class="total-price col-3" id="total-add-price">${totalPrice.toLocaleString("en")}원</div>
+      <div class="total-price col-3" id="total-add-price">${totalPrice.toLocaleString(
+        "en"
+      )}원</div>
     </div>
     `;
   });

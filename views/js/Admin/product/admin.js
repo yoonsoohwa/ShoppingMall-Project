@@ -1,14 +1,12 @@
 /* db에서 전체 목록 불러오기(get) */
-insertProductData()
-
 async function insertProductData() {
   try {
-    const res = await fetch(``)
-    const data = await res.json()
-    
-    data.forEach(product => {
+    const res = await fetch(``);
+    const data = await res.json();
+
+    data.forEach((product) => {
       const row = document.createElement('tr');
-      const tableBody = document.querySelector('#table-body')
+      const tableBody = document.querySelector('#table-body');
       row.innerHTML += `
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product.id}</td>
@@ -25,13 +23,12 @@ async function insertProductData() {
     console.error('데이터를 가져오는 중 에러 발생:', error);
   }
 }
-
+insertProductData();
 
 /* 총 개수 */
 const total = document.querySelector('.total');
 const allRow = document.querySelectorAll('tr');
 total.innerHTML = allRow.length > 1 ? `[총 ${allRow.length - 1}개]` : `[총 0개]`;
-
 
 /* 상품 삭제 */
 const checkAllBtn = document.querySelector('#check-all');
@@ -49,20 +46,19 @@ checkAllBtn.addEventListener('change', () => {
   }
 });
 
-const deleteBtn = document.querySelector('.pro-delete')
+const deleteBtn = document.querySelector('.pro-delete');
 deleteBtn.addEventListener('click', async (e) => {
-  e.preventDefault()
-  const checkboxes = document.querySelectorAll('#check-item');
+  e.preventDefault();
 
   // 체크된 항목의 index를 저장할 배열
   const checkedItemsIndex = [];
 
-  checkboxes.forEach((checkbox,index) => {
+  checkboxes.forEach((checkbox, index) => {
     if (checkbox.checked) {
       checkedItemsIndex.push(index);
     }
   });
-  
+
   // 확인 창 표시
   if (checkedItemsIndex.length > 0) {
     const confirmMessage = `체크된 항목 ${checkedItemsIndex.length}개를 삭제하시겠습니까?`;
@@ -76,19 +72,19 @@ deleteBtn.addEventListener('click', async (e) => {
         }
       });
       checkAllBtn.checked = false;
-      
+
       // 삭제된 항목의 id를 저장한 배열 => db로 id list(checkedItemsId) 전달
-      const checkedItemsId = []
+      const checkedItemsId = [];
       checkedItemsIndex.forEach((index) => {
-        const row = checkboxes[index].closest('tr'); 
+        const row = checkboxes[index].closest('tr');
         if (row) {
           const productId = row.querySelector('#product-id').textContent;
           checkedItemsId.push(productId);
         }
-      })
+      });
       // db에 삭제한 정보 전달 (delete)
-      const apiUrl = '';  // url 추가
-      const reqData = JSON.stringify({ "items": checkedItemsId });
+      const apiUrl = ''; // url 추가
+      const reqData = JSON.stringify({ items: checkedItemsId });
 
       try {
         const res = await fetch(apiUrl, {
@@ -107,7 +103,7 @@ deleteBtn.addEventListener('click', async (e) => {
       } catch (error) {
         console.error('삭제 요청 중 오류 발생:', error);
       }
-      insertProductData() // 데이터 다시 불러오기
+      insertProductData(); // 데이터 다시 불러오기
     } else {
       // 취소
       checkboxes.forEach((checkbox) => {
@@ -120,7 +116,6 @@ deleteBtn.addEventListener('click', async (e) => {
   }
 });
 
-
 /* 상품 수정 */
 
 // 수정할 id값 추출
@@ -132,9 +127,10 @@ document.addEventListener('click', (e) => {
 
     // 쿼리스트링 사용 > id 값이 일치하는 데이터 값을 modify.html로 불러옴
     // 데이터를 URL 매개변수로 인코딩하여 수정 페이지로 전달
+    const modify = './modify.html'; // url 수정
     const queryParams = `?${productId}`;
-    const modifyPageURL = './modify.html' + queryParams;  // url 수정
-    
+    const modifyPageURL = `${modify}${queryParams}`;
+
     // 수정 페이지를 새 창으로 열어 이동
     // 새 창의 크기 조절
     const windowFeatures = 'width=1000,height=600';

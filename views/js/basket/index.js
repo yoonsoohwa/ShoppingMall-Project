@@ -29,7 +29,7 @@ export const drawBasket = () => {
     let totalPrice = product.price * product.count;
 
     if (deliveryPrice !== "무료") {
-      totalPrice = totalPrice + deliveryPrice + "원";
+      totalPrice = `${totalPrice + deliveryPrice  }원`;
     }
 
     return `<div class="row data">

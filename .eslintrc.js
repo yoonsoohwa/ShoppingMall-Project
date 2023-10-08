@@ -11,9 +11,7 @@ module.exports = {
       env: {
         node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}',
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
@@ -23,5 +21,8 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    // _id 예외
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };
