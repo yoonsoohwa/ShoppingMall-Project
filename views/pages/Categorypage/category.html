@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/views/css/category.css">
+</head>
+
+<body>
+    <header>
+        Header
+    </header>
+
+    <div class="categories-container">
+        <ul>
+            <li><a href="#" class="all">All</a></li>
+            <li><a href="#" class="top">Top</a></li>
+            <li><a href="#" class="outer">Outer</a></li>
+            <li><a href="#" class="bottom">Bottom</a></li>
+            <li><a href="#" class="dress">Dress</a></li>
+            <li><a href="#" class="bag">Bag</a></li>
+            <li><a href="#" class="shoes">Shoes</a></li>
+            <li><a href="#" class="hat">Hat</a></li>
+            <li><a href="#" class="acc">Acc</a></li>
+            <li><a href="#" class="etc">ETC</a></li>
+        </ul>
+    </div>
+
+
+    <div class="best-products-title">
+        <a href="#">
+            Best
+        </a>
+    </div>
+
+
+    <!-- <div class="best-products-container">
+        <ul class="best-products-slide">
+            <li><a href="#"><img src="/static/images/bluebag.jpeg" alt="best1"></a><span class="product-name">echo bag1</span><span class="product-price">10,000₩</span></li>
+            <li><a href="#"><img src="/static/images/checkbag.jpeg" alt="best2"></a><span class="product-name">echo bag2</span><span class="product-price">20,000₩</span></li>
+            <li><a href="#"><img src="/static/images/greenbag.jpeg" alt="best3"></a><span class="product-name">echo bag3</span><span class="product-price">30,000₩</span></li>
+            <li><a href="#"><img src="/static/images/navycheckbag.jpeg" alt="best4"></a><span class="product-name">echo bag4</span><span class="product-price">40,000₩</span></li>
+        </ul>
+    </div> -->
+
+    <div class="best-product-button-container">
+        <div>
+            <button type="button"><img src="./swipericon/002-prev.png" alt="prev"
+                    class="swiper-prev-controller"></button>
+
+            <div class="best-products-container">
+
+                <ul class="best-products-swipe">
+                    <li id="bp1"><a href="#" class="best-product"><img src="./imgtest/imgtest1.jpeg"
+                                alt="best1"></a><span class="product-name">navystripebag</span><span
+                            class="product-price">10,000₩</span></li>
+                    <li id="bp2"><a href="#" class="best-product"><img src="./imgtest/imgtest2.jpeg"
+                                alt="best2"></a><span class="product-name">checkbag</span><span
+                            class="product-price">20,000₩</span></li>
+                    <li id="bp3"><a href="#" class="best-product"><img src="./imgtest/imgtest3.jpeg"
+                                alt="best3"></a><span class="product-name">greenbag</span><span
+                            class="product-price">30,000₩</span></li>
+                    <li id="bp4"><a href="#" class="best-product"><img src="./imgtest/imgtest4.jpeg"
+                                alt="best4"></a><span class="product-name">navybag</span><span
+                            class="product-price">40,000₩</span></li>
+                    <li id="bp5"><a href="#" class="best-product"><img src="./imgtest/imgtest5.jpeg"
+                                alt="best5"></a><span class="product-name">navycheckbag</span><span
+                            class="product-price">50,000₩</span></li>
+                    <li id="bp6"><a href="#" class="best-product"><img src="./imgtest/imgtest6.jpeg"
+                                alt="best6"></a><span class="product-name">blackcap</span><span
+                            class="product-price">60,000₩</span></li>
+                    <li id="bp7"><a href="#" class="best-product"><img src="./imgtest/imgtest7.jpeg"
+                                alt="best7"></a><span class="product-name">browncap</span><span
+                            class="product-price">70,000₩</span></li>
+                    <li id="bp8"><a href="#" class="best-product"><img src="./imgtest/imgtest8.jpeg"
+                                alt="best8"></a><span class="product-name">brownwallet</span><span
+                            class="product-price">80,000₩</span></li>
+                </ul>
+
+            </div>
+            <button type="button"><img src="./swipericon/001-next.png" alt="next"
+                    class="swiper-next-controller"></button>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="products-title">
+        <a href="#" class="products-about-category">All Items</a>
+    </div>
+
+    <ul id="standard-controller">
+        <li><a href="#" class="recent">상품 등록순</a></li>
+        <li><a href="#" class="min-price">낮은 가격순</a></li>
+        <li><a href="#" class="max-price">높은 가격순</a></li>
+    </ul>
+
+    <div class="products-container">
+        <ul class="products">
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+            <li><a href="#"><img src="./imgtest/imgtest1.jpeg" alt="#"></a></li>
+        </ul>
+    </div>
+
+    <nav aria-label="Page navigation example" class="page-controller">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- <div class="page">
+        <div class="page-controller">
+            <img class="page-arrow" src="./pageicon/004-double-left-arrows-symbol.png" alt="double-left">
+            <img class="page-arrow" src="./pageicon/003-left-arrow-angle-big-gross-symbol.png" alt="left">
+            <button class="page-button">1</button>
+            <button class="page-button">2</button>
+            <button class="page-button">3</button>
+            <button class="page-button">4</button>
+            <button class="page-button">5</button>
+            <img class="page-arrow" src="./pageicon/002-arrow-angle-pointing-to-right.png" alt="right">
+            <img class="page-arrow" src="./pageicon/001-fast-forward-double-right-arrows-symbol.png" alt="right">
+        </div> -->
+
+    </div>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/catalin-fertu" title="Catalin Fertu">Catalin Fertu</a>
+        from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+    <footer class="footer">
+        Footer
+    </footer>
+
+    <!-- <script src="/static/js/category.js"></script> -->
+    <script src="/views/js/category.js"></script>
+</body>
+
+</html>
