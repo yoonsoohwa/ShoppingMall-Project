@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const moment = require("moment");
-const AppError = require("../common/AppError");
-const commonErrors = require("../common/commonErrors");
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const moment = require('moment');
+const { BadRequestError } = require('../common/BadRequestError');
+const { NotFoundError } = require('../common/NotFoundError');
 
 const userSchema = new Schema(
   {
@@ -18,22 +18,19 @@ const userSchema = new Schema(
       required: true,
       validate: {
         validator(value) {
-          return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(
-            value
-          );
+          return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(value);
         },
-        message:
-          "비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.",
+        message: '비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.',
       },
     },
     roll: {
       type: String,
-      enum: ["user", "admin"],
+      enum: ['user', 'admin'],
       required: true,
     },
     credential: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Credential",
+      ref: 'Credential',
     },
     token: {
       // 인증서 역할
@@ -46,13 +43,13 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // 비밀번호 해싱 미들웨어 - 모델 저장되기 전 비밀번호가 자동으로 해싱
-userSchema.pre("save", async function preSave(next) {
+userSchema.pre('save', async function preSave(next) {
   try {
-    if (this.isModified("password")) {
+    if (this.isModified('password')) {
       const salt = await bcrypt.genSalt(10);
       this.password = await bcrypt.hash(this.password, salt);
     }
@@ -63,16 +60,10 @@ userSchema.pre("save", async function preSave(next) {
 });
 
 // 비밀번호 비교 메서드(로그인 시 사용)
-userSchema.methods.comparePassword = async function comparePassword(
-  plainPassword
-) {
+userSchema.methods.comparePassword = async function comparePassword(plainPassword) {
   const isMatch = await bcrypt.compare(plainPassword, this.password);
   if (!isMatch) {
-    throw new AppError(
-      commonErrors.requestValidationError,
-      "비밀번호가 일치하지 않습니다.",
-      404
-    );
+    throw new BadRequestError('비밀번호가 일치하지 않습니다.');
   }
   return isMatch;
 };
@@ -85,7 +76,7 @@ userSchema.methods.generateToken = async function generateToken() {
     roll: user.roll,
   };
   const token = jwt.sign(payload, process.env.SECRET_KEY); // jwt 토큰 생성
-  const oneHour = moment().add(1, "hour").valueOf();
+  const oneHour = moment().add(1, 'hour').valueOf();
   // user.tokenExp, user.token 속성 업데이트한 뒤 사용자 저장
   user.tokenExp = oneHour;
   user.token = token;
@@ -99,15 +90,11 @@ userSchema.statics.findByToken = async function findByToken(token) {
   const decode = jwt.verify(token, process.env.SECRET_KEY); // 토큰 검증
   const foundUser = await user.findOne({ _id: decode._id, token });
   if (!foundUser) {
-    throw new AppError(
-      commonErrors.requestValidationError,
-      "사용자를 찾을 수 없습니다.",
-      404
-    );
+    throw new NotFoundError('사용자를 찾을 수 없습니다.');
   }
   return foundUser;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = { User };

@@ -1,9 +1,8 @@
 /* eslint-disable class-methods-use-this */
-const AppError = require("../common/AppError");
-const commonErrors = require("../common/commonErrors");
-const { Address } = require("../models/Address");
-const { Order } = require("../models/Order");
-const { encrypt, decrypt } = require("../utils/crypto");
+const { NotFoundError } = require('../common/NotFoundError');
+const { Address } = require('../models/Address');
+const { Order } = require('../models/Order');
+const { encrypt, decrypt } = require('../utils/crypto');
 
 class OrderService {
   async createOrder({ address, totalPrice, status }) {
@@ -24,7 +23,7 @@ class OrderService {
   }
 
   async getOrders() {
-    const orders = await Order.find({}).populate("address");
+    const orders = await Order.find({}).populate('address');
     return orders;
   }
 
@@ -34,13 +33,10 @@ class OrderService {
   }
 
   async getOrderById(id) {
-    const order = await Order.findById(id).populate("address");
+    const order = await Order.findById(id).populate('address');
 
     if (order === null || order.deletedAt !== null) {
-      throw new AppError(
-        commonErrors.resourceNotFoundError,
-        "해당 주문을 찾을 수 없습니다."
-      );
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
     const decryptedDetail = this.decryptDetail(order.address);
@@ -48,58 +44,41 @@ class OrderService {
   }
 
   async updateOrderStatus({ id, status }) {
-    const order = await Order.findById;
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }, // 업데이트된 객체를 반환
+    ).populate('address');
 
-    if (order === null || order.deletedAt !== null) {
-      throw new AppError(
-        commonErrors.resourceNotFoundError,
-        "해당 주문을 찾을 수 없습니다."
-      );
+    if (!order || order.deletedAt !== null) {
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order
-      .update(
-        id,
-        { status },
-        { new: true } // 업데이트된 객체를 반환
-      )
-      .populate("address");
-
-    return updatedOrder;
+    return order;
   }
 
   async updateOrderItems({ id, items }) {
-    const order = await Order.findById;
+    const order = await Order.findByIdAndUpdate(id, { items }, { new: true });
 
     if (order === null || order.deletedAt !== null) {
-      throw new AppError(
-        commonErrors.resourceNotFoundError,
-        "해당 주문을 찾을 수 없습니다."
-      );
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order.update(id, { items }, { new: true });
-
-    return updatedOrder;
+    return order;
   }
 
   async deleteOrder(id) {
-    const order = await Order.findById;
+    const order = await Order.findById(id);
 
-    if (order === null || order.deletedAt !== null) {
-      throw new AppError(
-        commonErrors.resourceNotFoundError,
-        "해당 주문을 찾을 수 없습니다."
-      );
+    if (!order || order.deletedAt !== null) {
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const updatedOrder = await order.update(
-      id,
-      { deletedAt: Date.now() },
-      { new: true }
+    const deletedOrder = await Order.findByIdAndUpdate(id, { deletedAt: Date.now() }, { new: true }).populate(
+      'address',
     );
 
-    return updatedOrder;
+    return deletedOrder;
   }
 }
 
