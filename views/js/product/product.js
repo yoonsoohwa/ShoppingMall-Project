@@ -264,8 +264,7 @@ function convertItemsToProductList(items) {
 }
 
 // 장바구니 버튼 클릭시 실행
-function addToCart(e) {
-    e.preventDefault();
+function addToCart() {
     const items = Array.from(document.querySelectorAll('#selected-list > tr'));
 
     if (items.length === 0) {
@@ -274,7 +273,6 @@ function addToCart(e) {
         return;
     }
     const itemList = convertItemsToProductList(items);
-
     const basket = JSON.parse(localStorage.getItem('basket'));
 
     if (basket === null) {
@@ -285,13 +283,27 @@ function addToCart(e) {
     }
 
     // eslint-disable-next-line no-alert
-    if (!window.confirm('쇼핑을 계속 하시겠습니까?')) {
+    if (!window.confirm('쇼핑을 계속하시겠습니까?')) {
         window.location.href = '../Basketpage/basket.html';
     }
 }
 
 function redirectToOrderPage() {
+    const items = Array.from(document.querySelectorAll('#selected-list > tr'));
 
+    if (items.length === 0) {
+        // eslint-disable-next-line no-alert
+        alert('필수 옵션을 선택해주세요.');
+        return;
+    }
+    const itemList = convertItemsToProductList(items);
+    
+    // eslint-disable-next-line no-alert
+    if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
+        sessionStorage.setItem('order', JSON.stringify(itemList));
+        // eslint-disable-next-line no-alert
+        window.location.href = '../Orderpage/payment.html';
+    }
 }
 
 // 특정 상품의 정보데이터 받아오기
