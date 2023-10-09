@@ -2,7 +2,6 @@ const goBackBtn = document.querySelector('.bi-arrow-left');
 
 const nameInput = document.querySelector('#inputName');
 const emailInput = document.querySelector('#inputEmail');
-const phoneNumberInput = document.querySelector('#inputPhoneNumber');
 const passwordInput = document.querySelector('#inputPassword');
 const passwordConfirmInput = document.querySelector('#inputConfirmPassword');
 
@@ -10,7 +9,6 @@ const flexRadioDefault1 = document.querySelector('#flexRadioDefault1');
 const flexRadioDefault2 = document.querySelector('#flexRadioDefault2');
 
 const receiverNameInput = document.querySelector('#inputRName');
-const receiverPhoneNumberInput = document.querySelector('#inputRPhoneNumber');
 const postalCodeInput = document.querySelector('#postalCode');
 const searchAddressButton = document.querySelector('#search-address-btn');
 const address1Input = document.querySelector('#inputAdress1');
@@ -23,26 +21,33 @@ const sumInput = document.querySelector('#total-sum');
 const totalInput = document.querySelector('#total-pay');
 const submitBtn = document.querySelector('#submit-btn');
 
+/* 뒤로가기 */
 goBackBtn.addEventListener('click', () => {
   history.go(-1);
 });
 
-// 추후에 로그인 상태 확인 코드 추가
+// 추후에 로그인 상태 확인 코드 추가 => isRegistered
 // 주문하기를 눌러서 결제창으로 이동했을 때, 로그인창으로 이동 or 비회원으로 주문하기
+const isRegistered = false; // 수정
+
+const unuser = document.querySelector('#unuser-password');
+if (!isRegistered) {
+  unuser.style.display = 'block';
+} else {
+  unuser.style.display = 'none';
+}
 
 /* radio btn value값 채워지기 */
 flexRadioDefault1.addEventListener('change', (e) => {
   e.preventDefault();
   if (flexRadioDefault1.checked) {
     receiverNameInput.value = nameInput.value;
-    receiverPhoneNumberInput.value = phoneNumberInput.value;
   }
 });
 flexRadioDefault2.addEventListener('change', (e) => {
   e.preventDefault();
   if (flexRadioDefault2.checked) {
     receiverNameInput.value = '';
-    receiverPhoneNumberInput.value = '';
   }
 });
 
@@ -92,19 +97,27 @@ requestSelectBox.addEventListener('change', () => {
 });
 
 /* 주문상품에 해당 상품 추가 */
-async function getOrderItems() {
-  const url = '../../js/order/data.json'; // 임시 데이터
+function getOrderItems() {
+  // sessionStorage 이용
+  const datas = JSON.parse(sessionStorage.getItem('order'));
+  datas.forEach((data) => {
+    const { id, image, name, option, count, price } = data;
+    const { color, size } = option;
 
-  try {
-    const res = await fetch(url);
-    const datas = await res.json();
+    let optionText = '';
 
-    datas.forEach((data) => {
-      const { id, image, name, option, count, price } = data;
-      const color = option.color ? option.color : '';
-      const size = option.size ? `/${option.size}` : '';
+    // color와 size 값이 있을 때만 표시
+    if (color && size) {
+      optionText = `${color}/${size}`;
+    } else if (color) {
+      optionText = `color: ${color}`;
+    } else if (size) {
+      optionText = `size: ${size}`;
+    } else {
+      optionText = '';
+    }
 
-      products.innerHTML += `
+    const itemHtml = `
       <div class="product mt-1 d-flex align-items-center" style="border: 1px solid #c0c0c0">
         <div class="pro-img">
           <img src="${image}" width="100px" height="100px">
@@ -112,18 +125,18 @@ async function getOrderItems() {
         <div class="description">
           <strong class="pro-name">${name}</strong>
           <li title="옵션">
-            <p class="pro-option m-0">${color}${size}</p>
+            <p class="pro-option m-0">${optionText}</p>
           </li>
-          <li>수량: ${count}개</li>
+          <li>
+            <p class="pro-count m-0">${count}</p>개
+          </li>
           <div class="pro-price mt-2">${price.toLocaleString('ko-KR')}</div>
         </div>
         <button type="button" class="btn-close" aria-label="Close" data-product-id="${id}"></button>
       </div>
     `;
-    });
-  } catch (err) {
-    console.log(err);
-  }
+    products.insertAdjacentHTML('beforeend', itemHtml);
+  });
 }
 
 /* 주문상품 목록삭제, 가격 업데이트 */
@@ -137,12 +150,15 @@ async function afterGetItems() {
 
   closeBtns.forEach((closeBtn) => {
     closeBtn.addEventListener('click', () => {
-      const parentDiv = closeBtn.parentNode;
-      const priceEle = parentDiv.querySelector('.pro-price'); // 제외할 가격
-      pricesArray = removePriceFromArray(pricesArray, priceEle);
+      const confirmed = confirm('선택한 상품을 삭제하시겠습니까?');
+      if (confirmed) {
+        const parentDiv = closeBtn.parentNode;
+        const priceEle = parentDiv.querySelector('.pro-price'); // 제외할 가격
+        pricesArray = removePriceFromArray(pricesArray, priceEle);
 
-      parentDiv.remove();
-      updatePayment(pricesArray); // update
+        parentDiv.remove();
+        updatePayment(pricesArray); // update
+      }
     });
   });
 
@@ -167,6 +183,7 @@ function removePriceFromArray(pricesArray, priceEle) {
   return pricesArray.filter((price) => price !== deletedPrice);
 }
 
+/* ---  */
 /* 가상계좌 */
 /*
 virtualAccount();
@@ -210,6 +227,7 @@ function virtualAccount() {
   });
 }
 */
+/*
 virtualAccount();
 function virtualAccount() {
   // ------ 클라이언트 키로 객체 초기화 ------
@@ -252,6 +270,7 @@ function virtualAccount() {
       });
   });
 }
+*/
 
 /* db에 데이터 전달 (post) */
 
@@ -259,25 +278,23 @@ submitBtn.addEventListener('click', handleSubmit);
 
 async function handleSubmit(e) {
   e.preventDefault();
-  virtualAccount();
+  // virtualAccount();
 
   const name = nameInput.value;
   const email = emailInput.value;
-  const phoneNumber = phoneNumberInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
   const receiverName = receiverNameInput.value;
-  const receiverPhoneNumber = receiverPhoneNumberInput.value;
   const postalCode = postalCodeInput.value;
   const address1 = address1Input.value;
   const address2 = address2Input.value;
   const request = requestSelectBox.value;
 
-  if (!name || !phoneNumber || !email || !password || !passwordConfirm) {
+  if (!name || !email || !password || !passwordConfirm) {
     return alert('주문 정보를 모두 입력해 주세요.');
   }
-  if (!receiverName || !receiverPhoneNumber || !postalCode || !address2) {
+  if (!receiverName || !postalCode || !address2) {
     return alert('배송지 정보를 모두 입력해 주세요.');
   }
 
@@ -286,25 +303,91 @@ async function handleSubmit(e) {
     return alert('비밀번호가 일치하지 않습니다.');
   }
 
+  const items = document.querySelectorAll('.product');
+  const orderItems = [];
+  items.forEach((item) => {
+    const proName = item.querySelector('.pro-name').textContent;
+    const proOptions = item.querySelector('.pro-option').textContent;
+    const proCount = item.querySelector('.pro-count').textContent;
+    const proPrice = item.querySelector('.pro-price').textContent;
+
+    let color;
+    let size;
+    if (proOptions.includes('/')) {
+      color = proOptions.split('/')[0];
+      size = proOptions.split('/')[1];
+    } else if (proOptions.includes('color')) {
+      color = proOptions.split(': ')[1];
+    } else if (proOptions.includes('size')) {
+      size = proOptions.split(': ')[1];
+    }
+
+    // 주문 항목을 객체로 생성하고 배열에 추가
+    const orderItem = {
+      name: proName,
+      option: {
+        color,
+        size,
+      },
+      count: proCount,
+      price: proPrice,
+    };
+    orderItems.push(orderItem);
+  });
+
+  const totalPrice = parseInt(totalInput.textContent.replace(',', ''));
+
   const data = {
-    name: receiverName,
-    phone: receiverPhoneNumber,
-    address: postalCode + address1 + address2,
-    request,
+    username: name,
+    orderItems,
+    totalPrice,
+    status: '주문대기',
+    isRegistered: false,
+    message: request,
+    address: {
+      postnumber: postalCode,
+      addressee: receiverName,
+      addressExceptDetail: address1,
+      detail: address2,
+    },
   };
 
-  const dataJson = JSON.stringify(data);
-  const apiUrl = ``;
+  if (request === '직접입력') {
+    data.message = requestTextArea.value;
+  }
 
-  try {
-    const res = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: dataJson,
-    });
-  } catch (error) {
-    alert(`${error}결제 중 오류가 났습니다.`);
+  // 비회원
+  if (!isRegistered) {
+    data.password = password;
+    const unuserDataJson = JSON.stringify(data);
+    const unuserApiUrl = ``;
+
+    try {
+      const unuserRes = await fetch(unuserApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: unuserDataJson,
+      });
+    } catch (error) {
+      alert(`${error} 결제 중 오류가 났습니다.`);
+    }
+  } else {
+    // 회원
+    const dataJson = JSON.stringify(data);
+    const apiUrl = ``;
+
+    try {
+      const res = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: dataJson,
+      });
+    } catch (error) {
+      alert(`${error} 결제 중 오류가 났습니다.`);
+    }
   }
 }
