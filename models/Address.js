@@ -16,16 +16,8 @@ const addressSchema = mongoose.Schema(
       required: true,
     },
     detail: {
-      encryptedData: {
-        // 암호화된 detail 주소값
-        type: String,
-        required: true,
-      },
-      authTag: {
-        // 식별자
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
   },
   {
