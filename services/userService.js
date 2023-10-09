@@ -61,7 +61,7 @@ class UserService {
       .padStart(6, '0');
 
     // 이메일 전송
-    await sendMail(email, '이메일 인증 코드', `인증 코드: ${emailVerificationCode}`);
+    await sendMail(email, '[RE: BIRTH] 회원가입 이메일 인증 메일입니다.', `이메일 인증 코드: ${emailVerificationCode}`);
 
     return emailVerificationCode;
   }

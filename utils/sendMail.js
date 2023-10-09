@@ -1,24 +1,24 @@
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
 const { NotFoundError } = require('../common/NotFoundError');
+
+dotenv.config({ path: '.env' });
 
 const transport = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true,
   auth: {
-    type: 'OAuth2',
-    user: process.env.GMAIL_OAUTH_USER,
-    clientId: process.env.GMAIL_OAUTH_CLIENT_ID,
-    clientSecret: process.env.GMAIL_OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.GMAIL_OAUTH_REFRESH_TOKEN,
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASSWORD,
   },
 });
 
 const sendMail = async (to, subject, text) => {
   try {
     const message = {
-      from: 'Upcycling',
+      from: 'RE BIRTH:',
       to,
       subject,
       text,
