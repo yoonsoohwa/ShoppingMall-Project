@@ -1,101 +1,162 @@
-const { User } = require('../models/User');
-const { Credential } = require('../models/Credential');
 const { NotFoundError } = require('../common/NotFoundError');
 const { BadRequestError } = require('../common/BadRequestError');
+const { User } = require('../models/User');
+const { sendMail } = require('../utils/sendMail');
 
-// 회원가입 처리
-async function register(req, res, next) {
-  try {
-    const { name, phoneNumber, email, password, roll } = req.body;
-    // 이메일 형식 확인
+class UserService {
+  // 회원가입
+  async register({ name, phonenumber, email, password, confirmPassword }) {
+    if (!name || !phonenumber || !email || !password || !confirmPassword) {
+      throw new BadRequestError('모든 필수 입력란을 채워주세요.');
+    }
+
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-      const error = new BadRequestError('이메일 형식이 올바르지 않습니다.');
-      return next(error);
+      throw new BadRequestError('이메일 형식이 올바르지 않습니다.');
     }
-    // 이메일 중복 확인
-    const existingUser = await User.findOne({ 'credential.email': email });
+
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      const error = new BadRequestError('해당 이메일은 이미 사용 중입니다.');
-      return next(error);
+      throw new BadRequestError('이미 가입된 이메일입니다.');
     }
-    // 휴대폰 형식 확인
-    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneNumber)) {
-      const error = new BadRequestError('휴대폰 번호 형식이 올바르지 않습니다. (예: 123-4567-8901)');
-      return next(error);
+
+    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phonenumber)) {
+      throw new BadRequestError('휴대폰 번호 형식이 올바르지 않습니다. (예: 123-4567-8901)');
     }
-    const credential = new Credential({
-      phoneNumber,
-      email,
-    });
+
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(password)) {
+      throw new BadRequestError('비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
+    }
+
+    if (password !== confirmPassword) {
+      throw new BadRequestError('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+    }
+
     const user = new User({
       name,
+      phonenumber,
+      email,
       password,
-      roll,
-      credential: credential._id,
+      role: 'user',
     });
-    // 비밀번호 해싱
+
     await user.save();
+
     return user;
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      // 비밀번호 유효성 검사 실패 시, 간단한 오류 메시지로 변환
-      const errorMessages = Object.values(err.errors).map((e) => e.message);
-      const error = new BadRequestError(errorMessages.join(' '));
-      return next(error);
-    }
-    return next(err);
   }
-}
 
-// 로그인 처리
-async function login(req, res, next) {
-  try {
-    const { email, password } = req.body;
-    // 이메일로 사용자 찾기
-    const user = await User.findOne({ 'credential.email': email });
+  // 이메일 인증
+  async sendEmailVerificationCode(email) {
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      throw new BadRequestError('이메일 형식이 올바르지 않습니다.');
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new BadRequestError('이미 가입된 이메일입니다.');
+    }
+
+    // 이메일 인증번호 생성
+    const emailVerificationCode = Math.floor(Math.random() * 1000000)
+      .toString()
+      .padStart(6, '0');
+
+    // 이메일 전송
+    await sendMail(email, '이메일 인증 코드', `인증 코드: ${emailVerificationCode}`);
+
+    return emailVerificationCode;
+  }
+
+  // 로그인
+  async login({ email, password }) {
+    if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      throw new BadRequestError('이메일 형식이 올바르지 않습니다.');
+    }
+    const user = await User.findOne({ email });
     if (!user) {
-      const error = new NotFoundError('사용자를 찾을 수 없습니다.');
-      return next(error);
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
     }
-    // 비밀번호 확인
+
     await user.comparePassword(password);
-    // JWT 토큰 생성(id와 roll 정보 담겨 있음)
+
+    // JWT 토큰 생성(id와 role 정보 담겨 있음)
     const token = await user.generateToken();
+
     return token;
-  } catch (err) {
-    return next(err);
+  }
+
+  // 토큰 갱신
+  async refreshToken(userId) {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    }
+
+    const refreshToken = await user.generateToken();
+
+    return refreshToken;
+  }
+
+  // 회원정보 조회
+  async getUserById(userId) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    }
+
+    return user;
+  }
+
+  // 회원정보 수정
+  async updateUser(userId, oldPassword, confirmPassword, updatedData) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    }
+
+    if (updatedData.email && updatedData.email !== user.email) {
+      throw new BadRequestError('이메일은 수정할 수 없습니다.');
+    }
+
+    if (!oldPassword || !confirmPassword) {
+      throw new BadRequestError('기존의 비밀번호와 비밀번호 확인을 입력하세요.');
+    }
+
+    if (oldPassword !== confirmPassword) {
+      throw new BadRequestError('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+    } else {
+      await user.comparePassword(oldPassword);
+    }
+
+    if (updatedData.password) {
+      if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(updatedData.password)) {
+        throw new BadRequestError('비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
+      }
+    }
+
+    if (updatedData.phonenumber) {
+      if (!/^\d{3}-\d{3,4}-\d{4}$/.test(updatedData.phonenumber)) {
+        throw new BadRequestError('휴대폰 번호 형식이 올바르지 않습니다. (예: 123-4567-8901)');
+      }
+    }
+
+    // 업데이트할 정보 적용
+    Object.assign(user, updatedData);
+    await user.save();
+
+    return user;
+  }
+
+  // 회원정보 삭제(탈퇴)
+  async deleteUser(userId) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    }
+    await user.deleteOne({ _id: userId });
+
+    return user;
   }
 }
 
-// 회원 정보 조회
-async function getUserById(userId) {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new NotFoundError('사용자를 찾을 수 없습니다.');
-  }
-  return user;
-}
-
-// 회원 정보 수정
-async function updateUser(userId, updatedData) {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new NotFoundError('사용자를 찾을 수 없습니다.');
-  }
-  // 업데이트할 정보 적용
-  Object.assign(user, updatedData);
-  await user.save();
-  return user;
-}
-
-// 회원 정보 삭제(탈퇴)
-async function deleteUser(userId) {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new NotFoundError('사용자를 찾을 수 없습니다.');
-  }
-  await user.remove();
-  return user;
-}
-
-module.exports = { register, login, getUserById, updateUser, deleteUser };
+module.exports = new UserService();

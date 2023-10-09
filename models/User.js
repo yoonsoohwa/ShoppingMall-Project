@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const moment = require('moment');
 const { BadRequestError } = require('../common/BadRequestError');
 const { NotFoundError } = require('../common/NotFoundError');
 
@@ -13,32 +12,22 @@ const userSchema = new Schema(
       maxlength: 50,
       required: true,
     },
+    phonenumber: {
+      type: String,
+    },
+    email: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
-      validate: {
-        validator(value) {
-          return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(value);
-        },
-        message: '비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.',
-      },
     },
-    roll: {
+    role: {
       type: String,
       enum: ['user', 'admin'],
       required: true,
-    },
-    credential: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Credential',
-    },
-    token: {
-      // 인증서 역할
-      type: String,
-    },
-    tokenExp: {
-      // 토큰 만료일
-      type: Number,
     },
   },
   {
@@ -73,14 +62,12 @@ userSchema.methods.generateToken = async function generateToken() {
   const user = this;
   const payload = {
     _id: user._id.toHexString(),
-    roll: user.roll,
+    role: user.role,
   };
-  const token = jwt.sign(payload, process.env.SECRET_KEY); // jwt 토큰 생성
-  const oneHour = moment().add(1, 'hour').valueOf();
-  // user.tokenExp, user.token 속성 업데이트한 뒤 사용자 저장
-  user.tokenExp = oneHour;
-  user.token = token;
-  await user.save();
+  // jwt 토큰 생성
+  const token = jwt.sign(payload, process.env.SECRET_KEY, {
+    expiresIn: '1h', // 토큰 만료 시간
+  });
   return token;
 };
 
@@ -88,7 +75,7 @@ userSchema.methods.generateToken = async function generateToken() {
 userSchema.statics.findByToken = async function findByToken(token) {
   const user = this;
   const decode = jwt.verify(token, process.env.SECRET_KEY); // 토큰 검증
-  const foundUser = await user.findOne({ _id: decode._id, token });
+  const foundUser = await user.findOne({ _id: decode._id });
   if (!foundUser) {
     throw new NotFoundError('사용자를 찾을 수 없습니다.');
   }

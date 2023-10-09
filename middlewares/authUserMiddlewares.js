@@ -5,7 +5,7 @@ const { User } = require('../models/User');
 // 요청의 헤더에서 토큰 추출하는 함수(payload 데이터)
 function extractToken(req) {
   const authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader || !authorizationHeader.startWith('Bearer')) {
+  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer')) {
     return null;
   }
   return authorizationHeader.split(' ')[1];
@@ -44,7 +44,7 @@ const authenticateAdmin = async (req, res, next) => {
       throw new UnauthorizedError('인증되지 않은 사용자입니다.');
     }
     // 관리자 검증
-    if (user.roll !== 'admin') {
+    if (user.role !== 'admin') {
       throw new ForbiddenError('관리자 권한이 필요합니다.', 403);
     }
     req.user = user;
