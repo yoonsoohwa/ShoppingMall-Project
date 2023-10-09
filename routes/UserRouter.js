@@ -26,12 +26,24 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-// 사용자 로그인
+// 로그인
 router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const token = await UserService.login({ email, password });
-    res.status(200).json({ message: '로그인 성공', token });
+    // 토큰을 쿠키로 설정
+    res.cookie('token', token, { httpOnly: true }); // JS에서 쿠키에 접근할 수 없게 함
+    res.status(200).json({ message: '로그인 되었습니다.' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 로그아웃
+router.post('/logout', async (req, res, next) => {
+  try {
+    res.clearCookie('token'); // 쿠키 삭제
+    res.status(200).json({ message: '로그아웃 되었습니다.' });
   } catch (err) {
     next(err);
   }
