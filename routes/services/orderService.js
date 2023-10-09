@@ -29,12 +29,17 @@ class OrderService {
   }
 
   async getOrders() {
-    const orders = await Order.find().populate('user').populate('orderItems').populate('address');
+    const orders = await Order.find().populate('user').populate('items').populate('address');
     return orders;
   }
 
+  // decryptDetail(address) {
+  //   const { encryptedData, authTag } = address.detail;
+  //   return decrypt(encryptedData, authTag); // 상세주소 복호화
+  // }
+
   async getOrderById(id) {
-    const order = await Order.findById(id).populate('user').populate('orderItems').populate('address');
+    const order = await Order.findById(id).populate('user').populate('items').populate('address');
 
     if (order === null || order.deletedAt !== null) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -46,7 +51,7 @@ class OrderService {
   async getPagination({ page, limit }) {
     const orders = await Order.find()
       .populate('user')
-      .populate('orderItems')
+      .populate('items')
       .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
@@ -67,7 +72,7 @@ class OrderService {
     const newAddress = await Address.findByIdAndUpdate(order.address._id, { ...address }, { new: true });
     const updatedOrder = await Order.findByIdAndUpdate(id, { message, newAddress }, { new: true })
       .populate('user')
-      .populate('orderItems')
+      .populate('items')
       .populate('address');
 
     return updatedOrder;
@@ -80,7 +85,7 @@ class OrderService {
       { new: true }, // 업데이트된 객체를 반환
     )
       .populate('user')
-      .populate('orderItems')
+      .populate('items')
       .populate('address');
 
     if (!order || order.deletedAt !== null) {
@@ -109,7 +114,7 @@ class OrderService {
 
     const deletedOrder = await Order.findByIdAndUpdate(id, { deletedAt: Date.now() }, { new: true })
       .populate('user')
-      .populate('orderItems')
+      .populate('items')
       .populate('address');
 
     return deletedOrder;

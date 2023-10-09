@@ -1,18 +1,30 @@
 const { Router } = require('express');
 
 const OrderService = require('../services/orderService');
+const OrderItemService = require('../services/orderItemService');
 const { validateOrderStatus } = require('../middlewares/orderMiddleware');
 
 const orderRouter = Router();
 
 // POST /api/v1/orders
 orderRouter.post('/', validateOrderStatus('body'), async (req, res, next) => {
-  const orderInfo = req.body;
+  const { orderItems, orderInfo } = req.body;
 
   try {
+    const newOrderItems = await Promise.all(
+      orderItems.map(async (orderItem) => {
+        const newOrderItem = await OrderItemService.createOrderItem({
+          ...orderItem,
+        });
+        return newOrderItem;
+      }),
+    );
+
     const order = await OrderService.createOrder({
+      orderItems: newOrderItems,
       ...orderInfo,
     });
+
     res.status(201).json({ message: '주문이 성공적으로 이뤄졌습니다.', order });
   } catch (err) {
     next(err);
