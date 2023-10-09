@@ -24,5 +24,7 @@ module.exports = {
     // _id 예외
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    // 클래스 안에서 "this" 사용 규칙 비활성화
+    'class-methods-use-this': 'off',
   },
 };
