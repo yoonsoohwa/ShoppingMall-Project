@@ -25,14 +25,17 @@ async function getProductData(id) {
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
     mCategory.value = data.category;
-    imagePreview.innerHTML = `<img src="${data.image}" style="max-width: 150px">`;
+    imagePreview.insertAdjacentHTML('beforeend', `<img src="${data.image}" style="max-width: 150px">`);
     data.detail_image.forEach((val) => {
-      detailImagePreview.innerHTML += `
-        <div style="display: inline-block">
-          <img src="${val}" style="max-width: 150px">
-          <input type="checkbox" class="position-absolute" id="delete-check-btn">
-        </div>
-      `;
+      detailImagePreview.insertAdjacentHTML(
+        'beforeend',
+        `
+          <div style="display: inline-block">
+            <img src="${val}" style="max-width: 150px">
+            <input type="checkbox" class="position-absolute" id="delete-check-btn">
+          </div>
+        `,
+      );
     });
     mName.placeholder = data.name;
     mPrice.placeholder = data.price;
