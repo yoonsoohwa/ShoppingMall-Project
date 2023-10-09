@@ -36,7 +36,7 @@ app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
 
 // error handling
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Something went wrong.';
   res.status(statusCode);
