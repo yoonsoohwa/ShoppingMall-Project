@@ -5,9 +5,8 @@ async function insertProductData() {
     const data = await res.json();
 
     data.forEach((product) => {
-      const row = document.createElement('tr');
       const tableBody = document.querySelector('#table-body');
-      row.innerHTML += `
+      const rowHTML = `
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product.id}</td>
         <td id="product-category">${product.category}</td>
@@ -17,7 +16,7 @@ async function insertProductData() {
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
         <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
       `;
-      tableBody.appendChild(row);
+      tableBody.insertAdjacentHTML('beforeend', `<tr>${rowHTML}</tr>`);
     });
   } catch (error) {
     console.error('데이터를 가져오는 중 에러 발생:', error);
