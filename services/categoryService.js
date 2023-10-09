@@ -36,15 +36,6 @@ class CategoryService {
 
     return deletedCategory;
   }
-
-  async getPagination({ page, limit }) {
-    const skip = (page - 1) * limit;
-    const categories = await Category.find().skip(skip).limit(limit);
-
-    const count = await Category.countDocuments();
-
-    return { categories, count };
-  }
 }
 
 module.exports = new CategoryService();
