@@ -7,16 +7,11 @@ const orderRouter = Router();
 
 // POST /api/v1/orders
 orderRouter.post('/', validateOrderStatus('body'), async (req, res, next) => {
-  const { address, isRegistered, totalPrice, status } = req.body;
+  const orderInfo = req.body;
 
   try {
     const order = await OrderService.createOrder({
-      // userId,
-      // items,
-      isRegistered,
-      address,
-      totalPrice,
-      status,
+      ...orderInfo,
     });
     res.status(201).json({ message: '주문이 성공적으로 이뤄졌습니다.', order });
   } catch (err) {
@@ -60,6 +55,22 @@ orderRouter.get('/page/:page/:limit', async (req, res, next) => {
       orders,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PATCH  /api/v1/orders/:id  update address and message
+orderRouter.patch('/:id/update', async (req, res, next) => {
+  const { id } = req.params;
+  const { message, address } = req.body;
+
+  try {
+    const order = await OrderService.updateOrder({ id, message, address });
+    res.status(200).json({
+      message: `주문 상태가 ${order.status}(으)로 변경되었습니다.`,
+      order,
     });
   } catch (err) {
     next(err);

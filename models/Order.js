@@ -8,8 +8,14 @@ const orderSchema = mongoose.Schema(
     },
     items: [
       {
-        type: mongoose.Types.ObjectId,
-        ref: 'Item',
+        item: {
+          type: mongoose.Types.ObjectId,
+          ref: 'Item',
+        },
+        number: {
+          type: Number,
+          required: true,
+        },
       },
     ],
     address: {
@@ -21,6 +27,11 @@ const orderSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    payMethod: {
+      type: String,
+      default: '가상계좌',
+      required: true,
+    },
     status: {
       type: String,
       enum: ['주문대기', '결제완료', '배송준비중', '배송중', '배송완료', '취소처리중', '주문취소'], // 이 enum 안에 있는 input이 아니면 에러 발생
@@ -28,6 +39,10 @@ const orderSchema = mongoose.Schema(
     },
     isRegistered: {
       type: Boolean,
+      required: true,
+    },
+    message: {
+      type: String,
       required: true,
     },
     deletedAt: {

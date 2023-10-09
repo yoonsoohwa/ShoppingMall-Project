@@ -4,24 +4,21 @@
 const { NotFoundError } = require('../common/NotFoundError');
 const { Address } = require('../models/Address');
 const { Order } = require('../models/Order');
-const { encrypt, decrypt } = require('../utils/crypto');
 
 class OrderService {
-  async createOrder({ address, isRegistered, totalPrice, status }) {
+  async createOrder({ address, message, isRegistered, totalPrice, status }) {
     // const user = userService.getUserById(userId);
 
     // if (user === null) {
     //   throw new NotFoundError('사용자를 찾을 수 없습니다.');
     // }
 
-    const encryptedDetail = encrypt(address.detail); // 상세 주소 암호화
-
     const newAddress = await Address.create({
       ...address,
-      detail: encryptedDetail,
     });
 
     const order = await Order.create({
+      message,
       isRegistered,
       totalPrice,
       status,
@@ -36,10 +33,10 @@ class OrderService {
     return orders;
   }
 
-  decryptDetail(address) {
-    const { encryptedData, authTag } = address.detail;
-    return decrypt(encryptedData, authTag); // 상세주소 복호화
-  }
+  // decryptDetail(address) {
+  //   const { encryptedData, authTag } = address.detail;
+  //   return decrypt(encryptedData, authTag); // 상세주소 복호화
+  // }
 
   async getOrderById(id) {
     const order = await Order.findById(id).populate('user').populate('items').populate('address');
@@ -48,8 +45,7 @@ class OrderService {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const decryptedDetail = this.decryptDetail(order.address);
-    return { order, decryptedDetail };
+    return { order };
   }
 
   async getPagination({ page, limit }) {
@@ -64,6 +60,22 @@ class OrderService {
     const count = await Order.countDocuments();
 
     return { orders, count };
+  }
+
+  async updateOrder({ id, message, address }) {
+    const order = await Order.findById(id);
+
+    if (!order || order.deletedAt !== null) {
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
+    }
+
+    const newAddress = await Address.findByIdAndUpdate(order.address._id, { ...address }, { new: true });
+    const updatedOrder = await Order.findByIdAndUpdate(id, { message, newAddress }, { new: true })
+      .populate('user')
+      .populate('items')
+      .populate('address');
+
+    return updatedOrder;
   }
 
   async updateOrderStatus({ id, status }) {
