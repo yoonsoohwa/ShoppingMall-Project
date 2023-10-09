@@ -1,21 +1,22 @@
+/* eslint-disable class-methods-use-this */
 const { NotFoundError } = require('../common/NotFoundError');
 const { Category } = require('../models/Category');
 
 class CategoryService {
-  // eslint-disable-next-line class-methods-use-this
   async createCategory(name) {
+    // 카테고리 생성 및 반환 , name
     const newCategory = await Category.create({ name });
     return newCategory;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async getAllCategories() {
+    // 모든 카테고리 생성 및 반환 , 파라미터 x
     const categories = await Category.find();
     return categories;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async updateCategory(id, name) {
+    // 카테고리 업데이트 , id로 name 업데이트(?)
     const updatedCategory = await Category.findByIdAndUpdate(id, { name }, { new: true });
 
     if (!updatedCategory) {
@@ -25,8 +26,8 @@ class CategoryService {
     return updatedCategory;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   async deleteCategory(id) {
+    // 카테고리 삭제 , id 값을 전달 받음
     const deletedCategory = await Category.findByIdAndRemove(id);
 
     if (!deletedCategory) {
@@ -34,6 +35,15 @@ class CategoryService {
     }
 
     return deletedCategory;
+  }
+
+  async getPagination({ page, limit }) {
+    const skip = (page - 1) * limit;
+    const categories = await Category.find().skip(skip).limit(limit);
+
+    const count = await Category.countDocuments();
+
+    return { categories, count };
   }
 }
 
