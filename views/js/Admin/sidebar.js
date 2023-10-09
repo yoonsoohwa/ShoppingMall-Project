@@ -30,7 +30,8 @@ function loadSidebar() {
       </div>
   `;
 
-  document.getElementById('sidebar-container').innerHTML = sidebar;
+  const sidebarContainer = document.getElementById('sidebar-container');
+  sidebarContainer.insertAdjacentHTML('beforeend', sidebar);
 }
 
 loadSidebar();
