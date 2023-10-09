@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 // id, category, image, detail_image, name, price, option, content
@@ -8,19 +8,19 @@ const itemSchema = new Schema(
     category: {
       // ref
       type: Schema.Types.ObjectId,
-      ref: "Category",
+      ref: 'Category',
       required: true,
     },
     image: {
       // ref
       type: Schema.Types.ObjectId,
-      ref: "Image",
+      ref: 'Image',
       required: true,
     },
     detail_image: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Image",
+        ref: 'Image',
       },
     ],
     name: {
@@ -51,9 +51,9 @@ const itemSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Item = mongoose.model("Item", itemSchema);
+const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item;
