@@ -230,8 +230,9 @@ function setOption(option) {
 function convertItemsToProductList(items) {
     return items.reduce((list, item) => {
         const name = item.children[0].children[0].textContent.trim();
-        const options = item.children[0].children[1].textContent.replace('-', '');
+        const options = item.children[0].children[1] ? item.children[0].children[1].textContent.replace('-', '') : null;
         const quantity = Number(item.children[1].textContent.trim());
+
         let color = null;
         let size = null;
 
@@ -297,7 +298,7 @@ function redirectToOrderPage() {
         return;
     }
     const itemList = convertItemsToProductList(items);
-    
+
     // eslint-disable-next-line no-alert
     if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
         sessionStorage.setItem('order', JSON.stringify(itemList));
