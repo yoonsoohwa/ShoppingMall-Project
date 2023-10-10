@@ -249,6 +249,10 @@ async function handleSubmit(e) {
   const totalPrice = parseInt(totalInput.textContent.replace(',', ''));
 
   const data = {
+    user: {
+      name,
+      email,
+    },
     username: name,
     orderItems,
     totalPrice,
@@ -269,7 +273,7 @@ async function handleSubmit(e) {
 
   // 비회원
   if (!isRegistered) {
-    data.password = password;
+    data.orderPassword = password;
     const unuserDataJson = JSON.stringify(data);
     const unuserApiUrl = ``;
 
