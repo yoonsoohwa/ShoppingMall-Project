@@ -15,8 +15,9 @@
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="/views/css/admin.css" />
+    <link rel="stylesheet" href="/views/css/style.css" />
     <script src="/views/js/Admin/sidebar.js" defer></script>
-    <script src="/views/js/Admin/order/shipping.js" defer></script>
+    <script src="/views/js/Admin/order/delivered.js" defer></script>
   </head>
   <body>
     <div id="container">
@@ -26,39 +27,31 @@
           <h2>배송 완료 조회</h2>
         </div>
         <div class="p-state">
-          <p class="total"></p>
-        </div>
-        <div class="p-delete">
-          <button type="button" class="pro-delete btn btn-secondary btn-sm">삭제</button>
+          <p id="total"></p>
         </div>
         <div class="board pt-2">
-          <table class="table table-hover">
+          <table class="table table-hover text-center align-middle">
+            <colgroup>
+              <col style="width: 115px" />
+              <col style="width: 110px" />
+              <col style="width: 95px" />
+              <col style="width: auto" />
+              <col style="width: 60px" />
+              <col style="width: 115px" />
+              <col style="width: 80px" />
+            </colgroup>
             <thead>
               <tr>
-                <th scope="col">주문일/주문번호</th>
+                <th scope="col">주문일</th>
+                <th scope="col">주문번호</th>
                 <th scope="col">주문자</th>
-                <th scope="col"><input class="form-check-input" type="checkbox" id="check-all" /></th>
-                <th scope="col">배송일/배송번호</th>
-                <th scope="col">운송장정보(송장번호입력일)</th>
-                <th scope="col">공급사</th>
                 <th scope="col">상품명/옵션</th>
-                <th scope="col">수령</th>
+                <th scope="col">수량</th>
+                <th scope="col">총 결제금액</th>
+                <th scope="col">배송현황</th>
               </tr>
             </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <td id="shipping-date">2023-10-10 +시간</td>
-                <td id="shipping-id">P0001</td>
-                <td id="shipping-username">@@@</td>
-                <td id="shipping-?">묶음선택</td>
-                <td id="shipping-check"><input class="form-check-input" type="checkbox" id="check-item" /></td>
-                <td id="shipping-tracking-info ">운송장 정보</td>
-                <td id="shipping-supplier">공급사</td>
-                <td id="shipping-product">상품명/옵션</td>
-                <td id="shipping-vertify">5</td>
-                <td id="shipping-price">99,000</td>
-                <td id="shipping-payment-type">가상계좌</td>
-              </tr>
+            <tbody id="delivered-list" class="table-group-divider">
             </tbody>
           </table>
         </div>
