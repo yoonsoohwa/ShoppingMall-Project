@@ -3,12 +3,24 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 button {
   background: none;
   padding: 0;
   border: 0;
+  background: none;
+  padding: 0;
+  border: 0;
+}
+
+header {
+  height: 70px;
+  border-bottom: 1px solid black;
+  text-align: center;
 }
 
 header {
@@ -33,6 +45,9 @@ header {
   display: flex;
   justify-content: center;
   gap: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
 /* best */
@@ -47,14 +62,19 @@ header {
 
 .best-product-button-container {
   position: relative;
+  position: relative;
 }
 
 .best-products-container {
   display: flex;
   overflow: hidden;
+  display: flex;
+  overflow: hidden;
 }
 
 .best-products-swipe {
+  display: flex;
+  transition: 0.2s;
   display: flex;
   transition: 0.2s;
 }
@@ -67,9 +87,23 @@ header {
   top: calc(50% - 40px);
   z-index: 10;
   border: 0;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: -10px;
+  top: calc(50% - 40px);
+  z-index: 10;
+  border: 0;
 }
 
 .swiper-prev-controller {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: -10px;
+  top: calc(50% - 40px);
+  z-index: 10;
+  border: 0;
   width: 40px;
   height: 40px;
   position: absolute;
@@ -92,6 +126,7 @@ header {
 }
 
 .container {
+  margin-bottom: 24px;
   margin-bottom: 24px;
 }
 
@@ -116,7 +151,12 @@ header {
   flex-direction: column;
   align-items: center;
   margin: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px;
 
+  cursor: pointer;
   cursor: pointer;
 }
 
@@ -134,6 +174,7 @@ header {
 }
 
 .main-product-date {
+  display: none;
   display: none;
 }
 
@@ -168,14 +209,19 @@ header {
 }
 .page-item-container {
   display: flex;
+  display: flex;
 }
 
 .page-item:first-child .page-link {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -185,9 +231,16 @@ header {
   justify-content: center;
   align-items: center;
   margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
 }
 
 footer {
+  height: 70px;
+  border-top: 1px solid black;
+  text-align: center;
   height: 70px;
   border-top: 1px solid black;
   text-align: center;

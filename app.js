@@ -66,6 +66,7 @@ app.use((err, req, res, next) => {
 
 // port
 const port = process.env.PORT;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Connecting to PORT ${port}`);
