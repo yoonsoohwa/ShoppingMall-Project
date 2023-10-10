@@ -10,6 +10,8 @@ const pingRouter = require('./routes/PingRouter');
 const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
+const categoryRouter = require('./routes/categoryRouter');
+
 const adminRouter = require('./routes/AdminRouter');
 
 const { User } = require('./models/User');
@@ -51,6 +53,7 @@ app.use('/api/v1/ping', pingRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/admins', adminRouter);
 
 // error handling

@@ -1,26 +1,39 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-// id, category, image, detail_image, name, price, option, content
-// 필수 요소 : name, category, image, price
+
 const itemSchema = new Schema(
   {
     category: {
-      // ref
       type: Schema.Types.ObjectId,
       ref: 'Category',
       required: true,
     },
     image: {
-      // ref
-      type: Schema.Types.ObjectId,
-      ref: 'Image',
+      type: {
+        imageType: {
+          type: String,
+          enum: ['thumbnail', 'detail'],
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
       required: true,
     },
     detail_image: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Image',
+        type: {
+          imageType: {
+            type: String,
+            enum: ['thumbnail', 'detail'],
+          },
+          url: {
+            type: String,
+            required: true,
+          },
+        },
       },
     ],
     name: {
@@ -46,7 +59,7 @@ const itemSchema = new Schema(
       ],
     },
     content: {
-      type: String, // 필요에 따라 추가 정보를 담을 수 있는 필드
+      type: String,
     },
   },
   {
