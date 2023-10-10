@@ -35,9 +35,8 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    deletedAt: {
-      type: Date,
-      default: null,
+    orderPassword: {
+      type: String,
     },
   },
   {
