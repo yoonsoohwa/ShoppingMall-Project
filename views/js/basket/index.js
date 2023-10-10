@@ -166,7 +166,6 @@ export const drawBasket = () => {
     if (deliveryPrice !== '무료') {
       totalPrice = `${totalPrice + deliveryPrice}원`;
     }
-    s;
     return `<div class="row data" id="row-data">
       <!-- 첫번째 블록 -->
       <div class="subdiv">
