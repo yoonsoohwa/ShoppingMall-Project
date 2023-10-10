@@ -112,7 +112,7 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
 });
 
 // GET /api/v1/orders/get/guest 배송현황별 주문조회
-orderRouter.get('/get/shipping', authenticateUser, async (req, res, next) => {
+orderRouter.post('/shipping', authenticateUser, async (req, res, next) => {
   const userId = req.user._id;
   const { status } = req.body;
 
