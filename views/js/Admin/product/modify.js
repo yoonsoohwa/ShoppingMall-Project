@@ -1,9 +1,9 @@
 // 현재 URL에서 쿼리스트링 가져오기
 const queryString = window.location.search;
-const queryId = queryString.split('?')[1]
+const queryId = queryString.split('?')[1];
 
 const id = document.getElementById('pro-id');
-id.innerHTML = queryId
+id.innerHTML = queryId;
 const mCategory = document.getElementById('m-category-input');
 const mImage = document.getElementById('m-img-input');
 const mDetailImage = document.getElementById('m-detail-img-input');
@@ -15,8 +15,7 @@ const mContent = document.getElementById('m-content-input');
 
 const imagePreview = document.getElementById('image-preview');
 const detailImagePreview = document.getElementById('detail-image-preview');
-const delDetailImgBtn = document.querySelector('.delete-detimg')
-
+const delDetailImgBtn = document.querySelector('.delete-detimg');
 
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
@@ -26,36 +25,37 @@ async function getProductData(id) {
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
     mCategory.value = data.category;
-    imagePreview.innerHTML = `<img src="${data.image}" style="max-width: 150px">`;
+    imagePreview.insertAdjacentHTML('beforeend', `<img src="${data.image}" style="max-width: 150px">`);
     data.detail_image.forEach((val) => {
-      detailImagePreview += `
-        <div style="display: inline-block">
-          <img src="${val}" style="max-width: 150px">
-          <input type="checkbox" class="position-absolute" id="delete-check-btn">
-        </div>
-      `;
-    })
+      detailImagePreview.insertAdjacentHTML(
+        'beforeend',
+        `
+          <div style="display: inline-block">
+            <img src="${val}" style="max-width: 150px">
+            <input type="checkbox" class="position-absolute" id="delete-check-btn">
+          </div>
+        `,
+      );
+    });
     mName.placeholder = data.name;
     mPrice.placeholder = data.price;
-    mColor.placeholder = data.option.color.join(', ')
-    mSize.placeholder = data.option.color.join(', ')
+    mColor.placeholder = data.option.color.join(', ');
+    mSize.placeholder = data.option.color.join(', ');
     mContent.placeholder = data.content;
   } catch (error) {
-    console.error('데이터를 가져오는 중 에러 발생:', error);
+    alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 
 getProductData(queryId);
 
-
-/* !!! 이미지 호스팅 코드로 변경 필요 !!! */
-
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
-let mainImage = imagePreview.img.src.split(',')[1]
-mImage.addEventListener('change', function (e) {
+let mainImage = imagePreview.img.src;
+mImage.addEventListener('change', (e) => {
   const file = e.target.files[0];
+  mainImage = file;
 
   if (file) {
     const reader = new FileReader();
@@ -66,21 +66,16 @@ mImage.addEventListener('change', function (e) {
       img.style.maxWidth = '150px';
       imagePreview.innerHTML = ''; // 초기화
       imagePreview.appendChild(img);
-      // 이미지를 Base64로 인코딩
-      const base64Image = e.target.result.split(',')[1];
-      mainImage = base64Image
     };
     reader.readAsDataURL(file);
   } else {
-    imagePreview.innerHTML = ''; 
+    imagePreview.innerHTML = '';
   }
 });
 
-
 // 상세 이미지
-let detailImages = []; // ex) ["첫번째 이미지 base64인코딩값", "두번째 이미지 base64인코딩값", ...]
-const maxImageSize = 5 * 1024 * 1024  // 최대 용량 5MB
-
+let detailImages = [];
+const MaxImageSize = 5 * 1024 * 1024; // 최대 용량 5MB
 
 // detailImages의 기본값 (get으로 받아온 데이터)
 const imageDivs = document.querySelectorAll('div[style="display: inline-block"]');
@@ -88,55 +83,49 @@ const imageDivs = document.querySelectorAll('div[style="display: inline-block"]'
 // 각 이미지 요소의 img 태그에서 src를 추출하여 detailImages 배열에 추가합니다.
 imageDivs.forEach((div) => {
   const img = div.querySelector('img');
-  const src = img.src;
-  const base64Image = src.split(',')[1];
-  detailImages.push(base64Image);
+  detailImages.push(img.src);
 });
 
-
-mDetailImage.addEventListener('change', function () {
-  const files = mDetailImage.files;
+mDetailImage.addEventListener('change', () => {
+  const { files } = mDetailImage;
   addImagesToDetailImgs(files);
 });
 
 function addImagesToDetailImgs(files) {
-  let totalSize = 0
+  detailImages = []; // 배열 초기화
+  let totalSize = 0;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    if (file.type.startsWith('image/')) {
-      const fileSize = file.size
-      // 용량 제한
-      if (totalSize + fileSize <= maxImageSize) {
-        const reader = new FileReader();
+    const fileSize = file.size;
 
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.style.maxWidth = '150px';
+    // 용량 제한
+    if (totalSize + fileSize <= MaxImageSize) {
+      detailImages.push(file);
+      const reader = new FileReader();
 
-          // Base64로 이미지 인코딩
-          const base64Image = e.target.result.split(',')[1];
-          detailImages.push(base64Image);
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.maxWidth = '150px';
 
-          // 체크박스 생성
-          const deleteCheckbox = document.createElement('input');
-          deleteCheckbox.type = 'checkbox';
-          deleteCheckbox.className = 'position-absolute';
-          deleteCheckbox.id = 'delete-check-btn';
+        // 체크박스 생성
+        const deleteCheckbox = document.createElement('input');
+        deleteCheckbox.type = 'checkbox';
+        deleteCheckbox.className = 'position-absolute';
+        deleteCheckbox.id = 'delete-check-btn';
 
-          const parentDiv = document.createElement('div'); // img, checkbox의 부모div
-          parentDiv.style.display = 'inline-block'
-          parentDiv.appendChild(img);
-          parentDiv.appendChild(deleteCheckbox);
-          detailImagePreview.appendChild(parentDiv); // 미리보기에 img,checkbox 담기
-          delDetailImgBtn.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-        totalSize += fileSize;
-      } else {
-        alert('이미지 용량이 최대 용량을 초과했습니다.');
-        mDetailImage.value = '';
-      }
+        const parentDiv = document.createElement('div'); // img, checkbox의 부모div
+        parentDiv.style.display = 'inline-block';
+        parentDiv.appendChild(img);
+        parentDiv.appendChild(deleteCheckbox);
+        detailImagePreview.appendChild(parentDiv); // 미리보기에 img,checkbox 담기
+      };
+      reader.readAsDataURL(file);
+      totalSize += fileSize;
+      delDetailImgBtn.style.display = 'block';
+    } else {
+      alert('이미지 용량이 최대 용량을 초과했습니다.');
+      mDetailImage.value = '';
     }
   }
 }
@@ -144,87 +133,62 @@ function addImagesToDetailImgs(files) {
 // 부분 이미지 파일 삭제
 delDetailImgBtn.addEventListener('click', () => {
   const checkedItems = document.querySelectorAll('#delete-check-btn');
-  let delImages = []; // 삭제된 이미지들
-  
-  checkedItems.forEach((checkbox) => {
-    if (checkbox.checked) {
+  const delImages = Array.from(checkedItems)
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => {
       const parentDiv = checkbox.parentNode;
       parentDiv.remove();
+      return parentDiv.querySelector('img').src;
+    });
 
-      // 체크된 이미지의 base64 인코딩값 추출
-      const imgUrl = parentDiv.querySelector('img').src.split(',')[1];
-      delImages.push(imgUrl)
-    }
-  });
-
-  // selectedImages 배열에서 삭제
+  // detailImages 배열에서 삭제
   detailImages = detailImages.filter((image) => !delImages.includes(image));
 
-  // selectedImages가 없으면, 삭제버튼 안보이도록
-  if (!detailImages) {
-    delDetailImgBtn.style.display = 'none'; 
-    mDetailImage.value = ''; 
+  // detailImages 없으면, 삭제버튼 안보이도록
+  if (detailImages.length === 0) {
+    delDetailImgBtn.style.display = 'none';
+    mDetailImage.value = '';
   }
 });
 
-
-
-
 /* db에 수정한 정보 전달 (put) */
-const submitBtn = document.querySelector('.submit')
-submitBtn.addEventListener('click', handleSubmit)
+const submitBtn = document.querySelector('.submit');
+submitBtn.addEventListener('click', handleSubmit);
 
 async function handleSubmit(e) {
-  e.preventDefault()
-  
-  // 입력값 가져오기
-  const category = mCategory.value
-  const image = mainImage
-  const detail_image = detailImages
-  const name = mName.value
-  const price = mPrice.value
-  const color = mColor.value.replace(/\s/g, '').split(',')
-  const size = mSize.value.replace(/\s/g, '').split(',')
-  const content = mContent.value
+  e.preventDefault();
 
   // 필수 입력 필드 검사
-  if (!category || !name || !price || !image) {
+  if (!mCategory.value || !mName.value || !mPrice.value || !mainImage) {
     alert('카테고리, 이름, 가격, 대표 이미지는 필수 입력 필드입니다. 모든 필수 입력 필드를 작성하세요.');
-    return; 
+    return;
   }
 
-  const data = {
-    category: category,
-    image: image,
-    detail_image: detail_image,
-    name: name,
-    price: Number(price),
-    option: {
-      color: color,
-      size: size,
-    },
-    content: content,
+  const formData = new FormData();
+  formData.append('category', mCategory.value);
+  formData.append('name', mName.value);
+  formData.append('price', Number(mPrice.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detailImages', detailImages[i]);
   }
-  
-  const dataJson = JSON.stringify(data)
-  
-  const apiUrl = ``  // url 추가
+  formData.append('option[color]', mColor.value.replace(/\s/g, '').split(','));
+  formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
+  formData.append('content', mContent.value);
+
+  const apiUrl = ``; // url 추가
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: dataJson,
-    });  
+      body: formData,
+    });
     if (res.ok) {
-      alert('상품 수정이 완료되었습니다!')
+      alert('상품 수정이 완료되었습니다!');
       // 상품목록 페이지(admin.html)로 이동 코드 추가
     } else {
-      console.error('수정 요청 실패:', res.status);
+      alert('수정 요청 실패:', res.status);
     }
   } catch (error) {
-    console.error('수정 요청 중 오류 발생:', error);
+    alert('수정 요청 중 오류 발생:', error);
   }
-  
 }

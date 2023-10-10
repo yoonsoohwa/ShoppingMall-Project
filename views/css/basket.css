@@ -1,187 +1,473 @@
+/* 장바구니 공통 css */
+
+body {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  padding-top: 70px;
+  border-bottom: 1px solid black;
+}
+
+.footer {
+  padding-top: 70px;
+  border-top: 1px solid black;
+}
+
+.has {
+  width: 100%;
+  display: block;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.empty {
+  display: none;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.bi-bag {
+  display: block;
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 40px;
+}
+
+.btn {
+  margin: 5px !important;
+}
+
+.basket-count {
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+/* 이용 안내 */
+
+.guide {
+  padding: 50px;
+  width: 100%;
+  height: 500px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 50px;
+  color: gray;
+}
+
+.guide-head {
+  font-size: 24px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.guide-head p {
+  font-weight: bold;
+  color: black;
+}
+.guide-word {
+  padding-left: 20px;
+}
+
+.guide-word p {
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.guide-word li {
+  font-size: 12px;
+}
+
+.form-check-input {
+  border: 1px solid #9ca1a6;
+}
+
+/* 빈 장바구니 */
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.empty-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 70px;
+}
+
+.cart-empty {
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+}
+
+.empty-word {
+  margin: 20px;
+  color: gray;
+}
+
+.bi-cart {
+  font-size: 50px;
+  color: gray;
+}
+
+.btn-retry {
+  margin: 20px !important;
+  color: gray;
+}
+
+/* 채워진 장바구니 */
+
 .basketdiv {
-    margin-top: 30px;
-    margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .basketdiv .row {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .basketdiv .row.head {
-    border-top: 1px solid #888;
-    border-bottom: 1px solid #888;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
-    font-weight: bold;
-    padding-right: 12px;
-    padding-left: 12px;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 
 .basketdiv .row.data {
-    border-bottom: 1px dashed #888;
-    box-sizing: border-box;
-    line-height: 40px;
-    display: flex;
-
+  border-bottom: 1px dashed #888;
+  box-sizing: border-box;
+  line-height: 40px;
+  display: flex;
 }
 
 .basketdiv .row .subdiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .basketdiv .row.head .subdiv {
-    padding: 12px 0;
+  padding: 12px 0;
 }
 
 .basketdiv .row.data .subdiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 0;
 }
 
 .basketdiv .row .subdiv:nth-child(1) {
-    width: 50%;
+  width: 50%;
 }
 
 .basketdiv .row .subdiv:nth-child(2) {
-    width: 40%;
+  width: 40%;
 }
 
 .basketdiv .row .subdiv:nth-child(3) {
-    width: 10%;
+  width: 10%;
 }
 
-
-.basketdiv .row>div>div {
-    flex-direction: row;
-    text-align: center;
-    margin: 0;
+.basketdiv .row > div > div {
+  flex-direction: row;
+  text-align: center;
+  margin: 0;
 }
-
 
 /* 첫번째 블록 */
 .basketdiv .all-check {
-    width: 10%;
+  width: 10%;
 }
 
 .basketdiv .img {
-    width: 30%;
+  width: 30%;
 }
 
 .basketdiv .pname {
-    width: 45%;
+  width: 45%;
 }
 
 .basketdiv .num {
-    width: 15%;
-
+  width: 15%;
 }
 
 /* 두번째 블록 */
 .basketdiv .price {
-    width: 33%;
+  width: 33%;
 }
 
 .basketdiv .delivery {
-    width: 33%;
+  width: 33%;
 }
 
 .basketdiv .sum {
-    width: 34%;
+  width: 34%;
 }
 
 /* 세번째 블록 */
 .basketdiv .point {
-    width: 50%
+  width: 50%;
 }
 
 .basketdiv .check {
-    width: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .basketdiv .basketcmd {
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .basketdiv .data .pname {
-    text-align: left !important;
-    line-height: 1.2 !important;
-    display: block;
-    padding: 20px;
+  text-align: left !important;
+  line-height: 1.2 !important;
+  display: block;
+  padding: 20px;
 }
 
 .basketdiv .data .pname span {
-    display: inline-block;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .basketcmd .btn {
-    width: 100%;
+  width: 100%;
 }
 
 .opt-btn {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .num {
-    line-height: 2px !important;
+  line-height: 2px !important;
 }
 
 .basketdiv .num input {
-    width: 30px;
+  width: 30px;
 }
 
 .num .updown .btn-light {
-    font-size: 5px;
-    width: 15px;
-    height: 15px;
-    margin: 1px !important;
+  font-size: 5px;
+  width: 15px;
+  height: 15px;
+  margin: 1px !important;
 }
 
 .btn-group-vertical .btn i {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .basketrowcmd {
-    text-align: right;
-    margin-bottom: 10px;
+  text-align: right;
+  margin-bottom: 10px;
 }
 
 .buttongroup {
-    padding: 11px 0;
-    margin: 20px 0;
-    text-align: center;
+  padding: 11px 0;
+  margin: 20px 0;
+  text-align: center;
 }
 
 .buttongroup .btn {
-    width: 150px;
-    height: 60px;
-    /* font-size: 16px; */
-    font-weight: bold;
+  width: 150px;
+  height: 60px;
+  font-weight: bold;
 }
-/* 
-.total {
-    text-align: right;
-    font-size: 16px;
-    margin: 10px;
-    font-weight: bold;
-} */
+
+/* bottom - total 부분 */
+
+.bottom-total-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.total-header-wrap {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px dotted #888;
+  font-weight: bold;
+}
+
+.total-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.total-data-wrap {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.total-data-wrap .goods-price {
+  padding-left: 8%;
+}
+
+.total-data-wrap .total-price {
+  padding-right: 8%;
+}
+
+/* modal */
+
+#modal-add-button,
+#modal-change-button {
+  font-size: 12px;
+  margin: 5px;
+}
+
+#btn-grp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modal-content {
+  position: absolute;
+  background-color: #ffffff;
+  width: 300px;
+  height: 250px;
+  padding: 15px;
+}
+
+.modal-content-head {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content-head p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.btn-bg-none {
+  background: none;
+  border: none;
+  margin-left: auto;
+}
+
+.btn-bg-none .bi-x {
+  font-size: 24px;
+}
+
+#modal-container.hidden {
+  display: none;
+}
+
+#modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modal-container.hidden {
+  display: none;
+}
+
+#modal-content {
+  position: absolute;
+  background-color: #ffffff;
+  width: 300px;
+  height: 250px;
+  padding: 15px;
+}
+
+.modal-content-inner {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.goods-name {
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px dotted #888;
+}
+
+.option-choice {
+  padding: 5px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.option-choice p {
+  font-size: 14px;
+  margin: 10px;
+}
+
+.form-select {
+  width: 200px;
+  height: 27px;
+  font-size: 12px;
+}
