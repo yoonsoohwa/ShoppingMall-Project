@@ -6,10 +6,6 @@ const orderItemSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
     item: {
       type: mongoose.Types.ObjectId,
       required: true,
