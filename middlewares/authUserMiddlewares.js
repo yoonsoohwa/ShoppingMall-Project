@@ -2,30 +2,42 @@ const { ForbiddenError } = require('../common/ForbiddenError');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
 const { User } = require('../models/User');
 
-// 요청의 헤더에서 토큰 추출하는 함수(payload 데이터)
-function extractToken(req) {
-  const authorizationHeader = req.headers.authorization;
-  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer')) {
-    return null;
-  }
-  return authorizationHeader.split(' ')[1];
-}
-
 // 사용자 인증 미들웨어
 const authenticateUser = async (req, res, next) => {
   try {
-    // 헤더에서 payload 데이터가 담긴 토큰 추출
-    const token = extractToken(req);
-    if (!token) {
-      throw new UnauthorizedError('로그인한 유저만 사용할 수 있는 서비스입니다.');
+    // 헤더에서 액세스 토큰 추출
+    const accessToken = req.cookies.token;
+    if (!accessToken) {
+      throw new ForbiddenError('로그인한 유저만 사용할 수 있는 서비스입니다.');
     }
-    // 토큰 검증
-    const user = await User.findByToken(token);
-    if (!user) {
-      throw new UnauthorizedError('인증되지 않은 사용자입니다.');
+    // 액세스 토큰 검증
+    const { foundUser, error } = await User.findByToken(accessToken);
+    if (error) {
+      // 액세스 토큰이 만료된 경우 리프레시 토큰 검증(유효하다면 액세스 토큰 재발급)
+      const { refreshToken } = req.cookies;
+      if (!refreshToken) {
+        throw new UnauthorizedError('인증되지 않은 사용자입니다.');
+      }
+      let refreshUser; // 예외처리
+      let refreshError;
+      try {
+        const result = await User.findByToken(refreshToken);
+        refreshUser = result.foundUser;
+        refreshError = result.error;
+      } catch (err) {
+        refreshError = err;
+      }
+      if (refreshError) {
+        throw new ForbiddenError('새로 로그인해야 합니다.');
+      }
+      // 새로운 액세스 토큰 생성 후 쿠키에 저장
+      const newAccessToken = await refreshUser.generateToken();
+      res.cookie('token', newAccessToken, { httpOnly: true });
+      req.user = refreshUser;
+    } else {
+      // 액세스 토큰이 유효한 경우 사용자 정보 추가
+      req.user = foundUser;
     }
-    // 요청 객체에 사용자 정보 추가
-    req.user = user;
     next();
   } catch (err) {
     next(err);
@@ -35,19 +47,43 @@ const authenticateUser = async (req, res, next) => {
 // 관리자 인증 미들웨어
 const authenticateAdmin = async (req, res, next) => {
   try {
-    const token = extractToken(req);
-    if (!token) {
-      throw new ForbiddenError('관리자 권한이 필요합니다.');
+    // 헤더에서 액세스 토큰 추출
+    const accessToken = req.cookies.token;
+    if (!accessToken) {
+      throw new ForbiddenError('로그인한 유저만 사용할 수 있는 서비스입니다.');
     }
-    const user = await User.findByToken(token);
-    if (!user) {
-      throw new UnauthorizedError('인증되지 않은 사용자입니다.');
+    // 액세스 토큰 검증
+    const { foundUser, error } = await User.findByToken(accessToken);
+    if (error) {
+      // 액세스 토큰이 만료된 경우 리프레시 토큰 검증(유효하다면 액세스 토큰 재발급)
+      const { refreshToken } = req.cookies;
+      if (!refreshToken) {
+        throw new UnauthorizedError('인증되지 않은 사용자입니다.');
+      }
+      let refreshUser; // 예외처리
+      let refreshError;
+      try {
+        const result = await User.findByToken(refreshToken);
+        refreshUser = result.foundUser;
+        refreshError = result.error;
+      } catch (err) {
+        refreshError = err;
+      }
+      if (refreshError) {
+        throw new ForbiddenError('새로 로그인해야 합니다.');
+      }
+      // 새로운 액세스 토큰 생성 후 쿠키에 저장
+      const newAccessToken = await refreshUser.generateToken();
+      res.cookie('token', newAccessToken, { httpOnly: true });
+      req.user = refreshUser;
+    } else {
+      // 액세스 토큰이 유효한 경우 사용자 정보 추가
+      req.user = foundUser;
     }
     // 관리자 검증
-    if (user.role !== 'admin') {
-      throw new ForbiddenError('관리자 권한이 필요합니다.', 403);
+    if (foundUser.role !== 'admin') {
+      throw new ForbiddenError('관리자 권한이 필요합니다.');
     }
-    req.user = user;
     next();
   } catch (err) {
     next(err);
