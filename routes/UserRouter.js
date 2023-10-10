@@ -1,6 +1,7 @@
 const express = require('express');
 const UserService = require('../services/userService');
 const { authenticateUser } = require('../middlewares/authUserMiddlewares');
+const { checkLoginStatus } = require('../middlewares/authUserMiddlewares');
 
 const router = express.Router();
 
@@ -47,6 +48,19 @@ router.post('/logout', async (req, res, next) => {
     res.clearCookie('token'); // 쿠키 삭제
     res.clearCookie('refreshToken');
     res.status(200).json({ message: '로그아웃 되었습니다.' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 로그인 상태 확인
+router.get('/check-login', checkLoginStatus, async (req, res, next) => {
+  try {
+    if (req.user) {
+      res.status(200).json({ isLoggedIn: true });
+    } else {
+      res.status(200).json({ isLoggedIn: false });
+    }
   } catch (err) {
     next(err);
   }
