@@ -30,9 +30,11 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const token = await UserService.login({ email, password });
-    // 토큰을 쿠키로 설정
-    res.cookie('token', token, { httpOnly: true }); // JS에서 쿠키에 접근할 수 없게 함
+    const { token, refreshToken } = await UserService.login({ email, password });
+    // 액세스 토큰, 리프레시 토큰을 쿠키에 저장
+    res.cookie('token', token, { httpOnly: true }); // 쿠키에 접근할 수 없게 함
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
     res.status(200).json({ message: '로그인 되었습니다.' });
   } catch (err) {
     next(err);
@@ -43,18 +45,8 @@ router.post('/login', async (req, res, next) => {
 router.post('/logout', async (req, res, next) => {
   try {
     res.clearCookie('token'); // 쿠키 삭제
+    res.clearCookie('refreshToken');
     res.status(200).json({ message: '로그아웃 되었습니다.' });
-  } catch (err) {
-    next(err);
-  }
-});
-
-// 토큰 갱신
-router.post('/refresh-token', authenticateUser, async (req, res, next) => {
-  try {
-    const userId = req.user._id;
-    const refreshToken = await UserService.refreshToken(userId);
-    res.status(200).json({ accessToken: refreshToken });
   } catch (err) {
     next(err);
   }
@@ -88,7 +80,8 @@ router.put('/:id', authenticateUser, async (req, res, next) => {
 router.delete('/:id', authenticateUser, async (req, res, next) => {
   try {
     const userId = req.user._id;
-    await UserService.deleteUser(userId);
+    const { password, confirmPassword } = req.body;
+    await UserService.deleteUser(userId, password, confirmPassword);
     res.status(200).json({ message: '회원 탈퇴가 완료되었습니다.' });
   } catch (err) {
     next(err);

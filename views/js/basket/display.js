@@ -1,79 +1,59 @@
-// 수량 늘리고 줄이는 코드
-
-// export const eventListener = () => {
-const countUpBtns = document.querySelectorAll("#count-up");
-const countDownBtns = document.querySelectorAll("#count-down");
-const inputElements = document.querySelectorAll("#p_num1");
-
-countUpBtns.forEach((countUpBtn, index) => {
-  countUpBtn.addEventListener("click", () => {
-    let currentValue = parseInt(inputElements[index].value);
-    currentValue++;
-    inputElements[index].value = currentValue;
-  });
-});
-countDownBtns.forEach((countDownpBtn, index) => {
-  countDownpBtn.addEventListener("click", () => {
-    let currentValue = parseInt(inputElements[index].value);
-    if (currentValue > 1) {
-      currentValue--;
-      inputElements[index].value = currentValue;
-    }
-  });
-});
-// };
-
 // 체크박스
 
 function selectAll(selectAll) {
-  const checkboxes = document.getElementsByName("select-all");
+  const checkboxes = document.getElementsByName('select-all');
 
   checkboxes.forEach((checkbox) => {
     checkbox.checked = selectAll.checked;
   });
 }
 
-// 삭제 하기 버튼
+// // 삭제 하기 버튼
 
-const oneDelete = document.getElementById("one-delete");
-const goodsData = document.getElementsByClassName("row data");
+// const oneDelete = document.getElementById('one-delete');
+// const goodsData = document.getElementsByClassName('row data');
 
-oneDelete.addEventListener("click", () => {
-  for (let i = 0; i < goodsData.length; i++) {
-    goodsData[i].style.display = "none";
-  }
-});
+// oneDelete.addEventListener('click', () => {
+//   for (let i = 0; i < goodsData.length; i++) {
+//     goodsData[i].style.display = 'none';
+//   }
+// });
 
 // 모달창
 
-const modalOpenButton = document.getElementById("modal-open-button");
-const modalCloseButton = document.getElementById("modal-close-button");
-const modalAddButton = document.getElementById("modal-add-button");
-const modalChangeButton = document.getElementById("modal-change-button");
-const modal = document.getElementById("modal-container");
+// const modalOpenButtons = document.querySelectorAll('#modal-open-button');
+// const modalCloseButtons = document.querySelectorAll('#modal-close-button');
+// const modalAddButton = document.querySelectorAll('#modal-add-button');
+// const modalChangeButtons = document.querySelectorAll('#modal-change-button');
+// const modal = document.querySelector('#modal-container');
 
-modalOpenButton.addEventListener("click", () => {
-  modal.classList.remove("hidden");
-});
+// console.log('modalOpenButtons', modalOpenButtons);
 
-modalCloseButton.addEventListener("click", () => {
-  modal.classList.add("hidden");
-});
+// modalOpenButtons.forEach((modalOpen) => {
+//   modalOpen.addEventListener('click', () => {
+//     modal.classList.remove('hidden');
+//   });
+// });
 
-// 전체 삭제
+// modalCloseButtons.forEach((modalClose) => {
+//   modalClose.addEventListener('click', () => {
+//     modal.classList.add('hidden');
+//   });
+// });
 
-const basketWrapper = document.getElementsByClassName("basket-wrapper");
-const clearCart = document.getElementById("clear-cart");
+// 선택 구매
 
-clearCart.addEventListener("click", () => {
-  while (basketWrapper.length > 0) {
-    basketWrapper[0].remove();
+function goBuy() {
+  const checkedCnt = document.querySelectorAll('.chk:Checked').length;
+  if (checkedCnt == 0) {
+    alert('선택한 상품이 없습니다.');
+    return;
   }
-});
+}
 
 /// /////////////////////////
 
 //  localStorage에서 저장된 장바구니 항목을 불러옵니다.
 function loadCart() {
-  const parseBasket = JSON.parse(localStorage.getItem("basket")) || [];
+  const parseBasket = JSON.parse(localStorage.getItem('basket')) || [];
 }

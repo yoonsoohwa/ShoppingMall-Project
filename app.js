@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -9,6 +10,9 @@ const pingRouter = require('./routes/PingRouter');
 const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
+const categoryRouter = require('./routes/categoryRouter');
+
+const adminRouter = require('./routes/AdminRouter');
 
 const { User } = require('./models/User');
 
@@ -16,6 +20,7 @@ const dummy = require('./dummy.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // dotenv
 console.log(`어플리케이션 서버를 다음 환경으로 시작합니다: ${process.env.NODE_ENV}`);
@@ -48,6 +53,8 @@ app.use('/api/v1/ping', pingRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
+app.use('/api/v1/admins', adminRouter);
 
 // error handling
 app.use((err, req, res, next) => {
