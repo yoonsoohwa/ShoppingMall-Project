@@ -48,9 +48,11 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, address, totalPrice, status, payMethod, message, orderPassword } = req.body;
+  const { orderItems, address, totalPrice, status, payMethod, message, orderPassword, confirmPassword } = req.body;
 
   try {
+    if (orderPassword !== confirmPassword) throw new BadRequestError('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+
     const newOrderItems = await Promise.all(
       orderItems.map(async (orderItem) => {
         const newOrderItem = await OrderItemService.createOrderItem({
