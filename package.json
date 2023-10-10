@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=dev nodemon app.js",
-    "vm-dev": "pm2 start ecosystem.config.js --only projectName-dev --env dev",
+    "vm-dev": "pm2 start ecosystem.config.js --only projectName-product --env dev",
     "start": "pm2 start ecosystem.config.js --only projectName-product --env prod",
     "del": "pm2 del all"
   },
