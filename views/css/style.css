@@ -6,6 +6,15 @@ body {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
 /* header */
 #header-container {
   height: 70px;
@@ -21,10 +30,8 @@ body {
   max-height: 30px;
 }
 
-/* 너비 조정 필요.. */
 .dropdown-menu {
   border-radius: 5px;
-  /* min-width: 20px; */
 }
 
 .dropdown-item:hover {

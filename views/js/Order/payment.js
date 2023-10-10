@@ -103,7 +103,7 @@ function getOrderItems() {
   datas.forEach((data) => {
     const { id, mainImage, name, option, quantity, price } = data;
     const { color, size } = option;
-
+    const total = price * quantity;
     let optionText = '';
 
     // color와 size 값이 있을 때만 표시
@@ -130,7 +130,7 @@ function getOrderItems() {
           <li>
             <p class="pro-count m-0">${quantity}개</p>
           </li>
-          <div class="pro-price mt-2">${price.toLocaleString('ko-KR')}</div>
+          <div class="pro-price mt-2">${total.toLocaleString('ko-KR')}</div>
         </div>
         <button type="button" class="btn-close" aria-label="Close" data-product-id="${id}"></button>
       </div>
@@ -249,6 +249,10 @@ async function handleSubmit(e) {
   const totalPrice = parseInt(totalInput.textContent.replace(',', ''));
 
   const data = {
+    user: {
+      name,
+      email,
+    },
     username: name,
     orderItems,
     totalPrice,
@@ -269,7 +273,7 @@ async function handleSubmit(e) {
 
   // 비회원
   if (!isRegistered) {
-    data.password = password;
+    data.orderPassword = password;
     const unuserDataJson = JSON.stringify(data);
     const unuserApiUrl = ``;
 
@@ -297,6 +301,13 @@ async function handleSubmit(e) {
         },
         body: dataJson,
       });
+
+      if (res.status === 201) {
+        alert('결제가 완료되었습니다!');
+        window.location.href = '/views/pages/Order/order.html';
+      } else {
+        alert('결제에 실패하였습니다...');
+      }
     } catch (error) {
       alert(`${error} 결제 중 오류가 났습니다.`);
     }
