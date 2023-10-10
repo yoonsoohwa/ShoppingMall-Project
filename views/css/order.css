@@ -5,16 +5,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-header {
-  padding-top: 70px;
-  border-bottom: 1px solid black;
-}
-
-.footer {
-  padding-top: 70px;
-  border-top: 1px solid black;
-}
-
 .has {
   width: 100%;
   display: block;
