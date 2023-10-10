@@ -1,4 +1,6 @@
 const orderListEl = document.getElementById('order-list');
+const checkAll = document.getElementById('check-all');
+
 
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
@@ -8,16 +10,32 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
+function selectAllCheckboxes() {
+    const checkBoxElList = Array.from(document.querySelectorAll('#check-item'));
 
+    if (checkAll.checked) {
+        checkBoxElList.forEach(el => {
+            const element = el;
+            element.checked = true;
+        });
+    } else {
+        checkBoxElList.forEach(el => {
+            const element = el;
+            element.checked = false;
+        });
+    }
+}
 
 function setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, status) {
+    const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+
     const element = `<tr>
               <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="order-date">${date.replace(' ', '<br>')}</td>
               <td id="order-id">${id}</td>
               <td id="order-username">${addressee}</td>
-              <td id="order-product">Cross Tote Bag</td>
-              <td id="order-price">${totalPrice}</td>
+              <td id="order-product">${itemText}</td>
+              <td id="order-price">${totalPrice.toLocaleString()}</td>
               <td id="order-payment">${payMethod}</td>
               <td id="order-payment-status">입금완료</td>
               <td id="order-status">${status}</td>
@@ -29,7 +47,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, st
 
 async function insertOrderList() {
     const url = '../../../js/Admin/order/orderlistdata.json';    // 임시 데이터
-    // const url = '';
+    // const url = 'http://localhost:5001/api/v1/orders/1/20';
 
     try {
         const res = await fetch(url);
@@ -37,7 +55,6 @@ async function insertOrderList() {
 
         const {orders} = data;
         orders.forEach(order => {
-            console.log(order);
             const { createdAt, address, orderItems, totalPrice, payMethod, status, _id: id } = order;
             const { addressee } = address;
             const date = formatDate(createdAt);
@@ -54,3 +71,4 @@ async function insertOrderList() {
 }
 
 insertOrderList();
+checkAll.addEventListener('click', selectAllCheckboxes);
