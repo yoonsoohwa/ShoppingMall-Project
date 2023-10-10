@@ -21,46 +21,47 @@
       <div id="sidebar-container"></div>
       <div class="section p-5">
         <div class="title mb-2">
-          <h2>상품 목록</h2>
+          <h2>입금 전 관리</h2>
         </div>
         <div class="p-state">
           <p class="total"></p>
         </div>
+        <div class="p-delete">
+          <button type="button" class="pro-delete btn btn-secondary btn-sm">삭제</button>
+        </div>
         <div class="board pt-2">
-          <table class="table table-hover text-center align-middle">
-            <colgroup>
-                    <col style="width: 30px" />
-                    <col style="width: 110px" />
-                    <col style="width: 110px" />
-                    <col style="width: 75px;"/>
-                    <col style="width: auto"/>
-                    <col style="width: 110px;"/>
-                    <col style="width: 80px;"/>
-                    <col style="width: 80px;"/>
-                    <col style="width: 80px;"/>
-                    <col style="width: 65px;"/>
-                  </colgroup>
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col"><input class="form-check-input" type="checkbox" id="check-all" /></th>
-                <th scope="col">주문일<br>(결제일)</th>
+                <th scope="col">주문일</th>
                 <th scope="col">주문번호</th>
-                <th scope="col">주문자</th>
                 <th scope="col">상품명</th>
-                <th scope="col">총 결제금액</th>
-                <th scope="col">결제수단</th>
-                <th scope="col">결제상태</th>
-                <th scope="col">배송현황</th>
-                <th scope="col">취소</th>
+                <th scope="col">주문자</th>
+                <th scope="col">입금자</th>
+                <th scope="col">입금액</th>
+                <th scope="col">입금은행</th>
+                <th scope="col">처리여부</th>
               </tr>
             </thead>
-            <tbody id="order-list" class="table-group-divider">
+            <tbody class="table-group-divider">
+              <tr>
+              <td><input class="form-check-input" type="checkbox" id="check-item"></td>
+              <td id="verify-date">2023-10-10 +시간</td>
+              <td id="verify-id">P0001</td>
+              <td id="verify-product">Cross Tote Bag</td>
+              <td id="verify-username">@@@</td>
+              <td id="verify-payername">%%%</td>
+              <td id="verify-amount">99,000</td>
+              <td id="verify-bank">우리은행</td>
+              <td id="verify-status">입금완료</td>
+            </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <script src="../../../js/Admin/sidebar.js" type="module"></script>
-    <script src="../../../js/Admin/order/orderList.js" type="module"></script>
+    <script src="../../../js/Admin/order/paymentVerify.js" type="module"></script>
   </body>
 </html>

@@ -8,6 +8,8 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
+
+
 function setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, status) {
     const element = `<tr>
               <td><input class="form-check-input" type="checkbox" id="check-item"></td>
