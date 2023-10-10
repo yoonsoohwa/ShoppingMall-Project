@@ -1,6 +1,6 @@
 const orderListEl = document.getElementById('order-list');
 const checkAll = document.getElementById('check-all');
-
+const totalEl = document.getElementById('total');
 
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
@@ -60,6 +60,7 @@ async function insertOrderList() {
             const date = formatDate(createdAt);
 
             setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, status);
+            totalEl.innerText = `[총 ${orders.length}개]`;
         });
 
     } catch (err) {
