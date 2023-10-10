@@ -11,7 +11,9 @@ const categoryContainer = document.querySelector('.categories-container');
 const mainProductList = new MainProductList(getProductList())
 const bestProductList = new BestProductList(getBestProductList())
 const categoryList = new CategoryList(getCategoryDataList());
-
+categoryList.onClick = ({id, name}) => {
+    mainProductList.filterName = name;
+}
 
 mainProductList.render(productsContainer);  //  메인 프로덕트 리스트 프로덕트 컨테이너 렌더
 bestProductList.render(bestProductContainer);  //  베스트 프로덕트 리스트 베스트 프로덕트 컨테이너 렌더

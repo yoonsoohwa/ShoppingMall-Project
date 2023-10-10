@@ -2,11 +2,11 @@ import { Pagination } from "./Pagination.js";
 import { ProductCard } from "./ProductCard.js";
 import { SortButtonList } from "./SortButtonList.js";
 import { xmlStringToDom, removeChildren } from "./utils.js";
-
+import { CATEGORY } from "./constants.js";
 export class MainProductList {
     mainProductListElement = null;
-    _filterName = 'All'
-    pageOffset = 10;
+    _filterName = 'ALL'
+    pageOffset = 12;
     currentPage = 1;
     constructor(productItems) {
         this.productItems = productItems
@@ -29,6 +29,8 @@ export class MainProductList {
         const filterNameElement = this.mainProductListElement.querySelector('.filter-name');
         this._filterName = name;
         filterNameElement.innerHTML = this._filterName;
+        this.renderProductCardList();
+        this.renderPagination();
     }
 
     get filterName() {
@@ -37,10 +39,15 @@ export class MainProductList {
 
     renderProductCardList() {
         const productsUl = this.mainProductListElement.querySelector('.products');
-
+        let filteredArray;
         removeChildren(productsUl);// 부모 초기화
+        if(this.filterName === 'ALL') {
+            filteredArray = this.productItems
+        } else {
+            filteredArray = this.productItems.filter(productItem => productItem.category === CATEGORY[this.filterName]);
+        }
         
-        const slicedList = this.productItems.slice(this.pageOffset * (this.currentPage - 1), this.pageOffset * (this.currentPage - 1) + this.pageOffset)
+        const slicedList = filteredArray.slice(this.pageOffset * (this.currentPage - 1), this.pageOffset * (this.currentPage - 1) + this.pageOffset)
         slicedList.forEach(productItem => {
             const productCard = new ProductCard({ ...productItem });
             productCard.onClick = () => alert('상품명은' + productItem.title + '입니다.')
@@ -80,8 +87,15 @@ export class MainProductList {
 
     renderPagination() {
         const paginationContainer = this.mainProductListElement.querySelector('.pagination-container');
+        removeChildren(paginationContainer)
+        let filteredArray;
+        if(this.filterName === 'ALL') {
+            filteredArray = this.productItems
+        } else {
+            filteredArray = this.productItems.filter(productItem => productItem.category === CATEGORY[this.filterName]);
+        }
         const pagination = new Pagination({
-            pages: Math.ceil(this.productItems.length / this.pageOffset),
+            pages: Math.ceil(filteredArray.length / this.pageOffset),
             currentPage: this.currentPage,
         });
         pagination.onChange = (page) => this.onPageChange(page);

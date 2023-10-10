@@ -24,13 +24,13 @@ if (process.env.NODE_ENV === "prod") {
   dotenv.config({ path: ".env.prod" });
 }
 
-// mongoose
-// mongoose
-//   .connect(process.env.MONGO_URI, {
-//     dbName: process.env.MONGO_DB_NAME,
-//   })
-//   .then(() => console.log("MongoDB Connected..."))
-//   .catch((err) => console.log(err));
+mongoose
+mongoose
+  .connect(process.env.MONGO_URI, {
+    dbName: process.env.MONGO_DB_NAME,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
 
 const categoryPath = __dirname + '/views/pages/Categorypage';
 
@@ -50,8 +50,7 @@ app.use((err, req, res) => {
 });
 
 // port
-// const port = process.env.PORT;
-const port = 5050;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Connecting to PORT ${port}`);

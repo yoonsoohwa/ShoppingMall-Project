@@ -18,6 +18,16 @@ header {
 }
 
 /* 카테고리 */
+.category-item {
+  margin: 10px 8px 10px 0;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.all-categories {
+  display: flex;
+}
+
 .categories-container {
   display: flex;
   justify-content: center;
