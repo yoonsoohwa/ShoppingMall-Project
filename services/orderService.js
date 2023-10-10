@@ -1,10 +1,15 @@
 /* eslint-disable class-methods-use-this */
+const { BadRequestError } = require('../common/BadRequestError');
 const { NotFoundError } = require('../common/NotFoundError');
 const { Address } = require('../models/Address');
 const { Order } = require('../models/Order');
 
 class OrderService {
-  async createOrder({ user, orderItems, address, totalPrice, status, payMethod = '가상계좌', message }) {
+  async createOrder({ user, orderItems, address, totalPrice, status, payMethod = '가상계좌', message, orderPassword }) {
+    if (!/^[a-zA-Z0-9]{8,}$/.test(orderPassword) && !user) {
+      throw new BadRequestError('주문 비밀번호는 최소 8자리의 숫자와 영문자의 조합이어야 합니다.');
+    }
+
     const order = await Order.create({
       user,
       orderItems,
@@ -13,6 +18,7 @@ class OrderService {
       payMethod,
       status,
       message,
+      orderPassword,
     });
 
     return order;
@@ -26,11 +32,31 @@ class OrderService {
   async getOrderById(id) {
     const order = await Order.findById(id).populate('user').populate('orderItems').populate('address');
 
-    if (order === null || order.deletedAt !== null) {
+    if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
     return { order };
+  }
+
+  async getOrdersByStatus(userId, status) {
+    const orders = await Order.find({ status }).populate({ path: 'user', match: { _id: userId } });
+
+    if (!orders) {
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
+    }
+
+    return orders;
+  }
+
+  async getOrderByGuest(orderId, orderPassword) {
+    const order = await Order.findOne({ _id: orderId, orderPassword }).populate('orderItems').populate('address');
+
+    if (!order) {
+      throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
+    }
+
+    return order;
   }
 
   async getPagination({ user, page, limit }) {

@@ -48,7 +48,7 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, address, totalPrice, status, payMethod, message } = req.body;
+  const { orderItems, address, totalPrice, status, payMethod, message, orderPassword } = req.body;
 
   try {
     const newOrderItems = await Promise.all(
@@ -69,6 +69,7 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
       status,
       payMethod,
       message,
+      orderPassword,
     });
 
     res.status(201).json({ message: '주문이 성공적으로 이뤄졌습니다.', order });
@@ -94,7 +95,7 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const { order, decryptedDetail } = await OrderService.getOrderById(id);
+    const { order } = await OrderService.getOrderById(id);
 
     if (email !== order.user.email && role !== 'admin')
       throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
@@ -102,7 +103,39 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
     res.status(200).json({
       message: '주문이 성공적으로 조회되었습니다.',
       order,
-      decryptedDetail,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/v1/orders/get/guest 배송현황별 주문조회
+orderRouter.get('/get/shipping', authenticateUser, async (req, res, next) => {
+  const userId = req.user._id;
+  const { status } = req.body;
+
+  try {
+    const orders = await OrderService.getOrdersByStatus(userId, status);
+
+    res.status(200).json({
+      message: '주문이 성공적으로 조회되었습니다.',
+      orders,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/v1/orders/get/guest 비회원 주문조회
+orderRouter.get('/get/guest', async (req, res, next) => {
+  const { orderId, orderPassword } = req.body;
+
+  try {
+    const order = await OrderService.getOrderByGuest(orderId, orderPassword);
+
+    res.status(200).json({
+      message: '주문이 성공적으로 조회되었습니다.',
+      order,
     });
   } catch (err) {
     next(err);
