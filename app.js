@@ -8,6 +8,7 @@ const pingRouter = require('./routes/PingRouter');
 const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
+const categoryRouter = require('./routes/categoryRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +35,7 @@ app.use('/api/v1/ping', pingRouter);
 app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
 
 // error handling
 app.use((err, req, res, next) => {

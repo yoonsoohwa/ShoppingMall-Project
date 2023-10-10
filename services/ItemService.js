@@ -1,5 +1,4 @@
-/* eslint-disable class-methods-use-this */
-const { Item } = require('../models/Item');
+const Item = require('../models/Item');
 const { NotFoundError } = require('../common/NotFoundError');
 
 class ItemService {
