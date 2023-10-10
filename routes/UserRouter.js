@@ -19,8 +19,8 @@ router.post('/register/send-mail', async (req, res, next) => {
 // 회원가입
 router.post('/register', async (req, res, next) => {
   try {
-    const { name, phonenumber, email, password, confirmPassword } = req.body;
-    const user = await UserService.register({ name, phonenumber, email, password, confirmPassword });
+    const { name, phonenumber, email, password } = req.body;
+    const user = await UserService.register({ name, phonenumber, email, password });
     res.status(201).json({ message: '회원가입이 완료되었습니다.', user });
   } catch (err) {
     next(err);
@@ -82,8 +82,8 @@ router.get('/:id', authenticateUser, async (req, res, next) => {
 router.put('/:id', authenticateUser, async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const { oldPassword, confirmPassword, updatedData } = req.body;
-    const user = await UserService.updateUser(userId, oldPassword, confirmPassword, updatedData);
+    const { password, updatedData } = req.body;
+    const user = await UserService.updateUser(userId, password, updatedData);
     res.status(200).json({ message: '회원 정보가 수정되었습니다.', user });
   } catch (err) {
     next(err);
