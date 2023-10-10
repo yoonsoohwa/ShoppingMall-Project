@@ -3,11 +3,12 @@ a {
 }
 .slide-background {
   width: 100%;
-  height: 100%;
+
   margin: 0 auto;
   overflow: hidden;
 }
 .slideshow-image {
+  height: 95vh;
   display: none;
 }
 .slideshow-image.on {

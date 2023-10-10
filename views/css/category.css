@@ -52,6 +52,8 @@ header {
 
 /* best */
 .best-products-title {
+  font-size: 24px;
+  text-align: center;
   color: #333;
   font-weight: 200;
   text-align: center;
@@ -127,6 +129,14 @@ header {
 
 .container {
   margin-bottom: 24px;
+}
+
+.product-filter-name {
+  font-size: 24px;
+  text-align: center;
+}
+
+.products {
   margin-bottom: 24px;
 }
 
@@ -151,6 +161,8 @@ header {
   flex-direction: column;
   align-items: center;
   margin: 12px;
+
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
