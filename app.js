@@ -29,6 +29,9 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
+// 정적 파일 제공을 위한 middleware 추가
+app.use(express.static(path.join(__dirname, 'views/pages')));
+
 // router
 app.use('/api/v1/ping', pingRouter);
 app.use('/api/v1/orders', orderRouter);
