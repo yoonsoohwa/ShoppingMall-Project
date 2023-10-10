@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>shoppingMall</title>
     <link rel="stylesheet" href="../../css/product.css" />
+    <link rel="stylesheet" href="/views/css/style.css" />
+    <title>Re: birth</title>
+    <link rel="stylesheet" href="/views/css/product.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Rubik&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Rubik&display=swap" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <script src="/views/js/Product/product.js" defer></script>
   </head>
   <body>
+    <div id="header-container"></div>
     <div id="wrap">
       <div id="content">
         <div id="product-detail-container">
@@ -36,28 +36,16 @@
               <div id="option-selections">
                 <div id="color-option" class="row">
                   <label for="color" class="col-4">COLOR</label>
-                  <select
-                    id="color-selector"
-                    class="form-select col"
-                    aria-label="Default select example"
-                  >
+                  <select id="color-selector" class="form-select col" aria-label="Default select example">
                     <option value="none">- [필수] 옵션을 선택해주세요 -</option>
-                    <option value="none" disabled>
-                      ---------------------------------
-                    </option>
+                    <option value="none" disabled>---------------------------------</option>
                   </select>
                 </div>
                 <div id="size-option" class="row">
                   <label for="size" class="col-4">SIZE</label>
-                  <select
-                    id="size-selector"
-                    class="form-select col"
-                    aria-label="Default select example"
-                  >
+                  <select id="size-selector" class="form-select col" aria-label="Default select example">
                     <option value="none">- [필수] 옵션을 선택해주세요 -</option>
-                    <option value="none" disabled>
-                      ---------------------------------
-                    </option>
+                    <option value="none" disabled>---------------------------------</option>
                   </select>
                 </div>
               </div>
@@ -67,7 +55,7 @@
                     <col style="width: auto" />
                     <col style="width: 80px" />
                     <col style="width: 110px" />
-                    <col style="width: 25px;"/>
+                    <col style="width: 25px" />
                   </colgroup>
                   <tbody id="selected-list"></tbody>
                 </table>
@@ -77,20 +65,8 @@
                 <span> <strong class="total-price">0원</strong>(0개) </span>
               </div>
               <div id="product-actions" class="justify-content-center">
-                <button
-                  type="button"
-                  id="buy-now-button"
-                  class="btn btn-dark btn-lg"
-                >
-                  BUY NOW
-                </button>
-                <button
-                  type="button"
-                  id="add-to-cart-button"
-                  class="btn btn-light btn-lg"
-                >
-                  ADD TO CART
-                </button>
+                <button type="button" id="buy-now-button" class="btn btn-dark btn-lg">BUY NOW</button>
+                <button type="button" id="add-to-cart-button" class="btn btn-light btn-lg">ADD TO CART</button>
               </div>
             </div>
           </div>
@@ -101,6 +77,9 @@
         </div>
       </div>
     </div>
+    <div id="footer-container"></div>
+    <script src="/views/js/header.js" defer></script>
+    <script src="/views/js/footer.js" defer></script>
     <script src="../../js/Product/product.js"></script>
   </body>
 </html>

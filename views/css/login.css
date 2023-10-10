@@ -1,0 +1,59 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  background: none;
+  padding: 0;
+  border: 0;
+}
+
+header {
+  height: 70px;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.login-container > input {
+  margin: 5px 0 5px 0;
+}
+
+.create-account > a {
+  color: black;
+}
+
+footer {
+  height: 70px;
+  border-top: 1px solid black;
+  text-align: center;
+}

@@ -2,6 +2,29 @@ const { ForbiddenError } = require('../common/ForbiddenError');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
 const { User } = require('../models/User');
 
+// 로그인 상태 확인 미들웨어
+const checkLoginStatus = async (req, res, next) => {
+  try {
+    const accessToken = req.cookies.token;
+    if (!accessToken) {
+      req.isLoggedIn = false;
+      next();
+      return;
+    }
+    const { foundUser, error } = await User.findByToken(accessToken);
+    if (error) {
+      req.isLoggedIn = false;
+      next();
+      return;
+    }
+    req.isLoggedIn = true;
+    req.user = foundUser;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 // 사용자 인증 미들웨어
 const authenticateUser = async (req, res, next) => {
   try {
@@ -90,4 +113,4 @@ const authenticateAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { authenticateUser, authenticateAdmin };
+module.exports = { checkLoginStatus, authenticateUser, authenticateAdmin };

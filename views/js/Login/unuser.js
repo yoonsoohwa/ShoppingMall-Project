@@ -11,7 +11,7 @@ async function handleSubmit() {
   // 객체 만듦
   const data = {
     id,
-    password,
+    orderPassword: password,
   };
 
   // 입력 여부 확인
