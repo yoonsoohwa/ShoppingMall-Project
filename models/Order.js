@@ -31,17 +31,12 @@ const orderSchema = mongoose.Schema(
       enum: ['주문대기', '결제완료', '배송준비중', '배송중', '배송완료', '취소처리중', '주문취소'], // 이 enum 안에 있는 input이 아니면 에러 발생
       default: '주문대기',
     },
-    isRegistered: {
-      type: Boolean,
-      required: true,
-    },
     message: {
       type: String,
       required: true,
     },
-    deletedAt: {
-      type: Date,
-      default: null,
+    orderPassword: {
+      type: String,
     },
   },
   {

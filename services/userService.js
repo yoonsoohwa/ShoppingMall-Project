@@ -1,6 +1,6 @@
+const { User } = require('../models/User');
 const { NotFoundError } = require('../common/NotFoundError');
 const { BadRequestError } = require('../common/BadRequestError');
-const { User } = require('../models/User');
 const { sendMail } = require('../utils/sendMail');
 
 class UserService {
@@ -71,6 +71,7 @@ class UserService {
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       throw new BadRequestError('이메일 형식이 올바르지 않습니다.');
     }
+
     const user = await User.findOne({ email });
     if (!user) {
       throw new NotFoundError('사용자를 찾을 수 없습니다.');
@@ -78,23 +79,11 @@ class UserService {
 
     await user.comparePassword(password);
 
-    // JWT 토큰 생성(id와 role 정보 담겨 있음)
+    // 액세스 토큰, 리프레시 토큰 생성
     const token = await user.generateToken();
+    const refreshToken = await user.generateRefreshToken();
 
-    return token;
-  }
-
-  // 토큰 갱신
-  async refreshToken(userId) {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      throw new NotFoundError('사용자를 찾을 수 없습니다.');
-    }
-
-    const refreshToken = await user.generateToken();
-
-    return refreshToken;
+    return { token, refreshToken };
   }
 
   // 회원정보 조회
@@ -148,11 +137,22 @@ class UserService {
   }
 
   // 회원정보 삭제(탈퇴)
-  async deleteUser(userId) {
+  async deleteUser(userId, password, confirmPassword) {
     const user = await User.findById(userId);
     if (!user) {
       throw new NotFoundError('사용자를 찾을 수 없습니다.');
     }
+
+    if (!password || !confirmPassword) {
+      throw new BadRequestError('비밀번호와 비밀번호 확인을 입력하세요.');
+    }
+
+    if (password !== confirmPassword) {
+      throw new BadRequestError('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+    } else {
+      await user.comparePassword(password);
+    }
+
     await user.deleteOne({ _id: userId });
 
     return user;
