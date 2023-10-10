@@ -50,7 +50,10 @@ export class MainProductList {
         const slicedList = filteredArray.slice(this.pageOffset * (this.currentPage - 1), this.pageOffset * (this.currentPage - 1) + this.pageOffset)
         slicedList.forEach(productItem => {
             const productCard = new ProductCard({ ...productItem });
-            productCard.onClick = () => alert('상품명은' + productItem.title + '입니다.')
+            productCard.onClick = () => { 
+                sessionStorage.setItem('selectedProductId', productItem.id);
+                window.location.href = '../Productpage/product.html' 
+            }  // 상품누르면 세션스토리지에 해당상품 id 주입. 상품디테일 페이지에 가져다가 상품찾아서 정보끌어와서 사용.
             productCard.render(productsUl)
         })
     }
