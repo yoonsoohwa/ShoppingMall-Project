@@ -33,6 +33,9 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
+// 정적 파일 제공을 위한 middleware 추가
+app.use(express.static(path.join(__dirname, 'views/pages')));
+
 // Add dummy data
 dummy.users.forEach(async (user) => {
   const newUser = new User(user);
