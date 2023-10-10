@@ -12,29 +12,23 @@
       crossorigin="anonymous"
     />
     <!-- 부트스트랩 아이콘 연결이에용 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <!-- 폰트 연결이에용 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
 
     <!-- css 연결이에용 -->
-    <link rel="stylesheet" href="../../css/basket.css" />
+    <link rel="stylesheet" href="/views/css/basket.css" />
 
     <!-- index js -->
 
-    <script type="module" src="../../js/basket/index.js"></script>
-    <script type="module" src="../../js/basket/addBasket.js"></script>
-    <script type="module" src="../../js/basket/bottom.js"></script>
+    <script type="module" src="/views/js/basket/index.js" defer></script>
+    <script type="module" src="/views/js/basket/addBasket.js"></script>
+    <script type="module" src="/views/js/basket/bottom.js"></script>
 
     <!-- 화면용 js -->
-    <script src="../../js/basket/display.js" defer></script>
+    <script type="module" src="/views/js/basket/display.js" defer></script>
   </head>
 
   <body>
@@ -50,21 +44,7 @@
           <div class="cart-empty">
             <p class="empty-word">장바구니가 비어있습니다.</p>
             <i class="bi bi-cart"></i>
-            <button type="button" class="btn btn-light btn-retry">
-              쇼핑 계속하기
-            </button>
-          </div>
-        </div>
-        <div class="guide">
-          <div></div>
-          <div class="item1">
-            <p>이용안내</p>
-          </div>
-          <div class="item2">
-            <p>장바구니 이용안내</p>
-            <li>흑흑 이렇게 하는거 맞나</li>
-
-            <li>너무 어려워 엉엉</li>
+            <button type="button" class="btn btn-light btn-retry">쇼핑 계속하기</button>
           </div>
         </div>
       </div>
@@ -73,6 +53,7 @@
     <!-- 장바구니가 채워져있음 -->
     <div class="has">
       <i class="bi bi-bag"></i>
+      <p class="basket-count">상품()</p>
 
       <div class="basketdiv" id="basket">
         <!-- 칼럼명 -->
@@ -84,7 +65,6 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                value=""
                 id="flexCheckDefault"
                 name="select-all"
                 onclick="selectAll(this)"
@@ -113,10 +93,8 @@
 
       <!-- 삭제 부분 -->
       <div class="right-align basketrowcmd">
-        <button type="button" class="btn btn-light">선택 상품 삭제</button>
-        <button type="button" class="btn btn-light" id="clear-cart">
-          장바구니 비우기
-        </button>
+        <button type="button" class="btn btn-light" id="select-delete">선택 상품 삭제</button>
+        <button type="button" class="btn btn-light" id="clear-cart">장바구니 비우기</button>
       </div>
 
       <!-- 상품 합계 금액 부분 -->
@@ -129,9 +107,7 @@
             <div class="total-price col-4">총 결제 금액</div>
           </div>
         </div>
-        <div
-          class="total-data-wrap container container text-center total-wrapper"
-        >
+        <div class="total-data-wrap container container text-center total-wrapper">
           <!-- <div class="total-row">
             <div class="goods-price col-3" id="total-goods-price">12,000원</div>
             <div class="plus col-1">+</div>
@@ -145,20 +121,9 @@
       <div id="goorder" class="">
         <div class="clear"></div>
         <div class="buttongroup center-align cmd">
-          <button type="button" class="btn btn-dark">전체 상품 주문</button>
+          <button type="button" class="btn btn-dark" id="all-order">전체 상품 주문</button>
           <button id="addProduct">장바구니 상품 추가</button>
-          <button type="button" class="btn btn-dark">선택 상품 주문</button>
-        </div>
-      </div>
-
-      <div class="guide">
-        <div class="guide-head">
-          <p>이용안내</p>
-        </div>
-        <div class="guide-word">
-          <p>장바구니 이용안내</p>
-          <li>흑흑 이렇게 하는거 맞나</li>
-          <li>너무 어려워 엉엉</li>
+          <button type="button" class="btn btn-dark" id="select-order">선택 상품 주문</button>
         </div>
       </div>
 
@@ -175,10 +140,7 @@
 
             <div class="option-choice">
               <p>opt1</p>
-              <select
-                class="form-select form-select-sm"
-                aria-label="Small select example"
-              >
+              <select class="form-select form-select-sm" aria-label="Small select example">
                 <option selected>-[필수] 옵션을 선택해주세요-</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -187,10 +149,7 @@
             </div>
             <div class="option-choice">
               <p>opt2</p>
-              <select
-                class="form-select form-select-sm"
-                aria-label="Small select example"
-              >
+              <select class="form-select form-select-sm" aria-label="Small select example">
                 <option selected>-[필수] 옵션을 선택해주세요-</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -200,22 +159,21 @@
             </div>
           </div>
           <div id="btn-grp">
-            <button
-              type="button"
-              class="btn btn-light opt-btn"
-              id="modal-add-button"
-            >
-              추가
-            </button>
-            <button
-              type="button"
-              class="btn btn-light opt-btn"
-              id="modal-change-button"
-            >
-              변경
-            </button>
+            <button type="button" class="btn btn-light opt-btn" id="modal-add-button">추가</button>
+            <button type="button" class="btn btn-light opt-btn" id="modal-change-button">변경</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="guide">
+      <div class="guide-head">
+        <p>이용안내</p>
+      </div>
+      <div class="guide-word">
+        <p>장바구니 이용안내</p>
+        <li>흑흑 이렇게 하는거 맞나</li>
+        <li>너무 어려워 엉엉</li>
       </div>
     </div>
 

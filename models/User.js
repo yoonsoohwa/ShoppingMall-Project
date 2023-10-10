@@ -57,29 +57,48 @@ userSchema.methods.comparePassword = async function comparePassword(plainPasswor
   return isMatch;
 };
 
-// 사용자 인스턴스에 대한 JWT 토큰을 생성하고 저장하는 메서드(로그인 시 사용)
+// 액세스 토큰 생성 메서드(로그인 시 사용)
 userSchema.methods.generateToken = async function generateToken() {
   const user = this;
   const payload = {
     _id: user._id.toHexString(),
     role: user.role,
   };
-  // jwt 토큰 생성
-  const token = jwt.sign(payload, process.env.SECRET_KEY, {
-    expiresIn: '1h', // 토큰 만료 시간
+  // 액세스 토큰 생성
+  const token = await jwt.sign(payload, process.env.SECRET_KEY, {
+    expiresIn: '1h', // 액세스 토큰 만료 시간 (1시간)
   });
   return token;
+};
+
+// 리프레시 토큰 생성 메서드(로그인 시  사용)
+userSchema.methods.generateRefreshToken = async function generateRefreshToken() {
+  const user = this;
+  const payload = {
+    _id: user._id.toHexString(),
+    role: user.role,
+  };
+  // 리프레시 토큰 생성
+  const refreshToken = await jwt.sign(payload, process.env.SECRET_KEY, {
+    expiresIn: '7d', // 리프레시 토큰 만료 시간 (7일)
+  });
+  return refreshToken;
 };
 
 // JWT 토큰 사용하여 사용자 검색(사용자 인증 미들웨어에 사용)
 userSchema.statics.findByToken = async function findByToken(token) {
   const user = this;
-  const decode = jwt.verify(token, process.env.SECRET_KEY); // 토큰 검증
-  const foundUser = await user.findOne({ _id: decode._id });
-  if (!foundUser) {
-    throw new NotFoundError('사용자를 찾을 수 없습니다.');
+  try {
+    const decode = await jwt.verify(token, process.env.SECRET_KEY); // 토큰 검증
+    const foundUser = await user.findOne({ _id: decode._id });
+    if (!foundUser) {
+      throw new NotFoundError('사용자를 찾을 수 없습니다.');
+    }
+    return { foundUser, error: null };
+  } catch (err) {
+    const error = err;
+    return { foundUser: null, error };
   }
-  return foundUser;
 };
 
 const User = mongoose.model('User', userSchema);

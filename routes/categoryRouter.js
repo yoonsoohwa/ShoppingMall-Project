@@ -5,15 +5,37 @@ const categoryService = require('../services/categoryService');
 
 const categoryRouter = Router();
 
-// POST /api/v1/categories - 카테고리 추가
-categoryRouter.post('/', async (req, res, next) => {
-  const { name } = req.body;
+// GET /api/v1/categories/:id/items - 특정 카테고리의 상품들 불러오기 (id:category 값)
+categoryRouter.get('/:id/items', async (req, res, next) => {
+  const { id } = req.params;
 
   try {
-    const newCategory = await categoryService.createCategory(name);
+    const productsInCategory = await categoryService.getProductsInCategory(id);
+    res.status(200).json(productsInCategory);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/v1/categories - 모든 카테고리 불러오기
+categoryRouter.get('/', async (req, res, next) => {
+  try {
+    const categories = await categoryService.getAllCategories();
+    res.status(200).json(categories);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/v1/categories
+categoryRouter.post('/', async (req, res, next) => {
+  const { names } = req.body; // "names" 필드 추출
+
+  try {
+    const newCategories = await categoryService.createCategories(names); // "names"를 전달
     res.status(201).json({
       message: '카테고리가 성공적으로 추가되었습니다.',
-      category: newCategory,
+      categories: newCategories,
     });
   } catch (err) {
     next(err);
@@ -23,10 +45,10 @@ categoryRouter.post('/', async (req, res, next) => {
 // PUT /api/v1/categories/:id - 카테고리 수정
 categoryRouter.put('/:id', async (req, res, next) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { names } = req.body;
 
   try {
-    const updatedCategory = await categoryService.updateCategory(id, name);
+    const updatedCategory = await categoryService.updateCategory(id, names);
     res.status(200).json({
       message: '카테고리가 성공적으로 수정되었습니다.',
       category: updatedCategory,
