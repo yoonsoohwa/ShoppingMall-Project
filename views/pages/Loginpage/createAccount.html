@@ -27,12 +27,12 @@
         Header
     </header>
 
-    <form action="" method="post" onsubmit="return check()">
+    <form id="register-form" action="" method="post">
         <table>
             <tbody>
                 <tr>
-                    <td> 이메일 </td>
-                    <td><input type="text" class="email"></td>
+                    <td> 아이디 </td>
+                    <td><input type="text" class="id"></td>
                 </tr>
                 <tr>
                     <td> 이름 </td>
@@ -43,11 +43,23 @@
                     <td><input type="password" class="password"></td>
                 </tr>
                 <tr>
-                    <td> 비밀번호 확인 </td>
-                    <td><input type="password" class="password_confirm"></td>
+                    <td> 역할 </td>
+                    <td><input type="text" class="role"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="가입하기"></td>
+                    <td> 주소 </td>
+                    <td><input type="text" class="address"></td>
+                </tr>
+                <tr>
+                    <td> 휴대폰 번호 </td>
+                    <td><input type="number" class="phone-number"></td>
+                </tr>
+                <tr>
+                    <td> 이메일 </td>
+                    <td><input type="text" class="email"></td>
+                </tr>
+                <tr>
+                    <td><input id="data-submit" type="submit" value="가입하기"></td>
                 </tr>
             </tbody>
         </table>
@@ -57,7 +69,7 @@
     <footer class="footer">
         Footer
     </footer>
-    <script type="module" src="/models/User.js"></script>
+    <script src="/views/js/Login/createAccount.js"></script>
 </body>
 
 </html>
