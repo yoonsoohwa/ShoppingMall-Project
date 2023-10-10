@@ -101,3 +101,18 @@ export const getBestProductList = () => {
         {id : 6, price : 45000, showedPrice : '45,000₩', title : 'last', img : './imgtest/imgtest7.jpeg', date: '2023-09-12 10:21'},
     ]
 }
+
+export const getCategoryDataList = () => {
+    return [
+        {name: 'all', title: 'All', checked: true, },
+        {name: 'top', title: 'Top', checked: false, },
+        {name: 'outer', title: 'Outer', checked: false, },
+        {name: 'bottom', title: 'Bottom', checked: false, },
+        {name: 'dress', title: 'Dress', checked: false, },
+        {name: 'bag', title: 'Bag', checked: false, },
+        {name: 'shoes', title: 'Shoes', checked: false, },
+        {name: 'hat', title: 'Hat', checked: false, },
+        {name: 'acc', title: 'Acc', checked: false, },
+        {name: 'etc', title: 'Etc', checked: false, }
+    ]
+} 

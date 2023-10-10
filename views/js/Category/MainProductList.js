@@ -1,12 +1,12 @@
 import { Pagination } from "./Pagination.js";
 import { ProductCard } from "./ProductCard.js";
 import { SortButtonList } from "./SortButtonList.js";
-import { xmlStringToDom } from "./utils.js";
+import { xmlStringToDom, removeChildren } from "./utils.js";
 
 export class MainProductList {
     mainProductListElement = null;
     _filterName = 'All'
-    pageOffset = 12;
+    pageOffset = 10;
     currentPage = 1;
     constructor(productItems) {
         this.productItems = productItems
@@ -37,10 +37,13 @@ export class MainProductList {
 
     renderProductCardList() {
         const productsUl = this.mainProductListElement.querySelector('.products');
-        productsUl.innerHTML = '' // 부모 초기화
+
+        removeChildren(productsUl);// 부모 초기화
+        
         const slicedList = this.productItems.slice(this.pageOffset * (this.currentPage - 1), this.pageOffset * (this.currentPage - 1) + this.pageOffset)
         slicedList.forEach(productItem => {
             const productCard = new ProductCard({ ...productItem });
+            productCard.onClick = () => alert('상품명은' + productItem.title + '입니다.')
             productCard.render(productsUl)
         })
     }
@@ -75,11 +78,6 @@ export class MainProductList {
         }
     }
 
-    onPageChange(page) {
-        this.currentPage = page;
-        this.renderProductCardList();
-    }
-
     renderPagination() {
         const paginationContainer = this.mainProductListElement.querySelector('.pagination-container');
         const pagination = new Pagination({
@@ -88,6 +86,11 @@ export class MainProductList {
         });
         pagination.onChange = (page) => this.onPageChange(page);
         pagination.render(paginationContainer)
+    }
+
+    onPageChange(page) {
+        this.currentPage = page;
+        this.renderProductCardList();
     }
 
     render(parentNode) {
