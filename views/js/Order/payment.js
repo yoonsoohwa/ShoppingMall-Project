@@ -101,7 +101,7 @@ function getOrderItems() {
   // sessionStorage 이용
   const datas = JSON.parse(sessionStorage.getItem('order'));
   datas.forEach((data) => {
-    const { id, image, name, option, count, price } = data;
+    const { id, mainImage, name, option, quantity, price } = data;
     const { color, size } = option;
 
     let optionText = '';
@@ -120,7 +120,7 @@ function getOrderItems() {
     const itemHtml = `
       <div class="product mt-1 d-flex align-items-center" style="border: 1px solid #c0c0c0">
         <div class="pro-img">
-          <img src="${image}" width="100px" height="100px">
+          <img src="${mainImage}" width="100px" height="100px">
         </div>
         <div class="description">
           <strong class="pro-name">${name}</strong>
@@ -128,7 +128,7 @@ function getOrderItems() {
             <p class="pro-option m-0">${optionText}</p>
           </li>
           <li>
-            <p class="pro-count m-0">${count}</p>개
+            <p class="pro-count m-0">${quantity}개</p>
           </li>
           <div class="pro-price mt-2">${price.toLocaleString('ko-KR')}</div>
         </div>
@@ -183,95 +183,6 @@ function removePriceFromArray(pricesArray, priceEle) {
   return pricesArray.filter((price) => price !== deletedPrice);
 }
 
-/* ---  */
-/* 가상계좌 */
-/*
-virtualAccount();
-function virtualAccount() {
-  const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
-  const customerKey = 'ldpxja-tpcYER6HCW2Xtq'; // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
-  const submitBtn = document.querySelector('#submit-btn');
-
-  // ------  결제위젯 초기화 ------
-  // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
-  const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
-  // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
-
-  // ------  결제위젯 렌더링 ------
-  // 결제수단 UI를 렌더링할 위치를 지정합니다. `#payment-method`와 같은 CSS 선택자와 결제 금액 객체를 추가하세요.
-  // DOM이 생성된 이후에 렌더링 메서드를 호출하세요.
-  // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-  paymentWidget.renderPaymentMethods(
-    '#payment-method',
-    { value: totalInput.textContent },
-    { variantKey: 'DEFAULT' }, // 렌더링하고 싶은 결제 UI의 variantKey
-  );
-
-  // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-  // 더 많은 결제 정보 파라미터는 결제위젯 SDK에서 확인하세요.
-  // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-  submitBtn.addEventListener('click', () => {
-    paymentWidget.requestPayment({
-      orderId: 'HEzAYuMwn6anZelPpnu5e', // 주문 ID 자동생성?
-      orderName:
-        document.querySelectorAll('.pro-name').length > 1
-          ? `${document.querySelector('.pro-name').textContent} 외 ${
-              document.querySelectorAll('.pro-name').length - 1
-            }건`
-          : document.querySelector('.pro-name').textContent,
-      successUrl: 'http://localhost:8080/success', // 결제에 성공하면 이동하는 페이지(직접 만들어주세요)
-      failUrl: 'http://localhost:8080/fail', // 결제에 실패하면 이동하는 페이지(직접 만들어주세요)
-      customerEmail: emailInput.value,
-      customerName: nameInput.value,
-    });
-  });
-}
-*/
-/*
-virtualAccount();
-function virtualAccount() {
-  // ------ 클라이언트 키로 객체 초기화 ------
-  const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
-  const tossPayments = TossPayments(clientKey);
-
-  submitBtn.addEventListener('click', () => {
-    // ------ 결제창 띄우기 ------
-    tossPayments
-      .requestPayment('가상계좌', {
-        // 결제 정보 파라미터
-        amount: totalInput.textContent,
-        orderId: 'tzdKGiX7b31bdAKMF6LbP', // 주문 ID 자동생성?
-        orderName:
-          document.querySelectorAll('.pro-name').length > 1
-            ? `${document.querySelector('.pro-name').textContent} 외 ${
-                document.querySelectorAll('.pro-name').length - 1
-              }건`
-            : document.querySelector('.pro-name').textContent,
-        customerName: nameInput.value,
-        customerEmail: emailInput.value,
-        successUrl: 'http://localhost:8080/success', // 결제 성공 시 이동할 페이지
-        failUrl: 'http://localhost:8080/fail', // 결제 실패 시 이동할 페이지
-        validHours: 24, // 입금 기한
-        cashReceipt: {
-          // 현금영수증 발행
-          type: '소득공제',
-        },
-      })
-      // ------ 결제창을 띄울 수 없는 에러 처리 ------
-      // 메서드 실행에 실패해서 reject 된 에러를 처리하는 블록입니다.
-      // 결제창에서 발생할 수 있는 에러를 확인하세요.
-      // https://docs.tosspayments.com/reference/error-codes#결제창공통-sdk-에러
-      .catch((error) => {
-        if (error.code === 'USER_CANCEL') {
-          // 결제 고객이 결제창을 닫았을 때 에러 처리
-        } else if (error.code === 'INVALID_CARD_COMPANY') {
-          // 유효하지 않은 카드 코드에 대한 에러 처리
-        }
-      });
-  });
-}
-*/
-
 /* db에 데이터 전달 (post) */
 
 submitBtn.addEventListener('click', handleSubmit);
@@ -308,7 +219,7 @@ async function handleSubmit(e) {
   items.forEach((item) => {
     const proName = item.querySelector('.pro-name').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
-    const proCount = item.querySelector('.pro-count').textContent;
+    const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
     const proPrice = item.querySelector('.pro-price').textContent;
 
     let color;
