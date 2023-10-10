@@ -9,6 +9,10 @@ const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
 
+const { User } = require('./models/User');
+
+const dummy = require('./dummy.json');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +35,12 @@ mongoose
 
 // 정적 파일 제공을 위한 middleware 추가
 app.use(express.static(path.join(__dirname, 'views/pages')));
+
+// Add dummy data
+dummy.users.forEach(async (user) => {
+  const newUser = new User(user);
+  await newUser.save();
+});
 
 // router
 app.use('/api/v1/ping', pingRouter);

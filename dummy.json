@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "name": "elice1",
+      "phonenumber": "123-4567-8901",
+      "email": "elice1@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "elice2",
+      "phonenumber": "123-4567-8901",
+      "email": "elice2@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "elice3",
+      "phonenumber": "123-4567-8901",
+      "email": "elice3@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "elice4",
+      "phonenumber": "123-4567-8901",
+      "email": "elice4@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "admin1",
+      "phonenumber": "123-4567-8901",
+      "email": "admin1@asd.com",
+      "password": "Password123!",
+      "role": "admin"
+    },
+    {
+      "name": "admin2",
+      "phonenumber": "123-4567-8901",
+      "email": "admin2@asd.com",
+      "password": "Password123!",
+      "role": "admin"
+    }
+  ]
+}
