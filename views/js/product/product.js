@@ -309,12 +309,12 @@ function redirectToOrderPage() {
 
 // 특정 상품의 정보데이터 받아오기
 async function insertProductElement() {
-    // const url = '../../js/product/data.json';    // 임시 데이터
     const url = '';
     const id = sessionStorage.getItem('selectedProductId');
 
     try {
         const res = await fetch(`${url}/${id}`);
+        // const res = await fetch('../../js/product/data.json');
         const data = await res.json();
 
         const { name, option, image, detail_image: detailImage, content, price } = data;
