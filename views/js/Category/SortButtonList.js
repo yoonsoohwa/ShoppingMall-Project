@@ -9,7 +9,7 @@ export class SortButtonList {
 
     constructor(){
         const xmlString = `
-            <ul>
+            <ul class="sort-button-container">
                 <li><button type="button" class="recent">상품 등록순</button></li>
                 <li><button type="button" class="min-price">낮은 가격순</button></li>
                 <li><button type="button" class="max-price">높은 가격순</button></li>

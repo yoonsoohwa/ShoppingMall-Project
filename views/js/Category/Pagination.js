@@ -11,7 +11,7 @@ export class Pagination {
             <nav aria-label="Page navigation example" class="page-controller">
                 <ul class="pagination">
                     <li class="page-item prev">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a onclick="return false" class="page-link" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -19,7 +19,7 @@ export class Pagination {
 
                     </div>
                     <li class="page-item next">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a onclick="return false" class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

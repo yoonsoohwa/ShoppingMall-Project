@@ -285,7 +285,7 @@ function addToCart() {
 
     // eslint-disable-next-line no-alert
     if (!window.confirm('쇼핑을 계속하시겠습니까?')) {
-        window.location.href = '../Basketpage/basket.html';
+        window.location.href = '/views/pages/Basketpage/basket.html';
     }
 }
 
@@ -303,17 +303,18 @@ function redirectToOrderPage() {
     if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
         sessionStorage.setItem('order', JSON.stringify(itemList));
         // eslint-disable-next-line no-alert
-        window.location.href = '../Orderpage/payment.html';
+        window.location.href = '/views/pages/Orderpage/payment.html';
     }
 }
 
 // 특정 상품의 정보데이터 받아오기
 async function insertProductElement() {
-    const url = '../../js/product/data.json';    // 임시 데이터
-    // const url = '';
+    // const url = '../../js/product/data.json';    // 임시 데이터
+    const url = '';
+    const id = sessionStorage.getItem('selectedProductId');
 
     try {
-        const res = await fetch(url);
+        const res = await fetch(`${url}/${id}`);
         const data = await res.json();
 
         const { name, option, image, detail_image: detailImage, content, price } = data;

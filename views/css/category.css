@@ -3,16 +3,48 @@ li {
   list-style: none;
   padding: 0;
   margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 button {
   background: none;
   padding: 0;
   border: 0;
+  background: none;
+  padding: 0;
+  border: 0;
+}
+
+header {
+  height: 70px;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+header {
+  height: 70px;
+  border-bottom: 1px solid black;
+  text-align: center;
 }
 
 /* 카테고리 */
+.category-item {
+  margin: 10px 8px 10px 0;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.all-categories {
+  display: flex;
+}
+
 .categories-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -22,13 +54,22 @@ button {
 .best-products-title {
   font-size: 24px;
   text-align: center;
+  color: #333;
+  font-weight: 200;
+  text-align: center;
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 14px;
 }
 
 .best-product-button-container {
   position: relative;
+  position: relative;
 }
 
 .best-products-container {
+  display: flex;
+  overflow: hidden;
   display: flex;
   overflow: hidden;
 }
@@ -36,9 +77,18 @@ button {
 .best-products-swipe {
   display: flex;
   transition: 0.2s;
+  display: flex;
+  transition: 0.2s;
 }
 
 .swiper-next-controller {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: -10px;
+  top: calc(50% - 40px);
+  z-index: 10;
+  border: 0;
   width: 40px;
   height: 40px;
   position: absolute;
@@ -56,6 +106,25 @@ button {
   top: calc(50% - 40px);
   z-index: 10;
   border: 0;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: -10px;
+  top: calc(50% - 40px);
+  z-index: 10;
+  border: 0;
+}
+
+.sort-button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sort-button-container button {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 2px 4px;
 }
 
 .container {
@@ -68,6 +137,20 @@ button {
 }
 
 .products {
+  margin-bottom: 24px;
+}
+
+.product-filter-name {
+  text-align: center;
+  font-weight: 200;
+
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+
+.products {
+  color: #333;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -80,24 +163,77 @@ button {
   margin: 12px;
 
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px;
+
+  cursor: pointer;
+  cursor: pointer;
+}
+
+.product img {
+  border-radius: 4px;
+}
+
+.main-product-name {
+  margin-top: 4px;
+  color: #666;
+}
+.main-product-price {
+  color: #333;
+  font-size: 14px;
 }
 
 .main-product-date {
+  display: none;
   display: none;
 }
 
 /* paginatinon*/
 
+.page-item-container li .page-link {
+  color: #333;
+}
+
+.page-item-container li a {
+  border: 1px solid #f5f5dc;
+}
+.page-item-container li .active {
+  background: #f5f5dc;
+  border: 1px solid #f5f5dc;
+}
+.page-item-container li .active a {
+  background: #f5f5dc;
+  border: 1px solid #f5f5dc;
+}
+.next .page-link {
+  border: 1px solid #f5f5dc;
+}
+.prev .page-link {
+  border: 1px solid #f5f5dc;
+}
+.next .page-link span {
+  color: #d5d59c;
+}
+.prev .page-link span {
+  color: #d5d59c;
+}
 .page-item-container {
+  display: flex;
   display: flex;
 }
 
 .page-item:first-child .page-link {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -107,4 +243,17 @@ button {
   justify-content: center;
   align-items: center;
   margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}
+
+footer {
+  height: 70px;
+  border-top: 1px solid black;
+  text-align: center;
+  height: 70px;
+  border-top: 1px solid black;
+  text-align: center;
 }

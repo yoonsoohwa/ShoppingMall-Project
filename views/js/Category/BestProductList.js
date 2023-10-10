@@ -69,7 +69,11 @@ export class BestProductList {
         const productsUl = this.bestProductListElement.querySelector('.best-products-swipe');
         productsUl.innerHTML = '' // 초기화
         this.productItems.forEach(productItem => {
-            const productCard = new ProductCard({...productItem});
+            const productCard = new ProductCard({ ...productItem });
+            productCard.onClick = () => { 
+                sessionStorage.setItem('selectedProductId', productItem.id);
+                window.location.href = '../Productpage/product.html' 
+            } 
             productCard.render(productsUl);
         })
     }
