@@ -1,9 +1,3 @@
-import { response } from "express";
-import { User } from "../../../models/Category.js";
-import { register } from "../../../services/userService.js";
-
-
-
     const id = document.querySelector('.id');
     const userName = document.querySelector('.user-name');
     const password = document.querySelector('.password');

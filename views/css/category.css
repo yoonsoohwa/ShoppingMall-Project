@@ -22,6 +22,7 @@ header {
   margin: 10px 8px 10px 0;
   font-size: 20px;
   cursor: pointer;
+  color: #666;
 }
 
 .all-categories {
@@ -36,8 +37,12 @@ header {
 
 /* best */
 .best-products-title {
-  font-size: 24px;
+  color: #333;
+  font-weight: 200;
   text-align: center;
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 14px;
 }
 
 .best-product-button-container {
@@ -74,16 +79,33 @@ header {
   border: 0;
 }
 
+.sort-button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.sort-button-container button {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
 .container {
   margin-bottom: 24px;
 }
 
 .product-filter-name {
-  font-size: 24px;
   text-align: center;
+  font-weight: 200;
+
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 14px;
 }
 
 .products {
+  color: #333;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -98,12 +120,52 @@ header {
   cursor: pointer;
 }
 
+.product img {
+  border-radius: 4px;
+}
+
+.main-product-name {
+  margin-top: 4px;
+  color: #666;
+}
+.main-product-price {
+  color: #333;
+  font-size: 14px;
+}
+
 .main-product-date {
   display: none;
 }
 
 /* paginatinon*/
 
+.page-item-container li .page-link {
+  color: #333;
+}
+
+.page-item-container li a {
+  border: 1px solid #f5f5dc;
+}
+.page-item-container li .active {
+  background: #f5f5dc;
+  border: 1px solid #f5f5dc;
+}
+.page-item-container li .active a {
+  background: #f5f5dc;
+  border: 1px solid #f5f5dc;
+}
+.next .page-link {
+  border: 1px solid #f5f5dc;
+}
+.prev .page-link {
+  border: 1px solid #f5f5dc;
+}
+.next .page-link span {
+  color: #d5d59c;
+}
+.prev .page-link span {
+  color: #d5d59c;
+}
 .page-item-container {
   display: flex;
 }
