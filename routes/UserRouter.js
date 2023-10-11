@@ -94,8 +94,8 @@ router.put('/:id', authenticateUser, async (req, res, next) => {
 router.delete('/:id', authenticateUser, async (req, res, next) => {
   try {
     const userId = req.user._id;
-    const { password, confirmPassword } = req.body;
-    await UserService.deleteUser(userId, password, confirmPassword);
+    const { password } = req.body;
+    await UserService.deleteUser(userId, password);
     res.status(200).json({ message: '회원 탈퇴가 완료되었습니다.' });
   } catch (err) {
     next(err);
