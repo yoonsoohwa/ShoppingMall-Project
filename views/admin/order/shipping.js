@@ -3,6 +3,8 @@ const checkAll = document.getElementById('check-all');
 const totalEl = document.getElementById('total');
 const changeStatusBtn = document.getElementById('change-status');
 
+let orderId;
+
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
     const date = orderDate.split('T')[0];
@@ -32,7 +34,7 @@ function changeStatus() {
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
-    const element = `<tr>
+    const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="shipping-date">${date.replace(' ', '<br>')}</td>
               <td id="shipping-id">${id}</td>
@@ -43,24 +45,24 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
             </tr>`
 
     shipptingListEl.insertAdjacentHTML('beforeend', element);
+    orderId += 1;
 }
 
 async function insertOrderList() {
-    const url = './orderlistdata.json';    // 임시 데이터
-    // const url = '';
+    // const url = './orderlistdata.json';    // 임시 데이터
+    const url = '/api/v1/orders/get/shipping';
 
     try {
-        // const res = await fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         status: "배송 중"
-        //     })
-        // });
-        const res = await fetch(url);
-
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "배송 중"
+            })
+        });
+        // const res = await fetch(url);
         const data = await res.json();
 
         const { orders } = data;
