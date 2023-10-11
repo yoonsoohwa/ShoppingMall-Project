@@ -3,10 +3,10 @@ const { OrderItem } = require('../models/OrderItem');
 
 class OrderItemService {
   // eslint-disable-next-line class-methods-use-this
-  async createOrderItem({ quantity, price, item }) {
+  async createOrderItem({ quantity, option, item }) {
     const orderItem = await OrderItem.create({
       quantity,
-      price,
+      option,
       item,
     });
 

@@ -45,7 +45,10 @@
               <input id="logPasswordInput" type="password" class="input" data-type="password" />
             </div>
             <div class="group">
-              <input type="submit" class="button" value="Sign In" />
+              <input type="submit" class="button" id="submit-signin" value="Sign In" />
+            </div>
+            <div class="foot-lnk mt-3">
+              <label for="tab-2" style="color: black">Not Member yet?</label>
             </div>
           </div>
           <!-- sign up -->
@@ -54,13 +57,19 @@
               <label for="nameInput" class="label">Username</label>
               <input id="nameInput" type="text" class="input" placeholder="김원빈" />
             </div>
-            <div class="group mb-2">
+            <div class="group">
               <label for="EmailInput" class="label">Email Address</label>
               <input id="EmailInput" type="email" class="input" placeholder="abc@example.com" />
             </div>
+            <div class="group d-flex mt-1 mb-2" style="height: 45px">
+              <button type="submit" class="btn me-1 p-0" id="send" style="background-color: beige">
+                인증번호 발송
+              </button>
+              <input id="certifyInput" type="text" class="input ms-1" placeholder="인증번호 입력" />
+            </div>
             <div class="group mb-2">
               <label for="phoneNumberInput" class="label">Phone Number</label>
-              <input id="phoneNumberInput" type="text" class="input" placeholder="'-' 를 제외하고 입력하세요" />
+              <input id="phoneNumberInput" type="text" class="input" placeholder="010-1111-2222" />
             </div>
             <div class="group mb-2">
               <label for="passwordInput" class="label">Password</label>
@@ -69,7 +78,7 @@
                 type="password"
                 class="input"
                 data-type="password"
-                placeholder="영문, 숫자, 특수문자 중 3개 이상 조합하여 8~20자를 입력하세요"
+                placeholder="8자 이상의 영문 대소문자, 숫자만 입력하세요"
               />
             </div>
             <div class="group mb-4">
@@ -83,14 +92,15 @@
               />
             </div>
             <div class="group">
-              <input type="submit" class="button" value="Sign Up" />
+              <input type="submit" class="button" id="submit-signup" value="Sign Up" />
             </div>
-            <div class="foot-lnk mt-3">
+            <div class="foot-lnk mt-2">
               <label for="tab-1" style="color: black">Already Member?</label>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="./login.js" defer></script>
   </body>
 </html>
