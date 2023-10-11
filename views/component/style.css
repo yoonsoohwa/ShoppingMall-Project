@@ -16,6 +16,10 @@ li {
   list-style: none;
 }
 
+.bi {
+  cursor: pointer;
+}
+
 /* header */
 #header-container {
   height: 70px;

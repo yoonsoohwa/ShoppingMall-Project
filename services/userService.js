@@ -55,7 +55,7 @@ class UserService {
     const token = await user.generateToken();
     const refreshToken = await user.generateRefreshToken();
 
-    return { token, refreshToken };
+    return { token, refreshToken, user };
   }
 
   // 회원정보 조회

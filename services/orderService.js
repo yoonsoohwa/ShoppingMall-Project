@@ -35,8 +35,12 @@ class OrderService {
   async getPagination(page, limit) {
     const orders = await Order.find()
       .populate('user')
-      .populate('orderItems')
-      .populate('address')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);
@@ -47,7 +51,15 @@ class OrderService {
   }
 
   async getOrderById(id) {
-    const order = await Order.findById(id).populate('user').populate('orderItems').populate('address');
+    const order = await Order.findById(id)
+      .populate('user')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
 
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -67,7 +79,14 @@ class OrderService {
   }
 
   async getOrderByGuest(orderId, orderPassword) {
-    const order = await Order.findOne({ _id: orderId, orderPassword }).populate('orderItems').populate('address');
+    const order = await Order.findOne({ _id: orderId, orderPassword })
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
 
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -79,7 +98,12 @@ class OrderService {
   async getPaginationByUser(user, page, limit) {
     const orders = await Order.find({ user })
       .populate('user')
-      .populate('orderItems')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
@@ -103,7 +127,12 @@ class OrderService {
 
     const updatedOrder = await Order.findByIdAndUpdate(id, updateOrderData, { new: true })
       .populate('user')
-      .populate('orderItems')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .populate('address');
 
     return updatedOrder;
