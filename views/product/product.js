@@ -16,6 +16,8 @@ let optionNum = 0;
 let productPrice;
 let mainImage;
 let productName;
+let productId;
+let basketId = 0;
 
 // 총 가격 및 수량 설정
 function setTotal() {
@@ -153,10 +155,11 @@ function isColorSelected() {
 
 // 상품 이미지 설정
 function setImage(image, detailImage) {
-    mainImage = image;
-    detailImage.unshift(image);
+    mainImage = image.url;
+    const imgList = detailImage.map(img => img.url);
+    imgList.unshift(mainImage);
 
-    detailImage.forEach((img) => {
+    imgList.forEach((img) => {
         const imageEl = document.createElement('img');
         imageEl.setAttribute('src', img);
         productImageEl.appendChild(imageEl);
@@ -249,6 +252,8 @@ function convertItemsToProductList(items) {
         }
 
         const data = {
+            productId,
+            basketId,
             name,
             mainImage,
             option: {
@@ -260,6 +265,7 @@ function convertItemsToProductList(items) {
         }
 
         list.push(data);
+        basketId += 1;
         return list;
     }, []);
 }
@@ -273,8 +279,11 @@ function addToCart() {
         alert('필수 옵션을 선택해주세요.');
         return;
     }
-    const itemList = convertItemsToProductList(items);
+
     const basket = JSON.parse(localStorage.getItem('basket'));
+    basketId = basket === null ? 0 : basket[basket.length - 1].basketId + 1;
+    const itemList = convertItemsToProductList(items);
+    
 
     if (basket === null) {
         localStorage.setItem('basket', JSON.stringify(itemList));
@@ -285,7 +294,7 @@ function addToCart() {
 
     // eslint-disable-next-line no-alert
     if (!window.confirm('쇼핑을 계속하시겠습니까?')) {
-        window.location.href = '/views/pages/Basketpage/basket.html';
+        window.location.href = '/views/basket/basket.html';
     }
 }
 
@@ -297,24 +306,26 @@ function redirectToOrderPage() {
         alert('필수 옵션을 선택해주세요.');
         return;
     }
+
+    basketId = 0;
     const itemList = convertItemsToProductList(items);
 
     // eslint-disable-next-line no-alert
     if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
         sessionStorage.setItem('order', JSON.stringify(itemList));
         // eslint-disable-next-line no-alert
-        window.location.href = '/views/pages/Orderpage/payment.html';
+        window.location.href = '/views/payment/payment.html';
     }
 }
 
 // 특정 상품의 정보데이터 받아오기
 async function insertProductElement() {
-    const url = '';
-    const id = sessionStorage.getItem('selectedProductId');
+    const url = 'http://localhost:5001/api/v1/items/';
+    productId = sessionStorage.getItem('selectedProductId');
 
     try {
-        const res = await fetch(`${url}/${id}`);
-        // const res = await fetch('../../js/product/data.json');
+        const res = await fetch(`${url}${productId}`);
+        // const res = await fetch('./data.json');
         const data = await res.json();
 
         const { name, option, image, detail_image: detailImage, content, price } = data;
