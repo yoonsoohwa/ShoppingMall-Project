@@ -3,6 +3,8 @@ const checkAll = document.getElementById('check-all');
 const totalEl = document.getElementById('total');
 const changeStatusBtn = document.getElementById('change-status');
 
+let orderId;
+
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
     const date = orderDate.split('T')[0];
@@ -27,12 +29,32 @@ function selectAllCheckboxes() {
     }
 }
 
-function changeStatus() {
+async function changeOrderStatus(id) {
+    const url = `/api/v1/orders/${id}/delete`;
+
+    try {
+        const res = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                
+            }),
+        });
+    } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert(`주문번호 : ${id}의 주문을 취소할 수 없습니다.`);
+    }
+
+}
+
+function changeOrder() {
 
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
-    const element = `<tr>
+    const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="pre-shipping-date">${date.replace(' ', '<br>')}</td>
               <td id="pre-shipping-id">${id}</td>
@@ -43,26 +65,28 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
             </tr>`
 
     shipptingListEl.insertAdjacentHTML('beforeend', element);
+    orderId += 1;
 }
 
 async function insertOrderList() {
-    const url = './orderlistdata.json';    // 임시 데이터
-    // const url = '';
+    // const url = './orderlistdata.json';    // 임시 데이터
+    const url = '/api/v1/orders/get/shipping';
 
     try {
-        // const res = await fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         status: "배송 준비 중"
-        //     })
-        // });
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "배송 준비 중"
+            })
+        });
+        // const res = await fetch(url);
 
         const data = await res.json();
 
+        orderId = 0;
         const { orders } = data;
         orders.forEach(order => {
             const { createdAt, address, orderItems, totalPrice, _id: id } = order;
@@ -83,5 +107,5 @@ async function insertOrderList() {
 }
 
 insertOrderList();
-changeStatusBtn.addEventListener('click', changeStatus);
+changeStatusBtn.addEventListener('click', changeOrder);
 checkAll.addEventListener('click', selectAllCheckboxes);
