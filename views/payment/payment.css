@@ -1,8 +1,7 @@
 body {
   margin: auto;
-  padding: 0;
-  width: 80%;
-  font-family: 'Roboto', sans-serif;
+  max-width: 900px;
+  background-color: rgba(249, 248, 244, 0.582);
 }
 
 .payment-header {
@@ -20,18 +19,9 @@ body {
   color: #ffffff;
 }
 
-ul,
-li {
-  list-style: none;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-
 .container {
   background-color: #ffffff;
-  width: 95%;
+  max-width: 880px;
 }
 
 .total-pay {

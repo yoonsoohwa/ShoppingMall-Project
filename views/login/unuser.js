@@ -24,7 +24,7 @@ async function handleSubmit() {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = ``; // 주문정보 보내기
+  const apiUrl = ``; // 주문정보 보내기 => how..?
 
   try {
     const res = await fetch(apiUrl, {
@@ -37,7 +37,7 @@ async function handleSubmit() {
 
     if (res.status === 200) {
       alert('로그인에 성공하였습니다!');
-      window.location.href = '/views/pages/Order/order.html';
+      window.location.href = '/order';
     } else {
       alert('로그인에 실패하였습니다...');
     }

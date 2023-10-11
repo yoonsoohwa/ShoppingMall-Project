@@ -10,7 +10,7 @@ function loadSidebar() {
                 <div class="admin-product p-2 mt-3 mb-3">
                   <li class="main mb-2">💜상품</li>
                   <ul class="sub">
-                    <li class="pb-2"><a href="../product/admin.html">- 상품 목록</a></li>
+                    <li class="pb-2"><a href="../product/product.html">- 상품 목록</a></li>
                     <li class="pb-2"><a href="../product/add.html">- 상품 등록</a></li>
                   </ul>
                 </div>

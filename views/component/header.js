@@ -20,7 +20,7 @@ function Header() {
           </ul>
           <ul class="navbar-nav d-flex justify-content-end">
             <li><a><i class="bi bi-person me-2"></i></a></li>
-            <li><a href="/views/pages/Basketpage/basket.html"><i class="bi bi-bag me-2"></i></a></li>
+            <li><a href="/basket"><i class="bi bi-bag me-2"></i></a></li>
           </ul>
         </div>
       </div>
@@ -35,14 +35,24 @@ Header();
 const pListGroup = document.querySelector('.product .dropdown-menu');
 const aListGroup = document.querySelector('.account .dropdown-menu');
 
-/* product 카테고리 추가 -> 리스트로 받아오기 코드 추가 예정 */
-const productCategories = ['All', 'Top', 'Bottom', 'Outer', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'];
-for (let i = 0; i < productCategories.length; i++) {
-  const item = `
-    <li><a class="dropdown-item" href="Product/${productCategories[i]}">${productCategories[i]}</a></li>
-  `;
-  pListGroup.insertAdjacentHTML('beforeend', item);
+/* product 카테고리 추가 */
+async function getCategory() {
+  try {
+    const res = await fetch('http://localhost:5001/api/v1/categories');
+    const data = await res.json();
+    const categoryList = data.map((item) => item.name);
+
+    for (let i = 0; i < categoryList.length; i++) {
+      const item = `
+        <li><a class="dropdown-item" href="/category/${categoryList[i]}">${categoryList[i]}</a></li>
+      `;
+      pListGroup.insertAdjacentHTML('beforeend', item);
+    }
+  } catch (error) {
+    // alert('데이터를 가져오는 중 에러 발생:', error);
+  }
 }
+getCategory();
 
 /* account 카테고리 추가 */
 const accountText = `
@@ -56,35 +66,37 @@ const accMypage = document.querySelector('.my');
 const accOrder = document.querySelector('.order');
 const userIcon = document.querySelector('bi-person');
 
+// -------------------------------------------------------
+
 /* user인지 확인 */
 async function checkLogin() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/users//check-login');
+    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
     const data = await res.json();
     const { isLoggedIn } = data.isLoggedIn;
 
     // 로그인 여부 클릭 이벤트
     if (isLoggedIn) {
       accMypage.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/mypage.html';
+        window.location.href = '/mypage';
       });
       accOrder.addEventListener('click', () => {
-        window.location.href = '/views/pages/Orderpage/order.html';
+        window.location.href = '/order';
       });
       userIcon.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/mypage.html';
+        window.location.href = '/mypage';
       });
     } else {
       accMypage.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/login.html';
+        window.location.href = '/login';
       });
       accOrder.addEventListener('click', () => {
         if (confirm('비회원으로 주문조회 하시겠습니까?')) {
-          window.location.href = '/views/pages/Loginpage/unuser.html';
+          window.location.href = '/login/unuser';
         }
       });
       userIcon.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/login.html';
+        window.location.href = '/login';
       });
     }
   } catch (error) {

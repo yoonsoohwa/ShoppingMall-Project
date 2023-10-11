@@ -111,7 +111,9 @@ delDetailImgBtn.addEventListener('click', () => {
   }
 });
 
+// -------------------------------------------------------
 /* db에 생성한 정보 전달 (post) */
+
 const submitBtn = document.querySelector('.submit');
 submitBtn.addEventListener('click', handleSubmit);
 
@@ -130,22 +132,23 @@ async function handleSubmit(e) {
   formData.append('price', Number(priceInput.value));
   formData.append('image', mainImage);
   for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detailImages', detailImages[i]);
+    formData.append('detail_image', detailImages[i]);
   }
   formData.append('option[color]', colorInput.value.replace(/\s/g, '').split(','));
   formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
   formData.append('content', contentInput.value);
 
-  const apiUrl = ``; // url 추가
+  const apiUrl = 'http://localhost:5001/api/v1/items';
 
   try {
     const res = await fetch(apiUrl, {
       method: 'POST',
       body: formData,
     });
-    if (res.ok) {
-      alert('상품 등록이 완료되었습니다!');
-      // 상품목록 페이지(admin.html)로 이동 코드 추가
+    if (res.status === 201) {
+      const result = await res.json();
+      alert(result.message);
+      window.location.href = '/order/product'; // 상품 목록 페이지로 이동
     } else {
       alert('생성 요청 실패:', res.status);
     }

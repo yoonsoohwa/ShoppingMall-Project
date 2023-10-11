@@ -1,7 +1,7 @@
 /* db에서 전체 목록 불러오기(get) */
 async function insertProductData() {
   try {
-    const res = await fetch(``);
+    const res = await fetch('http://localhost:5001/api/v1/items');
     const data = await res.json();
 
     data.forEach((product) => {
@@ -10,7 +10,7 @@ async function insertProductData() {
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product.id}</td>
         <td id="product-category">${product.category}</td>
-        <td id="product-image"><img src="${product.image}" class="img-fluid"></td>
+        <td id="product-image"><img src="${product.image.url}" class="img-fluid"></td>
         <td id="product-name">${product.name}</td>
         <td id="product-price">${product.price}</td>
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
@@ -19,7 +19,7 @@ async function insertProductData() {
       tableBody.insertAdjacentHTML('beforeend', `<tr>${rowHTML}</tr>`);
     });
   } catch (error) {
-    console.error('데이터를 가져오는 중 에러 발생:', error);
+    alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 insertProductData();
@@ -81,8 +81,9 @@ deleteBtn.addEventListener('click', async (e) => {
           checkedItemsId.push(productId);
         }
       });
+
       // db에 삭제한 정보 전달 (delete)
-      const apiUrl = ''; // url 추가
+      const apiUrl = 'http://localhost:5001/api/v1/items/:id';
       const reqData = JSON.stringify({ items: checkedItemsId });
 
       try {
@@ -94,15 +95,16 @@ deleteBtn.addEventListener('click', async (e) => {
           body: reqData,
         });
 
-        if (res.ok) {
-          console.log('삭제 요청이 성공적으로 처리되었습니다.');
+        if (res.status === 200) {
+          const result = await res.json();
+          alert(result.message);
+          insertProductData(); // 데이터 다시 불러오기
         } else {
-          console.error('삭제 요청 실패:', res.status);
+          alert('삭제 요청 실패:', res.status);
         }
       } catch (error) {
-        console.error('삭제 요청 중 오류 발생:', error);
+        alert('삭제 요청 중 오류 발생:', error);
       }
-      insertProductData(); // 데이터 다시 불러오기
     } else {
       // 취소
       checkboxes.forEach((checkbox) => {
@@ -126,14 +128,11 @@ document.addEventListener('click', (e) => {
 
     // 쿼리스트링 사용 > id 값이 일치하는 데이터 값을 modify.html로 불러옴
     // 데이터를 URL 매개변수로 인코딩하여 수정 페이지로 전달
-    const modify = './modify.html'; // url 수정
+    const modify = './modify.html';
     const queryParams = `?${productId}`;
     const modifyPageURL = `${modify}${queryParams}`;
 
-    // 수정 페이지를 새 창으로 열어 이동
-    // 새 창의 크기 조절
-    const windowFeatures = 'width=1000,height=600';
-
-    window.open(modifyPageURL, '_blank', windowFeatures);
+    // 수정 페이지로 이동
+    window.location.href = modifyPageURL;
   }
 });

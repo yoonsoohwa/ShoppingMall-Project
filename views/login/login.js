@@ -38,7 +38,7 @@ async function handleSigninSubmit(e) {
     const result = await res.json();
     if (res.status === 200) {
       alert(result.message);
-      window.location.href = '/views/'; // main page로 이동
+      window.location.href = '/'; // main page로 이동
     } else {
       alert(result.message);
     }
