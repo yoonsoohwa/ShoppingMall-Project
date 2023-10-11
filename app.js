@@ -13,9 +13,7 @@ const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
 const viewsRouter = require('./routes/viewsRouter');
-
 const adminRouter = require('./routes/AdminRouter');
-const viewsRouter = require('./routes/viewsRouter');
 
 const { User } = require('./models/User');
 const Item = require('./models/Item');
