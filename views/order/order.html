@@ -43,11 +43,10 @@
     <script src="/views/component/header.js"></script>
 
     <!-- 주문 조회 -->
-    <div class="has">
-      <i class="bi bi-bag" id="bag-icon"></i>
-      <p class="basket-count">주문 조회</p>
+    <div class="order-wrap">
+      <p class="order-count">주문 조회</p>
 
-      <div class="basketdiv" id="basket">
+      <div class="orderdiv" id="basket">
         <!-- 칼럼명 -->
         <div class="row head">
           <!-- 첫번째 블록 -->
@@ -64,60 +63,13 @@
           </div>
         </div>
 
-        <!-- 장바구니에 넣은 상품 목록 -->
+        <!-- 상품 목록 -->
         <div class="basket-wrapper">
-          <div class="row data">
-            <!-- 첫번째 블록 -->
-            <div class="subdiv">
-              <div id="order-date-wrap">
-                <p id="order-date">주문일자</p>
-                <p id="order-id">[주문 번호]</p>
-              </div>
-
-              <div id="order-img">
-                <img src="#" width="100%" alt="상품 이미지" />
-              </div>
-              <div id="order-pname">상품 정보</div>
-            </div>
-            <!-- 두번째 블록 -->
-            <div class="subdiv">
-              <div id="order-num">수량</div>
-              <div id="order-price">상품 구매 금액</div>
-              <div id="order-status">주문 처리 상태</div>
-            </div>
-          </div>
+          <!-- row data -->
         </div>
       </div>
 
-      <div class="pagination-wrap">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lsaquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&rsaquo;</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <div class="pagination-wrap"></div>
     </div>
 
     <!-- footer -->

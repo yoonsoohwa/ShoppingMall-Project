@@ -36,9 +36,6 @@
     <script type="module" src="/views/basket/index.js" defer></script>
     <script type="module" src="/views/basket/addBasket.js"></script>
     <script type="module" src="/views/basket/bottom.js"></script>
-
-    <!-- 화면용 js -->
-    <script type="module" src="/views/basket/display.js" defer></script>
   </head>
 
   <body>
@@ -134,18 +131,19 @@
           </div>
           <div class="modal-content-inner">
             <div class="goods-name">Name</div>
-
-            <div class="option-choice">
-              <p id="first-opt">opt1</p>
-              <select id="color-select" class="form-select form-select-sm" aria-label="Small select example" required>
-                <option selected>-[필수] 옵션을 선택해주세요-</option>
-              </select>
-            </div>
-            <div class="option-choice">
-              <p id="second-opt">opt2</p>
-              <select id="size-select" class="form-select form-select-sm" aria-label="Small select example">
-                <option selected>-[필수] 옵션을 선택해주세요-</option>
-              </select>
+            <div class="option-choice-group">
+              <div class="option-choice">
+                <p id="first-opt">color</p>
+                <select id="color-select" class="form-select form-select-sm" aria-label="Small select example" required>
+                  <option selected>-[필수] 옵션을 선택해주세요-</option>
+                </select>
+              </div>
+              <div class="option-choice">
+                <p id="second-opt">size</p>
+                <select id="size-select" class="form-select form-select-sm" aria-label="Small select example">
+                  <option selected>-[필수] 옵션을 선택해주세요-</option>
+                </select>
+              </div>
             </div>
           </div>
           <div id="btn-grp">

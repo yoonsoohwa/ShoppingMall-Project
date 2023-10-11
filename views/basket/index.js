@@ -255,8 +255,6 @@ const upDown = (type, inputElement, index) => {
 
 // 모달창 옵션
 
-const basketCountElement = document.querySelector('.basket-count');
-
 let selectedProduct = {};
 const handleClickModal = (event) => {
   const productName = event.target.dataset.productName;
@@ -316,7 +314,9 @@ const handleClickModal = (event) => {
 };
 
 ///
+const modal = document.querySelector('#modal-container');
 const modalChangeButton = document.querySelector('#modal-change-button');
+
 modalChangeButton.addEventListener('click', () => {
   const colorSelectBoxElement = document.querySelector('#color-select');
   const sizeSelectBoxElement = document.querySelector('#size-select');
@@ -338,12 +338,15 @@ modalChangeButton.addEventListener('click', () => {
   localStorage.setItem('basket', JSON.stringify(newBasket));
 
   drawBasket();
+  modal.classList.add('hidden');
 });
 
 ///
 
 export const drawBasket = () => {
   const basketWrapperElement = document.querySelector('.basket-wrapper');
+
+  const basketCountElement = document.querySelector('.basket-count');
 
   basketCountElement.innerText = `상품(${baskets.length})`;
   isEmptyBasket(baskets);
@@ -436,8 +439,6 @@ export const drawBasket = () => {
   // 모달
   const modalOpenButtons = document.querySelectorAll('#modal-open-button');
   const modalCloseButtons = document.querySelectorAll('#modal-close-button');
-
-  const modal = document.querySelector('#modal-container');
 
   modalOpenButtons.forEach((modalOpen) => {
     modalOpen.addEventListener('click', (e) => {
