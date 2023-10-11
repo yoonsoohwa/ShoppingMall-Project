@@ -1,16 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+
+app.use(cors());
 
 const pingRouter = require('./routes/PingRouter');
 const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
 const categoryRouter = require('./routes/categoryRouter');
+const viewsRouter = require('./routes/viewsRouter');
 
 const adminRouter = require('./routes/AdminRouter');
 
@@ -39,9 +42,6 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
-// 정적 파일 제공을 위한 middleware 추가
-app.use(express.static(path.join(__dirname, 'views/pages')));
-
 // Add dummy data
 dummy.users.forEach(async (user) => {
   const newUser = new User(user);
@@ -55,6 +55,7 @@ app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/admins', adminRouter);
+app.use(viewsRouter);
 
 // error handling
 app.use((err, req, res, next) => {

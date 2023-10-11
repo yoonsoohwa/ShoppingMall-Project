@@ -1,0 +1,148 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+#wrap {
+  width: 100%;
+}
+
+#content {
+  padding: 150px 30px 50px;
+}
+
+#product-detail-container {
+  width: 100%;
+  display: flex;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+#product-image {
+  padding: 15px;
+  flex: 1;
+}
+
+#fix-option {
+  flex: 1;
+  padding-left: 15px;
+  position: relative;
+}
+
+#product-options {
+  width: 100%;
+  height: fit-content;
+  padding: 15px 20px;
+  border: 2px solid #f5f5dc;
+  position: sticky;
+  top: 50px;
+}
+
+#product-info {
+  width: 100%;
+  height: fit-content;
+  padding-top: 12px;
+}
+
+#product-info h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+#product-info p {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+#option-selections {
+  width: 100%;
+  height: fit-content;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+  padding: 10px 0;
+}
+
+#option-selections > div {
+  padding: 10px 0;
+}
+
+#option-selections > div > label {
+  font-size: 16px;
+  align-self: center;
+}
+
+#option-selections > div > select {
+  margin-right: 10px;
+}
+
+#selected-option {
+  margin-top: 10px;
+}
+
+#selected-option > table {
+  width: 100%;
+}
+
+#selected-option > table > tbody > tr > td {
+  padding: 8px 0;
+}
+
+#selected-option td.product {
+  font-size: 16px;
+}
+
+#selected-option td.product p {
+  font-weight: bold;
+  margin: 0;
+}
+
+#selected-option a {
+  color: #000;
+  text-decoration: none;
+}
+
+#selected-option a:active {
+  color: #c0c0c0;
+  text-decoration: none;
+}
+
+#total-details {
+  font-size: 16px;
+  text-align: end;
+}
+
+#total-details > strong {
+  font-size: 16px;
+  padding-right: 2px;
+  font-weight: 400;
+}
+
+.total-price {
+  font-size: 24px;
+  padding: 0 2px 0 4px;
+}
+
+#product-actions {
+  width: 100%;
+  display: flex;
+}
+
+#product-actions > button {
+  margin: 13px;
+  flex: 1;
+  font-size: 16px;
+}
+
+#product-description-container {
+  text-align: center;
+  margin-top: 15px;
+  padding: 25px 10px;
+  border-style: solid;
+  border-color: #808080;
+  border-width: 1px 0 1px;
+}
+
+img {
+  width: 100%;
+}
