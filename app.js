@@ -13,13 +13,14 @@ const orderRouter = require('./routes/OrderRouter');
 const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
 const categoryRouter = require('./routes/categoryRouter');
+const adminRouter = require('./routes/AdminRouter');
 const viewsRouter = require('./routes/viewsRouter');
 
-const adminRouter = require('./routes/AdminRouter');
-
 const { User } = require('./models/User');
+const Item = require('./models/Item');
 
-const dummy = require('./dummy.json');
+const dummy = require('./dummy/dummy.json');
+const dummyItems = require('./dummy/dummyItems.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +47,10 @@ mongoose
 dummy.users.forEach(async (user) => {
   const newUser = new User(user);
   await newUser.save();
+});
+dummyItems.items.forEach(async (item) => {
+  const newItem = new Item(item);
+  await newItem.save();
 });
 
 // router
