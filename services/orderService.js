@@ -5,7 +5,16 @@ const { Address } = require('../models/Address');
 const { Order } = require('../models/Order');
 
 class OrderService {
-  async createOrder({ user, orderItems, address, totalPrice, status, payMethod = '가상계좌', message, orderPassword }) {
+  constructor() {
+    this.ON_SHIPPING_LIST = ['배송중', '배송완료', '취소처리중', '주문취소'];
+  }
+
+  validateOnShipping(status) {
+    if (this.ON_SHIPPING_LIST.includes(status))
+      throw new BadRequestError(`이미 배송중인 제품은 변경 또는 취소할 수 없습니다.`);
+  }
+
+  async createOrder({ user, orderItems, address, totalPrice, status, message, orderPassword }) {
     if (!/^[a-zA-Z0-9]{8,}$/.test(orderPassword) && !user) {
       throw new BadRequestError('주문 비밀번호는 최소 8자리의 숫자와 영문자의 조합이어야 합니다.');
     }
@@ -15,7 +24,6 @@ class OrderService {
       orderItems,
       address,
       totalPrice,
-      payMethod,
       status,
       message,
       orderPassword,
@@ -27,23 +35,37 @@ class OrderService {
   async getPagination(page, limit) {
     const orders = await Order.find()
       .populate('user')
-      .populate('orderItems')
-      .populate('address')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);
 
-    return orders;
+    const count = await Order.countDocuments();
+
+    return { orders, count };
   }
 
   async getOrderById(id) {
-    const order = await Order.findById(id).populate('user').populate('orderItems').populate('address');
+    const order = await Order.findById(id)
+      .populate('user')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
 
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    return { order };
+    return order;
   }
 
   async getOrdersByStatus(userId, status) {
@@ -57,7 +79,14 @@ class OrderService {
   }
 
   async getOrderByGuest(orderId, orderPassword) {
-    const order = await Order.findOne({ _id: orderId, orderPassword }).populate('orderItems').populate('address');
+    const order = await Order.findOne({ _id: orderId, orderPassword })
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
 
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
@@ -66,45 +95,44 @@ class OrderService {
     return order;
   }
 
-  async getPaginationByUser({ user, page, limit }) {
+  async getPaginationByUser(user, page, limit) {
     const orders = await Order.find({ user })
       .populate('user')
-      .populate('orderItems')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const count = await Order.countDocuments();
+    const count = await Order.countDocuments({ user });
 
     return { orders, count };
   }
 
-  ON_SHIPPING_LIST = ['배송중', '배송완료', '취소처리중', '주문취소'];
-
-  validateOnShipping(status) {
-    if (this.ON_SHIPPING_LIST.includes(status))
-      throw new BadRequestError(`이미 배송중인 제품은 변경 또는 취소할 수 없습니다.`);
-  }
-
-  async updateOrder({ id, message, address, status, newOrderItems, totalPrice }) {
+  async updateOrder(id, message, address, status, newOrderItems, totalPrice) {
     const order = await Order.findById(id);
-
-    this.validateOnShipping(order.status);
-
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    const newAddress = await Address.findByIdAndUpdate(order.address._id, { ...address }, { new: true });
+    this.validateOnShipping(order.status);
 
-    const updatedOrder = await Order.findByIdAndUpdate(
-      id,
-      { message, address: newAddress, status, orderItems: newOrderItems, totalPrice },
-      { new: true },
-    )
+    const newAddress = await Address.findByIdAndUpdate(order.address._id, { ...address }, { new: true });
+    const updateOrderData = { message, address: newAddress, status, orderItems: newOrderItems, totalPrice };
+
+    const updatedOrder = await Order.findByIdAndUpdate(id, updateOrderData, { new: true })
       .populate('user')
-      .populate('orderItems')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
       .populate('address');
 
     return updatedOrder;
@@ -112,12 +140,13 @@ class OrderService {
 
   async deleteOrder(id) {
     const order = await Order.findByIdAndDelete(id);
-
-    this.validateOnShipping(order.status);
-
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
+
+    this.validateOnShipping(order.status);
+
+    await order.delete();
   }
 }
 

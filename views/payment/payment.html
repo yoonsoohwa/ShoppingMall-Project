@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re: birth</title>
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <!-- 주소찾기 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <link rel="stylesheet" href="../component/style.css" />
+    <link rel="stylesheet" href="./payment.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <div class="payment-header d-flex justify-content-between">
+      <div><i class="bi bi-arrow-left float-start ms-2"></i></div>
+      <div>
+        <div id="logo">
+          <a href="/"><img src="https://ifh.cc/g/7vx729.png" style="width: 150px" /></a>
+        </div>
+      </div>
+      <div>
+        <a><i class="bi bi-person me-2"></i></a>
+        <a href="/basket"><i class="bi bi-bag float-end me-2"></i></a>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="payment-main pb-2">
+      <div class="payment-title text-center d-block p-2">주문/결제</div>
+      <div class="container billing-info mt-2 p-2">
+        <p><strong>주문 정보</strong></p>
+        <div class="mb-3 row">
+          <label for="inputName" class="col-sm-3 col-form-label">주문자<i class="bi bi-asterisk ps-1"></i></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="inputName" />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="inputEmail" class="col-sm-3 col-form-label">이메일<i class="bi bi-asterisk ps-1"></i></label>
+          <div class="col-sm-8">
+            <input type="email" class="form-control" id="inputEmail" placeholder="abc@example.com" />
+          </div>
+        </div>
+      </div>
+      <!-- 비회원 주문 -->
+      <div class="container unuser-billing-info mt-2 p-2" id="unuser-password" style="display: none">
+        <p style="font-size: 12px; color: rgb(254, 104, 104)">
+          비회원 주문 조회 시 사용할 비밀번호를 영문/숫자/특수문자를 조합하여 8~20자 이내로 입력해주세요.
+        </p>
+        <div class="mb-3 row">
+          <label for="inputPassword" class="col-sm-3 col-form-label"
+            >주문 비밀번호 입력<i class="bi bi-asterisk ps-1"></i
+          ></label>
+          <div class="col-sm-8">
+            <input
+              type="password"
+              class="form-control"
+              id="inputPassword"
+              placeholder="영문, 숫자, 특수문자 중 3개 이상 조합하여 8~20자 입력"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <label for="inputConfirmPassword" class="col-sm-3 col-form-label"
+            >주문 비밀번호 확인 입력<i class="bi bi-asterisk ps-1"></i
+          ></label>
+          <div class="col-sm-8">
+            <input type="password" class="form-control" id="inputConfirmPassword" placeholder="비밀번호 한번 더 입력" />
+          </div>
+        </div>
+      </div>
+      <!-- 배송지 -->
+      <div class="container shipping-info mt-2 p-2">
+        <p><strong>배송지</strong></p>
+        <div class="same-addr">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+            <label class="form-check-label" for="flexRadioDefault1"> 주문자 정보와 동일 </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+            <label class="form-check-label" for="flexRadioDefault2"> 새로운 배송지 </label>
+          </div>
+          <div class="mt-2 mb-3 row">
+            <label for="inputRName" class="col-sm-3 col-form-label">받는사람<i class="bi bi-asterisk ps-1"></i></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="inputRName" />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="inputAdress2" class="col-sm-3 col-form-label">주소<i class="bi bi-asterisk ps-1"></i></label>
+            <div class="col-sm-8">
+              <div class="row">
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" id="postalCode" placeholder="우편번호" />
+                </div>
+                <div class="col-sm">
+                  <button type="button" class="btn btn-outline-secondary" id="search-address-btn">주소찾기</button>
+                </div>
+              </div>
+              <input type="text" class="form-control mt-2" id="inputAdress1" placeholder="기본주소" />
+              <input type="text" class="form-control mt-2" id="inputAdress2" placeholder="상세주소" />
+            </div>
+          </div>
+          <div class="row">
+            <label for="inputRequest" class="col-sm-3 col-form-label">요청 사항</label>
+            <div class="col-sm-8">
+              <select class="form-select" id="request-select-box" aria-label="Default select example">
+                <option selected>-- 메시지 선택 (선택사항) --</option>
+                <option value="배송 전에 미리 연락 바랍니다.">배송 전에 미리 연락 바랍니다.</option>
+                <option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
+                <option value="부재 시 문 앞에 놓아주세요.">부재 시 문 앞에 놓아주세요.</option>
+                <option value="택배함에 보관해주세요.">택배함에 보관해주세요.</option>
+                <option value="빠른배송 부탁드립니다.">빠른배송 부탁드립니다.</option>
+                <option value="직접입력">직접입력</option>
+              </select>
+              <textarea
+                class="form-control mt-2"
+                placeholder="메시지를 입력해주세요"
+                id="request-textarea"
+                style="display: none"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 주문상품 목록 -->
+      <div class="container order-product-info mt-2 p-2">
+        <p><strong>주문 상품</strong></p>
+        <div class="products mb-2"></div>
+        <span><strong>배송비</strong></span>
+        <span class="float-end">무료</span>
+      </div>
+      <div class="container payment-info mt-2 p-2">
+        <p><strong>결제 정보</strong></p>
+        <div class="d-flex mb-3">
+          <div>주문상품</div>
+          <div class="ms-auto" id="total-sum"></div>
+        </div>
+        <div class="d-flex mb-3">
+          <div>배송비</div>
+          <div class="ms-auto" id="delivery-charge">+0</div>
+        </div>
+        <div class="d-flex" style="background-color: aliceblue">
+          <div class="total-pay p-1">최종 결제 금액</div>
+          <div class="ms-auto total-pay" id="total-pay"></div>
+        </div>
+      </div>
+    </div>
+    <div class="pay-submit d-flex">
+      <button type="button" class="btn btn-secondary" id="submit-btn"><span id="final-pay"></span>결제하기</button>
+    </div>
+    <script src="./payment.js" defer></script>
+  </body>
+</html>

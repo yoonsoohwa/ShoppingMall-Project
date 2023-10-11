@@ -3,18 +3,30 @@ const path = require('path');
 
 const viewsRouter = express.Router();
 
-function serveStatic(resource) {
-  const resourcePath = path.join(__dirname, `views/${resource}`);
-  const option = { index: `${resource}.html` };
-  return express.static(resourcePath, option);
-}
-
-viewsRouter.use('/', serveStatic('index'));
-viewsRouter.use('/admin', serveStatic('admin'));
-viewsRouter.use('/basket', serveStatic('basket'));
-viewsRouter.use('/category', serveStatic('category'));
-viewsRouter.use('/login', serveStatic('login'));
-viewsRouter.use('/order', serveStatic('order'));
-viewsRouter.use('/product', serveStatic('product'));
+viewsRouter.use('/', express.static('views'));
+viewsRouter.use('/:directory/:subdirectory/:file', (req, res, next) => {
+  const { directory, subdirectory, file } = req.params;
+  if (!file.includes('.')) {
+    res.sendFile(path.join(__dirname, `../views/${directory}/${subdirectory}/${file}.html`));
+  } else {
+    next();
+  }
+});
+viewsRouter.use('/:directory/:file', (req, res, next) => {
+  const { directory, file } = req.params;
+  if (!file.includes('.')) {
+    res.sendFile(path.join(__dirname, `../views/${directory}/${file}.html`));
+  } else {
+    next();
+  }
+});
+viewsRouter.use('/:view', (req, res, next) => {
+  const { view } = req.params;
+  if (!view.includes('.')) {
+    res.sendFile(path.join(__dirname, `../views/${view}/${view}.html`));
+  } else {
+    next();
+  }
+});
 
 module.exports = viewsRouter;
