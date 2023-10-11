@@ -1,4 +1,16 @@
 export const products = [
+  // {
+  //   productId,
+  //   basketId,
+  //   name,
+  //   mainImage,
+  //   option: {
+  //     color,
+  //     size,
+  //   },
+  //   quantity,
+  //   price: productPrice,
+  // },
   {
     name: 'Destroyed Love Safely Semi-crop Sweatshirt_Grey',
     option: {
