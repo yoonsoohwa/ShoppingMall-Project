@@ -66,25 +66,25 @@ async function checkLogin() {
     // 로그인 여부 클릭 이벤트
     if (isLoggedIn) {
       accMypage.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/mypage.html';
+        window.location.href = '/mypage';
       });
       accOrder.addEventListener('click', () => {
-        window.location.href = '/views/pages/Orderpage/order.html';
+        window.location.href = '/order';
       });
       userIcon.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/mypage.html';
+        window.location.href = '/mypage';
       });
     } else {
       accMypage.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/login.html';
+        window.location.href = '/login';
       });
       accOrder.addEventListener('click', () => {
         if (confirm('비회원으로 주문조회 하시겠습니까?')) {
-          window.location.href = '/views/pages/Loginpage/unuser.html';
+          window.location.href = '/views/pages/login/unuser.html';
         }
       });
       userIcon.addEventListener('click', () => {
-        window.location.href = '/views/pages/Loginpage/login.html';
+        window.location.href = '/login';
       });
     }
   } catch (error) {

@@ -16,5 +16,6 @@ viewsRouter.use('/category', serveStatic('category'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/order', serveStatic('order'));
 viewsRouter.use('/product', serveStatic('product'));
+viewsRouter.use('/mypage', serveStatic('mypage'));
 
 module.exports = viewsRouter;
