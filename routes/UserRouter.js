@@ -31,12 +31,12 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const { token, refreshToken } = await UserService.login({ email, password });
+    const { token, refreshToken, user } = await UserService.login({ email, password });
     // 액세스 토큰, 리프레시 토큰을 쿠키에 저장
     res.cookie('token', token, { httpOnly: true }); // 쿠키에 접근할 수 없게 함
     res.cookie('refreshToken', refreshToken, { httpOnly: true });
 
-    res.status(200).json({ message: '로그인 되었습니다.' });
+    res.status(200).json({ message: '로그인 되었습니다.', user });
   } catch (err) {
     next(err);
   }
