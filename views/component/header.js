@@ -36,6 +36,14 @@ const pListGroup = document.querySelector('.product .dropdown-menu');
 const aListGroup = document.querySelector('.account .dropdown-menu');
 
 /* product 카테고리 추가 */
+const categoryList = ['All', 'Top', 'Outer', 'Bottom', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'];
+for (let i = 0; i < categoryList.length; i++) {
+  const item = `
+        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
+      `;
+  pListGroup.insertAdjacentHTML('beforeend', item);
+}
+/*
 async function getCategory() {
   try {
     const res = await fetch('http://localhost:5001/api/v1/categories');
@@ -44,15 +52,16 @@ async function getCategory() {
 
     for (let i = 0; i < categoryList.length; i++) {
       const item = `
-        <li><a class="dropdown-item" href="/category/${categoryList[i]}">${categoryList[i]}</a></li>
+        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
       `;
       pListGroup.insertAdjacentHTML('beforeend', item);
     }
   } catch (error) {
-    // alert('데이터를 가져오는 중 에러 발생:', error);
+    alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 getCategory();
+*/
 
 /* account 카테고리 추가 */
 const accountText = `
@@ -61,7 +70,6 @@ const accountText = `
 `;
 aListGroup.insertAdjacentHTML('beforeend', accountText);
 
-/* mypage => login, orderpage => 비회원 login */
 const accMypage = document.querySelector('.my');
 const accOrder = document.querySelector('.order');
 const userIcon = document.querySelector('bi-person');
@@ -100,7 +108,7 @@ async function checkLogin() {
       });
     }
   } catch (error) {
-    // alert('데이터를 가져오는 중 에러 발생:', error);
+    alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 checkLogin();
