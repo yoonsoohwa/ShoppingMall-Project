@@ -111,7 +111,7 @@ function getOrderItems() {
   // sessionStorage 에서 주문상품 가져오기
   const datas = JSON.parse(sessionStorage.getItem('order'));
   datas.forEach((data) => {
-    const { id, mainImage, name, option, quantity, price } = data;
+    const { productId, mainImage, name, option, quantity, price } = data;
     const { color, size } = option;
     const total = price * quantity;
     let optionText = '';
@@ -129,7 +129,7 @@ function getOrderItems() {
 
     const itemHtml = `
       <div class="product mt-1 d-flex align-items-center" style="border: 1px solid #c0c0c0">
-        <div class="pro-id" style="display: none;">${id}</div>
+        <div class="pro-id" style="display: none;">${productId}</div>
         <div class="pro-img">
           <img src="${mainImage}" width="100px" height="100px">
         </div>
@@ -143,7 +143,7 @@ function getOrderItems() {
           </li>
           <div class="pro-price mt-2">${total.toLocaleString('ko-KR')}</div>
         </div>
-        <button type="button" class="btn-close" aria-label="Close" data-product-id="${id}"></button>
+        <button type="button" class="btn-close" aria-label="Close" data-product-id="${productId}"></button>
       </div>
     `;
     products.insertAdjacentHTML('beforeend', itemHtml);
