@@ -20,7 +20,6 @@ function Footer() {
           Email. kdp@elice.io<br/>
           Git-Lab. <a href="https://kdt-gitlab.elice.io/sw_track/class_06/web_project/team02/shopping_project_2team" style="color: #808080">team2</a><br/>
           BUSINESS LICENSE: 123-45-67890<br/>
-          Sources: <br/>
           Copyright ⓒ 2023 RE: Birth All rights reserved.<br/>
         </p>
       </div>
