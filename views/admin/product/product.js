@@ -128,7 +128,7 @@ document.addEventListener('click', (e) => {
 
     // 쿼리스트링 사용 > id 값이 일치하는 데이터 값을 modify.html로 불러옴
     // 데이터를 URL 매개변수로 인코딩하여 수정 페이지로 전달
-    const modify = './modify.html';
+    const modify = '/admin/product/modify';
     const queryParams = `?${productId}`;
     const modifyPageURL = `${modify}${queryParams}`;
 

@@ -185,7 +185,7 @@ async function handleSubmit(e) {
     if (res.status === 200) {
       const result = await res.json();
       alert(result.message);
-      window.location.href = '/order/product'; // 상품 목록 페이지로 이동
+      window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
       alert('수정 요청 실패:', res.status);
     }
