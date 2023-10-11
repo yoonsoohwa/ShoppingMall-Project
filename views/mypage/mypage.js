@@ -14,6 +14,18 @@ const categoryContainer = document.querySelector('.mypage-controller-container')
 const infoContainer = document.querySelector('.mypage-info-container');
 const logoutButton = document.querySelector('.logout');
 
+fetch('/api/v1/users//check-login', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+})
+.then(response => response.json())
+// .then(data => infoContainer.innerHTML = `${data}`)
+.then(data => console.log(data))
+.catch(error => console.error('Error', error))
+
+
 getInfoButton.addEventListener('click', () => {
     infoContainer.innerHTML = ''; // 정보 초기화
     //     infoContainer.innerHTML = `
@@ -21,7 +33,7 @@ getInfoButton.addEventListener('click', () => {
     //         정보를 성공적으로 불러왔습니다.
     //     </span>
     // `
-    fetch('/api/v1/users/id:65241438c3ac82217038b684', {
+    fetch('/api/v1/users/65241438c3ac82217038b684', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

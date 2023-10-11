@@ -76,7 +76,7 @@ async function checkLogin() {
       });
     } else {
       accMypage.addEventListener('click', () => {
-        window.location.href = '/login';
+        window.location.href = '/mypage';  //login으로 변경
       });
       accOrder.addEventListener('click', () => {
         if (confirm('비회원으로 주문조회 하시겠습니까?')) {
