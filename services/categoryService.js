@@ -43,6 +43,14 @@ class CategoryService {
 
     return deletedCategory;
   }
+
+  async getProductsPagination(id, page, limit) {
+    const skip = (page - 1) * limit;
+    const totalProducts = await Item.countDocuments({ category: id });
+    const totalPages = Math.ceil(totalProducts / limit);
+    const products = await Item.find({ category: id }).skip(skip).limit(limit);
+    return { items: products, totalPages };
+  }
 }
 
 module.exports = new CategoryService();

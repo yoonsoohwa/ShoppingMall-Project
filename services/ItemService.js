@@ -8,7 +8,7 @@ class ItemService {
   }
 
   async getItemById(id) {
-    const item = await Item.findById(id).exec();
+    const item = await Item.findById(id);
     return item;
   }
 

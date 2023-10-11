@@ -73,4 +73,20 @@ categoryRouter.delete('/:id', async (req, res, next) => {
   }
 });
 
+// GET /api/v1/categories/:id/items/:page/:limit - 특정 카테고리의 상품들 불러오기 (id:category 값)
+categoryRouter.get('/:id/items/:page/:limit', async (req, res, next) => {
+  const { id, page = 1, limit = 20 } = req.params;
+  try {
+    const productsInCategory = await categoryService.getProductsPagination(id, page, limit);
+    res.status(200).json({
+      message: '페이지별 카테고리 아이템 조회가 성공적으로 이뤄졌습니다.',
+      items: productsInCategory.items, // 해당 카테고리의 아이템 목록을 반환
+      currentPage: page,
+      totalPages: productsInCategory.totalPages,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = categoryRouter;
