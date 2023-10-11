@@ -1,0 +1,17 @@
+a {
+  color: black;
+}
+.slide-background {
+  width: 100%;
+
+  margin: 0 auto;
+  overflow: hidden;
+}
+.slideshow-image {
+  height: 95vh;
+  display: none;
+}
+.slideshow-image.on {
+  display: block;
+  width: 100%;
+}
