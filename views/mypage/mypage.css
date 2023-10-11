@@ -44,11 +44,61 @@
 }
 
 .mypage-info-container {
+  padding: 50px 0 0 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #ffffff;
   height: 600px;
   border-radius: 30px;
+}
+
+.table-container {
+  display: flex;
+}
+
+.confirm-button-container {
+  position: absolute;
+  bottom: 10%;
+  left: 45%;
+}
+
+.confirm-button {
+  background-color: #ffffff;
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.confirm-button:hover {
+  background-color: #c0c0c0;
+}
+
+.cancel-button {
+  background-color: #f34336;
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #f34336;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.cancel-button:hover {
+  background-color: #ff0000;
+}
+
+.quit-button {
+  position: absolute;
+  bottom: 10%;
+  left: 55%;
+  background-color: #f34336;
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #f34336;
+  border-radius: 10px;
+  transition: 0.5s;
 }

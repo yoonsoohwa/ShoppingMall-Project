@@ -2,7 +2,7 @@ function Header() {
   const headerText = `
     <nav id="header" class="navbar navbar-expand-sm d-flex justify-content-center">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img src='https://ifh.cc/g/7vx729.png'></a>
+        <a class="navbar-brand" href="/"><img src='https://ifh.cc/g/7vx729.png'></a>
         <div class="collapse navbar-collapse ms-4 justify-content-between" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="product nav-item dropdown me-4">
