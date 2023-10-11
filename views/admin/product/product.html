@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re: birth</title>
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../admin.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="sidebar-container"></div>
+
+      <!-- 본문 -->
+      <div class="section p-5">
+        <div class="title mb-2">
+          <h2>상품 목록</h2>
+        </div>
+        <div class="p-state">
+          <p class="total"></p>
+        </div>
+        <div class="p-delete">
+          <button type="button" class="pro-delete btn btn-secondary btn-sm">삭제</button>
+        </div>
+        <div class="board pt-2">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><input class="form-check-input" type="checkbox" id="check-all" /></th>
+                <th scope="col">상품코드</th>
+                <th scope="col">카테고리</th>
+                <th scope="col">이미지</th>
+                <th scope="col">상품명</th>
+                <th scope="col">가격</th>
+                <th scope="col">옵션</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <!-- 상품 목록 -->
+            <tbody id="table-body">
+              <!-- 예시 데이터 -->
+              <!-- <tr>
+              <td><input class="form-check-input" type="checkbox" id="check-item"></td>
+              <td id="product-id">P0001</td>
+              <td id="product-category">Bag</td>
+              <td id="product-image"><img src="//ulkin.co.kr/web/product/small/202309/19b4596d0e91c03d535b4da0cbff8d5b.jpg" class="img-fluid"></td>
+              <td id="product-name">Cross Tote Bag</td>
+              <td id="product-price">99,000</td>
+              <td id="product-option">color: ["black"]<br/>size: ["free"]</td>
+              <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
+            </tr>
+            <tr>
+              <td><input class="form-check-input" type="checkbox" id="check-item"></td>
+              <td id="product-id">P0002</td>
+              <td id="product-category">Top</td>
+              <td id="product-image"><img src="//ulkin.co.kr/web/product/small/202309/8ca0a851ac20665b7f035397019ed157.jpg" class="img-fluid"></td>
+              <td id="product-name">Destroyed Love Safely Semi-crop Sweatshirt_Grey</td>
+              <td id="product-price">84,000</td>
+              <td id="product-option">color: ["gray","white","black"]<br/>size: ["S","M","L","XL","XXL"]</td>
+              <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
+            </tr>
+            <tr>
+              <td><input class="form-check-input" type="checkbox" id="check-item"></td>
+              <td id="product-id">P0003</td>
+              <td id="product-category">Top</td>
+              <td id="product-image"><img src="//m.ulkin.co.kr/web/product/medium/202307/f33f230d34c9cfa9e37582a59cd9c00e.jpg" class="img-fluid"></td>
+              <td id="product-name">MUGUNG Applique Bleach Washed T-shirt_Black</td>
+              <td id="product-price">140,000</td>
+              <td id="product-option">color: ["black","white"]<br/>["XS","S","M","L","XL","XXL"]</td>
+              <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
+            </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="../sidebar.js" type="module"></script>
+    <script src="./product.js" defer></script>
+  </body>
+</html>

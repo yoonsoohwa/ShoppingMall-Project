@@ -1,0 +1,164 @@
+.pagination {
+  --bs-pagination-active-bg: #f5f5dc;
+  --bs-pagination-active-border-color: #f5f5dc;
+  --bs-pagination-border-color: #f5f5dc;
+  --bs-pagination-color: #333;
+  --bs-pagination-hover-color: #333;
+}
+
+/* 장바구니 공통 css */
+
+.order-wrap {
+  width: 100%;
+  display: block;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#bag-icon {
+  display: block;
+  margin-top: 30px;
+  margin-left: 10px;
+  font-size: 40px;
+}
+
+.btn {
+  margin: 5px !important;
+}
+
+.order-count {
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+/* 채워진 장바구니 */
+
+.orderdiv {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.orderdiv .row.head {
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.orderdiv .row.data {
+  border-bottom: 1px dashed #888;
+  box-sizing: border-box;
+  line-height: 40px;
+  display: flex;
+}
+
+.orderdiv .row .subdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.orderdiv .row.head .subdiv {
+  padding: 12px 0;
+}
+
+.orderdiv .row.data .subdiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 0;
+}
+
+.orderdiv .row .subdiv:nth-child(1) {
+  width: 50%;
+}
+
+.orderdiv .row .subdiv:nth-child(2) {
+  width: 50%;
+}
+
+.orderdiv .row > div > div {
+  flex-direction: row;
+  text-align: center;
+  margin: 0;
+}
+
+/* 첫번째 블록 */
+
+#order-date-wrap {
+  width: 33%;
+}
+
+#order-img {
+  width: 33%;
+}
+
+#order-pname {
+  width: 33%;
+}
+
+/* 두번째 블록 */
+#order-num {
+  width: 20%;
+}
+
+#order-price {
+  width: 40%;
+}
+
+#order-status {
+  width: 40%;
+}
+
+/* 페이지네이션 */
+
+.page-item-container li .page-link {
+  color: #333;
+}
+
+.page-item-container > li {
+  cursor: pointer;
+}
+
+.page-link {
+  border-left: none;
+}
+
+.page-item > a {
+  border-left: 1px solid #f5f5dc;
+}
+.next .page-link span {
+  color: #d5d59c;
+}
+.prev .page-link span {
+  color: #d5d59c;
+}
+.page-item-container {
+  display: flex;
+}
+
+/* .page-item:first-child .page-link {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+} */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re: birth</title>
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../admin.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="sidebar-container"></div>
+
+      <!-- 본문 -->
+      <div class="section p-5">
+        <div class="title mb-2">
+          <h2><strong>상품정보 수정</strong></h2>
+        </div>
+        <div class="board pt-2">
+          <table class="table">
+            <thead>
+              <tr></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">상품코드</th>
+                <td id="m-product-id">
+                  <p id="pro-id"></p>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="bi bi-asterisk mt-0"></i>카테고리</th>
+                <td id="m-product-category">
+                  <select class="form-select w-50" id="m-category-input" aria-label="Default select example">
+                    <option value="Top">Top</option>
+                    <option value="Outer">Outer</option>
+                    <option value="Bottom">Bottom</option>
+                    <option value="Dress">Dress</option>
+                    <option value="Bag">Bag</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Hat">Hat</option>
+                    <option value="Acc">Acc</option>
+                    <option value="Etc">Etc</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">이미지</th>
+                <td id="m-product-img">
+                  <div id="m-product-image">
+                    <p class="mb-1"><i class="bi bi-asterisk"></i>대표 이미지</p>
+                    <input class="input form-control w-50 mb-2" type="file" id="m-img-input" accept="image/*" />
+                    <div id="image-preview"></div>
+                  </div>
+                  <div id="m-product-detail-image" class="mt-2">
+                    <p class="mb-1">상세 이미지</p>
+                    <span class="help">* 이미지 용량의 최대 크기는 "5MB" 입니다.</span>
+                    <input
+                      type="file"
+                      class="input form-control w-50 mb-2"
+                      id="m-detail-img-input"
+                      multiple
+                      accept="image/*"
+                    /><br />
+                    <div id="detail-image-preview"></div>
+                    <button type="button" class="delete-detimg btn btn-secondary btn-sm mt-2" style="display: none">
+                      삭제
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="bi bi-asterisk"></i>상품명</th>
+                <td id="m-product-name">
+                  <input class="input form-control w-50" id="m-name-input" type="text" placeholder="" />
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><i class="bi bi-asterisk"></i>가격</th>
+                <td id="m-product-price">
+                  <input class="input form-control w-50" id="m-price-input" type="text" placeholder="" />
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">옵션</th>
+                <td id="m-product-option">
+                  <div id="m-product-color">
+                    색상<br /><span class="help">* 2개이상이면 쉼표를 사용하여 입력하세요. ex) black, white, pink</span>
+                    <input class="input form-control w-50 mb-2" id="m-color-input" type="text" placeholder="" />
+                  </div>
+                  <div id="m-product-size">
+                    사이즈<br /><span class="help">* 2개이상이면 쉼표를 사용하여 입력하세요. ex) S, M, L</span>
+                    <input class="input form-control w-50" id="m-size-input" type="text" placeholder="" />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">상품설명</th>
+                <td id="m-product-content">
+                  <input class="input form-control w-50" id="m-content-input" type="text" placeholder="" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-dark submit float-end">등록하기</button>
+        </div>
+      </div>
+    </div>
+    <script src="../sidebar.js" type="module"></script>
+    <script src="./modify.js" defer></script>
+  </body>
+</html>

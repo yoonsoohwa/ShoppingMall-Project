@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basket</title>
+    <!-- 부트스트랩 연결이에용 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <!-- 부트스트랩 아이콘 연결이에용 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <!-- 공통 부트스트랩 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <!-- 폰트 연결이에용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="/views/component/style.css" />
+
+    <!-- css 연결이에용 -->
+    <link rel="stylesheet" href="/views/basket/basket.css" />
+    <!-- index js -->
+
+    <script type="module" src="/views/basket/index.js" defer></script>
+    <script type="module" src="/views/basket/addBasket.js"></script>
+    <script type="module" src="/views/basket/bottom.js"></script>
+  </head>
+
+  <body>
+    <div id="header-container"></div>
+    <script src="/views/component/header.js"></script>
+
+    <!-- 장바구니가 비어있습니다. -->
+    <div class="empty">
+      <i class="bi bi-bag" id="bag-icon"></i>
+
+      <div class="wrap">
+        <div class="empty-container">
+          <div class="cart-empty">
+            <p class="empty-word">장바구니가 비어있습니다.</p>
+            <i class="bi bi-cart"></i>
+            <a href="/views/pages/Categorypage/category.html" class="btn btn-light btn-retry">쇼핑 계속하기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 장바구니가 채워져있음 -->
+    <div class="has">
+      <i class="bi bi-bag" id="bag-icon"></i>
+      <p class="basket-count">상품()</p>
+
+      <div class="basketdiv" id="basket">
+        <!-- 칼럼명 -->
+        <div class="row head">
+          <div class="subdiv">
+            <!-- 첫번째 블록 -->
+            <!-- 체크박스 -->
+            <div class="all-check">
+              <input class="form-check-input select-all" type="checkbox" id="flexCheckDefault" />
+            </div>
+
+            <div class="img">이미지</div>
+            <div class="pname">상품</div>
+            <div class="num">수량</div>
+          </div>
+          <!-- 두번째 블록 -->
+          <div class="subdiv">
+            <div class="price">판매가</div>
+            <div class="delivery">배송비</div>
+            <div class="sum">합계</div>
+          </div>
+          <!-- 세번째 블록 -->
+          <div class="subdiv">
+            <div class="basketcmd">선택</div>
+          </div>
+        </div>
+
+        <!-- 장바구니에 넣은 상품 목록 -->
+        <div class="basket-wrapper" id="product-list"></div>
+      </div>
+
+      <!-- 삭제 부분 -->
+      <div class="right-align basketrowcmd">
+        <button type="button" class="btn btn-light" id="select-delete">선택 상품 삭제</button>
+        <button type="button" class="btn btn-light" id="clear-cart">장바구니 비우기</button>
+      </div>
+
+      <!-- 상품 합계 금액 부분 -->
+
+      <div class="bottom-total-container">
+        <div class="total-header-wrap container text-center">
+          <div class="total-row">
+            <div class="goods-price col-4">총 상품 금액</div>
+            <div class="delivery-price col-2">총 배송비</div>
+            <div class="total-price col-4">총 결제 금액</div>
+          </div>
+        </div>
+        <div class="total-data-wrap container container text-center total-wrapper"></div>
+      </div>
+
+      <div id="goorder" class="">
+        <div class="clear"></div>
+        <div class="buttongroup center-align cmd" id="bottom-order-btn">
+          <a href="/views/pages/Orderpage/payment.html" class="btn btn-dark" id="all-order">전체 상품 주문</a>
+          <!-- <button id="addProduct">장바구니 상품 추가</button> -->
+          <a href="/views/pages/Orderpage/payment.html" class="btn btn-dark" id="select-order">선택 상품 주문</a>
+        </div>
+      </div>
+
+      <!-- 모달 -->
+      <div id="modal-container" class="hidden">
+        <div id="modal-content">
+          <div class="modal-content-head">
+            <p>옵션 변경</p>
+            <button type="button" class="btn-bg-none">
+              <i class="bi bi-x" id="modal-close-button"></i>
+            </button>
+          </div>
+          <div class="modal-content-inner">
+            <div class="goods-name">Name</div>
+            <div class="option-choice-group">
+              <div class="option-choice">
+                <p id="first-opt">color</p>
+                <select id="color-select" class="form-select form-select-sm" aria-label="Small select example" required>
+                  <option selected>-[필수] 옵션을 선택해주세요-</option>
+                </select>
+              </div>
+              <div class="option-choice">
+                <p id="second-opt">size</p>
+                <select id="size-select" class="form-select form-select-sm" aria-label="Small select example">
+                  <option selected>-[필수] 옵션을 선택해주세요-</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div id="btn-grp">
+            <button type="button" class="btn btn-light opt-btn" id="modal-add-button">추가</button>
+            <button type="button" class="btn btn-light opt-btn" id="modal-change-button">변경</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide">
+      <div class="guide-head">
+        <p>이용안내</p>
+      </div>
+      <div class="guide-word">
+        <p>장바구니 이용안내</p>
+        <li>흑흑 이렇게 하는거 맞나</li>
+        <li>너무 어려워 엉엉</li>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="footer-container"></div>
+    <script src="/views/component/footer.js"></script>
+  </body>
+</html>
