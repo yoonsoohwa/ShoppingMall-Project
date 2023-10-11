@@ -341,7 +341,93 @@ modalChangeButton.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
-///
+///////
+
+////옵션 추가
+document.addEventListener('DOMContentLoaded', function () {
+  // 모달 열기 버튼 클릭 이벤트 핸들러
+  document.getElementById('modal-open-button').addEventListener('click', function () {
+    // 모달 열 때 선택된 상품 정보를 가져와서 모달 내용 업데이트
+    const selectedProductName = this.getAttribute('data-product-name');
+    const selectedProduct = products.find((product) => product.name === selectedProductName);
+
+    // 모달 내용 업데이트
+    const modalProductName = document.querySelector('.goods-name');
+    modalProductName.innerText = selectedProductName;
+
+    const colorSelect = document.getElementById('color-select');
+    const sizeSelect = document.getElementById('size-select');
+
+    // 옵션 선택 상자 초기화
+    colorSelect.innerHTML =
+      '<option value="-[필수] 옵션을 선택해주세요-" selected>-[필수] 옵션을 선택해주세요-</option>';
+    sizeSelect.innerHTML =
+      '<option value="-[필수] 옵션을 선택해주세요-" selected>-[필수] 옵션을 선택해주세요-</option>';
+
+    // 색상 옵션 추가
+    selectedProduct.option.color.forEach((color) => {
+      const option = document.createElement('option');
+      option.value = color;
+      option.innerText = color;
+      colorSelect.appendChild(option);
+    });
+
+    // 사이즈 옵션 추가
+    selectedProduct.option.size.forEach((size) => {
+      const option = document.createElement('option');
+      option.value = size;
+      option.innerText = size;
+      sizeSelect.appendChild(option);
+    });
+
+    // 모달 열기
+    const modalContainer = document.getElementById('modal-container');
+    modalContainer.classList.remove('hidden');
+  });
+
+  // 모달 닫기 버튼 클릭 이벤트 핸들러
+  document.getElementById('modal-close-button').addEventListener('click', function () {
+    // 모달 초기화
+    const modalContainer = document.getElementById('modal-container');
+    modalContainer.classList.add('hidden');
+  });
+
+  // 모달 추가 버튼 클릭 이벤트 핸들러
+  document.getElementById('modal-add-button').addEventListener('click', function () {
+    const selectedProductName = document.querySelector('.goods-name').innerText;
+    const selectedColor = document.getElementById('color-select').value;
+    const selectedSize = document.getElementById('size-select').value;
+
+    // 필수 옵션을 선택했는지 확인
+    if (selectedColor === '-[필수] 옵션을 선택해주세요-' || selectedSize === '-[필수] 옵션을 선택해주세요-') {
+      alert('색상과 사이즈를 선택해주세요.');
+      return;
+    }
+
+    // 선택한 옵션으로 새로운 상품 생성
+    const newProduct = {
+      name: selectedProductName,
+      option: {
+        color: selectedColor,
+        size: selectedSize,
+      },
+      // 상품의 가격 및 이미지 URL 등 다른 속성은 필요에 따라 추가
+    };
+
+    // 장바구니에 새 상품 추가
+    baskets.push(newProduct);
+    localStorage.setItem('basket', JSON.stringify(baskets));
+
+    // 모달 닫기
+    const modalContainer = document.getElementById('modal-container');
+    modalContainer.classList.add('hidden');
+
+    // 장바구니 다시 그리기
+    drawBasket();
+  });
+});
+
+/////////////
 
 export const drawBasket = () => {
   const basketWrapperElement = document.querySelector('.basket-wrapper');
@@ -386,7 +472,7 @@ export const drawBasket = () => {
 
       <!-- 두번째 블록 -->
       <div class="subdiv">
-        <div class="price">${product.price.toLocaleString('en')}원</div>
+        <div class="price">${Number(product.price).toLocaleString('en')}원</div>
         <div class="delivery">무료</div>
         <div class="sum">${totalPrice.toLocaleString('en')}원</div>
         
@@ -434,11 +520,9 @@ export const drawBasket = () => {
     countDownButton.addEventListener('click', () => upDown('DOWN', inputElements, index));
   });
 
-  ////////
-
   // 모달
-  const modalOpenButtons = document.querySelectorAll('#modal-open-button');
-  const modalCloseButtons = document.querySelectorAll('#modal-close-button');
+  const modalOpenButtons = basketWrapperElement.querySelectorAll('#modal-open-button');
+  const modalCloseButtons = basketWrapperElement.querySelectorAll('#modal-close-button');
 
   modalOpenButtons.forEach((modalOpen) => {
     modalOpen.addEventListener('click', (e) => {
