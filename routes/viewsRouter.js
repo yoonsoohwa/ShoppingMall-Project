@@ -4,7 +4,7 @@ const path = require('path');
 const viewsRouter = express.Router();
 
 function serveStatic(resource) {
-  const resourcePath = path.join(__dirname, `views/${resource}`);
+  const resourcePath = path.join(__dirname, `../views/${resource}`);
   const option = { index: `${resource}.html` };
   return express.static(resourcePath, option);
 }
