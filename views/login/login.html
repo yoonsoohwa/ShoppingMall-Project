@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re: birth</title>
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="./login.css" />
+  </head>
+  <body style="background-color: rgba(249, 248, 244, 1)">
+    <div class="login-wrap m-auto w-100">
+      <div class="login-html w-100 h-100">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked /><label for="tab-1" class="tab"
+          >Sign In</label
+        >
+        <input id="tab-2" type="radio" name="tab" class="sign-up" /><label for="tab-2" class="tab">Sign Up</label>
+        <!-- login -->
+        <div class="login-form">
+          <div class="sign-in-htm mt-4">
+            <div class="group mb-3">
+              <label for="logEmailInput" class="label mb-2">Email</label>
+              <input id="logEmailInput" type="email" class="input" />
+            </div>
+            <div class="group mb-5">
+              <label for="logPasswordInput" class="label mb-2">Password</label>
+              <input id="logPasswordInput" type="password" class="input" data-type="password" />
+            </div>
+            <div class="group">
+              <input type="submit" class="button" value="Sign In" />
+            </div>
+          </div>
+          <!-- sign up -->
+          <div class="sign-up-htm mt-2">
+            <div class="group mb-2">
+              <label for="nameInput" class="label">Username</label>
+              <input id="nameInput" type="text" class="input" placeholder="김원빈" />
+            </div>
+            <div class="group mb-2">
+              <label for="EmailInput" class="label">Email Address</label>
+              <input id="EmailInput" type="email" class="input" placeholder="abc@example.com" />
+            </div>
+            <div class="group mb-2">
+              <label for="phoneNumberInput" class="label">Phone Number</label>
+              <input id="phoneNumberInput" type="text" class="input" placeholder="'-' 를 제외하고 입력하세요" />
+            </div>
+            <div class="group mb-2">
+              <label for="passwordInput" class="label">Password</label>
+              <input
+                id="passwordInput"
+                type="password"
+                class="input"
+                data-type="password"
+                placeholder="영문, 숫자, 특수문자 중 3개 이상 조합하여 8~20자를 입력하세요"
+              />
+            </div>
+            <div class="group mb-4">
+              <label for="passwordConfirmInput" class="label">Confirm Password</label>
+              <input
+                id="passwordConfirmInput"
+                type="password"
+                class="input"
+                data-type="password"
+                placeholder="비밀번호를 한번 더 입력하세요"
+              />
+            </div>
+            <div class="group">
+              <input type="submit" class="button" value="Sign Up" />
+            </div>
+            <div class="foot-lnk mt-3">
+              <label for="tab-1" style="color: black">Already Member?</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

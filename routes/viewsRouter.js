@@ -9,7 +9,7 @@ function serveStatic(resource) {
   return express.static(resourcePath, option);
 }
 
-viewsRouter.use('/', serveStatic('index'));
+viewsRouter.use('/', express.static('views'));
 viewsRouter.use('/admin', serveStatic('admin'));
 viewsRouter.use('/basket', serveStatic('basket'));
 viewsRouter.use('/category', serveStatic('category'));
