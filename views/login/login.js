@@ -38,6 +38,7 @@ async function handleSigninSubmit(e) {
     const result = await res.json();
     if (res.status === 200) {
       alert(result.message);
+      window.location.href = '/views/'; // main page로 이동
     } else {
       alert(result.message);
     }
@@ -134,6 +135,7 @@ async function handleSignupSubmit(e) {
     const result = await res.json();
     if (res.status === 201) {
       alert(result.message);
+      document.getElementById('tab-1').checked = true;
     } else {
       alert(result.message);
     }
@@ -141,6 +143,8 @@ async function handleSignupSubmit(e) {
     alert('요청 오류:', error);
   }
 }
+
+/* --------------------------------------------- */
 
 /* 유효성 검사 */
 
