@@ -1,5 +1,3 @@
-// services/categoryService.js
-
 /* eslint-disable class-methods-use-this */
 const { NotFoundError } = require('../common/NotFoundError');
 const Category = require('../models/Category');
@@ -13,9 +11,9 @@ class CategoryService {
     return products;
   }
 
-  async createCategories(names) {
-    const newCategories = await Category.create(names.map((name) => ({ names: [name] })));
-    return newCategories;
+  async createCategory(name) {
+    const newCategory = await Category.create({ name }); // 모델 필드 이름 수정
+    return newCategory;
   }
 
   async getAllCategories() {
@@ -24,9 +22,9 @@ class CategoryService {
     return categories;
   }
 
-  async updateCategory(id, names) {
+  async updateCategory(id, name) {
     // 카테고리 업데이트 , id로 name 업데이트(?)
-    const updatedCategory = await Category.findByIdAndUpdate(id, { names }, { new: true });
+    const updatedCategory = await Category.findByIdAndUpdate(id, { name }, { new: true });
 
     if (!updatedCategory) {
       throw new NotFoundError('해당 카테고리를 찾을 수 없습니다.');
