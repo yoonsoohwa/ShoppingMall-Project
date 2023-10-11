@@ -16,6 +16,8 @@ let optionNum = 0;
 let productPrice;
 let mainImage;
 let productName;
+let productId;
+let basketId = 0;
 
 // 총 가격 및 수량 설정
 function setTotal() {
@@ -163,14 +165,14 @@ function isColorSelected() {
 
 // 상품 이미지 설정
 function setImage(image, detailImage) {
-  mainImage = image;
-  detailImage.unshift(image);
+    mainImage = image;
+    detailImage.unshift(image);
 
-  detailImage.forEach((img) => {
-    const imageEl = document.createElement('img');
-    imageEl.setAttribute('src', img);
-    productImageEl.appendChild(imageEl);
-  });
+    detailImage.forEach((img) => {
+        const imageEl = document.createElement('img');
+        imageEl.setAttribute('src', img);
+        productImageEl.appendChild(imageEl);
+    });
 }
 
 // 상품 정보 설정
@@ -257,34 +259,33 @@ function convertItemsToProductList(items) {
       size = options.replace('-').trim();
     }
 
-    const data = {
-      name,
-      mainImage,
-      option: {
-        color,
-        size,
-      },
-      quantity,
-      price: productPrice,
-    };
+        const data = {
+            name,
+            mainImage,
+            option: {
+                color,
+                size,
+            },
+            quantity,
+            price: productPrice,
+        }
 
-    list.push(data);
-    return list;
-  }, []);
+        list.push(data);
+        return list;
+    }, []);
 }
 
 // 장바구니 버튼 클릭시 실행
 function addToCart() {
   const items = Array.from(document.querySelectorAll('#selected-list > tr'));
 
-  if (items.length === 0) {
-    // eslint-disable-next-line no-alert
-<<<<<<< HEAD:views/js/product/product.js
-    alert('필수 옵션을 선택해주세요.');
-    return;
-  }
-  const itemList = convertItemsToProductList(items);
-  const basket = JSON.parse(localStorage.getItem('basket'));
+    if (items.length === 0) {
+        // eslint-disable-next-line no-alert
+        alert('필수 옵션을 선택해주세요.');
+        return;
+    }
+    const itemList = convertItemsToProductList(items);
+    const basket = JSON.parse(localStorage.getItem('basket'));
 
   if (basket === null) {
     localStorage.setItem('basket', JSON.stringify(itemList));
@@ -299,7 +300,7 @@ function addToCart() {
   }
 =======
     if (!window.confirm('쇼핑을 계속하시겠습니까?')) {
-        window.location.href = '/views/pages/Basketpage/basket.html';
+        window.location.href = '/views/basket/basket.html';
     }
 >>>>>>> 4745ca9701b3fceca30708ee77235c7a81ed2381:views/product/product.js
 }
@@ -307,13 +308,12 @@ function addToCart() {
 function redirectToOrderPage() {
   const items = Array.from(document.querySelectorAll('#selected-list > tr'));
 
-  if (items.length === 0) {
-    // eslint-disable-next-line no-alert
-<<<<<<< HEAD:views/js/product/product.js
-    alert('필수 옵션을 선택해주세요.');
-    return;
-  }
-  const itemList = convertItemsToProductList(items);
+    if (items.length === 0) {
+        // eslint-disable-next-line no-alert
+        alert('필수 옵션을 선택해주세요.');
+        return;
+    }
+    const itemList = convertItemsToProductList(items);
 
   // eslint-disable-next-line no-alert
   if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
@@ -325,27 +325,20 @@ function redirectToOrderPage() {
     if (window.confirm('선택한 상품을 구매하시겠습니까?')) {
         sessionStorage.setItem('order', JSON.stringify(itemList));
         // eslint-disable-next-line no-alert
-        window.location.href = '/views/pages/Orderpage/payment.html';
+        window.location.href = '/views/payment/payment.html';
     }
 >>>>>>> 4745ca9701b3fceca30708ee77235c7a81ed2381:views/product/product.js
 }
 
 // 특정 상품의 정보데이터 받아오기
 async function insertProductElement() {
-<<<<<<< HEAD:views/js/product/product.js
-  const url = '../../js/product/data.json'; // 임시 데이터
-  // const url = '';
-
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-=======
     // const url = '../../js/product/data.json';    // 임시 데이터
     const url = '';
     const id = sessionStorage.getItem('selectedProductId');
 
     try {
-        const res = await fetch(`${url}/${id}`);
+        const res = await fetch(`${url}${productId}`);
+        // const res = await fetch('./data.json');
         const data = await res.json();
 >>>>>>> 4745ca9701b3fceca30708ee77235c7a81ed2381:views/product/product.js
 

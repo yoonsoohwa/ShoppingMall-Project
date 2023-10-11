@@ -20,18 +20,18 @@ const delDetailImgBtn = document.querySelector('.delete-detimg');
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
   try {
-    const res = await fetch(``);
+    const res = await fetch(`http://localhost:5001/api/v1/items/:${id}`);
     const data = await res.json();
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
     mCategory.value = data.category;
-    imagePreview.insertAdjacentHTML('beforeend', `<img src="${data.image}" style="max-width: 150px">`);
+    imagePreview.insertAdjacentHTML('beforeend', `<img src="${data.image.url}" style="max-width: 150px">`);
     data.detail_image.forEach((val) => {
       detailImagePreview.insertAdjacentHTML(
         'beforeend',
         `
           <div style="display: inline-block">
-            <img src="${val}" style="max-width: 150px">
+            <img src="${val.url}" style="max-width: 150px">
             <input type="checkbox" class="position-absolute" id="delete-check-btn">
           </div>
         `,
@@ -170,21 +170,22 @@ async function handleSubmit(e) {
   formData.append('price', Number(mPrice.value));
   formData.append('image', mainImage);
   for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detailImages', detailImages[i]);
+    formData.append('detail_image', detailImages[i]);
   }
   formData.append('option[color]', mColor.value.replace(/\s/g, '').split(','));
   formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
   formData.append('content', mContent.value);
 
-  const apiUrl = ``; // url 추가
+  const apiUrl = `http://localhost:5001/api/v1/items/:${queryId}`;
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
       body: formData,
     });
-    if (res.ok) {
-      alert('상품 수정이 완료되었습니다!');
-      // 상품목록 페이지(admin.html)로 이동 코드 추가
+    if (res.status === 200) {
+      const result = await res.json();
+      alert(result.message);
+      window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
       alert('수정 요청 실패:', res.status);
     }

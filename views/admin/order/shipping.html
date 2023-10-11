@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re: birth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Rubik&display=swap" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../admin.css" />
+    <link rel="stylesheet" href="../../component/style.css" />
+    <script src="../sidebar.js" defer></script>
+    <script src="./shipping.js" defer></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="sidebar-container"></div>
+      <div class="section p-5">
+        <div class="title mb-2">
+          <h2>배송중 관리</h2>
+        </div>
+        <div class="p-state">
+          <p id="total"></p>
+        </div>
+        <div class="board pt-2">
+          <table class="table table-hover text-center align-middle">
+            <thead>
+              <tr>
+                <th scope="col"><input class="form-check-input" type="checkbox" id="check-all" /></th>
+                <th scope="col">주문일</th>
+                <th scope="col">주문번호</th>
+                <th scope="col">주문자</th>
+                <th scope="col">상품명/옵션</th>
+                <th scope="col">수량</th>
+                <th scope="col">총 구매금액</th>
+              </tr>
+            </thead>
+            <tbody id="shipping-list" class="table-group-divider"></tbody>
+          </table>
+          <div class="text-end">
+            <button type="button" id="change-status" class="btn btn-secondary btn-sm">배송완료</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

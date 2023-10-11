@@ -20,22 +20,33 @@ const products = document.querySelector('.products');
 const sumInput = document.querySelector('#total-sum');
 const totalInput = document.querySelector('#total-pay');
 const submitBtn = document.querySelector('#submit-btn');
+const unuser = document.querySelector('#unuser-password');
 
 /* 뒤로가기 */
 goBackBtn.addEventListener('click', () => {
-  history.go(-1);
+  window.history.go(-1);
 });
 
-// 추후에 로그인 상태 확인 코드 추가 => isRegistered
-// 주문하기를 눌러서 결제창으로 이동했을 때, 로그인창으로 이동 or 비회원으로 주문하기
-const isRegistered = false; // 수정
+/* user인지 확인 */
+let isuser;
+async function checkLogin() {
+  try {
+    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
+    const data = await res.json();
+    const { isLoggedIn } = data.isLoggedIn;
 
-const unuser = document.querySelector('#unuser-password');
-if (!isRegistered) {
-  unuser.style.display = 'block';
-} else {
-  unuser.style.display = 'none';
+    if (isLoggedIn) {
+      isuser = true;
+    } else {
+      isuser = false;
+      // confirm창 확인 -> 그대로 주문/ 취소 -> login 페이지로 이동
+      confirm('비회원으로 주문하시겠습니까?') ? (unuser.style.display = 'block') : (window.location.href = '/login');
+    }
+  } catch (error) {
+    alert('데이터를 가져오는 중 에러 발생:', error);
+  }
 }
+checkLogin();
 
 /* radio btn value값 채워지기 */
 flexRadioDefault1.addEventListener('change', (e) => {
@@ -76,7 +87,6 @@ function searchAddress() {
         if (extraAddr !== '') {
           extraAddr = ` (${extraAddr})`;
         }
-      } else {
       }
 
       postalCodeInput.value = data.zonecode;
@@ -98,7 +108,7 @@ requestSelectBox.addEventListener('change', () => {
 
 /* 주문상품에 해당 상품 추가 */
 function getOrderItems() {
-  // sessionStorage 이용
+  // sessionStorage 에서 주문상품 가져오기
   const datas = JSON.parse(sessionStorage.getItem('order'));
   datas.forEach((data) => {
     const { id, mainImage, name, option, quantity, price } = data;
@@ -119,6 +129,7 @@ function getOrderItems() {
 
     const itemHtml = `
       <div class="product mt-1 d-flex align-items-center" style="border: 1px solid #c0c0c0">
+        <div class="pro-id" style="display: none;">${id}</div>
         <div class="pro-img">
           <img src="${mainImage}" width="100px" height="100px">
         </div>
@@ -183,18 +194,23 @@ function removePriceFromArray(pricesArray, priceEle) {
   return pricesArray.filter((price) => price !== deletedPrice);
 }
 
+// ----------------------------------------------------
+
 /* db에 데이터 전달 (post) */
 
-submitBtn.addEventListener('click', handleSubmit);
+submitBtn.addEventListener('click', () => {
+  isuser ? userHandleSubmit : unuserHandleSubmit;
+});
 
-async function handleSubmit(e) {
+/* 회원일때, */
+async function userHandleSubmit(e) {
   e.preventDefault();
-  // virtualAccount();
 
-  const name = nameInput.value;
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  const passwordConfirm = passwordConfirmInput.value;
+  // 유효성 검사 실행
+  if (!userValidation()) {
+    // 유효성 검사 실패
+    return;
+  }
 
   const receiverName = receiverNameInput.value;
   const postalCode = postalCodeInput.value;
@@ -202,25 +218,12 @@ async function handleSubmit(e) {
   const address2 = address2Input.value;
   const request = requestSelectBox.value;
 
-  if (!name || !email || !password || !passwordConfirm) {
-    return alert('주문 정보를 모두 입력해 주세요.');
-  }
-  if (!receiverName || !postalCode || !address2) {
-    return alert('배송지 정보를 모두 입력해 주세요.');
-  }
-
-  // 비밀번호 비교
-  if (password !== passwordConfirm) {
-    return alert('비밀번호가 일치하지 않습니다.');
-  }
-
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proName = item.querySelector('.pro-name').textContent;
+    const proId = item.querySelector('pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
-    const proPrice = item.querySelector('.pro-price').textContent;
 
     let color;
     let size;
@@ -235,13 +238,12 @@ async function handleSubmit(e) {
 
     // 주문 항목을 객체로 생성하고 배열에 추가
     const orderItem = {
-      name: proName,
+      quantity: proCount,
       option: {
-        color,
         size,
+        color,
       },
-      count: proCount,
-      price: proPrice,
+      item: proId,
     };
     orderItems.push(orderItem);
   });
@@ -249,15 +251,9 @@ async function handleSubmit(e) {
   const totalPrice = parseInt(totalInput.textContent.replace(',', ''));
 
   const data = {
-    user: {
-      name,
-      email,
-    },
-    username: name,
     orderItems,
     totalPrice,
     status: '주문대기',
-    isRegistered: false,
     message: request,
     address: {
       postnumber: postalCode,
@@ -271,45 +267,187 @@ async function handleSubmit(e) {
     data.message = requestTextArea.value;
   }
 
-  // 비회원
-  if (!isRegistered) {
-    data.orderPassword = password;
-    const unuserDataJson = JSON.stringify(data);
-    const unuserApiUrl = ``;
+  const dataJson = JSON.stringify(data);
+  const apiUrl = 'http://localhost:5001/api/v1/orders';
 
-    try {
-      const unuserRes = await fetch(unuserApiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: unuserDataJson,
-      });
-    } catch (error) {
-      alert(`${error} 결제 중 오류가 났습니다.`);
+  try {
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: dataJson,
+    });
+
+    if (res.status === 201) {
+      const result = await res.json();
+      alert(result.message);
+      window.location.href = '/order'; // 주문조회 페이지로 이동
+    } else {
+      alert('결제에 실패하였습니다.');
     }
-  } else {
-    // 회원
-    const dataJson = JSON.stringify(data);
-    const apiUrl = ``;
-
-    try {
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: dataJson,
-      });
-
-      if (res.status === 201) {
-        alert('결제가 완료되었습니다!');
-        window.location.href = '/views/pages/Order/order.html';
-      } else {
-        alert('결제에 실패하였습니다...');
-      }
-    } catch (error) {
-      alert(`${error} 결제 중 오류가 났습니다.`);
-    }
+  } catch (error) {
+    alert(`${error} 결제 중 오류가 발생하였습니다.`);
   }
+}
+
+/* 비회원일때, */
+async function unuserHandleSubmit(e) {
+  e.preventDefault();
+
+  // 유효성 검사 실행
+  if (!unuserValidation()) {
+    // 유효성 검사 실패
+    return;
+  }
+
+  const password = passwordInput.value;
+  const receiverName = receiverNameInput.value;
+  const postalCode = postalCodeInput.value;
+  const address1 = address1Input.value;
+  const address2 = address2Input.value;
+  const request = requestSelectBox.value;
+
+  const items = document.querySelectorAll('.product');
+  const orderItems = [];
+  items.forEach((item) => {
+    const proId = item.querySelector('pro-id').textContent;
+    const proOptions = item.querySelector('.pro-option').textContent;
+    const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
+
+    let color;
+    let size;
+    if (proOptions.includes('/')) {
+      color = proOptions.split('/')[0];
+      size = proOptions.split('/')[1];
+    } else if (proOptions.includes('color')) {
+      color = proOptions.split(': ')[1];
+    } else if (proOptions.includes('size')) {
+      size = proOptions.split(': ')[1];
+    }
+
+    // 주문 항목을 객체로 생성하고 배열에 추가
+    const orderItem = {
+      quantity: proCount,
+      option: {
+        size,
+        color,
+      },
+      item: proId,
+    };
+    orderItems.push(orderItem);
+  });
+
+  const totalPrice = parseInt(totalInput.textContent.replace(',', ''));
+
+  const data = {
+    orderItems,
+    totalPrice,
+    status: '주문대기',
+    message: request,
+    orderPassword: password,
+    address: {
+      postnumber: postalCode,
+      addressee: receiverName,
+      addressExceptDetail: address1,
+      detail: address2,
+    },
+  };
+
+  if (request === '직접입력') {
+    data.message = requestTextArea.value;
+  }
+
+  const dataJson = JSON.stringify(data);
+  const apiUrl = 'http://localhost:5001/api/v1/orders/guest';
+
+  try {
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: dataJson,
+    });
+
+    if (res.status === 201) {
+      const result = await res.json();
+      alert(result.message);
+      window.location.href = '/login/unuser'; // 비회원 주문조회 페이지로 이동
+    } else {
+      alert('결제에 실패하였습니다.');
+    }
+  } catch (error) {
+    alert(`${error} 결제 중 오류가 발생하였습니다.`);
+  }
+}
+
+/* 유효성 검사 */
+
+// 회원
+function userValidation() {
+  // sign in 제대로 써져있는지 확인
+  if (!nameInput.value || !emailInput.value) {
+    alert('주문 정보를 모두 입력해 주세요.');
+    return false;
+  }
+  if (!receiverNameInput.value || !postalCodeInput.value || !address1Input.value || !address2Input.value) {
+    alert('배송지 정보를 모두 입력해 주세요.');
+    return false;
+  }
+
+  /* 정규식 */
+  // 이메일 (영어 대소문자, 숫자, _, .-을 포함 / 최상위 도메인: 최소 2자 이상의 알파벳 대소문자)
+  const regMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // 정규식 확인
+  if (!regMail.test(emailInput.value)) {
+    emailInput.focus();
+    alert('잘못된 이메일 형식입니다.');
+    return false;
+  }
+
+  // 모든 유효성 검사 통과
+  return true;
+}
+
+// 비회원
+function unuserValidation() {
+  // sign in 제대로 써져있는지 확인
+  if (!nameInput.value || !emailInput.value || !passwordInput.value || !passwordConfirmInput.value) {
+    alert('주문 정보를 모두 입력해 주세요.');
+    return false;
+  }
+  if (!receiverNameInput.value || !postalCodeInput.value || !address1Input.value || !address2Input.value) {
+    alert('배송지 정보를 모두 입력해 주세요.');
+    return false;
+  }
+
+  // 비밀번호 비교
+  if (passwordInput.value !== passwordConfirmInput.value) {
+    return alert('비밀번호가 일치하지 않습니다.');
+  }
+
+  /* 정규식 */
+  // 이메일 (영어 대소문자, 숫자, _, .-을 포함 / 최상위 도메인: 최소 2자 이상의 알파벳 대소문자)
+  const regMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // 비밀번호 (영어 대소문자, 숫자, 특수문자 포함, 8자 이상)
+  const regPw = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
+
+  // sign in 정규식 확인
+  if (!regMail.test(emailInput.value)) {
+    emailInput.focus();
+    alert('잘못된 이메일 형식입니다.');
+    return false;
+  }
+
+  if (!regPw.test(passwordInput.value)) {
+    passwordInput.focus();
+    alert('8자 이상의 영문 대소문자, 숫자만 입력하세요.');
+    return false;
+  }
+
+  // 모든 유효성 검사 통과
+  return true;
 }
