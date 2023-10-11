@@ -7,6 +7,11 @@ class ItemService {
     return items;
   }
 
+  async getItemById(id) {
+    const item = await Item.findById(id);
+    return item;
+  }
+
   async getItemsByCategory(category) {
     const itemsInCategory = await Item.find({ category });
     return itemsInCategory;
