@@ -4,14 +4,14 @@
       "name": "유재석",
       "phonenumber": "123-4567-8901",
       "email": "admin1@asd.com",
-      "password": "admin123!",
+      "password": "Admin123!",
       "role": "admin"
     },
     {
       "name": "박명수",
       "phonenumber": "123-4567-8901",
       "email": "admin2@asd.com",
-      "password": "admin123!",
+      "password": "Admin123!",
       "role": "admin"
     },
     {
