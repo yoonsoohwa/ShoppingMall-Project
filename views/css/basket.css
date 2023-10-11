@@ -1,20 +1,5 @@
 /* 장바구니 공통 css */
 
-body {
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
-}
-
-header {
-  padding-top: 70px;
-  border-bottom: 1px solid black;
-}
-
-.footer {
-  padding-top: 70px;
-  border-top: 1px solid black;
-}
-
 .has {
   width: 100%;
   display: block;
@@ -28,7 +13,7 @@ header {
   padding-right: 50px;
 }
 
-.bi-bag {
+#bag-icon {
   display: block;
   margin-top: 30px;
   margin-left: 10px;
@@ -47,18 +32,16 @@ header {
 /* 이용 안내 */
 
 .guide {
-  padding: 50px;
+  padding: 30px;
   width: 100%;
-  height: 500px;
+  height: 300px;
   flex-wrap: wrap;
   flex-direction: column;
-  margin-bottom: 50px;
   color: gray;
 }
 
 .guide-head {
   font-size: 24px;
-  padding-top: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid gray;
 }
@@ -359,6 +342,26 @@ header {
   padding-right: 8%;
 }
 
+#bottom-order-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#all-order {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#select-order {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 /* modal */
 
 #modal-add-button,
@@ -375,7 +378,6 @@ header {
 
 #modal-container {
   width: 100%;
-  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -389,7 +391,6 @@ header {
   position: absolute;
   background-color: #ffffff;
   width: 300px;
-  height: 250px;
   padding: 15px;
 }
 
@@ -434,14 +435,6 @@ header {
 
 #modal-container.hidden {
   display: none;
-}
-
-#modal-content {
-  position: absolute;
-  background-color: #ffffff;
-  width: 300px;
-  height: 250px;
-  padding: 15px;
 }
 
 .modal-content-inner {

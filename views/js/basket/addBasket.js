@@ -3,13 +3,13 @@ import { drawBasket, baskets } from './index.js';
 import { products } from './products.js';
 
 // 장바구니 상품 추가 함수에 click이벤트를 달아주는 함수
-const addBasketButton = document.querySelector('#addProduct');
-addBasketButton.addEventListener('click', () => {
-  addBasket('상품명2', 1, {
-    color: 'red',
-    size: 'S',
-  });
-});
+// const addBasketButton = document.querySelector('#addProduct');
+// addBasketButton.addEventListener('click', () => {
+//   addBasket('상품명2', 1, {
+//     color: 'red',
+//     size: 'S',
+//   });
+// });
 
 // 로컬 스토리지에 있는 basket 장바구니를 리턴 해주는 함수
 export const getBasket = () => {
@@ -22,12 +22,12 @@ export const getBasket = () => {
 };
 
 // 장바구니에 선택 한 상품을 추가 하는 함수
-export const addBasket = (name, count, option) => {
+export const addBasket = (name, quantity, option) => {
   const selectedProduct = products.find((product) => product.name === name);
 
   const parseProduct = {
     ...selectedProduct,
-    count,
+    quantity,
     option,
     checked: false,
   };
