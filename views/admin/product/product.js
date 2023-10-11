@@ -83,7 +83,7 @@ deleteBtn.addEventListener('click', async (e) => {
       });
 
       // db에 삭제한 정보 전달 (delete)
-      const apiUrl = 'http://localhost:5001/api/v1/items/:id';
+      const apiUrl = `http://localhost:5001/api/v1/items/:${id}`; // 수정
       const reqData = JSON.stringify({ items: checkedItemsId });
 
       try {
