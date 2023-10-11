@@ -5,9 +5,9 @@ const { Schema } = mongoose;
 const itemSchema = new Schema(
   {
     category: {
-      type: Schema.Types.ObjectId,
-      ref: 'Category',
+      type: String,
       required: true,
+      enum: ['All', 'Top', 'Outer', 'Bottom', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'],
     },
     image: {
       type: {

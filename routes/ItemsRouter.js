@@ -3,16 +3,16 @@ const itemService = require('../services/ItemService');
 
 const itemsRouter = Router();
 
-// GET /api/v1/items
-itemsRouter.get('/', async (req, res, next) => {
-  try {
-    const items = await itemService.getItems();
+// // GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
+// itemsRouter.get('/', async (req, res, next) => {
+//   try {
+//     const items = await itemService.getItems();
 
-    res.status(200).json(items);
-  } catch (err) {
-    next(err);
-  }
-});
+//     res.status(200).json(items);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 // GET /api/v1/items/:id - 특정 아이템 조회
 itemsRouter.get('/:id', async (req, res, next) => {
@@ -30,11 +30,11 @@ itemsRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-// GET /api/v1/items/:category
-itemsRouter.get('/:category', async (req, res, next) => {
-  const { category } = req.params;
+// GET /api/v1/items/:categoryName/:page/:limit - categoryName에 해당하는 아이템 반환
+itemsRouter.get('/:categoryName/:page/:limit', async (req, res, next) => {
+  const { categoryName, page = 1, limit = 20 } = req.params;
   try {
-    const itemsInCategory = await itemService.getItemsByCategory(category);
+    const itemsInCategory = await itemService.getitemsByCategory(categoryName, page, limit);
     res.status(200).json(itemsInCategory);
   } catch (err) {
     next(err);
