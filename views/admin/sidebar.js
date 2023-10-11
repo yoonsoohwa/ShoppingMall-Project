@@ -2,8 +2,8 @@
 function loadSidebar() {
   const sidebar = `
       <div id="sidebar">
-          <div class="logo">
-              <h1>Logo</h1>
+          <div class="logo text-center pt-4">
+              <img src='https://ifh.cc/g/7vx729.png' class="w-75">
           </div>
           <div class="list">
               <ul>
