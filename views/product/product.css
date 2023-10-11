@@ -1,13 +1,9 @@
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
 #wrap {
   width: 100%;
 }
 
 #content {
-  padding: 150px 30px 50px;
+  padding: 70px 30px 50px;
 }
 
 #product-detail-container {
@@ -22,6 +18,10 @@ body {
   flex: 1;
 }
 
+#product-image > img {
+    width: 100%;
+}
+
 #fix-option {
   flex: 1;
   padding-left: 15px;
@@ -34,7 +34,7 @@ body {
   padding: 15px 20px;
   border: 2px solid #f5f5dc;
   position: sticky;
-  top: 50px;
+  top: 100px;
 }
 
 #product-info {
@@ -141,8 +141,4 @@ body {
   border-style: solid;
   border-color: #808080;
   border-width: 1px 0 1px;
-}
-
-img {
-  width: 100%;
 }
