@@ -1,4 +1,5 @@
 const shipptingListEl = document.getElementById('shipping-list');
+const checkAll = document.getElementById('check-all');
 const totalEl = document.getElementById('total');
 const changeStatusBtn = document.getElementById('change-status');
 
@@ -10,7 +11,27 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
-function setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, status) {
+function selectAllCheckboxes() {
+    const checkBoxElList = Array.from(document.querySelectorAll('#check-item'));
+
+    if (checkAll.checked) {
+        checkBoxElList.forEach(el => {
+            const element = el;
+            element.checked = true;
+        });
+    } else {
+        checkBoxElList.forEach(el => {
+            const element = el;
+            element.checked = false;
+        });
+    }
+}
+
+function changeStatus() {
+
+}
+
+function setOrderList(date, id, addressee, orderItems, totalPrice) {
     const element = `<tr>
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="shipping-date">${date.replace(' ', '<br>')}</td>
@@ -19,15 +40,13 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, payMethod, st
               <td id="shipping-product">${orderItems}</td>
               <td id="shipping-vertify">${orderItems.length}</td>
               <td id="shipping-price">${totalPrice}</td>
-              <td id="shipping-payment-type">${payMethod}</td>
-              <td id="shipping-status">${status}</td>
             </tr>`
 
     shipptingListEl.insertAdjacentHTML('beforeend', element);
 }
 
 async function insertOrderList() {
-    const url = '../../../js/Admin/order/orderlistdata.json';    // 임시 데이터
+    const url = './orderlistdata.json';    // 임시 데이터
     // const url = '';
 
     try {
@@ -46,11 +65,11 @@ async function insertOrderList() {
 
         const { orders } = data;
         orders.forEach(order => {
-            const { createdAt, address, orderItems, totalPrice, payMethod, _id: id } = order;
+            const { createdAt, address, orderItems, totalPrice, _id: id } = order;
             const { addressee } = address;
             const date = formatDate(createdAt);
 
-            setOrderList(date, id, addressee, orderItems, totalPrice, payMethod);
+            setOrderList(date, id, addressee, orderItems, totalPrice);
         });
 
         totalEl.innerText = `[총 ${orders.length}개]`;
@@ -64,3 +83,5 @@ async function insertOrderList() {
 }
 
 insertOrderList();
+changeStatusBtn.addEventListener('click', changeStatus);
+checkAll.addEventListener('click', selectAllCheckboxes);

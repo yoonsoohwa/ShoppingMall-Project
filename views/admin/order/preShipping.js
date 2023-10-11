@@ -1,6 +1,7 @@
-const orderListEl = document.getElementById('order-list');
+const shipptingListEl = document.getElementById('shipping-list');
 const checkAll = document.getElementById('check-all');
 const totalEl = document.getElementById('total');
+const changeStatusBtn = document.getElementById('change-status');
 
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
@@ -26,41 +27,53 @@ function selectAllCheckboxes() {
     }
 }
 
-function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
-    const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+function changeStatus() {
 
+}
+
+function setOrderList(date, id, addressee, orderItems, totalPrice) {
     const element = `<tr>
-              <td><input class="form-check-input" type="checkbox" id="check-item"></td>
-              <td id="order-date">${date.replace(' ', '<br>')}</td>
-              <td id="order-id">${id}</td>
-              <td id="order-username">${addressee}</td>
-              <td id="order-product">${itemText}</td>
-              <td id="order-price">${totalPrice.toLocaleString()}</td>
-              <td id="order-status">${status}</td>
-              <td id="order-cancel"><button type="button" class="pro-modify btn btn-secondary btn-sm">취소</button></td>
+    <td><input class="form-check-input" type="checkbox" id="check-item"></td>
+              <td id="pre-shipping-date">${date.replace(' ', '<br>')}</td>
+              <td id="pre-shipping-id">${id}</td>
+              <td id="pre-shipping-username">${addressee}</td>
+              <td id="pre-shipping-product">${orderItems}</td>
+              <td id="pre-shipping-vertify">${orderItems.length}</td>
+              <td id="pre-shipping-price">${totalPrice}</td>
             </tr>`
 
-    orderListEl.insertAdjacentHTML('beforeend', element);
+    shipptingListEl.insertAdjacentHTML('beforeend', element);
 }
 
 async function insertOrderList() {
     const url = './orderlistdata.json';    // 임시 데이터
-    // const url = 'http://localhost:5001/api/v1/orders/1/20';
+    // const url = '';
 
     try {
+        // const res = await fetch(url, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         status: "배송 준비 중"
+        //     })
+        // });
         const res = await fetch(url);
+
         const data = await res.json();
 
         const { orders } = data;
         orders.forEach(order => {
-            const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
+            const { createdAt, address, orderItems, totalPrice, _id: id } = order;
             const { addressee } = address;
             const date = formatDate(createdAt);
 
-            setOrderList(date, id, addressee, orderItems, totalPrice, status);
+            setOrderList(date, id, addressee, orderItems, totalPrice);
         });
 
         totalEl.innerText = `[총 ${orders.length}개]`;
+
     } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
@@ -70,4 +83,5 @@ async function insertOrderList() {
 }
 
 insertOrderList();
+changeStatusBtn.addEventListener('click', changeStatus);
 checkAll.addEventListener('click', selectAllCheckboxes);

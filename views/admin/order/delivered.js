@@ -9,7 +9,7 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
-function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
+function setOrderList(date, id, addressee, orderItems, totalPrice) {
     const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
 
     const element = `<tr>
@@ -19,36 +19,35 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
                 <td id="delivered-product">${itemText}</td>
                 <td id="delivered-vertify">${orderItems.length}</td>
                 <td id="delivered-price">${totalPrice.toLocaleString()}</td>
-                <td id="delivered-status">${status}</td>
               </tr>`
 
     deliveredListEl.insertAdjacentHTML('beforeend', element);
 }
 
 async function insertOrderList() {
-    // const url = '../../../js/Admin/order/orderlistdata.json';    // 임시 데이터
-    const url = '';
+    const url = './orderlistdata.json';    // 임시 데이터
+    // const url = '';
 
     try {
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                status: "배송완료"
-            })
-        });
-        // const res = await fetch(url);
+        // const res = await fetch(url, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         status: "배송완료"
+        //     })
+        // });
+        const res = await fetch(url);
         const data = await res.json();
 
         const { orders } = data;
         orders.forEach(order => {
-            const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
+            const { createdAt, address, orderItems, totalPrice, _id: id } = order;
             const { addressee } = address;
             const date = formatDate(createdAt);
 
-            setOrderList(date, id, addressee, orderItems, totalPrice, status);
+            setOrderList(date, id, addressee, orderItems, totalPrice);
         });
 
         totalEl.innerText = `[총 ${orders.length}개]`;
