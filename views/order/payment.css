@@ -1,0 +1,60 @@
+body {
+  margin: auto;
+  max-width: 900px;
+  background-color: rgba(249, 248, 244, 0.582);
+}
+
+.payment-header {
+  height: 70px;
+  font-size: 2rem;
+  align-items: center;
+}
+
+.payment-main {
+  background-color: #ededed;
+}
+
+.payment-title {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+.container {
+  background-color: #ffffff;
+  max-width: 880px;
+}
+
+.total-pay {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#submit-btn {
+  width: 100%;
+  height: 50px;
+  color: #ffffff;
+  background-color: #3971ff;
+  border-radius: 0;
+}
+
+.bi-asterisk {
+  font-size: 10px;
+  color: #3971ff;
+}
+
+.product {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.btn-close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border: 1px solid #808080;
+  border-radius: 0;
+}
+
+.description {
+  font-size: 12px;
+}
