@@ -99,7 +99,6 @@ async function sendMail(e) {
 
     if (res.status === 200) {
       alert(result.message);
-      authNumber = result.emailVerificationCode;
     } else {
       alert(result.message);
     }
@@ -129,6 +128,7 @@ verificationBtn.addEventListener('click', async () => {
         const data = await response.json();
         alert(data.message);
         emailInput.disabled = true;
+        certifyInput.disabled = true;
       } else {
         const data = await response.json();
         alert(data.message);

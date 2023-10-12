@@ -44,7 +44,7 @@ class UserService {
     // 이메일 전송
     await sendMail(email, '[RE: BIRTH] 회원가입 이메일 인증 메일입니다.', `이메일 인증 코드: ${emailVerificationCode}`);
 
-    return emailVerificationCode;
+    return true;
   }
 
   // 이메일 인증코드 확인

@@ -9,8 +9,8 @@ const router = express.Router();
 router.post('/register/send-mail', async (req, res, next) => {
   try {
     const { email } = req.body;
-    const emailVerificationCode = await UserService.sendEmailVerificationCode(email);
-    res.status(200).json({ message: '인증번호가 이메일로 전송되었습니다.', emailVerificationCode });
+    await UserService.sendEmailVerificationCode(email);
+    res.status(200).json({ message: '인증번호가 이메일로 전송되었습니다.' });
   } catch (err) {
     next(err);
   }
