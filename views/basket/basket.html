@@ -25,22 +25,26 @@
     <!-- 폰트 연결이에용 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- 공통 css -->
-    <link rel="stylesheet" href="/views/component/style.css" />
+    <link rel="stylesheet" href="../component/style.css" />
 
     <!-- css 연결이에용 -->
-    <link rel="stylesheet" href="/views/basket/basket.css" />
+    <link rel="stylesheet" href="./basket.css" />
     <!-- index js -->
 
-    <script type="module" src="/views/basket/index.js" defer></script>
-    <script type="module" src="/views/basket/addBasket.js"></script>
-    <script type="module" src="/views/basket/bottom.js"></script>
+    <script type="module" src="./index.js" defer></script>
+    <script type="module" src="./addBasket.js"></script>
+    <script type="module" src="./bottom.js"></script>
   </head>
 
   <body>
     <div id="header-container"></div>
-    <script src="/views/component/header.js"></script>
+    <script src="../component/header.js"></script>
 
     <!-- 장바구니가 비어있습니다. -->
     <div class="empty">
@@ -51,7 +55,7 @@
           <div class="cart-empty">
             <p class="empty-word">장바구니가 비어있습니다.</p>
             <i class="bi bi-cart"></i>
-            <a href="/views/pages/Categorypage/category.html" class="btn btn-light btn-retry">쇼핑 계속하기</a>
+            <a href="/views/category/category.html" class="btn btn-light btn-retry">쇼핑 계속하기</a>
           </div>
         </div>
       </div>
@@ -114,7 +118,7 @@
       <div id="goorder" class="">
         <div class="clear"></div>
         <div class="buttongroup center-align cmd" id="bottom-order-btn">
-          <a href="/views/pages/Orderpage/payment.html" class="btn btn-dark" id="all-order">전체 상품 주문</a>
+          <a href="/payment/payment.html" class="btn btn-dark" id="all-order">전체 상품 주문</a>
           <!-- <button id="addProduct">장바구니 상품 추가</button> -->
           <a href="/views/pages/Orderpage/payment.html" class="btn btn-dark" id="select-order">선택 상품 주문</a>
         </div>
@@ -167,6 +171,6 @@
 
     <!-- footer -->
     <div id="footer-container"></div>
-    <script src="/views/component/footer.js"></script>
+    <script src="../component/footer.js"></script>
   </body>
 </html>
