@@ -20,7 +20,7 @@ const delDetailImgBtn = document.querySelector('.delete-detimg');
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
   try {
-    const res = await fetch(`http://localhost:5001/api/v1/items/:${id}`);
+    const res = await fetch(`http://${process.env.HOST_IP}/api/v1/items/:${id}`);
     const data = await res.json();
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
@@ -151,6 +151,7 @@ delDetailImgBtn.addEventListener('click', () => {
   }
 });
 
+// --------------------------------------------------
 /* db에 수정한 정보 전달 (put) */
 const submitBtn = document.querySelector('.submit');
 submitBtn.addEventListener('click', handleSubmit);
@@ -176,18 +177,19 @@ async function handleSubmit(e) {
   formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
   formData.append('content', mContent.value);
 
-  const apiUrl = `http://localhost:5001/api/v1/items/:${queryId}`;
+  const apiUrl = `http://${process.env.HOST_IP}/api/v1/items/:${queryId}`;
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
       body: formData,
     });
+
+    const result = await res.json();
     if (res.status === 200) {
-      const result = await res.json();
       alert(result.message);
       window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
-      alert('수정 요청 실패:', res.status);
+      alert(result.message);
     }
   } catch (error) {
     alert('수정 요청 중 오류 발생:', error);

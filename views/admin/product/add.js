@@ -138,7 +138,7 @@ async function handleSubmit(e) {
   formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
   formData.append('content', contentInput.value);
 
-  const apiUrl = 'http://localhost:5001/api/v1/items';
+  const apiUrl = `http://${process.env.HOST_IP}/api/v1/items`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -150,7 +150,7 @@ async function handleSubmit(e) {
       alert(result.message);
       window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
-      alert('생성 요청 실패:', res.status);
+      alert('아이템이 추가되지 않았습니다.');
     }
   } catch (error) {
     alert('생성 요청 중 오류 발생:', error);

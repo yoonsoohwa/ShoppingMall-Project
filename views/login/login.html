@@ -29,6 +29,9 @@
   </head>
   <body style="background-color: rgba(249, 248, 244, 1)">
     <div class="login-wrap m-auto w-100">
+      <div class="sticky-lg-top float-end p-2">
+        <a href="/" class="p-1" style="background-color: beige; border-radius: 5px">HOME</a>
+      </div>
       <div class="login-html w-100 h-100">
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked /><label for="tab-1" class="tab"
           >Sign In</label
@@ -48,7 +51,7 @@
             <div class="group">
               <input type="submit" class="button" id="submit-signin" value="Sign In" />
             </div>
-            <div class="foot-lnk mt-3">
+            <div class="foot-lnk mt-3 mb-2">
               <label for="tab-2" style="color: black">Not Member yet?</label>
             </div>
           </div>
@@ -59,8 +62,8 @@
               <input id="nameInput" type="text" class="input" placeholder="김원빈" />
             </div>
             <div class="group">
-              <label for="EmailInput" class="label">Email Address</label>
-              <input id="EmailInput" type="email" class="input" placeholder="abc@example.com" />
+              <label for="emailInput" class="label">Email Address</label>
+              <input id="emailInput" type="email" class="input" placeholder="abc@example.com" />
             </div>
             <div class="group d-flex mt-1 mb-2" style="height: 45px">
               <button type="submit" class="btn me-1 p-0" id="send" style="background-color: beige; width: 130px">
@@ -96,7 +99,7 @@
                 placeholder="8자 이상의 영문 대소문자, 숫자만 입력하세요"
               />
             </div>
-            <div class="group mb-4">
+            <div class="group mb-2">
               <label for="passwordConfirmInput" class="label">Confirm Password</label>
               <input
                 id="passwordConfirmInput"
