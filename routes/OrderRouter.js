@@ -114,7 +114,7 @@ orderRouter.post('/shipping', authenticateUser, async (req, res, next) => {
 });
 
 // GET /api/v1/orders/get/guest 비회원 주문조회
-orderRouter.get('/get/guest', async (req, res, next) => {
+orderRouter.post('/get/guest', async (req, res, next) => {
   const { orderId, orderPassword } = req.body;
 
   try {

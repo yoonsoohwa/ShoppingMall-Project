@@ -56,6 +56,7 @@ const nameInput = document.querySelector('#nameInput');
 const EmailInput = document.querySelector('#EmailInput');
 const sendBtn = document.querySelector('#send');
 const certifyInput = document.querySelector('#certifyInput');
+const verificationBtn = document.querySelector('#verification');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
@@ -66,6 +67,12 @@ sendBtn.addEventListener('click', sendMail);
 
 async function sendMail(e) {
   e.preventDefault();
+
+  // 유효성 검사 실행 => email
+  if (!signupValidation()) {
+    // 유효성 검사 실패
+    return;
+  }
 
   const email = EmailInput.value;
   const data = {
@@ -88,7 +95,11 @@ async function sendMail(e) {
     const result = await res.json();
     if (res.status === 200) {
       alert(result.message);
-      certifyInput.value = result.emailVerificationCode;
+      verificationBtn.addEventListener('click', () => {
+        if (certifyInput.value === result.emailVerificationCode) {
+          alert('인증이 확인되었습니다!');
+        }
+      });
     } else {
       alert(result.message);
     }

@@ -1,8 +1,13 @@
+body {
+  height: 100%;
+}
+
 a {
   color: inherit;
 }
 
 .login-wrap {
+  height: 100%;
   max-width: 525px;
   min-height: 670px;
   position: relative;
@@ -15,6 +20,7 @@ a {
 }
 
 .login-html {
+  height: 100%;
   position: absolute;
   padding: 30px 50px 0 50px;
 }

@@ -72,7 +72,7 @@ aListGroup.insertAdjacentHTML('beforeend', accountText);
 
 const accMypage = document.querySelector('.my');
 const accOrder = document.querySelector('.order');
-const userIcon = document.querySelector('bi-person');
+const userIcon = document.querySelector('.bi-person');
 
 // -------------------------------------------------------
 
