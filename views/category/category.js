@@ -11,7 +11,6 @@ import { getProductList, getCategoryDataList } from './api.js'; //  각종 데�
       filter = category.name;
     }
   }
-  console.log(filter)
 const productsContainer = document.querySelector('.products-container');
 const bestProductContainer = document.querySelector('.best-product-button-container');
 const categoryContainer = document.querySelector('.categories-container');
