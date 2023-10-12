@@ -48,6 +48,12 @@ async function checkLogin() {
 }
 checkLogin();
 
+/* user icon click */
+const userBtn = document.querySelector('.bi-person');
+userBtn.addEventListener('click', () => {
+  isuser ? (window.location.href = '/mypage') : (window.location.href = '/login');
+});
+
 /* radio btn value값 채워지기 */
 flexRadioDefault1.addEventListener('change', (e) => {
   e.preventDefault();
