@@ -94,7 +94,7 @@ async function sendMail(e) {
     });
 
     const result = await res.json();
-    if (res.status === 200) {
+    if (res.status === 201) {
       alert(result.message);
       verificationBtn.addEventListener('click', () => {
         if (!certifyInput.value) {
