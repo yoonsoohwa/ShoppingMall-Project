@@ -6,20 +6,7 @@ const infoContainer = document.querySelector('.mypage-info-container');
 const logoutButton = document.querySelector('.logout');
 
 
-/* 임시 로그인 */
-// fetch('/api/v1/users/login', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//         "email": "elice1@asd.com",
-//         "password": "Password123!"
-//     })
-// })
-// .then(response => response.json())
-// .then(data => console.log(data))
-// .catch(error => console.error('Error', error))
+
 
 
 /* 정보 조회 */
@@ -34,8 +21,27 @@ getInfoButton.addEventListener('click', async() => {
         },
     })
     const data = await res.json();
-    // infoContainer.innerHTML = `${data.user}`;
-    console.log(data.user)
+
+    infoContainer.innerHTML = `
+    <table>
+            <tr>
+                <td>이름</td>
+                <td>${data.user.name}</td>
+            </tr>
+            <tr>
+                <td>휴대폰 번호</td>
+                <td>${data.user.phonenumber}</td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>${data.user.email}</td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td>${data.user.password}</td>
+            </tr>
+        </table>
+    `
 })
 
 
@@ -86,14 +92,34 @@ changeInfoButton.addEventListener('click', async() => {
         
         const userId = sessionStorage.getItem('userId');
         const res = await fetch(`/api/v1/users/${userId}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
         })
         const data = await res.json();
-        alert(data.message)
-        infoContainer.innerHTML = `${data}`
+        console.log(data)
+        // alert(data.message)
+        // infoContainer.innerHTML = `
+        // <table>
+        //     <tr>
+        //         <td>이름</td>
+        //         <td>${data.user.name}</td>
+        //     </tr>
+        //     <tr>
+        //         <td>휴대폰 번호</td>
+        //         <td>${data.user.phonenumber}</td>
+        //     </tr>
+        //     <tr>
+        //         <td>이메일</td>
+        //         <td>${data.user.email}</td>
+        //     </tr>
+        //     <tr>
+        //         <td>비밀번호</td>
+        //         <td>${data.user.password}</td>
+        //     </tr>
+        // </table>
+        // `
     })
 
     cancelInfoChangeButton.addEventListener('click', () => {

@@ -1,0 +1,228 @@
+{
+  "users": [
+    {
+      "name": "유재석",
+      "phonenumber": "123-4567-8901",
+      "email": "admin1@asd.com",
+      "password": "admin123!",
+      "role": "admin"
+    },
+    {
+      "name": "박명수",
+      "phonenumber": "123-4567-8901",
+      "email": "admin2@asd.com",
+      "password": "admin123!",
+      "role": "admin"
+    },
+    {
+      "name": "햄스터",
+      "phonenumber": "123-4567-8901",
+      "email": "elice1@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "고양이",
+      "phonenumber": "123-4567-8901",
+      "email": "elice2@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "강아지",
+      "phonenumber": "123-4567-8901",
+      "email": "elice3@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "토끼",
+      "phonenumber": "123-4567-8901",
+      "email": "elice4@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "말",
+      "phonenumber": "123-4567-8901",
+      "email": "elice5@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "소",
+      "phonenumber": "123-4567-8901",
+      "email": "elice6@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "닭",
+      "phonenumber": "123-4567-8901",
+      "email": "elice7@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "개구리",
+      "phonenumber": "123-4567-8901",
+      "email": "elice8@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "돼지",
+      "phonenumber": "123-4567-8901",
+      "email": "elice9@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "곰",
+      "phonenumber": "123-4567-8901",
+      "email": "elice10@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "호랑이",
+      "phonenumber": "123-4567-8901",
+      "email": "elice11@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "기니피그",
+      "phonenumber": "123-4567-8901",
+      "email": "elice12@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "앵무새",
+      "phonenumber": "123-4567-8901",
+      "email": "elice13@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "양파쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice14@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "주먹밥쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice15@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "양배추쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice16@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "무쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice17@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "계란쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice18@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "파쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice19@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "배추쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice20@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "샐러리쿵야",
+      "phonenumber": "123-4567-8901",
+      "email": "elice21@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "고양이발바닥",
+      "phonenumber": "123-4567-8901",
+      "email": "elice22@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "고릴라",
+      "phonenumber": "123-4567-8901",
+      "email": "elice23@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "원숭이",
+      "phonenumber": "123-4567-8901",
+      "email": "elice24@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "오랑우탄",
+      "phonenumber": "123-4567-8901",
+      "email": "elice25@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "여우",
+      "phonenumber": "123-4567-8901",
+      "email": "elice26@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "미어캣",
+      "phonenumber": "123-4567-8901",
+      "email": "elice27@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "너구리",
+      "phonenumber": "123-4567-8901",
+      "email": "elice28@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "펭귄",
+      "phonenumber": "123-4567-8901",
+      "email": "elice29@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    },
+    {
+      "name": "치와와",
+      "phonenumber": "123-4567-8901",
+      "email": "elice30@asd.com",
+      "password": "Password123!",
+      "role": "user"
+    }
+  ]
+}
