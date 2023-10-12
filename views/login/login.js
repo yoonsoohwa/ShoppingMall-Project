@@ -5,6 +5,7 @@ const logSubmitBtn = document.querySelector('#submit-signin');
 
 logSubmitBtn.addEventListener('click', handleSigninSubmit);
 
+/* post 요청 */
 async function handleSigninSubmit(e) {
   e.preventDefault();
 
@@ -39,7 +40,7 @@ async function handleSigninSubmit(e) {
     if (res.status === 200) {
       alert(result.message);
       sessionStorage.setItem('loginId', result.user._id);
-      window.location.href = '/views/'; // main page로 이동
+      window.location.href = '/'; // main page로 이동
     } else {
       alert(result.message);
     }

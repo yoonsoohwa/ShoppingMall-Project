@@ -6,7 +6,6 @@ const AddressService = require('../services/addressService');
 const UserService = require('../services/userService');
 const { authenticateUser, authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 const { validateOrderStatus, validateOnShipping } = require('../middlewares/orderMiddleware');
-const { BadRequestError } = require('../common/BadRequestError');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
 
 const orderRouter = Router();
@@ -14,21 +13,13 @@ const orderRouter = Router();
 // POST /api/v1/orders
 orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req, res, next) => {
   const userId = req.user._id;
-  const { orderItems, address, totalPrice, status, payMethod, message } = req.body;
+  const { orderItems, address, totalPrice, status, message } = req.body;
 
   try {
     const user = await UserService.getUserById(userId);
 
-    const newOrderItems = await Promise.all(
-      orderItems.map(async (orderItem) => {
-        const newOrderItem = await OrderItemService.createOrderItem({
-          ...orderItem,
-        });
-        return newOrderItem;
-      }),
-    );
-
-    const newAddress = await AddressService.createAddress({ ...address });
+    const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
+    const newAddress = await AddressService.createAddress(address);
 
     const order = await OrderService.createOrder({
       user,
@@ -36,7 +27,6 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
       address: newAddress,
       totalPrice,
       status,
-      payMethod,
       message,
     });
 
@@ -48,28 +38,17 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, address, totalPrice, status, payMethod, message, orderPassword, confirmPassword } = req.body;
+  const { orderItems, address, totalPrice, status, message, orderPassword } = req.body;
 
   try {
-    if (orderPassword !== confirmPassword) throw new BadRequestError('비밀번호와 확인 비밀번호가 일치하지 않습니다.');
-
-    const newOrderItems = await Promise.all(
-      orderItems.map(async (orderItem) => {
-        const newOrderItem = await OrderItemService.createOrderItem({
-          ...orderItem,
-        });
-        return newOrderItem;
-      }),
-    );
-
-    const newAddress = await AddressService.createAddress({ ...address });
+    const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
+    const newAddress = await AddressService.createAddress(address);
 
     const order = await OrderService.createOrder({
       orderItems: newOrderItems,
       address: newAddress,
       totalPrice,
       status,
-      payMethod,
       message,
       orderPassword,
     });
@@ -85,8 +64,13 @@ orderRouter.get('/:page/:limit', authenticateAdmin, async (req, res, next) => {
   const { page = 1, limit = 20 } = req.params;
 
   try {
-    const orders = await OrderService.getPagination(page, limit);
-    res.status(200).json({ message: '주문 조회에 성공하였습니다.', orders });
+    const { orders, count } = await OrderService.getPagination(page, limit);
+    res.status(200).json({
+      message: '주문 조회에 성공하였습니다.',
+      orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (err) {
     next(err);
   }
@@ -98,7 +82,7 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const { order } = await OrderService.getOrderById(id);
+    const order = await OrderService.getOrderById(id);
 
     if (email !== order.user.email && role !== 'admin')
       throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
@@ -152,7 +136,7 @@ orderRouter.get('/page/:page/:limit', authenticateUser, async (req, res, next) =
 
   try {
     const user = await UserService.getUserById(userId);
-    const { orders, count } = await OrderService.getPaginationByUser({ user, page, limit });
+    const { orders, count } = await OrderService.getPagination({ user, page, limit });
 
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
@@ -172,26 +156,21 @@ orderRouter.patch('/:id/update', authenticateUser, async (req, res, next) => {
   const { message, address, status, orderItems, totalPrice } = req.body;
 
   try {
-    let newOrderItems;
-    if (orderItems) {
-      newOrderItems = await Promise.all(
-        orderItems.map(async (orderItem) => {
-          const newOrderItem = await OrderItemService.createOrderItem({
-            ...orderItem,
-          });
-          return newOrderItem;
-        }),
-      );
-    }
-
-    const order = await OrderService.updateOrder({ id, message, address, status, newOrderItems, totalPrice });
+    const order = await OrderService.getOrderById(id);
 
     if (email !== order.user.email && role !== 'admin')
       throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
 
+    let newOrderItems;
+    if (orderItems) {
+      newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
+    }
+
+    const updatedOrder = await OrderService.updateOrder(id, message, address, status, newOrderItems, totalPrice);
+
     res.status(200).json({
       message: '주문 정보가 변경되었습니다.',
-      order,
+      updatedOrder,
     });
   } catch (err) {
     next(err);
@@ -199,10 +178,18 @@ orderRouter.patch('/:id/update', authenticateUser, async (req, res, next) => {
 });
 
 // DELETE /api/v1/orders/:id/delete
-orderRouter.delete('/:id/delete', authenticateAdmin, validateOnShipping('body'), async (req, res, next) => {
+orderRouter.delete('/:id/delete', authenticateUser, validateOnShipping('body'), async (req, res, next) => {
+  const { email, role } = req.user;
   const { id } = req.params;
+
   try {
+    const order = await OrderService.getOrderById(id);
+
+    if (email !== order.user.email && role !== 'admin')
+      throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
+
     await OrderService.deleteOrder(id);
+
     res.status(200).json({ message: '주문이 삭제되었습니다.' });
   } catch (err) {
     next(err);

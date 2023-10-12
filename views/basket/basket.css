@@ -1,10 +1,5 @@
 /* 장바구니 공통 css */
 
-body {
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
-}
-
 .has {
   width: 100%;
   display: block;
@@ -18,7 +13,7 @@ body {
   padding-right: 50px;
 }
 
-.bi-bag {
+#bag-icon {
   display: block;
   margin-top: 30px;
   margin-left: 10px;
@@ -37,18 +32,16 @@ body {
 /* 이용 안내 */
 
 .guide {
-  padding: 50px;
+  padding: 30px;
   width: 100%;
-  height: 500px;
+  height: 300px;
   flex-wrap: wrap;
   flex-direction: column;
-  margin-bottom: 50px;
   color: gray;
 }
 
 .guide-head {
   font-size: 24px;
-  padding-top: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid gray;
 }
@@ -349,6 +342,26 @@ body {
   padding-right: 8%;
 }
 
+#bottom-order-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#all-order {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#select-order {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 /* modal */
 
 #modal-add-button,
@@ -365,7 +378,6 @@ body {
 
 #modal-container {
   width: 100%;
-  height: 100%;
   position: fixed;
   top: 0;
   left: 0;
@@ -379,7 +391,6 @@ body {
   position: absolute;
   background-color: #ffffff;
   width: 300px;
-  height: 250px;
   padding: 15px;
 }
 
@@ -426,14 +437,6 @@ body {
   display: none;
 }
 
-#modal-content {
-  position: absolute;
-  background-color: #ffffff;
-  width: 300px;
-  height: 250px;
-  padding: 15px;
-}
-
 .modal-content-inner {
   padding-left: 10px;
   padding-right: 10px;
@@ -444,10 +447,18 @@ body {
   border-bottom: 1px dotted #888;
 }
 
+.option-choice-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .option-choice {
+  width: 100%;
   padding: 5px;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
 }
 
@@ -457,7 +468,7 @@ body {
 }
 
 .form-select {
-  width: 200px;
+  width: 100%;
   height: 27px;
   font-size: 12px;
 }

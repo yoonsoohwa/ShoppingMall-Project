@@ -1,0 +1,205 @@
+{
+  "message": "주문 조회에 성공하였습니다.",
+  "orders": [
+    {
+      "_id": "65263765cf91d8ad42a7e9b6",
+      "orderItems": [
+        {
+          "option": {
+            "size": "M",
+            "color": "black"
+          },
+          "_id": "65263765cf91d8ad42a7e9b0",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:49:25.864Z",
+          "updatedAt": "2023-10-11T05:49:25.864Z",
+          "__v": 0
+        },
+        {
+          "_id": "65263765cf91d8ad42a7e9b1",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:49:25.864Z",
+          "updatedAt": "2023-10-11T05:49:25.864Z",
+          "__v": 0
+        }
+      ],
+      "address": {
+        "_id": "65263765cf91d8ad42a7e9b4",
+        "postnumber": 50000,
+        "addressee": "elice",
+        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+        "detail": "5000호",
+        "createdAt": "2023-10-11T05:49:25.869Z",
+        "updatedAt": "2023-10-11T05:49:25.869Z",
+        "__v": 0
+      },
+      "totalPrice": 300000,
+      "payMethod": "가상계좌",
+      "status": "주문대기",
+      "message": "관리실에 맡겨주세요.",
+      "orderPassword": "elice123",
+      "createdAt": "2023-10-11T05:49:25.873Z",
+      "updatedAt": "2023-10-11T05:49:25.873Z",
+      "__v": 0
+    },
+    {
+      "_id": "65263678e487d23d867074dd",
+      "user": {
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
+        "phonenumber": "123-4567-8901",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
+        "role": "user",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
+        "__v": 0
+      },
+      "orderItems": [
+        {
+          "option": {
+            "size": "L",
+            "color": "blue"
+          },
+          "_id": "65263678e487d23d867074d7",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:45:28.765Z",
+          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "__v": 0
+        },
+        {
+          "option": {
+            "size": "S",
+            "color": "red"
+          },
+          "_id": "65263678e487d23d867074d8",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:45:28.765Z",
+          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "__v": 0
+        }
+      ],
+      "address": {
+        "_id": "65263678e487d23d867074db",
+        "postnumber": 50000,
+        "addressee": "elice",
+        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+        "detail": "7000호",
+        "createdAt": "2023-10-11T05:45:28.767Z",
+        "updatedAt": "2023-10-11T05:45:28.767Z",
+        "__v": 0
+      },
+      "totalPrice": 3000,
+      "payMethod": "가상계좌",
+      "status": "주문대기",
+      "message": "관리실에 맡겨주세요.",
+      "createdAt": "2023-10-11T05:45:28.768Z",
+      "updatedAt": "2023-10-11T05:45:28.768Z",
+      "__v": 0
+    },
+    {
+      "_id": "6526344297727a73d0aac152",
+      "user": {
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
+        "phonenumber": "123-4567-8901",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
+        "role": "user",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
+        "__v": 0
+      },
+      "orderItems": [
+        {
+          "_id": "6526344297727a73d0aac14c",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:36:02.539Z",
+          "updatedAt": "2023-10-11T05:36:02.539Z",
+          "__v": 0
+        },
+        {
+          "_id": "6526344297727a73d0aac14d",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:36:02.539Z",
+          "updatedAt": "2023-10-11T05:36:02.539Z",
+          "__v": 0
+        }
+      ],
+      "address": {
+        "_id": "6526344297727a73d0aac150",
+        "postnumber": 50000,
+        "addressee": "elice",
+        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+        "detail": "7000호",
+        "createdAt": "2023-10-11T05:36:02.544Z",
+        "updatedAt": "2023-10-11T05:36:02.544Z",
+        "__v": 0
+      },
+      "totalPrice": 3000,
+      "payMethod": "가상계좌",
+      "status": "주문대기",
+      "message": "관리실에 맡겨주세요.",
+      "createdAt": "2023-10-11T05:36:02.548Z",
+      "updatedAt": "2023-10-11T05:36:02.548Z",
+      "__v": 0
+    },
+    {
+      "_id": "6526337497727a73d0aac148",
+      "user": {
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
+        "phonenumber": "123-4567-8901",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
+        "role": "user",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
+        "__v": 0
+      },
+      "orderItems": [
+        {
+          "_id": "6526337497727a73d0aac142",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:32:36.922Z",
+          "updatedAt": "2023-10-11T05:32:36.922Z",
+          "__v": 0
+        },
+        {
+          "_id": "6526337497727a73d0aac143",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:32:36.922Z",
+          "updatedAt": "2023-10-11T05:32:36.922Z",
+          "__v": 0
+        }
+      ],
+      "address": {
+        "_id": "6526337497727a73d0aac146",
+        "postnumber": 50000,
+        "addressee": "elice",
+        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+        "detail": "7000호",
+        "createdAt": "2023-10-11T05:32:36.928Z",
+        "updatedAt": "2023-10-11T05:32:36.928Z",
+        "__v": 0
+      },
+      "totalPrice": 3000,
+      "payMethod": "가상계좌",
+      "status": "주문대기",
+      "message": "관리실에 맡겨주세요.",
+      "createdAt": "2023-10-11T05:32:36.936Z",
+      "updatedAt": "2023-10-11T05:32:36.936Z",
+      "__v": 0
+    }
+  ],
+  "totalPages": 1,
+  "currentPage": "1"
+}

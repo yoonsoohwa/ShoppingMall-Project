@@ -1,18 +1,21 @@
-/* 장바구니 공통 css */
-
-body {
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
+.pagination {
+  --bs-pagination-active-bg: #f5f5dc;
+  --bs-pagination-active-border-color: #f5f5dc;
+  --bs-pagination-border-color: #f5f5dc;
+  --bs-pagination-color: #333;
+  --bs-pagination-hover-color: #333;
 }
 
-.has {
+/* 장바구니 공통 css */
+
+.order-wrap {
   width: 100%;
   display: block;
   padding-left: 50px;
   padding-right: 50px;
 }
 
-.bi-bag {
+#bag-icon {
   display: block;
   margin-top: 30px;
   margin-left: 10px;
@@ -23,19 +26,19 @@ body {
   margin: 5px !important;
 }
 
-.basket-count {
+.order-count {
   margin-top: 30px;
   margin-left: 10px;
 }
 
 /* 채워진 장바구니 */
 
-.basketdiv {
+.orderdiv {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
-.basketdiv .row.head {
+.orderdiv .row.head {
   border-top: 1px solid #888;
   border-bottom: 1px solid #888;
   box-sizing: border-box;
@@ -43,14 +46,14 @@ body {
   font-weight: bold;
 }
 
-.basketdiv .row.data {
+.orderdiv .row.data {
   border-bottom: 1px dashed #888;
   box-sizing: border-box;
   line-height: 40px;
   display: flex;
 }
 
-.basketdiv .row .subdiv {
+.orderdiv .row .subdiv {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,11 +61,11 @@ body {
   flex-direction: row;
 }
 
-.basketdiv .row.head .subdiv {
+.orderdiv .row.head .subdiv {
   padding: 12px 0;
 }
 
-.basketdiv .row.data .subdiv {
+.orderdiv .row.data .subdiv {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,19 +74,15 @@ body {
   padding: 0;
 }
 
-.basketdiv .row .subdiv:nth-child(1) {
+.orderdiv .row .subdiv:nth-child(1) {
   width: 50%;
 }
 
-.basketdiv .row .subdiv:nth-child(2) {
-  width: 40%;
+.orderdiv .row .subdiv:nth-child(2) {
+  width: 50%;
 }
 
-.basketdiv .row .subdiv:nth-child(3) {
-  width: 10%;
-}
-
-.basketdiv .row > div > div {
+.orderdiv .row > div > div {
   flex-direction: row;
   text-align: center;
   margin: 0;
@@ -91,7 +90,7 @@ body {
 
 /* 첫번째 블록 */
 
-#order-date {
+#order-date-wrap {
   width: 33%;
 }
 
@@ -116,120 +115,50 @@ body {
   width: 40%;
 }
 
-/* 세번째 블록 */
-#cancel {
-  width: 50%;
+/* 페이지네이션 */
+
+.page-item-container li .page-link {
+  color: #333;
 }
 
-/* modal */
-
-#modal-add-button,
-#modal-change-button {
-  font-size: 12px;
-  margin: 5px;
+.page-item-container > li {
+  cursor: pointer;
 }
 
-#btn-grp {
+.page-link {
+  border-left: none;
+}
+
+.page-item > a {
+  border-left: 1px solid #f5f5dc;
+}
+.next .page-link span {
+  color: #d5d59c;
+}
+.prev .page-link span {
+  color: #d5d59c;
+}
+.page-item-container {
+  display: flex;
+}
+
+/* .page-item:first-child .page-link {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+} */
+
+.pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#modal-container {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-#modal-content {
-  position: absolute;
-  background-color: #ffffff;
-  width: 300px;
-  height: 250px;
-  padding: 15px;
-}
-
-.modal-content-head {
-  font-weight: bold;
-  border-bottom: 1px solid #888;
-  padding-bottom: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.modal-content-head p {
-  font-size: 12px;
-  margin: 0;
-}
-
-.btn-bg-none {
-  background: none;
-  border: none;
-  margin-left: auto;
-}
-
-.btn-bg-none .bi-x {
-  font-size: 24px;
-}
-
-#modal-container.hidden {
-  display: none;
-}
-
-#modal-container {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-#modal-container.hidden {
-  display: none;
-}
-
-#modal-content {
-  position: absolute;
-  background-color: #ffffff;
-  width: 300px;
-  height: 250px;
-  padding: 15px;
-}
-
-.modal-content-inner {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.goods-name {
-  font-size: 14px;
-  padding: 10px;
-  border-bottom: 1px dotted #888;
-}
-
-.option-choice {
-  padding: 5px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-}
-
-.option-choice p {
-  font-size: 14px;
-  margin: 10px;
-}
-
-.form-select {
-  width: 200px;
-  height: 27px;
-  font-size: 12px;
+  margin-top: 24px;
 }

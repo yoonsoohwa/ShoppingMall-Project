@@ -3,22 +3,38 @@ const itemService = require('../services/ItemService');
 
 const itemsRouter = Router();
 
-// GET /api/v1/items
-itemsRouter.get('/', async (req, res, next) => {
-  try {
-    const items = await itemService.getItems(); // 변경
+// // GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
+// itemsRouter.get('/', async (req, res, next) => {
+//   try {
+//     const items = await itemService.getItems();
 
-    res.status(200).json(items);
+//     res.status(200).json(items);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+// GET /api/v1/items/:id - 특정 아이템 조회
+itemsRouter.get('/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const item = await itemService.getItemById(id);
+
+    if (!item) {
+      res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
+    } else {
+      res.status(200).json(item);
+    }
   } catch (err) {
     next(err);
   }
 });
 
-// GET /api/v1/items/:category
-itemsRouter.get('/:category', async (req, res, next) => {
-  const { category } = req.params;
+// GET /api/v1/items/:categoryName/:page/:limit - categoryName에 해당하는 아이템 반환
+itemsRouter.get('/:categoryName/:page/:limit', async (req, res, next) => {
+  const { categoryName, page = 1, limit = 20 } = req.params;
   try {
-    const itemsInCategory = await itemService.getItemsByCategory(category); // 변경
+    const itemsInCategory = await itemService.getitemsByCategory(categoryName, page, limit);
     res.status(200).json(itemsInCategory);
   } catch (err) {
     next(err);
@@ -28,7 +44,7 @@ itemsRouter.get('/:category', async (req, res, next) => {
 // 상품 추가, POST /api/v1/items
 itemsRouter.post('/', async (req, res, next) => {
   try {
-    const newItem = await itemService.addItem(req.body); // 변경
+    const newItem = await itemService.addItem(req.body);
     res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
   } catch (err) {
     next(err);
@@ -39,7 +55,7 @@ itemsRouter.post('/', async (req, res, next) => {
 itemsRouter.delete('/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const deletedItem = await itemService.deleteItem(id); // 변경
+    const deletedItem = await itemService.deleteItem(id);
     if (!deletedItem) {
       res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
     }
@@ -72,7 +88,7 @@ itemsRouter.put('/:id', async (req, res, next) => {
 itemsRouter.get('/page/:page/:limit', async (req, res, next) => {
   const { page = 1, limit = 20 } = req.params;
   try {
-    const items = await itemService.getItemsByPage(page, limit); // 변경
+    const items = await itemService.getItemsByPage(page, limit);
 
     res.status(200).json({
       message: '페이지별 아이템 조회가 성공적으로 이뤄졌습니다.',

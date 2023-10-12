@@ -7,9 +7,17 @@ class ItemService {
     return items;
   }
 
-  async getItemsByCategory(category) {
-    const itemsInCategory = await Item.find({ category });
-    return itemsInCategory;
+  async getItemById(id) {
+    const item = await Item.findById(id);
+    return item;
+  }
+
+  async getitemsByCategory(category, page, limit) {
+    const skip = (page - 1) * limit;
+    const totalProducts = await Item.countDocuments({ category });
+    const totalPages = Math.ceil(totalProducts / limit);
+    const products = await Item.find({ category }).skip(skip).limit(limit);
+    return { items: products, totalPages };
   }
 
   async addItem(itemData) {

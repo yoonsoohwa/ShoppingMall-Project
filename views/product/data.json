@@ -1,19 +1,51 @@
 {
-  "name": "Destroyed Love Safely Semi-crop Sweatshirt_Grey",
   "option": {
-    "size": ["S", "M"],
-    "color": ["black", "blue"]
+    "size": ["S", "M", "XL"],
+    "color": ["RED", "BLUE", "GRAY"]
   },
-  "image": "https://ulkin.co.kr/web/product/big/202309/c7d255e457f8ee2d7b645177dbd44fb5.jpg",
+  "_id": "65264b0cc5dcb551461c66cd",
+  "category": "65264753b5672f800caec6dd",
+  "image": {
+    "imageType": "thumbnail",
+    "url": "https://ulkin.co.kr/web/product/big/202309/c7d255e457f8ee2d7b645177dbd44fb5.jpg",
+    "_id": "65264b0cc5dcb551461c66ce"
+  },
   "detail_image": [
-    "https://ulkin.co.kr/web/product/extra/small/202309/f1e1e399102e444052d46e9be27d1d7a.jpg",
-    "https://ulkin.co.kr/web/product/extra/small/202309/c8cd30dbe5ca90f9b41ba277db7a8e1e.jpg",
-    "https://ulkin.co.kr/web/product/extra/small/202309/1449ae2ea97f31156a8bdf1fb576db1d.jpg",
-    "https://ulkin.co.kr/web/product/extra/small/202309/2203db96742ae69ea6a50e98f10eb036.jpg",
-    "https://ulkin.co.kr/web/product/extra/small/202309/ce95654296f58a93abc173d8dd6271c1.jpg",
-    "https://ulkin.co.kr/web/product/extra/small/202309/44d4ace35b8d7723e9cd24b1d96d1a74.jpg"
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/f1e1e399102e444052d46e9be27d1d7a.jpg",
+      "_id": "65264b0cc5dcb551461c66cf"
+    },
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/c8cd30dbe5ca90f9b41ba277db7a8e1e.jpg",
+      "_id": "65264b0cc5dcb551461c66d0"
+    },
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/1449ae2ea97f31156a8bdf1fb576db1d.jpg",
+      "_id": "65264b0cc5dcb551461c66d0"
+    },
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/2203db96742ae69ea6a50e98f10eb036.jpg",
+      "_id": "65264b0cc5dcb551461c66d0"
+    },
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/ce95654296f58a93abc173d8dd6271c1.jpg",
+      "_id": "65264b0cc5dcb551461c66d0"
+    },
+    {
+      "imageType": "detail",
+      "url": "https://ulkin.co.kr/web/product/extra/small/202309/44d4ace35b8d7723e9cd24b1d96d1a74.jpg",
+      "_id": "65264b0cc5dcb551461c66d0"
+    }
   ],
-  "category": "TOP",
-  "content": "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk",
-  "price": 50000
+  "name": "Destroyed Love Safely Semi-crop Sweatshirt_Grey",
+  "price": 3000000,
+  "content": "상품 설명",
+  "createdAt": "2023-10-11T07:13:16.086Z",
+  "updatedAt": "2023-10-11T07:13:16.086Z",
+  "__v": 0
 }
