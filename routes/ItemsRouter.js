@@ -4,16 +4,16 @@ const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 
 const itemsRouter = Router();
 
-// // GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
-// itemsRouter.get('/', async (req, res, next) => {
-//   try {
-//     const items = await itemService.getItems();
+// GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
+itemsRouter.get('/', authenticateAdmin, async (req, res, next) => {
+  try {
+    const items = await itemService.getItems();
 
-//     res.status(200).json(items);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    res.status(200).json(items);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // 관리자
 // 상품 추가, POST /api/v1/items
@@ -41,7 +41,6 @@ itemsRouter.delete('/', authenticateAdmin, async (req, res, next) => {
   }
 });
 
-// 관리자
 // 상품 수정, PUT /api/v1/items/:id
 itemsRouter.put('/:id', authenticateAdmin, async (req, res, next) => {
   const { id } = req.params;
