@@ -29,7 +29,17 @@ class OrderService {
       orderPassword,
     });
 
-    return order;
+    const createdOrder = await Order.find(order._id)
+      .populate('user')
+      .populate('address')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      });
+
+    return createdOrder;
   }
 
   async getPagination() {
@@ -91,8 +101,8 @@ class OrderService {
     return order;
   }
 
-  async getPaginationByUser(user, page, limit) {
-    const orders = await Order.find({ user })
+  async getPaginationByUser({ user, page, limit }) {
+    const orders = await Order.find(user)
       .populate('user')
       .populate({
         path: 'orderItems',
