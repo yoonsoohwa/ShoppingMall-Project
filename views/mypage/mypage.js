@@ -1,5 +1,5 @@
 const getInfoButton = document.querySelector('.getInfo-category');
-const changeInfoButton = document.querySelector('.changeInfo-category');
+const updateInfoButton = document.querySelector('.changeInfo-category');
 const deleteInfoButton = document.querySelector('.deleteInfo-category');
 const categoryContainer = document.querySelector('.mypage-controller-container');
 const infoContainer = document.querySelector('.mypage-info-container');
@@ -11,7 +11,46 @@ const logoutButton = document.querySelector('.logout');
 
 /* 정보 조회 */
 getInfoButton.addEventListener('click', async() => {
+    try {
+        infoContainer.innerHTML = ''; // 정보 초기화
+        const userId = sessionStorage.getItem('loginId');
+        const res = await fetch(`/api/v1/users/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        const data = await res.json();
+        infoContainer.innerHTML = `
+            <table>
+                <tr>
+                    <td>이름</td>
+                    <td>${data.user.name}</td>
+                </tr>
+                <tr>
+                    <td>휴대폰 번호</td>
+                    <td>${data.user.phonenumber}</td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td>${data.user.email}</td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td>${data.user.password}</td>
+                </tr>
+            </table>
+        `
+    } catch (error) {
+        infoContainer.innerHTML = `다시 시도해 주세요.`
+    }
+})
+
+
+/* 정보 수정 */
+updateInfoButton.addEventListener('click', async () => {
     infoContainer.innerHTML = ''; // 정보 초기화
+
     const userId = sessionStorage.getItem('loginId');
     const res = await fetch(`/api/v1/users/${userId}`, {
         method: 'GET',
@@ -20,9 +59,76 @@ getInfoButton.addEventListener('click', async() => {
         },
     })
     const data = await res.json();
-    console.log(data)
+    
     infoContainer.innerHTML = `
-    <table>
+        <table class="table-container">
+            <tr>
+                <td>이름</td>
+                <td><input type="text" id="name" value=${data.user.name}></td>
+            </tr>
+            <tr>
+                <td>휴대폰 번호</td>
+                <td><input type="text" id="phone" value=${data.user.phonenumber}></td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="text" id="email" value=${data.user.email}></td>
+            </tr>
+            <tr>
+                <td>기존 비밀번호</td>
+                <td><input type="text" id="oldPassword"></td>
+            </tr>
+            <tr>
+                <td>새로운 비밀번호</td>
+                <td><input type="text" id="newPassword"></td>
+            </tr>
+            <tr>
+                <td>새로운 비밀번호 확인</td>
+                <td><input type="text" id="confirmPassword"></td>
+            </tr>
+        </table>
+
+        <div class="confirm-button-container">
+            <button class="confirm-button">수정하기</button>
+            <button class="cancel-button">취소하기</button>            
+        </div>
+    `
+    const confirmInfoUpdateButton = document.querySelector('.confirm-button');
+    const cancelInfoUpdateButton = document.querySelector('.cancel-button');
+
+    confirmInfoUpdateButton.addEventListener('click', async() => {
+        const userId = sessionStorage.getItem('loginId');
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const userName = document.getElementById('name').value;
+        const userPhoneNumber = document.getElementById('phone').value;
+        const userEmail = document.getElementById('email').value;
+        const oldPassword = document.getElementById('oldPassword').value;
+        const res = await fetch(`/api/v1/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password: oldPassword,
+                updatedData: {
+                    name: userName, // 다른 업데이트 필드도 추가할 수 있음
+                    phonenumber: userPhoneNumber,
+                    email: userEmail,
+                    password: newPassword,
+                },
+            }),
+        })
+        const data = await res.json();
+
+        if (newPassword !== confirmPassword) {
+            alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            window.location.href = 'http://localhost:5001/mypage';
+        }
+
+        alert(data.message)
+        infoContainer.innerHTML = `
+        <table>
             <tr>
                 <td>이름</td>
                 <td>${data.user.name}</td>
@@ -40,88 +146,10 @@ getInfoButton.addEventListener('click', async() => {
                 <td>${data.user.password}</td>
             </tr>
         </table>
-    `
-})
-
-
-/* 정보 수정 */
-changeInfoButton.addEventListener('click', async() => {
-    infoContainer.innerHTML = ''; // 정보 초기화
-
-    const userId = sessionStorage.getItem('loginId');
-    const res = await fetch(`/api/v1/users/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    const data = await res.json();
-    
-    infoContainer.innerHTML = `
-        <table class="table-container">
-            <tr>
-                <td>이름</td>
-                <td><input type="text" value=${data.user.name}></td>
-            </tr>
-            <tr>
-                <td>휴대폰 번호</td>
-                <td><input type="text" value=${data.user.phonenumber}></td>
-            </tr>
-            <tr>
-                <td>이메일</td>
-                <td><input type="text" value=${data.user.email}></td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td><input type="text" value=${data.user.password}></td>
-            </tr>
-        </table>
-
-        <div class="confirm-button-container">
-            <button class="confirm-button">수정하기</button>
-            <button class="cancel-button">취소하기</button>            
-        </div>
-    `
-
-    const confirmInfoChangeButton = document.querySelector('.confirm-button');
-    const cancelInfoChangeButton = document.querySelector('.cancel-button');
-
-    confirmInfoChangeButton.addEventListener('click', async() => {
-        infoContainer.innerHTML = ''; // 정보 초기화
-        
-        const userId = sessionStorage.getItem('loginId');
-        const res = await fetch(`/api/v1/users/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        const data = await res.json();
-        console.log(data)
-        // alert(data.message)
-        // infoContainer.innerHTML = `
-        // <table>
-        //     <tr>
-        //         <td>이름</td>
-        //         <td>${data.user.name}</td>
-        //     </tr>
-        //     <tr>
-        //         <td>휴대폰 번호</td>
-        //         <td>${data.user.phonenumber}</td>
-        //     </tr>
-        //     <tr>
-        //         <td>이메일</td>
-        //         <td>${data.user.email}</td>
-        //     </tr>
-        //     <tr>
-        //         <td>비밀번호</td>
-        //         <td>${data.user.password}</td>
-        //     </tr>
-        // </table>
-        // `
+        `
     })
 
-    cancelInfoChangeButton.addEventListener('click', () => {
+    cancelInfoUpdateButton.addEventListener('click', () => {
         window.location.href = 'http://localhost:5001/mypage'
     })
 })
