@@ -63,6 +63,7 @@ const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitBtn = document.querySelector('#submit-signup');
 
+let authNumber; // email 인증 코드
 /* email 인증 */
 sendBtn.addEventListener('click', sendMail);
 
@@ -94,19 +95,11 @@ async function sendMail(e) {
     });
 
     const result = await res.json();
+
     if (res.status === 201) {
       alert(result.message);
-      verificationBtn.addEventListener('click', () => {
-        if (!certifyInput.value) {
-          certifyInput.focus();
-          return alert('인증번호를 입력해 주세요.');
-        }
-        if (certifyInput.value === result.emailVerificationCode) {
-          alert('인증이 확인되었습니다!');
-        } else if (certifyInput.value !== result.emailVerificationCode) {
-          alert('인증에 실패하였습니다.');
-        }
-      });
+      authNumber = result.emailVerificationCode;
+      console.log(authNumber);
     } else {
       alert(result.message);
     }
@@ -114,6 +107,18 @@ async function sendMail(e) {
     alert('요청 오류:', error);
   }
 }
+
+verificationBtn.addEventListener('click', () => {
+  if (!certifyInput.value) {
+    certifyInput.focus();
+    return alert('인증번호를 입력해 주세요.');
+  }
+  if (certifyInput.value === authNumber) {
+    alert('인증이 확인되었습니다!');
+  } else if (certifyInput.value !== authNumber) {
+    alert('인증에 실패하였습니다.');
+  }
+});
 
 /* sign up post 요청 */
 submitBtn.addEventListener('click', handleSignupSubmit);
