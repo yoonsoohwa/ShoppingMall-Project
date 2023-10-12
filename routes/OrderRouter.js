@@ -7,6 +7,7 @@ const UserService = require('../services/userService');
 const { authenticateUser, authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 const { validateOrderStatus, validateOnShipping } = require('../middlewares/orderMiddleware');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
+const { sendMail } = require('../utils/sendMail');
 
 const orderRouter = Router();
 
@@ -38,7 +39,7 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, address, totalPrice, status, message, orderPassword } = req.body;
+  const { orderItems, email, address, totalPrice, status, message, orderPassword } = req.body;
 
   try {
     const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
@@ -52,6 +53,9 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
       message,
       orderPassword,
     });
+
+    // 이메일 전송
+    await sendMail(email, '[RE: BIRTH] 상품 주문번호 발송 메일입니다.', `주문번호: ${order._id}`);
 
     res.status(201).json({ message: '주문이 완료되었습니다.', order });
   } catch (err) {
