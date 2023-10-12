@@ -11,7 +11,7 @@ function Header() {
               </a>
               <ul class="dropdown-menu p-0"></ul>
             </li>
-            <li class="account nav-item dropdown">
+            <li class="account nav-item dropdown me-4">
               <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account
               </a>
