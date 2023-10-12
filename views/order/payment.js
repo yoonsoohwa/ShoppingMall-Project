@@ -31,7 +31,7 @@ goBackBtn.addEventListener('click', () => {
 let isuser;
 async function checkLogin() {
   try {
-    const res = await fetch(`/api/v1/users/check-login`);
+    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
     const data = await res.json();
     const { isLoggedIn } = data.isLoggedIn;
 
@@ -218,7 +218,6 @@ async function userHandleSubmit(e) {
     return;
   }
 
-  const email = emailInput.value;
   const receiverName = receiverNameInput.value;
   const postalCode = postalCodeInput.value;
   const address1 = address1Input.value;
@@ -259,9 +258,8 @@ async function userHandleSubmit(e) {
 
   const data = {
     orderItems,
-    email,
     totalPrice,
-    status: '배송준비중',
+    status: '주문대기',
     message: request,
     address: {
       postnumber: postalCode,
@@ -276,7 +274,7 @@ async function userHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `/api/v1/orders`;
+  const apiUrl = 'http://localhost:5001/api/v1/orders';
 
   try {
     const res = await fetch(apiUrl, {
@@ -292,10 +290,10 @@ async function userHandleSubmit(e) {
       alert(result.message);
       window.location.href = '/order'; // 주문조회 페이지로 이동
     } else {
-      alert('주문에 실패하였습니다.');
+      alert('결제에 실패하였습니다.');
     }
   } catch (error) {
-    alert(`${error} 주문 중 오류가 발생하였습니다.`);
+    alert(`${error} 결제 중 오류가 발생하였습니다.`);
   }
 }
 
@@ -309,7 +307,6 @@ async function unuserHandleSubmit(e) {
     return;
   }
 
-  const email = emailInput.value;
   const password = passwordInput.value;
   const receiverName = receiverNameInput.value;
   const postalCode = postalCodeInput.value;
@@ -351,9 +348,8 @@ async function unuserHandleSubmit(e) {
 
   const data = {
     orderItems,
-    email,
     totalPrice,
-    status: '배송준비중',
+    status: '주문대기',
     message: request,
     orderPassword: password,
     address: {
@@ -369,7 +365,7 @@ async function unuserHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `/api/v1/orders/guest`;
+  const apiUrl = 'http://localhost:5001/api/v1/orders/guest';
 
   try {
     const res = await fetch(apiUrl, {
@@ -385,14 +381,13 @@ async function unuserHandleSubmit(e) {
       alert(result.message);
       window.location.href = '/login/unuser'; // 비회원 주문조회 페이지로 이동
     } else {
-      alert('주문에 실패하였습니다.');
+      alert('결제에 실패하였습니다.');
     }
   } catch (error) {
-    alert(`${error} 주문 중 오류가 발생하였습니다.`);
+    alert(`${error} 결제 중 오류가 발생하였습니다.`);
   }
 }
 
-// ----------------------------------------------------
 /* 유효성 검사 */
 
 // 회원

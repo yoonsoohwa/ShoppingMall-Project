@@ -29,8 +29,8 @@ function selectAllCheckboxes() {
     }
 }
 
-async function deleteOrder(id) {
-    const url = `/api/v1/orders/${id}/delete`;
+async function deleteOrder(idList) {
+    const url = `/api/v1/orders`;
 
     try {
         const res = await fetch(url, {
@@ -38,13 +38,20 @@ async function deleteOrder(id) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(id),
+            body: JSON.stringify({
+                orderIds: idList,
+            }),
         });
-    } catch(err) {
+
+        if (res.status === 200) {
+            // eslint-disable-next-line no-alert
+            alert('선택하신 주문이 취소되었습니다');
+        }
+    } catch (err) {
         // eslint-disable-next-line no-alert
-        alert(`주문번호 : ${id}의 주문을 취소할 수 없습니다.`);
+        alert(`주문을 취소할 수 없습니다.`);
     }
-    
+
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
@@ -66,7 +73,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
 
 async function insertOrderList() {
     // const url = './orderlistdata.json';    // 임시 데이터
-    const url = 'http://localhost:5001/api/v1/orders/1/20';
+    const url = '/api/v1/orders';
 
     try {
         const res = await fetch(url);
@@ -76,6 +83,7 @@ async function insertOrderList() {
         const { orders } = data;
         orders.forEach(order => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
+
             const { addressee } = address;
             const date = formatDate(createdAt);
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
@@ -91,9 +99,9 @@ async function insertOrderList() {
 }
 
 function orderCancel() {
-    const checkList = Array.from(document.querySelectorAll("#check-item"));
+    const checkList = document.querySelectorAll("#check-item");
 
-    const checkedOrders = checkList.map((order, idx) => {
+    const checkedOrders = [...checkList].map((order, idx) => {
         if (order.checked === true) {
             return document.querySelector(`#order-${idx} #order-id`).textContent;
         }
@@ -106,8 +114,14 @@ function orderCancel() {
         return;
     }
 
-    checkedOrders.forEach(id => deleteOrder(id));
-    insertOrderList();
+    if (window.confirm('선택한 주문을 취소하시겠습니까?')) {
+        deleteOrder(checkedOrders);
+        while (orderListEl.firstChild) {
+            orderListEl.removeChild(orderListEl.firstChild);
+        }
+        checkAll.checked = false;
+        insertOrderList();
+    }
 }
 
 insertOrderList();

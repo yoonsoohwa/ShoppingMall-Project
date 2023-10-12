@@ -328,7 +328,7 @@ function redirectToOrderPage() {
 
 // 특정 상품의 정보데이터 받아오기
 async function insertProductElement() {
-  const url = 'http://localhost:5001/api/v1/items/';
+  const url = '/api/v1/items/';
   productId = sessionStorage.getItem('selectedProductId');
 
   try {

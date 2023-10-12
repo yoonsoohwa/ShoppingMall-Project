@@ -7,6 +7,7 @@ const UserService = require('../services/userService');
 const { authenticateUser, authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 const { validateOrderStatus, validateOnShipping } = require('../middlewares/orderMiddleware');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
+const { sendMail } = require('../utils/sendMail');
 
 const orderRouter = Router();
 
@@ -30,6 +31,9 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
       message,
     });
 
+    // 이메일 전송
+    await sendMail(user.email, '[RE: BIRTH] 상품 주문번호 발송 메일입니다.', `주문번호: ${order._id}`);
+
     res.status(201).json({ message: '주문이 완료되었습니다.', order });
   } catch (err) {
     next(err);
@@ -38,7 +42,7 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, address, totalPrice, status, message, orderPassword } = req.body;
+  const { orderItems, email, address, totalPrice, status, message, orderPassword } = req.body;
 
   try {
     const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
@@ -53,6 +57,9 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
       orderPassword,
     });
 
+    // 이메일 전송
+    await sendMail(email, '[RE: BIRTH] 상품 주문번호 발송 메일입니다.', `주문번호: ${order._id}`);
+
     res.status(201).json({ message: '주문이 완료되었습니다.', order });
   } catch (err) {
     next(err);
@@ -60,16 +67,12 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
 });
 
 // GET /api/v1/orders
-orderRouter.get('/:page/:limit', authenticateAdmin, async (req, res, next) => {
-  const { page = 1, limit = 20 } = req.params;
-
+orderRouter.get('/', authenticateAdmin, async (req, res, next) => {
   try {
-    const { orders, count } = await OrderService.getPagination(page, limit);
+    const orders = await OrderService.getPagination();
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page,
     });
   } catch (err) {
     next(err);
@@ -114,7 +117,7 @@ orderRouter.post('/shipping', authenticateUser, async (req, res, next) => {
 });
 
 // GET /api/v1/orders/get/guest 비회원 주문조회
-orderRouter.get('/get/guest', async (req, res, next) => {
+orderRouter.post('/get/guest', async (req, res, next) => {
   const { orderId, orderPassword } = req.body;
 
   try {
@@ -136,7 +139,7 @@ orderRouter.get('/page/:page/:limit', authenticateUser, async (req, res, next) =
 
   try {
     const user = await UserService.getUserById(userId);
-    const { orders, count } = await OrderService.getPaginationByUser(user, page, limit);
+    const { orders, count } = await OrderService.getPagination({ user, page, limit });
 
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
@@ -177,18 +180,27 @@ orderRouter.patch('/:id/update', authenticateUser, async (req, res, next) => {
   }
 });
 
-// DELETE /api/v1/orders/:id/delete
-orderRouter.delete('/:id/delete', authenticateUser, validateOnShipping('body'), async (req, res, next) => {
-  const { email, role } = req.user;
-  const { id } = req.params;
+orderRouter.patch('/update/status', authenticateAdmin, async (req, res, next) => {
+  const { orderIds, status } = req.body;
 
   try {
-    const order = await OrderService.getOrderById(id);
+    const updatedOrder = await OrderService.updateStatuses(orderIds, status);
 
-    if (email !== order.user.email && role !== 'admin')
-      throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
+    res.status(201).json({
+      message: '주문 정보가 변경되었습니다.',
+      updatedOrder,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
-    await OrderService.deleteOrder(id);
+// DELETE /api/v1/orders/:id/delete
+orderRouter.delete('/delete', authenticateUser, validateOnShipping('body'), async (req, res, next) => {
+  const { orderIds } = req.body;
+
+  try {
+    await OrderService.deleteOrders(orderIds);
 
     res.status(200).json({ message: '주문이 삭제되었습니다.' });
   } catch (err) {
