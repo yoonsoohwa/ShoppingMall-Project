@@ -72,16 +72,18 @@ aListGroup.insertAdjacentHTML('beforeend', accountText);
 
 const accMypage = document.querySelector('.my');
 const accOrder = document.querySelector('.order');
-const userIcon = document.querySelector('bi-person');
+const userIcon = document.querySelector('.bi-person');
 
 // -------------------------------------------------------
 
 /* user인지 확인 */
 async function checkLogin() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
+    const res = await fetch('http://localhost:5001/api/v1/users/check-login', {
+      credentials: 'include',
+    });
     const data = await res.json();
-    const { isLoggedIn } = data.isLoggedIn;
+    const { isLoggedIn } = data;
 
     // 로그인 여부 클릭 이벤트
     if (isLoggedIn) {

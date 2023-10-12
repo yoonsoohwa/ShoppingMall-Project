@@ -259,7 +259,7 @@ async function userHandleSubmit(e) {
   const data = {
     orderItems,
     totalPrice,
-    status: '배송준비중',
+    status: '주문대기',
     message: request,
     address: {
       postnumber: postalCode,
@@ -349,7 +349,7 @@ async function unuserHandleSubmit(e) {
   const data = {
     orderItems,
     totalPrice,
-    status: '배송준비중',
+    status: '주문대기',
     message: request,
     orderPassword: password,
     address: {

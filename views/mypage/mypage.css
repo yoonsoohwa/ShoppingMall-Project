@@ -44,42 +44,25 @@
 }
 
 .mypage-info-container {
+  padding: 50px 0 0 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #ffffff;
   height: 600px;
   border-radius: 30px;
 }
 
-.main-container {
+.table-container {
   display: flex;
-  padding: 0px;
-  background-color: #c0c0c0;
-  width: 100%;
-  height: 700px;
 }
 
-.mypage-category-container {
-  margin: 50px 50px 0 50px;
+.confirm-button-container {
+  position: absolute;
+  bottom: 10%;
+  left: 45%;
 }
 
-.mypage-category {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  width: 300px;
-  height: 300px;
-  border-radius: 30px;
-}
-
-.mypage-category > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.confirm-button {
   background-color: #ffffff;
   margin: 10px;
   width: 200px;
@@ -89,21 +72,33 @@
   transition: 0.5s;
 }
 
-.mypage-category > button:hover {
+.confirm-button:hover {
   background-color: #c0c0c0;
 }
 
-.mypage-controller-container {
-  margin: 50px 50px 0 0;
-  width: 100%;
+.cancel-button {
+  background-color: #f34336;
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #f34336;
+  border-radius: 10px;
+  transition: 0.5s;
 }
 
-.mypage-info-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  height: 600px;
-  border-radius: 30px;
+.cancel-button:hover {
+  background-color: #ff0000;
+}
+
+.quit-button {
+  position: absolute;
+  bottom: 10%;
+  left: 55%;
+  background-color: #f34336;
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #f34336;
+  border-radius: 10px;
+  transition: 0.5s;
 }
