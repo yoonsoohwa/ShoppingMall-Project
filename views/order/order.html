@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Re: birth</title>
+    <title>Order Status</title>
     <!-- 부트스트랩 연결이에용 -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -13,40 +13,50 @@
     />
     <!-- 부트스트랩 아이콘 연결이에용 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <!-- 공통 부트스트랩 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
     <!-- 폰트 연결이에용 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- 공통 css -->
+    <link rel="stylesheet" href="../component/style.css" />
 
     <!-- css 연결이에용 -->
     <link rel="stylesheet" href="./order.css" />
-    <link rel="stylesheet" href="../component/style.css" />
 
     <!-- index js -->
 
-    <script type="module" src="../basket/index.js"></script>
-    <script type="module" src="../basket/addBasket.js"></script>
-    <script type="module" src="../basket/bottom.js"></script>
-
-    <!-- 화면용 js -->
-    <script type="module" src="../basket/display.js" defer></script>
+    <script src="./order.js" defer></script>
+    <script src="./api.js" defer type="module"></script>
   </head>
 
   <body>
     <!-- header -->
     <div id="header-container"></div>
+    <script src="../component/header.js"></script>
 
     <!-- 주문 조회 -->
-    <div class="has">
-      <i class="bi bi-bag"></i>
-      <p class="basket-count">주문 조회</p>
+    <div class="order-wrap">
+      <p class="order-count">주문 조회</p>
 
-      <div class="basketdiv" id="basket">
+      <div class="orderdiv" id="basket">
         <!-- 칼럼명 -->
         <div class="row head">
           <!-- 첫번째 블록 -->
           <div class="subdiv">
-            <div id="order-date">주문일자 [주문번호]</div>
+            <div id="order-date-wrap">주문일자 [주문번호]</div>
             <div id="order-img">이미지</div>
             <div id="order-pname">상품 정보</div>
           </div>
@@ -56,113 +66,19 @@
             <div id="order-price">상품 구매 금액</div>
             <div id="order-status">주문 처리 상태</div>
           </div>
-          <!-- 세번째 블록 -->
-          <div class="subdiv">
-            <div class="cancel">취소</div>
-          </div>
         </div>
 
-        <!-- 장바구니에 넣은 상품 목록 -->
+        <!-- 상품 목록 -->
         <div class="basket-wrapper">
-          <div class="row data">
-            <!-- 첫번째 블록 -->
-            <div class="subdiv">
-              <div id="order-date">
-                <p>주문일자</p>
-                <p>[주문 번호]</p>
-                <button type="button" class="btn btn-light opt-btn" id="modal-open-button">주문 취소</button>
-              </div>
-
-              <div id="order-img">
-                <img src="../Basketpage/c094c965cc52b72a17a30e4ff99c4f89.jpg" width="100%" alt="상품 이미지" />
-              </div>
-              <div id="order-pname">상품 정보</div>
-            </div>
-            <!-- 두번째 블록 -->
-            <div class="subdiv">
-              <div id="order-num">수량</div>
-              <div id="order-price">상품 구매 금액</div>
-              <div id="order-status">주문 처리 상태</div>
-            </div>
-            <!-- 세번째 블록 -->
-            <div class="subdiv">
-              <div class="cancel">-</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="modal-container" class="hidden">
-        <div id="modal-content">
-          <div class="modal-content-head">
-            <p>옵션 변경</p>
-            <button type="button" class="btn-bg-none">
-              <i class="bi bi-x" id="modal-close-button"></i>
-            </button>
-          </div>
-          <div class="modal-content-inner">
-            <div class="goods-name">Name</div>
-
-            <div class="option-choice">
-              <p>opt1</p>
-              <select class="form-select form-select-sm" aria-label="Small select example">
-                <option selected>-[필수] 옵션을 선택해주세요-</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="option-choice">
-              <p>opt2</p>
-              <select class="form-select form-select-sm" aria-label="Small select example">
-                <option selected>-[필수] 옵션을 선택해주세요-</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">four</option>
-              </select>
-            </div>
-          </div>
-          <div id="btn-grp">
-            <button type="button" class="btn btn-light opt-btn" id="modal-add-button">추가</button>
-            <button type="button" class="btn btn-light opt-btn" id="modal-change-button">변경</button>
-          </div>
+          <!-- row data -->
         </div>
       </div>
 
-      <div class="pagination-wrap">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lsaquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&rsaquo;</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <div class="pagination-wrap"></div>
     </div>
 
     <!-- footer -->
     <div id="footer-container"></div>
-    <script src="../component/header.js" defer></script>
-    <script src="../component/footer.js" defer></script>
+    <script src="../component/footer.js"></script>
   </body>
 </html>
