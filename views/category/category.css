@@ -11,6 +11,9 @@ button {
   border: 0;
 }
 
+u {
+  padding-bottom: 20px;
+}
 /* 카테고리 */
 .category-item {
   margin: 10px 8px 10px 0;
@@ -59,7 +62,7 @@ button {
   position: absolute;
   right: -10px;
   top: calc(50% - 40px);
-  z-index: 10;
+  z-index: 1;
   border: 0;
 }
 
@@ -69,7 +72,7 @@ button {
   position: absolute;
   left: -10px;
   top: calc(50% - 40px);
-  z-index: 10;
+  z-index: 1;
   border: 0;
 }
 
@@ -114,7 +117,7 @@ button {
   flex-wrap: wrap;
 }
 
-.product {
+.product-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,10 +132,12 @@ button {
 .main-product-name {
   margin-top: 4px;
   color: #666;
+  max-width: 300px;
 }
 .main-product-price {
   color: #333;
   font-size: 14px;
+  max-width: 300px;
 }
 
 .main-product-date {

@@ -4,15 +4,15 @@ const itemService = require('../services/ItemService');
 const itemsRouter = Router();
 
 // // GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
-// itemsRouter.get('/', async (req, res, next) => {
-//   try {
-//     const items = await itemService.getItems();
+itemsRouter.get('/', async (req, res, next) => {
+  try {
+    const items = await itemService.getItems();
 
-//     res.status(200).json(items);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    res.status(200).json(items);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // GET /api/v1/items/:id - 특정 아이템 조회
 itemsRouter.get('/:id', async (req, res, next) => {

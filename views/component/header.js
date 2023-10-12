@@ -24,7 +24,7 @@ function Header() {
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>    
   `;
 
   const header = document.querySelector('#header-container');
@@ -39,7 +39,7 @@ const aListGroup = document.querySelector('.account .dropdown-menu');
 const categoryList = ['All', 'Top', 'Outer', 'Bottom', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'];
 for (let i = 0; i < categoryList.length; i++) {
   const item = `
-        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
+        <li><a class="dropdown-item" href="/category?filter=${categoryList[i]}">${categoryList[i]}</a></li>
       `;
   pListGroup.insertAdjacentHTML('beforeend', item);
 }

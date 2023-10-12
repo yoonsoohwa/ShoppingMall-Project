@@ -75,7 +75,7 @@ export class BestProductList {
       const productCard = new ProductCard({ ...productItem });
       productCard.onClick = () => {
         sessionStorage.setItem('selectedProductId', productItem.id);
-        window.location.href = '../Productpage/product.html';
+        window.location.href = '/product';
       };
       productCard.render(productsUl);
     });
