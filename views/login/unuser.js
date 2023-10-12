@@ -27,7 +27,7 @@ async function handleSubmit() {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/orders/get/guest`;
+  const apiUrl = `/api/v1/orders/get/guest`;
 
   try {
     const res = await fetch(apiUrl, {

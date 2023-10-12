@@ -31,7 +31,7 @@ goBackBtn.addEventListener('click', () => {
 let isuser;
 async function checkLogin() {
   try {
-    const res = await fetch(`http://${process.env.HOST_IP}/api/v1/users/check-login`);
+    const res = await fetch(`/api/v1/users/check-login`);
     const data = await res.json();
     const { isLoggedIn } = data.isLoggedIn;
 
@@ -276,7 +276,7 @@ async function userHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/orders`;
+  const apiUrl = `/api/v1/orders`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -369,7 +369,7 @@ async function unuserHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/orders/guest`;
+  const apiUrl = `/api/v1/orders/guest`;
 
   try {
     const res = await fetch(apiUrl, {

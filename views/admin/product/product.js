@@ -1,7 +1,7 @@
 /* db에서 전체 목록 불러오기(get) */
 async function insertProductData() {
   try {
-    const res = await fetch(`http://${process.env.HOST_IP}/api/v1/items`);
+    const res = await fetch(`/api/v1/items`);
     const data = await res.json();
 
     data.forEach((product) => {
@@ -83,7 +83,7 @@ deleteBtn.addEventListener('click', async (e) => {
       });
 
       // db에 삭제한 정보 전달 (delete)
-      const apiUrl = `http://${process.env.HOST_IP}/api/v1/items`; // 수정
+      const apiUrl = `/api/v1/items`;
       const reqData = JSON.stringify({ items: checkedItemsId });
 
       try {

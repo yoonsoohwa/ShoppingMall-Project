@@ -8,13 +8,6 @@
       "role": "admin"
     },
     {
-      "name": "박명수",
-      "phonenumber": "123-4567-8901",
-      "email": "admin2@asd.com",
-      "password": "Admin123!",
-      "role": "admin"
-    },
-    {
       "name": "햄스터",
       "phonenumber": "123-4567-8901",
       "email": "elice1@asd.com",

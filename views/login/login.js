@@ -25,7 +25,7 @@ async function handleSigninSubmit(e) {
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/users/login`;
+  const apiUrl = `/api/v1/users/login`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -40,6 +40,7 @@ async function handleSigninSubmit(e) {
     if (res.status === 200) {
       alert(result.message);
       sessionStorage.setItem('loginId', result.user._id);
+      sessionStorage.setItem('role', result.user.role);
       window.location.href = '/'; // main page로 이동
     } else {
       alert(result.message);
@@ -81,7 +82,7 @@ async function sendMail(e) {
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/users/register/send-mail`;
+  const apiUrl = `/api/v1/users/register/send-mail`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -140,7 +141,7 @@ async function handleSignupSubmit(e) {
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/users/register`;
+  const apiUrl = `/api/v1/users/register`;
 
   try {
     const res = await fetch(apiUrl, {

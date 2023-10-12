@@ -138,7 +138,7 @@ async function handleSubmit(e) {
   formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
   formData.append('content', contentInput.value);
 
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/items`;
+  const apiUrl = `/api/v1/items`;
 
   try {
     const res = await fetch(apiUrl, {

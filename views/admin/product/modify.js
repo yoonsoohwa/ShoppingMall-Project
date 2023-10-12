@@ -20,7 +20,7 @@ const delDetailImgBtn = document.querySelector('.delete-detimg');
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
   try {
-    const res = await fetch(`http://${process.env.HOST_IP}/api/v1/items/:${id}`);
+    const res = await fetch(`/api/v1/items/:${id}`);
     const data = await res.json();
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
@@ -177,7 +177,7 @@ async function handleSubmit(e) {
   formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
   formData.append('content', mContent.value);
 
-  const apiUrl = `http://${process.env.HOST_IP}/api/v1/items/:${queryId}`;
+  const apiUrl = `/api/v1/items/:${queryId}`;
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
