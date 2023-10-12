@@ -29,8 +29,8 @@ function selectAllCheckboxes() {
     }
 }
 
-async function deleteOrder(id) {
-    const url = `/api/v1/orders/${id}/delete`;
+async function deleteOrder(idList) {
+    const url = `/api/v1/orders/delete`;
 
     try {
         const res = await fetch(url, {
@@ -38,11 +38,15 @@ async function deleteOrder(id) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(id),
+            body: JSON.stringify(idList),
         });
+
+        if (res.status === 200) {
+            alert('선택하신 주문이 취소되었습니다');
+        }
     } catch(err) {
         // eslint-disable-next-line no-alert
-        alert(`주문번호 : ${id}의 주문을 취소할 수 없습니다.`);
+        alert(`주문을 취소할 수 없습니다.`);
     }
     
 }
@@ -65,8 +69,8 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
 }
 
 async function insertOrderList() {
-    // const url = './orderlistdata.json';    // 임시 데이터
-    const url = 'http://localhost:5001/api/v1/orders/1/20';
+    const url = './orderlistdata.json';    // 임시 데이터
+    // const url = 'http://localhost:5001/api/v1/orders/1/20';
 
     try {
         const res = await fetch(url);
@@ -76,6 +80,7 @@ async function insertOrderList() {
         const { orders } = data;
         orders.forEach(order => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
+
             const { addressee } = address;
             const date = formatDate(createdAt);
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
@@ -106,7 +111,8 @@ function orderCancel() {
         return;
     }
 
-    checkedOrders.forEach(id => deleteOrder(id));
+    console.log(checkedOrders);
+    deleteOrder(checkedOrders);
     insertOrderList();
 }
 

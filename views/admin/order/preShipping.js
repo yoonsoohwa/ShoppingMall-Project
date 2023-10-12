@@ -79,7 +79,7 @@ async function insertOrderList() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                status: "배송 준비 중"
+                status: "배송준비중"
             })
         });
         // const res = await fetch(url);
