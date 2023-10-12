@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const itemService = require('../services/ItemService');
+const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 
 const itemsRouter = Router();
 
@@ -14,8 +15,9 @@ const itemsRouter = Router();
 //   }
 // });
 
+// 관리자
 // 상품 추가, POST /api/v1/items
-itemsRouter.post('/', async (req, res, next) => {
+itemsRouter.post('/', authenticateAdmin, async (req, res, next) => {
   try {
     const newItem = await itemService.addItem(req.body);
     res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
@@ -24,22 +26,9 @@ itemsRouter.post('/', async (req, res, next) => {
   }
 });
 
-// 상품 삭제, DELETE /api/v1/items/:id
-itemsRouter.delete('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const deletedItem = await itemService.deleteItem(id);
-    if (!deletedItem) {
-      res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
-    }
-    res.status(200).json({ message: '아이템이 삭제되었습니다.', item: deletedItem });
-  } catch (err) {
-    next(err);
-  }
-});
-
+// 관리자
 // 상품 삭제, DELETE /api/v1/items/delete 여러개
-itemsRouter.delete('/delete/items', async (req, res, next) => {
+itemsRouter.delete('/', authenticateAdmin, async (req, res, next) => {
   const { itemIds } = req.body;
   try {
     const deletedItems = await itemService.deleteItems(itemIds);
@@ -52,8 +41,9 @@ itemsRouter.delete('/delete/items', async (req, res, next) => {
   }
 });
 
+// 관리자
 // 상품 수정, PUT /api/v1/items/:id
-itemsRouter.put('/:id', async (req, res, next) => {
+itemsRouter.put('/:id', authenticateAdmin, async (req, res, next) => {
   const { id } = req.params;
   const updatedItemData = req.body;
   try {
