@@ -5,12 +5,11 @@ export class CategoryList {
 
   categoryListElement = null;
 
-  _filterName = 'ALL';
+  _filterName = 'All';
 
   _onClick;
 
   constructor(categoryItems) {
-    categoryItems.unshift({ name: 'ALL', _id: '' });
     this.categoryItems = categoryItems;
     const xmlString = `
         <ul class="all-categories">
