@@ -18,7 +18,7 @@ function loadSidebar() {
                 <li class="main mb-2">💜주문</li>
                   <ul class="sub">
                     <li class="pb-2"><a href="/order/order.html">- 전체 주문조회</a></li>
-                    <li class="pb-2"><a href="/order/preShipping.html">- 배송 준비중 관리</a></li>
+                    <li class="pb-2"><a href="/order/pre-shipping.html">- 배송 준비중 관리</a></li>
                     <li class="pb-2"><a href="/order/shipping.html">- 배송중 관리</a></li>
                     <li class="pb-2"><a href="/order/delivered.html">- 배송완료 조회</a></li>
                   </ul>
