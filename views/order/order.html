@@ -38,8 +38,8 @@
 
     <!-- index js -->
 
-    <script src="./order.js" defer></script>
-    <script src="./api.js" defer type="module"></script>
+    <script src="./userapi.js" defer></script>
+    <!-- <script src="./api.js" defer></script> -->
   </head>
 
   <body>
@@ -52,29 +52,30 @@
       <p class="order-count">주문 조회</p>
 
       <div class="orderdiv" id="basket">
-        <!-- 칼럼명 -->
-        <div class="row head">
-          <!-- 첫번째 블록 -->
-          <div class="subdiv">
-            <div id="order-date-wrap">주문일자 [주문번호]</div>
-            <div id="order-img">이미지</div>
-            <div id="order-pname">상품 정보</div>
-          </div>
-          <!-- 두번째 블록 -->
-          <div class="subdiv">
-            <div id="order-num">수량</div>
-            <div id="order-price">상품 구매 금액</div>
-            <div id="order-status">주문 처리 상태</div>
-          </div>
-        </div>
-
-        <!-- 상품 목록 -->
-        <div class="basket-wrapper">
-          <!-- row data -->
-        </div>
+        <table class="table table-hover text-center align-middle">
+          <colgroup>
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 10%" />
+            <col style="width: 20%" />
+            <col style="width: 10%" />
+          </colgroup>
+          <thead>
+            <tr id="tr-head">
+              <th scope="col">주문일자 [주문번호]</th>
+              <th scope="col">이미지</th>
+              <th scope="col">상품 정보</th>
+              <th scope="col">수량</th>
+              <th scope="col">상품 구매 금액</th>
+              <th scope="col">주문 처리 상태</th>
+            </tr>
+          </thead>
+          <tbody id="order-wrapper" class="table-group-divider"></tbody>
+        </table>
       </div>
 
-      <div class="pagination-wrap"></div>
+      <!-- <div class="pagination-wrap"></div> -->
     </div>
 
     <!-- footer -->
