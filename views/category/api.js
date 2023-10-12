@@ -70,9 +70,24 @@ export const getBestProductList = () => {
     ]
 }
 
-export const getCategoryDataList = () => {
-    return [
-        {
+export const getCategoryDataList = async() => {
+    try {
+        const res = await fetch('/api/v1/categories', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(),
+        })
+        const data = await res.json();
+        console.log(data);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+/*
+{
             "_id": "652537044a9f5d7ac941331f",
             "name": "TOP",
             "__v": 0
@@ -117,5 +132,4 @@ export const getCategoryDataList = () => {
             "name": "ETC",
             "__v": 0
         }
-    ]
-}
+*/
