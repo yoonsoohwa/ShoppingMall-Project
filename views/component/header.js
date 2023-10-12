@@ -43,25 +43,6 @@ for (let i = 0; i < categoryList.length; i++) {
       `;
   pListGroup.insertAdjacentHTML('beforeend', item);
 }
-/*
-async function getCategory() {
-  try {
-    const res = await fetch('http://localhost:5001/api/v1/categories');
-    const data = await res.json();
-    const categoryList = data.map((item) => item.name);
-
-    for (let i = 0; i < categoryList.length; i++) {
-      const item = `
-        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
-      `;
-      pListGroup.insertAdjacentHTML('beforeend', item);
-    }
-  } catch (error) {
-    alert('데이터를 가져오는 중 에러 발생:', error);
-  }
-}
-getCategory();
-*/
 
 /* account 카테고리 추가 */
 const accountText = `
@@ -79,7 +60,7 @@ const userIcon = document.querySelector('.bi-person');
 /* user인지 확인 */
 async function checkLogin() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/users/check-login', {
+    const res = await fetch(`http://${process.env.HOST_IP}/api/v1/users/check-login`, {
       credentials: 'include',
     });
     const data = await res.json();
