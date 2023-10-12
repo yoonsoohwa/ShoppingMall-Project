@@ -31,8 +31,8 @@ function setUserOrderList(date, _id, orderItems, totalPrice, status) {
 }
 
 async function userApi() {
-  // const userApiUrl = '/api/v1/orders/page/1/20';
-  const guestApiUrl = './order.json';
+  const userApiUrl = '/api/v1/orders/page/1/20';
+  // const guestApiUrl = './order.json';
   try {
     const res = await fetch(guestApiUrl);
 
