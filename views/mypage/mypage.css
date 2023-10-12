@@ -44,27 +44,77 @@
 }
 
 .mypage-info-container {
-  padding: 50px 0 0 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 600px;
+  border-radius: 30px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  background-image: url(./mypage.jpg);
+  background-size: cover;
+  opacity: 0.8;
+}
+
+.infoContainer-main {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.infoContainer-main img {
+  margin-top: 20px;
+  height: auto;
+  width: 100%;
+}
+
+.infoContainer-main-title {
+  color: #ffffff;
+  margin-top: 50px;
+  font-size: 50px;
+}
+
+.infoContainer-inputbox-profile,
+.infoContainer-inputbox-profileUpdate,
+.infoContainer-inputbox-profileDelete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid #c0c0c0;
   background-color: #ffffff;
-  height: 600px;
+  width: 450px;
+}
+
+.infoContainer-inputbox-profile,
+.infoContainer-inputbox-profileDelete {
+  height: 150px;
+  border-radius: 20px;
+}
+
+.infoContainer-inputbox-profileUpdate {
+  height: 250px;
   border-radius: 30px;
 }
 
-.table-container {
-  display: flex;
+.infoContainer-title {
+  margin-bottom: 50px;
+  color: #ffffff;
+}
+
+.table-container tr td:first-child {
+  padding-right: 100px;
 }
 
 .confirm-button-container {
-  position: absolute;
-  bottom: 10%;
-  left: 45%;
+  margin-top: 50px;
+  display: flex;
 }
 
 .confirm-button {
   background-color: #ffffff;
-  margin: 10px;
+  margin-right: 10px;
   width: 200px;
   height: 50px;
   border: 1px solid #c0c0c0;
@@ -78,7 +128,7 @@
 
 .cancel-button {
   background-color: #f34336;
-  margin: 10px;
+  margin-left: 10px;
   width: 200px;
   height: 50px;
   border: 1px solid #f34336;
@@ -86,16 +136,14 @@
   transition: 0.5s;
 }
 
-.cancel-button:hover {
+.cancel-button:hover,
+.quit-button:hover {
   background-color: #ff0000;
 }
 
 .quit-button {
-  position: absolute;
-  bottom: 10%;
-  left: 55%;
+  margin-top: 50px;
   background-color: #f34336;
-  margin: 10px;
   width: 200px;
   height: 50px;
   border: 1px solid #f34336;
