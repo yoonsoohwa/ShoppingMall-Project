@@ -27,11 +27,11 @@
     <link rel="stylesheet" href="../component/style.css" />
     <link rel="stylesheet" href="./login.css" />
   </head>
-  <body style="background-color: rgba(249, 248, 244, 1)">
-    <div class="login-wrap m-auto w-100">
-      <div class="login-html w-100 h-100">
-        <div class="sticky-lg-top float-end p-2">
-          <a href="/" class="p-1" style="background-color: beige; border-radius: 5px">HOME</a>
+  <body>
+    <div class="login-wrap w-100">
+      <div class="login-html">
+        <div class="sticky-lg-top float-end mt-2">
+          <a href="/"><img src="https://ifh.cc/g/7vx729.png" style="width: 130px" /> </a>
         </div>
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked /><label for="tab-1" class="tab"
           >Sign In</label
@@ -39,81 +39,78 @@
         <input id="tab-2" type="radio" name="tab" class="sign-up" /><label for="tab-2" class="tab">Sign Up</label>
         <!-- login -->
         <div class="login-form">
-          <div class="sign-in-htm mt-4">
-            <div class="group mb-3">
-              <label for="logEmailInput" class="label mb-2">Email</label>
-              <input id="logEmailInput" type="email" class="input" />
-            </div>
-            <div class="group mb-5">
-              <label for="logPasswordInput" class="label mb-2">Password</label>
-              <input id="logPasswordInput" type="password" class="input" data-type="password" />
-            </div>
-            <div class="group">
-              <input type="submit" class="button" id="submit-signin" value="Sign In" />
-            </div>
-            <div class="foot-lnk mt-3 mb-2">
-              <label for="tab-2" style="color: black">Not Member yet?</label>
+          <div class="left w-50 float-start pe-2">
+            <div class="sign-in-htm w-50 mt-2">
+              <div class="group mb-3">
+                <label for="logEmailInput" class="label mb-1">Email</label>
+                <input id="logEmailInput" type="email" class="input" />
+              </div>
+              <div class="group mb-5">
+                <label for="logPasswordInput" class="label mb-1">Password</label>
+                <input id="logPasswordInput" type="password" class="input" data-type="password" />
+              </div>
+              <div class="group">
+                <input type="button" class="button" id="submit-signin" value="Sign In" />
+              </div>
+              <div class="foot-lnk text-center mt-4">
+                <label for="tab-2" style="color: #3b3b3b">Not Member yet?</label>
+              </div>
             </div>
           </div>
+
           <!-- sign up -->
-          <div class="sign-up-htm mt-2">
-            <div class="group mb-2">
-              <label for="nameInput" class="label">Username</label>
-              <input id="nameInput" type="text" class="input" placeholder="김원빈" />
+          <div class="sign-up-htm w-100 mt-2">
+            <div class="left w-50 float-start pe-2">
+              <div class="group mb-2">
+                <label for="nameInput" class="label">Username</label>
+                <input id="nameInput" type="text" class="input" placeholder="김원빈" />
+              </div>
+              <div class="group mb-2">
+                <label for="emailInput" class="label">Email Address</label>
+                <div class="d-flex">
+                  <input id="emailInput" type="email" class="input" placeholder="abc@example.com" />
+                  <button type="button" class="button ms-2 p-0" id="send">인증번호<br />발송</button>
+                </div>
+              </div>
+              <div style="font-size: 12px; color: rgba(100, 148, 237, 0.826)">
+                <span>* 코드가 전송되지 않았다면, <u>스팸메일함</u>을 확인해주세요!</span>
+              </div>
+              <div class="group d-flex mt-1">
+                <input id="certifyInput" type="text" class="input" placeholder="인증번호 입력" />
+                <button type="button" class="button ms-2 p-0" id="verification">인증확인</button>
+              </div>
             </div>
-            <div class="group">
-              <label for="emailInput" class="label">Email Address</label>
-              <input id="emailInput" type="email" class="input" placeholder="abc@example.com" />
-            </div>
-            <div class="group d-flex mt-1 mb-2" style="height: 45px">
-              <button type="submit" class="btn me-1 p-0" id="send" style="background-color: beige; width: 130px">
-                인증번호 발송
-              </button>
-              <input id="certifyInput" type="text" class="input me-1" placeholder="인증번호 입력" />
-              <button
-                type="submit"
-                class="btn me-1 p-0"
-                id="verification"
-                style="background-color: beige; width: 130px"
-              >
-                인증확인
-              </button>
-            </div>
-            <div style="font-size: 12px; color: rgb(242, 255, 0)">
-              <span
-                >* 코드가 전송되지 않았다면, <span style="background-color: black">스팸메일함</span>을
-                확인해주세요!</span
-              >
-            </div>
-            <div class="group mb-2">
-              <label for="phoneNumberInput" class="label">Phone Number</label>
-              <input id="phoneNumberInput" type="text" class="input" placeholder="010-1111-2222" />
-            </div>
-            <div class="group mb-2">
-              <label for="passwordInput" class="label">Password</label>
-              <input
-                id="passwordInput"
-                type="password"
-                class="input"
-                data-type="password"
-                placeholder="8자 이상의 영문 대소문자, 숫자, 특수문자를 입력하세요."
-              />
-            </div>
-            <div class="group mb-2">
-              <label for="passwordConfirmInput" class="label">Confirm Password</label>
-              <input
-                id="passwordConfirmInput"
-                type="password"
-                class="input"
-                data-type="password"
-                placeholder="비밀번호를 한번 더 입력하세요"
-              />
-            </div>
-            <div class="group">
-              <input type="submit" class="button" id="submit-signup" value="Sign Up" />
-            </div>
-            <div class="foot-lnk mt-2">
-              <label for="tab-1" style="color: black">Already Member?</label>
+            <div class="right w-50 float-end ps-2">
+              <div class="group mb-2">
+                <label for="phoneNumberInput" class="label">Phone Number</label>
+                <input id="phoneNumberInput" type="text" class="input" placeholder="010-1111-2222" />
+              </div>
+              <div class="group mb-2">
+                <label for="passwordInput" class="label">Password</label>
+                <input
+                  id="passwordInput"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                  placeholder="8자 이상의 영문 대소문자, 숫자, 특수문자를 입력하세요."
+                />
+              </div>
+              <div class="group mb-2">
+                <label for="passwordConfirmInput" class="label">Confirm Password</label>
+                <input
+                  id="passwordConfirmInput"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                  placeholder="비밀번호를 한번 더 입력하세요"
+                />
+              </div>
+              <div class="group mt-4">
+                <input type="button" class="button" id="submit-signup" value="Sign Up" />
+              </div>
+              <div class="foot-lnk text-center mt-3">
+                <label for="tab-1" style="color: #3b3b3b">Already Member?</label>
+              </div>
             </div>
           </div>
         </div>
