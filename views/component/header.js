@@ -4,7 +4,7 @@ function Header() {
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src='https://ifh.cc/g/7vx729.png'></a>
         <div class="collapse navbar-collapse ms-4 justify-content-between" id="navbarSupportedContent">
-          <ul class="navbar-nav left">
+          <ul class="navbar-nav">
             <li class="product nav-item dropdown me-4">
               <a class="nav-link dropdown-toggle" href="/category" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Product
@@ -17,7 +17,7 @@ function Header() {
               </a>
               <ul class="dropdown-menu p-0"></ul>
             </li>
-            <li class="admin nav-item dropdown d-none">
+            <li class="admin nav-item dropdown" style="display:none">
               <a href="/admin/product">
                 Admin
               </a>
