@@ -32,22 +32,18 @@ class OrderService {
     return order;
   }
 
-  async getPagination(page, limit) {
+  async getPagination() {
     const orders = await Order.find()
       .populate('user')
+      .populate('address')
       .populate({
         path: 'orderItems',
         populate: {
           path: 'item',
         },
-      })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip((page - 1) * limit);
+      });
 
-    const count = await Order.countDocuments();
-
-    return { orders, count };
+    return orders;
   }
 
   async getOrderById(id) {
@@ -138,15 +134,30 @@ class OrderService {
     return updatedOrder;
   }
 
-  async deleteOrder(id) {
-    const order = await Order.findByIdAndDelete(id);
+  async updateStatuses(orderIds, status) {
+    const updatedOrder = await Order.updateMany({ _id: orderIds }, { status }, { new: true })
+      .populate('user')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
+
+    return updatedOrder;
+  }
+
+  async deleteOrders(orderIds) {
+    const order = await Order.find({ _id: orderIds });
+
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
     this.validateOnShipping(order.status);
 
-    await order.delete();
+    await Order.deleteMany({ _id: orderIds });
   }
 }
 

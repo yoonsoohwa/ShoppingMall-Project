@@ -60,16 +60,12 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
 });
 
 // GET /api/v1/orders
-orderRouter.get('/:page/:limit', authenticateAdmin, async (req, res, next) => {
-  const { page = 1, limit = 20 } = req.params;
-
+orderRouter.get('/', authenticateAdmin, async (req, res, next) => {
   try {
-    const { orders, count } = await OrderService.getPagination(page, limit);
+    const orders = await OrderService.getPagination();
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page,
     });
   } catch (err) {
     next(err);
@@ -177,18 +173,27 @@ orderRouter.patch('/:id/update', authenticateUser, async (req, res, next) => {
   }
 });
 
-// DELETE /api/v1/orders/:id/delete
-orderRouter.delete('/:id/delete', authenticateUser, validateOnShipping('body'), async (req, res, next) => {
-  const { email, role } = req.user;
-  const { id } = req.params;
+orderRouter.patch('/update/status', authenticateAdmin, async (req, res, next) => {
+  const { orderIds, status } = req.body;
 
   try {
-    const order = await OrderService.getOrderById(id);
+    const updatedOrder = await OrderService.updateStatuses(orderIds, status);
 
-    if (email !== order.user.email && role !== 'admin')
-      throw new UnauthorizedError('주문 정보를 조회할 권한이 없습니다.');
+    res.status(201).json({
+      message: '주문 정보가 변경되었습니다.',
+      updatedOrder,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
-    await OrderService.deleteOrder(id);
+// DELETE /api/v1/orders/:id/delete
+orderRouter.delete('/delete', authenticateUser, validateOnShipping('body'), async (req, res, next) => {
+  const { orderIds } = req.body;
+
+  try {
+    await OrderService.deleteOrders(orderIds);
 
     res.status(200).json({ message: '주문이 삭제되었습니다.' });
   } catch (err) {
