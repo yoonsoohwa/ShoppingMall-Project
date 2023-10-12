@@ -12,8 +12,7 @@ const logoutButton = document.querySelector('.logout');
 /* 정보 조회 */
 getInfoButton.addEventListener('click', async() => {
     infoContainer.innerHTML = ''; // 정보 초기화
-
-    const userId = sessionStorage.getItem('userId');
+    const userId = sessionStorage.getItem('loginId');
     const res = await fetch(`/api/v1/users/${userId}`, {
         method: 'GET',
         headers: {
@@ -21,7 +20,7 @@ getInfoButton.addEventListener('click', async() => {
         },
     })
     const data = await res.json();
-
+    console.log(data)
     infoContainer.innerHTML = `
     <table>
             <tr>
@@ -49,7 +48,7 @@ getInfoButton.addEventListener('click', async() => {
 changeInfoButton.addEventListener('click', async() => {
     infoContainer.innerHTML = ''; // 정보 초기화
 
-    const userId = sessionStorage.getItem('userId');
+    const userId = sessionStorage.getItem('loginId');
     const res = await fetch(`/api/v1/users/${userId}`, {
         method: 'GET',
         headers: {
@@ -90,7 +89,7 @@ changeInfoButton.addEventListener('click', async() => {
     confirmInfoChangeButton.addEventListener('click', async() => {
         infoContainer.innerHTML = ''; // 정보 초기화
         
-        const userId = sessionStorage.getItem('userId');
+        const userId = sessionStorage.getItem('loginId');
         const res = await fetch(`/api/v1/users/${userId}`, {
             method: 'PUT',
             headers: {
@@ -142,7 +141,7 @@ deleteInfoButton.addEventListener('click', () => {
     `
     const quitButton = document.querySelector('.quit-button');
     quitButton.addEventListener('click', async () => {
-            const userId = sessionStorage.getItem('userId');
+            const userId = sessionStorage.getItem('loginId');
 
         if (window.confirm('확인을 누르시면 회원 탈퇴됩니다.')){
             try {

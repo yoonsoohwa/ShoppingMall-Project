@@ -38,6 +38,7 @@ async function handleSigninSubmit(e) {
     const result = await res.json();
     if (res.status === 200) {
       alert(result.message);
+      sessionStorage.setItem('loginId', result.user._id);
       window.location.href = '/views/'; // main page로 이동
     } else {
       alert(result.message);
