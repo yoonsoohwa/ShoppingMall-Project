@@ -115,5 +115,5 @@ const adminHtml = `
   </li>
 `;
 if (sessionStorage.getItem('role') === 'admin') {
-  document.querySelector('.left').insertAdjacentElement('beforeend', adminHtml);
+  document.querySelector('.left').insertAdjacentHTML('beforeend', adminHtml);
 }
