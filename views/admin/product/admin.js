@@ -1,7 +1,7 @@
 /* db에서 전체 목록 불러오기(get) */
 async function insertProductData() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/items');
+    const res = await fetch('/api/v1/items');
     const data = await res.json();
 
     data.forEach((product) => {

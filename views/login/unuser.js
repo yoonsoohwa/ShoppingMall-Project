@@ -2,6 +2,9 @@ const orderIdInput = document.querySelector('#order-id');
 const orderPwdInput = document.querySelector('#order-password');
 const submitBtn = document.querySelector('#submit-btn');
 
+/* 결제 후 자동으로 주문 ID  */
+
+/* 비회원 로그인 post 요청 */
 submitBtn.addEventListener('click', handleSubmit);
 
 async function handleSubmit() {
@@ -24,7 +27,7 @@ async function handleSubmit() {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = `http://localhost:5001/api/v1/orders/get/guest`; // 주문정보 보내기 => how..?
+  const apiUrl = `/api/v1/orders/get/guest`;
 
   try {
     const res = await fetch(apiUrl, {

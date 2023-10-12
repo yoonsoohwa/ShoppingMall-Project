@@ -1,7 +1,7 @@
 /* db에서 전체 목록 불러오기(get) */
 async function insertProductData() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/items');
+    const res = await fetch(`/api/v1/items`);
     const data = await res.json();
 
     data.forEach((product) => {
@@ -83,7 +83,7 @@ deleteBtn.addEventListener('click', async (e) => {
       });
 
       // db에 삭제한 정보 전달 (delete)
-      const apiUrl = `http://localhost:5001/api/v1/items/:${id}`; // 수정
+      const apiUrl = `/api/v1/items`;
       const reqData = JSON.stringify({ items: checkedItemsId });
 
       try {
@@ -95,12 +95,12 @@ deleteBtn.addEventListener('click', async (e) => {
           body: reqData,
         });
 
+        const result = await res.json();
         if (res.status === 200) {
-          const result = await res.json();
           alert(result.message);
-          insertProductData(); // 데이터 다시 불러오기
+          await insertProductData(); // 데이터 다시 불러오기
         } else {
-          alert('삭제 요청 실패:', res.status);
+          alert(result.message);
         }
       } catch (error) {
         alert('삭제 요청 중 오류 발생:', error);
