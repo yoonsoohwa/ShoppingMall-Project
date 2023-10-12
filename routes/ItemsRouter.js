@@ -6,7 +6,7 @@ const itemsRouter = Router();
 
 // GET /api/v1/items - 모든 아이템 조회 ( ALL , Pagination 구현 x )
 
-itemsRouter.get('/', authenticateAdmin, async (req, res, next) => {
+itemsRouter.get('/', async (req, res, next) => {
   try {
     const items = await itemService.getItems();
 
