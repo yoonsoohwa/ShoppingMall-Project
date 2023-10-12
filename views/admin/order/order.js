@@ -42,6 +42,7 @@ async function deleteOrder(idList) {
         });
 
         if (res.status === 200) {
+            // eslint-disable-next-line no-alert
             alert('선택하신 주문이 취소되었습니다');
         }
     } catch(err) {
@@ -96,9 +97,9 @@ async function insertOrderList() {
 }
 
 function orderCancel() {
-    const checkList = Array.from(document.querySelectorAll("#check-item"));
+    const checkList = document.querySelectorAll("#check-item");
 
-    const checkedOrders = checkList.map((order, idx) => {
+    const checkedOrders = [...checkList].map((order, idx) => {
         if (order.checked === true) {
             return document.querySelector(`#order-${idx} #order-id`).textContent;
         }
@@ -111,8 +112,10 @@ function orderCancel() {
         return;
     }
 
-    console.log(checkedOrders);
     deleteOrder(checkedOrders);
+    while (orderListEl.firstChild) {
+        orderListEl.removeChild(orderListEl.firstChild);
+    }
     insertOrderList();
 }
 
