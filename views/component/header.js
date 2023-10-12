@@ -4,23 +4,28 @@ function Header() {
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src='https://ifh.cc/g/7vx729.png'></a>
         <div class="collapse navbar-collapse ms-4 justify-content-between" id="navbarSupportedContent">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav left">
             <li class="product nav-item dropdown me-4">
-              <a class="nav-link dropdown-toggle" href="category.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="/category" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Product
               </a>
               <ul class="dropdown-menu p-0"></ul>
             </li>
             <li class="account nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="account.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account
               </a>
               <ul class="dropdown-menu p-0"></ul>
             </li>
+            <li class="admin nav-item dropdown d-none">
+              <a href="/admin/product">
+                Admin
+              </a>
+            </li>
           </ul>
           <ul class="navbar-nav d-flex justify-content-end">
             <li><a><i class="bi bi-person me-2"></i></a></li>
-            <li><a href="/basket"><i class="bi bi-bag me-2"></i></a></li>
+            <li><a><i class="bi bi-bag me-2"></i></a></li>
           </ul>
         </div>
       </div>
@@ -43,25 +48,6 @@ for (let i = 0; i < categoryList.length; i++) {
       `;
   pListGroup.insertAdjacentHTML('beforeend', item);
 }
-/*
-async function getCategory() {
-  try {
-    const res = await fetch('http://localhost:5001/api/v1/categories');
-    const data = await res.json();
-    const categoryList = data.map((item) => item.name);
-
-    for (let i = 0; i < categoryList.length; i++) {
-      const item = `
-        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
-      `;
-      pListGroup.insertAdjacentHTML('beforeend', item);
-    }
-  } catch (error) {
-    alert('데이터를 가져오는 중 에러 발생:', error);
-  }
-}
-getCategory();
-*/
 
 /* account 카테고리 추가 */
 const accountText = `
@@ -72,16 +58,19 @@ aListGroup.insertAdjacentHTML('beforeend', accountText);
 
 const accMypage = document.querySelector('.my');
 const accOrder = document.querySelector('.order');
-const userIcon = document.querySelector('bi-person');
+const userIcon = document.querySelector('.bi-person');
+const basketIcon = document.querySelector('.bi-bag');
 
 // -------------------------------------------------------
 
 /* user인지 확인 */
 async function checkLogin() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
+    const res = await fetch(`/api/v1/users/check-login`, {
+      credentials: 'include',
+    });
     const data = await res.json();
-    const { isLoggedIn } = data.isLoggedIn;
+    const { isLoggedIn } = data;
 
     // 로그인 여부 클릭 이벤트
     if (isLoggedIn) {
@@ -93,6 +82,9 @@ async function checkLogin() {
       });
       userIcon.addEventListener('click', () => {
         window.location.href = '/mypage';
+      });
+      basketIcon.addEventListener('click', () => {
+        window.location.href = '/basket';
       });
     } else {
       accMypage.addEventListener('click', () => {
@@ -106,9 +98,20 @@ async function checkLogin() {
       userIcon.addEventListener('click', () => {
         window.location.href = '/login';
       });
+      basketIcon.addEventListener('click', () => {
+        alert('로그인이 필요한 페이지입니다!');
+        window.location.href = '/login';
+      });
     }
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 checkLogin();
+
+// -------------------------------------------------------
+
+/* 관리자 계정으로 로그인 시, header에 Admin 생성 */
+if (sessionStorage.getItem('role') === 'admin') {
+  document.querySelector('.admin').style.display = 'block';
+}

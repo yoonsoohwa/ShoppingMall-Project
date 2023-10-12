@@ -29,30 +29,6 @@ function selectAllCheckboxes() {
     }
 }
 
-async function changeOrderStatus(id) {
-    const url = `/api/v1/orders/${id}/delete`;
-
-    try {
-        const res = await fetch(url, {
-            method: "PATCH",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                
-            }),
-        });
-    } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert(`주문번호 : ${id}의 주문을 취소할 수 없습니다.`);
-    }
-
-}
-
-function changeOrder() {
-
-}
-
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
     const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
@@ -79,11 +55,10 @@ async function insertOrderList() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                status: "배송 준비 중"
+                status: "배송준비중"
             })
         });
         // const res = await fetch(url);
-
         const data = await res.json();
 
         orderId = 0;
@@ -106,6 +81,58 @@ async function insertOrderList() {
     }
 }
 
+async function changeStatus(idList) {
+    const url = `/api/v1/orders/update/status`;
+
+    try {
+        const res = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderIds: idList,
+                status: "배송중",
+            })
+        });
+
+        if (res.status === 200) {
+            // eslint-disable-next-line no-alert
+            alert('선택하신 주문의 배송상태가 변경되었습니다.');
+        }
+    } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert('배송상태 변경이 실패되었습니다.');
+    }
+}
+
+function orderDelivery() {
+    const checkList = document.querySelectorAll("#check-item");
+
+    const checkedOrders = [...checkList].map((order, idx) => {
+        if (order.checked === true) {
+            return document.querySelector(`#order-${idx} #pre-shipping-id`).textContent;
+        }
+        return null;
+    }).filter(order => order);
+
+    if (checkedOrders.length === 0) {
+        // eslint-disable-next-line no-alert
+        alert('배송할 주문을 선택해 주세요.');
+        return;
+    }
+
+    if (window.confirm('선택한 주문의 배송상태를 "배송중"으로 변경하시겠습니까?')) {
+        changeStatus(checkedOrders);
+
+        while (shipptingListEl.firstChild) {
+            shipptingListEl.removeChild(shipptingListEl.firstChild);
+        }
+        checkAll.checked = false;
+        insertOrderList();
+    }
+}
+
 insertOrderList();
-changeStatusBtn.addEventListener('click', changeOrder);
+changeStatusBtn.addEventListener('click', orderDelivery);
 checkAll.addEventListener('click', selectAllCheckboxes);
