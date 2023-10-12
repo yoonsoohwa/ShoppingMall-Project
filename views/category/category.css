@@ -12,24 +12,26 @@ button {
 }
 
 u {
-  padding-bottom: 20px;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
 }
 /* 카테고리 */
 .category-item {
   margin: 10px 8px 10px 0;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
   color: #666;
 }
 
 .all-categories {
   display: flex;
+  gap: 12px;
 }
 
 .categories-container {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* best */
@@ -83,9 +85,20 @@ u {
 }
 
 .sort-button-container button {
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  margin: 10px;
+  width: 100px;
+  height: 40px;
+  border: 1px solid #c0c0c0;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.sort-button-container button:hover {
+  background-color: #f5f5dc;
 }
 
 .container {
@@ -115,6 +128,10 @@ u {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.products > li {
+  margin-top: 30px;
 }
 
 .product-card {
