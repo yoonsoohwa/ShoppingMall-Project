@@ -5,7 +5,7 @@ import { xmlStringToDom, removeChildren } from './utils.js';
 import { CATEGORY } from './constants.js';
 
 export class MainProductList {
-  let mainProductListElement = null;
+  mainProductListElement = null;
 
   _filterName = 'ALL';
 

@@ -2,9 +2,9 @@ import { xmlStringToDom } from './utils.js';
 import { ProductCard } from './ProductCard.js';
 
 export class BestProductList {
-  let productItems;
+  productItems;
 
-  let bestProductListElement;
+  bestProductListElement;
 
   x = 0;
 
