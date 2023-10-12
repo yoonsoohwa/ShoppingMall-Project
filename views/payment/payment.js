@@ -31,9 +31,11 @@ goBackBtn.addEventListener('click', () => {
 let isuser;
 async function checkLogin() {
   try {
-    const res = await fetch(`/api/v1/users/check-login`);
+    const res = await fetch(`/api/v1/users/check-login`, {
+      credentials: 'include',
+    });
     const data = await res.json();
-    const { isLoggedIn } = data.isLoggedIn;
+    const { isLoggedIn } = data;
 
     if (isLoggedIn) {
       isuser = true;

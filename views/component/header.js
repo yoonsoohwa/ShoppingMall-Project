@@ -90,7 +90,12 @@ async function checkLogin() {
       basketIcon.addEventListener('click', () => {
         window.location.href = '/basket';
       });
+      /* 관리자 계정으로 로그인 시, header에 Admin 생성 */
+      if (sessionStorage.getItem('role') === 'admin') {
+        document.querySelector('.admin').style.display = 'block';
+      }
     } else {
+      sessionStorage.clear(); // session 초기화
       accMypage.addEventListener('click', () => {
         alert('로그인이 필요한 페이지입니다!');
         window.location.href = '/login';
@@ -113,10 +118,3 @@ async function checkLogin() {
   }
 }
 checkLogin();
-
-// -------------------------------------------------------
-
-/* 관리자 계정으로 로그인 시, header에 Admin 생성 */
-if (sessionStorage.getItem('role') === 'admin') {
-  document.querySelector('.admin').style.display = 'block';
-}
