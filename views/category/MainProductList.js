@@ -60,7 +60,7 @@ export class MainProductList {
       const productCard = new ProductCard({ ...productItem });
       productCard.onClick = () => {
         sessionStorage.setItem('selectedProductId', productItem.id);
-        window.location.href = '../Productpage/product.html';
+        window.location.href = '/product';
       }; // 상품누르면 세션스토리지에 해당상품 id 주입. 상품디테일 페이지에 가져다가 상품찾아서 정보끌어와서 사용.
       productCard.render(productsUl);
     });
