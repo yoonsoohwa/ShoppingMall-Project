@@ -1,3 +1,5 @@
+// const { response } = require('express');
+
 /* 로그인 */
 const logEmailInput = document.querySelector('#logEmailInput');
 const logPasswordInput = document.querySelector('#logPasswordInput');
@@ -5,7 +7,7 @@ const logSubmitBtn = document.querySelector('#submit-signin');
 
 logSubmitBtn.addEventListener('click', handleSigninSubmit);
 
-/* post 요청 */
+/* sign in post 요청 */
 async function handleSigninSubmit(e) {
   e.preventDefault();
 
@@ -25,7 +27,7 @@ async function handleSigninSubmit(e) {
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = 'http://localhost:5001/api/v1/users/login';
+  const apiUrl = `/api/v1/users/login`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -40,6 +42,7 @@ async function handleSigninSubmit(e) {
     if (res.status === 200) {
       alert(result.message);
       sessionStorage.setItem('loginId', result.user._id);
+      sessionStorage.setItem('role', result.user.role);
       window.location.href = '/'; // main page로 이동
     } else {
       alert(result.message);
@@ -53,9 +56,10 @@ async function handleSigninSubmit(e) {
 /* 회원가입 */
 
 const nameInput = document.querySelector('#nameInput');
-const EmailInput = document.querySelector('#EmailInput');
+const emailInput = document.querySelector('#emailInput');
 const sendBtn = document.querySelector('#send');
 const certifyInput = document.querySelector('#certifyInput');
+const verificationBtn = document.querySelector('#verification');
 const phoneNumberInput = document.querySelector('#phoneNumberInput');
 const passwordInput = document.querySelector('#passwordInput');
 const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
@@ -67,14 +71,20 @@ sendBtn.addEventListener('click', sendMail);
 async function sendMail(e) {
   e.preventDefault();
 
-  const email = EmailInput.value;
+  // 유효성 검사 실행 => email
+  if (!emailValidation()) {
+    // 유효성 검사 실패
+    return;
+  }
+
+  const email = emailInput.value;
   const data = {
     email,
   };
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = 'http://localhost:5001/api/v1/users/register/send-mail';
+  const apiUrl = `/api/v1/users/register/send-mail`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -86,9 +96,9 @@ async function sendMail(e) {
     });
 
     const result = await res.json();
+
     if (res.status === 200) {
       alert(result.message);
-      certifyInput.value = result.emailVerificationCode;
     } else {
       alert(result.message);
     }
@@ -97,7 +107,39 @@ async function sendMail(e) {
   }
 }
 
-/* post 요청 */
+verificationBtn.addEventListener('click', async () => {
+  const email = emailInput.value;
+  const code = certifyInput.value;
+  if (email && code) {
+    try {
+      if (!code) {
+        certifyInput.focus();
+        return alert('인증번호를 입력해 주세요.');
+      }
+      const response = await fetch('/api/v1/users/register/verify-email-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, code }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        alert(data.message);
+        emailInput.disabled = true;
+        certifyInput.disabled = true;
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  }
+});
+
+/* sign up post 요청 */
 submitBtn.addEventListener('click', handleSignupSubmit);
 
 async function handleSignupSubmit(e) {
@@ -110,7 +152,7 @@ async function handleSignupSubmit(e) {
   }
 
   const name = nameInput.value;
-  const email = EmailInput.value;
+  const email = emailInput.value;
   const phonenumber = phoneNumberInput.value;
   const password = passwordInput.value;
 
@@ -123,7 +165,7 @@ async function handleSignupSubmit(e) {
 
   const dataJson = JSON.stringify(data);
 
-  const apiUrl = 'http://localhost:5001/api/v1/users/register';
+  const apiUrl = `/api/v1/users/register`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -149,6 +191,24 @@ async function handleSignupSubmit(e) {
 /* --------------------------------------------- */
 
 /* 유효성 검사 */
+
+// email 부분만 분리 -> send-mail 에 사용
+function emailValidation() {
+  if (!emailInput.value) {
+    emailInput.focus();
+    alert('이메일을 입력해 주세요.');
+    return false;
+  }
+  /* 정규식 */
+  // 이메일 (영어 대소문자, 숫자, _, .-을 포함 / 최상위 도메인: 최소 2자 이상의 알파벳 대소문자)
+  const regMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!regMail.test(emailInput.value)) {
+    emailInput.focus();
+    alert('잘못된 이메일 형식입니다.');
+    return false;
+  }
+  return true;
+}
 
 // sign in
 function signinValidation() {
@@ -197,16 +257,6 @@ function signupValidation() {
     alert('이름을 입력해 주세요.');
     return false;
   }
-  if (!EmailInput.value) {
-    EmailInput.focus();
-    alert('이메일을 입력해 주세요.');
-    return false;
-  }
-  if (!certifyInput.value) {
-    certifyInput.focus();
-    alert('인증번호를 입력해 주세요.');
-    return false;
-  }
   if (!phoneNumberInput.value) {
     phoneNumberInput.focus();
     alert('전화번호를 입력해 주세요.');
@@ -227,9 +277,6 @@ function signupValidation() {
   // 이름 (한글, 영어, 2글자이상)
   const regName = /^[가-힣a-zA-Z]{2,}$/;
 
-  // 이메일 (영어 대소문자, 숫자, _, .-을 포함 / 최상위 도메인: 최소 2자 이상의 알파벳 대소문자)
-  const regMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
   // 비밀번호 (영어 대소문자, 숫자, 특수문자 포함, 8자 이상)
   const regPw = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/;
 
@@ -240,12 +287,6 @@ function signupValidation() {
   if (!regName.test(nameInput.value)) {
     nameInput.focus();
     alert('최소 2글자 이상, 한글과 영어만 입력하세요.');
-    return false;
-  }
-
-  if (!regMail.test(EmailInput.value)) {
-    EmailInput.focus();
-    alert('잘못된 이메일 형식입니다.');
     return false;
   }
 
@@ -271,6 +312,8 @@ function signupValidation() {
     alert('비밀번호가 일치하지 않습니다.');
     return false;
   }
+
+  emailValidation();
 
   // 모든 유효성 검사 통과
   return true;

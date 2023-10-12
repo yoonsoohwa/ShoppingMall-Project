@@ -1,3 +1,10 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 a {
   color: inherit;
 }
@@ -15,6 +22,7 @@ a {
 }
 
 .login-html {
+  height: 100%;
   position: absolute;
   padding: 30px 50px 0 50px;
 }

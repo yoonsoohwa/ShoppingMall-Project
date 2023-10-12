@@ -29,10 +29,6 @@ function selectAllCheckboxes() {
     }
 }
 
-function changeStatus() {
-
-}
-
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
     const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
@@ -59,12 +55,13 @@ async function insertOrderList() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                status: "배송 중"
+                status: "배송중"
             })
         });
         // const res = await fetch(url);
         const data = await res.json();
 
+        orderId = 0;
         const { orders } = data;
         orders.forEach(order => {
             const { createdAt, address, orderItems, totalPrice, _id: id } = order;
@@ -84,6 +81,59 @@ async function insertOrderList() {
     }
 }
 
+async function changeStatus(idList) {
+    const url = `/api/v1/orders/update/status`;
+
+    try {
+        const res = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderIds: idList,
+                status: "배송완료",
+            })
+        });
+
+        if (res.status === 200) {
+            // eslint-disable-next-line no-alert
+            alert('선택하신 주문의 배송상태가 변경되었습니다.');
+        }
+    } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert('배송상태 변경이 실패되었습니다.');
+    }
+}
+
+function orderDelivered() {
+    const checkList = document.querySelectorAll("#check-item");
+    console.log(checkList)
+
+    const checkedOrders = [...checkList].map((order, idx) => {
+        if (order.checked === true) {
+            return document.querySelector(`#order-${idx} #shipping-id`).textContent;
+        }
+        return null;
+    }).filter(order => order);
+
+    if (checkedOrders.length === 0) {
+        // eslint-disable-next-line no-alert
+        alert('배송을 완료할 주문을 선택해 주세요.');
+        return;
+    }
+
+    if (window.confirm('선택한 주문의 배송상태를 "배송완료"로 변경하시겠습니까?')) {
+        changeStatus(checkedOrders);
+
+        while (shipptingListEl.firstChild) {
+            shipptingListEl.removeChild(shipptingListEl.firstChild);
+        }
+        checkAll.checked = false;
+        insertOrderList();
+    }
+}
+
 insertOrderList();
-changeStatusBtn.addEventListener('click', changeStatus);
+changeStatusBtn.addEventListener('click', orderDelivered);
 checkAll.addEventListener('click', selectAllCheckboxes);
