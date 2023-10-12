@@ -104,6 +104,7 @@ updateInfoButton.addEventListener('click', async () => {
         const userPhoneNumber = document.getElementById('phone').value;
         const userEmail = document.getElementById('email').value;
         const oldPassword = document.getElementById('oldPassword').value;
+        
         const res = await fetch(`/api/v1/users/${userId}`, {
             method: 'PUT',
             headers: {
@@ -141,10 +142,6 @@ updateInfoButton.addEventListener('click', async () => {
                 <td>이메일</td>
                 <td>${data.user.email}</td>
             </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td>${data.user.password}</td>
-            </tr>
         </table>
         `
     })
@@ -163,28 +160,47 @@ deleteInfoButton.addEventListener('click', () => {
         <span>
             회원을 탈퇴하시겠습니까?
         </span>
+
+        <table>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="text" id="password"></td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td><input type="text" id="confirmPassword"></td>
+            </tr>
+        </table>
+
         <button class="quit-button">
             회원 탈퇴
         </button>
     `
     const quitButton = document.querySelector('.quit-button');
     quitButton.addEventListener('click', async () => {
-            const userId = sessionStorage.getItem('loginId');
+        const password = document.getElementById('password').value
+        const confirmPassword = document.getElementById('confirmPassword').value
 
-        if (window.confirm('확인을 누르시면 회원 탈퇴됩니다.')){
-            try {
-                const res = await fetch(`/api/v1/users/${userId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                const data = await res.json();
-                alert(data.message);
-                window.location.href = 'http://localhost:5001/'
-            } catch (error) {
-                console.error(error);
-            }
+        if (password !== confirmPassword) {
+            alert('기존 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return;
+        }
+
+        const userId = sessionStorage.getItem('loginId');
+        try {
+            const res = await fetch(`/api/v1/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ password })
+            })
+            const data = await res.json();
+            alert(data.message);
+            window.location.href = 'http://localhost:5001/'
+            console.log(data)
+        } catch (error) {
+            console.error(error);
         }
     })
 })
