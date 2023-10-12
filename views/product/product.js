@@ -182,7 +182,7 @@ function setInfo(name, price, content) {
   productName = name;
   productNameEl.innerText = productName;
   productPriceEl.innerText = `${productPrice.toLocaleString()}원`;
-  productDescriptionEl.innerText = content;
+  productDescriptionEl.innerText = content.replaceAll('. ', ".\n");
 }
 
 // 옵션(color, size)을 선택했을 때 발생하는 이벤트 설정
@@ -279,26 +279,6 @@ function convertItemsToProductList(items) {
   }, []);
 }
 
-async function checkLogin() {
-    try {
-        const res = await fetch(`/api/v1/users/check-login`, {
-            credentials: 'include',
-        });
-        const data = await res.json();
-        const { isLoggedIn } = data;
-
-        // 로그인 여부 클릭 이벤트
-        if (isLoggedIn) {
-            // eslint-disable-next-line no-alert
-            alert('장바구니 이용을 위해 로그인이 필요합니다. 아직 회원이 아니라면, 회원 가입을 해주세요.');
-            window.location.href('/login');
-        }
-    } catch (error) {
-        // eslint-disable-next-line no-alert
-        alert('데이터를 가져오는 중 에러 발생:', error);
-    }
-}
-
 // 장바구니 버튼 클릭시 실행
 function addToCart() {
   const items = Array.from(document.querySelectorAll('#selected-list > tr'));
@@ -309,7 +289,6 @@ function addToCart() {
     return;
     }
     
-    checkLogin();
 
   const basket = JSON.parse(localStorage.getItem('basket'));
   basketId = basket === null ? 0 : basket[basket.length - 1].basketId + 1;
@@ -326,6 +305,28 @@ function addToCart() {
   if (!window.confirm('쇼핑을 계속하시겠습니까?')) {
     window.location.href = '/views/basket/basket.html';
   }
+}
+
+async function checkLogin() {
+    try {
+        const res = await fetch(`/api/v1/users/check-login`, {
+            credentials: 'include',
+        });
+        const data = await res.json();
+        const { isLoggedIn } = data;
+
+        // 로그인 여부 클릭 이벤트
+        if (isLoggedIn) {
+            addToCart();
+        } else {
+            // eslint-disable-next-line no-alert
+            alert('장바구니 이용을 위해 로그인이 필요합니다. 아직 회원이 아니라면, 회원 가입을 해주세요.');
+            window.location.href('/login');
+        }
+    } catch (error) {
+        // eslint-disable-next-line no-alert
+        alert('데이터를 가져오는 중 에러 발생:', error);
+    }
 }
 
 function redirectToOrderPage() {
@@ -374,4 +375,4 @@ async function insertProductElement() {
 insertProductElement();
 
 buyNowBtn.addEventListener('click', redirectToOrderPage);
-addToCartBtn.addEventListener('click', addToCart);
+addToCartBtn.addEventListener('click', checkLogin);
