@@ -5,7 +5,7 @@ import { getProductList, getCategoryDataList } from './api.js'; //  각종 데�
 
 (async () => {
   const categoryData = getCategoryDataList();
-  let filter = '';
+  let filter = 'All';
   for (let category of categoryData) {  
     if (window.location.href.split('?filter=')[1] === category.name) {
       filter = category.name;
