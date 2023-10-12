@@ -17,6 +17,11 @@ function Header() {
               </a>
               <ul class="dropdown-menu p-0"></ul>
             </li>
+            <li class="admin nav-item dropdown d-none">
+              <a href="/admin/product">
+                Admin
+              </a>
+            </li>
           </ul>
           <ul class="navbar-nav d-flex justify-content-end">
             <li><a><i class="bi bi-person me-2"></i></a></li>
@@ -107,13 +112,6 @@ checkLogin();
 // -------------------------------------------------------
 
 /* 관리자 계정으로 로그인 시, header에 Admin 생성 */
-const adminHtml = `
-  <li class="product nav-item dropdown me-4">
-    <a href="/admin/product">
-      Admin
-    </a>
-  </li>
-`;
 if (sessionStorage.getItem('role') === 'admin') {
-  document.querySelector('.left').insertAdjacentHTML('beforeend', adminHtml);
+  document.querySelector('.admin').style.display = 'block';
 }
