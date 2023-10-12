@@ -1,0 +1,41 @@
+body {
+  background-image: url(https://ifh.cc/g/on2TjH.jpg);
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+/* body::before {
+  content: '';
+  opacity: 0.5;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000000dc;
+} */
+
+.unuser-con {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  border-radius: 10px;
+  width: 350px;
+  margin-left: 15%;
+  background-color: rgba(249, 248, 244, 0.831);
+  box-shadow:
+    0 20px 20px 0 rgba(0, 0, 0, 0.571),
+    0 20px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.unuser-title {
+  font-weight: bold;
+  color: #464646;
+}
+
+p {
+  font-size: 12px;
+  margin-bottom: 0;
+  color: rgba(100, 148, 237, 0.826);
+}
