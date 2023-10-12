@@ -31,6 +31,9 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
       message,
     });
 
+    // 이메일 전송
+    await sendMail(user.email, '[RE: BIRTH] 상품 주문번호 발송 메일입니다.', `주문번호: ${order._id}`);
+
     res.status(201).json({ message: '주문이 완료되었습니다.', order });
   } catch (err) {
     next(err);
