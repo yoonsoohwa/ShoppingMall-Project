@@ -24,7 +24,7 @@ async function handleSubmit() {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = ``; // 주문정보 보내기 => how..?
+  const apiUrl = `http://localhost:5001/api/v1/orders/get/guest`; // 주문정보 보내기 => how..?
 
   try {
     const res = await fetch(apiUrl, {
@@ -36,7 +36,8 @@ async function handleSubmit() {
     });
 
     if (res.status === 200) {
-      alert('로그인에 성공하였습니다!');
+      const result = await res.json();
+      alert(result.message);
       window.location.href = '/order';
     } else {
       alert('로그인에 실패하였습니다...');
