@@ -38,6 +38,20 @@ itemsRouter.delete('/:id', async (req, res, next) => {
   }
 });
 
+// 상품 삭제, DELETE /api/v1/items/delete 여러개
+itemsRouter.delete('/delete/items', async (req, res, next) => {
+  const { itemIds } = req.body;
+  try {
+    const deletedItems = await itemService.deleteItems(itemIds);
+    if (!deletedItems) {
+      res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
+    }
+    res.status(200).json({ message: '아이템이 삭제되었습니다.', item: deletedItems });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // 상품 수정, PUT /api/v1/items/:id
 itemsRouter.put('/:id', async (req, res, next) => {
   const { id } = req.params;
