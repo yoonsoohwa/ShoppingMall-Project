@@ -25,20 +25,20 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
 }
 
 async function insertOrderList() {
-    const url = './orderlistdata.json';    // 임시 데이터
-    // const url = '';
+    // const url = './orderlistdata.json';    // 임시 데이터
+    const url = '/api/v1/orders/get/shipping';
 
     try {
-        // const res = await fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         status: "배송완료"
-        //     })
-        // });
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "배송완료"
+            })
+        });
+        // const res = await fetch(url);
         const data = await res.json();
 
         const { orders } = data;

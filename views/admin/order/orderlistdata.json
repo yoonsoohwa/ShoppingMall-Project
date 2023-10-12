@@ -1,331 +1,205 @@
 {
-  "message": "전체 주문이 조회되었습니다.",
+  "message": "주문 조회에 성공하였습니다.",
   "orders": [
     {
-      "orderItems": [],
-      "payMethod": "가상계좌",
-      "_id": "6522355bd263ca6cdfb533e3",
-      "items": [],
+      "_id": "65263765cf91d8ad42a7e9b6",
+      "orderItems": [
+        {
+          "option": {
+            "size": "M",
+            "color": "black"
+          },
+          "_id": "65263765cf91d8ad42a7e9b0",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:49:25.864Z",
+          "updatedAt": "2023-10-11T05:49:25.864Z",
+          "__v": 0
+        },
+        {
+          "_id": "65263765cf91d8ad42a7e9b1",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:49:25.864Z",
+          "updatedAt": "2023-10-11T05:49:25.864Z",
+          "__v": 0
+        }
+      ],
       "address": {
-        "_id": "6522355bd263ca6cdfb533e1",
-        "postnumber": 50000,
-        "addressee": "lee bruce",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "decryptedDetail": null,
-        "createdAt": "2023-10-08T04:51:39.306Z",
-        "updatedAt": "2023-10-08T04:51:39.306Z",
-        "__v": 0
-      },
-      "totalPrice": 5000,
-      "status": "주문대기",
-      "isRegistered": true,
-      "deletedAt": null,
-      "createdAt": "2023-10-08T04:51:39.309Z",
-      "updatedAt": "2023-10-08T04:51:39.309Z",
-      "__v": 0
-    },
-    {
-      "orderItems": [],
-      "payMethod": "가상계좌",
-      "_id": "6523a55e52f38b127d75578c",
-      "items": [],
-      "address": {
-        "_id": "6523a55e52f38b127d75578a",
-        "postnumber": 50000,
-        "addressee": "lee bruce",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "createdAt": "2023-10-09T07:01:50.682Z",
-        "updatedAt": "2023-10-09T07:01:50.682Z",
-        "__v": 0
-      },
-      "totalPrice": 5000,
-      "status": "주문대기",
-      "isRegistered": true,
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-09T07:01:50.686Z",
-      "updatedAt": "2023-10-09T07:01:50.686Z",
-      "__v": 0
-    },
-    {
-      "orderItems": [],
-      "payMethod": "가상계좌",
-      "_id": "6523a6c713bf2e5eee057032",
-      "items": [],
-      "address": {
-        "_id": "6523a6c713bf2e5eee057030",
-        "postnumber": 50000,
-        "addressee": "lee tom",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "9900호",
-        "createdAt": "2023-10-09T07:07:51.057Z",
-        "updatedAt": "2023-10-09T07:25:33.222Z",
-        "__v": 0
-      },
-      "totalPrice": 5000,
-      "status": "결제완료",
-      "isRegistered": true,
-      "message": "문 앞에 놔주세요",
-      "deletedAt": null,
-      "createdAt": "2023-10-09T07:07:51.065Z",
-      "updatedAt": "2023-10-09T07:25:33.226Z",
-      "__v": 0
-    },
-    {
-      "orderItems": [],
-      "payMethod": "가상계좌",
-      "_id": "6523ab66d14570caf5794581",
-      "items": [],
-      "address": {
-        "_id": "6523ab66d14570caf579457f",
-        "postnumber": 50000,
-        "addressee": "lee bruce",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-09T07:27:34.050Z",
-        "updatedAt": "2023-10-09T07:27:34.050Z",
-        "__v": 0
-      },
-      "totalPrice": 5000,
-      "status": "주문대기",
-      "isRegistered": true,
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-09T07:27:34.056Z",
-      "updatedAt": "2023-10-09T07:27:34.056Z",
-      "__v": 0
-    },
-    {
-      "orderItems": [],
-      "_id": "6523ccd6c7f996e49a5c6b6d",
-      "address": {
-        "_id": "6523ccd6c7f996e49a5c6b6b",
-        "postnumber": 50000,
-        "addressee": "lee bruce",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-09T09:50:14.493Z",
-        "updatedAt": "2023-10-09T09:50:14.493Z",
-        "__v": 0
-      },
-      "totalPrice": 5000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "isRegistered": true,
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "items": [],
-      "createdAt": "2023-10-09T09:50:14.498Z",
-      "updatedAt": "2023-10-09T09:50:14.498Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524adcf4fbc72f56de217a8",
-      "orderItems": [],
-      "address": {
-        "_id": "6524adcf4fbc72f56de217a6",
+        "_id": "65263765cf91d8ad42a7e9b4",
         "postnumber": 50000,
         "addressee": "elice",
         "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T01:50:07.362Z",
-        "updatedAt": "2023-10-10T01:50:07.362Z",
+        "detail": "5000호",
+        "createdAt": "2023-10-11T05:49:25.869Z",
+        "updatedAt": "2023-10-11T05:49:25.869Z",
         "__v": 0
       },
-      "totalPrice": 500000,
+      "totalPrice": 300000,
       "payMethod": "가상계좌",
       "status": "주문대기",
       "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T01:50:07.368Z",
-      "updatedAt": "2023-10-10T01:50:07.368Z",
+      "orderPassword": "elice123",
+      "createdAt": "2023-10-11T05:49:25.873Z",
+      "updatedAt": "2023-10-11T05:49:25.873Z",
       "__v": 0
     },
     {
-      "_id": "6524ae42229bff5d5092d6d0",
-      "orderItems": [],
-      "address": {
-        "_id": "6524ae42229bff5d5092d6ce",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T01:52:02.643Z",
-        "updatedAt": "2023-10-10T01:52:02.643Z",
-        "__v": 0
-      },
-      "totalPrice": 500000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T01:52:02.647Z",
-      "updatedAt": "2023-10-10T01:52:02.647Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524b047ecb92eb1ad18215c",
+      "_id": "65263678e487d23d867074dd",
       "user": {
-        "_id": "65201807d2390a7caf5c0a1a",
-        "name": "elice",
-        "password": "$2b$10$Bh.7ZRwCMPBqgU6kV7XYxunR86OEcF6sR2n5AJJO0O6zcJQZIYTsG",
-        "roll": "user",
-        "credential": "65201807d2390a7caf5c0a19",
-        "createdAt": "2023-10-06T14:21:59.063Z",
-        "updatedAt": "2023-10-06T14:21:59.063Z",
-        "__v": 0
-      },
-      "orderItems": [],
-      "address": {
-        "_id": "6524b047ecb92eb1ad18215a",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T02:00:39.788Z",
-        "updatedAt": "2023-10-10T02:00:39.788Z",
-        "__v": 0
-      },
-      "totalPrice": 500000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:00:39.795Z",
-      "updatedAt": "2023-10-10T02:00:39.795Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524b2dd1a3b5dcffbeb3d16",
-      "orderItems": [],
-      "address": {
-        "_id": "6524b2dd1a3b5dcffbeb3d14",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T02:11:41.395Z",
-        "updatedAt": "2023-10-10T02:11:41.395Z",
-        "__v": 0
-      },
-      "totalPrice": 500000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:11:41.402Z",
-      "updatedAt": "2023-10-10T02:11:41.402Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524b3217d6acabad1487fa8",
-      "orderItems": [],
-      "address": {
-        "_id": "6524b3217d6acabad1487fa6",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T02:12:49.539Z",
-        "updatedAt": "2023-10-10T02:12:49.539Z",
-        "__v": 0
-      },
-      "totalPrice": 500000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:12:49.543Z",
-      "updatedAt": "2023-10-10T02:12:49.543Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524b373e43a5015fde7e0bd",
-      "orderItems": [],
-      "address": {
-        "_id": "6524b373e43a5015fde7e0bb",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-10T02:14:11.350Z",
-        "updatedAt": "2023-10-10T02:14:11.350Z",
-        "__v": 0
-      },
-      "totalPrice": 500000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:14:11.356Z",
-      "updatedAt": "2023-10-10T02:14:11.356Z",
-      "__v": 0
-    },
-    {
-      "_id": "6524b4ace922d3a3dce4ff0d",
-      "user": {
-        "_id": "652420f71abbf69029572558",
-        "name": "elice",
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
         "phonenumber": "123-4567-8901",
-        "email": "elice@asd.com",
-        "password": "$2b$10$hixQ69sABCaXA3t6ffnsMOfrRDVNImTQHeTnoyLZLmMA8lplyVMCe",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
         "role": "user",
-        "createdAt": "2023-10-09T15:49:11.497Z",
-        "updatedAt": "2023-10-09T15:49:11.497Z",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
         "__v": 0
       },
-      "orderItems": [],
+      "orderItems": [
+        {
+          "option": {
+            "size": "L",
+            "color": "blue"
+          },
+          "_id": "65263678e487d23d867074d7",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:45:28.765Z",
+          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "__v": 0
+        },
+        {
+          "option": {
+            "size": "S",
+            "color": "red"
+          },
+          "_id": "65263678e487d23d867074d8",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:45:28.765Z",
+          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "__v": 0
+        }
+      ],
       "address": {
-        "_id": "6524b4ace922d3a3dce4ff0b",
+        "_id": "65263678e487d23d867074db",
         "postnumber": 50000,
         "addressee": "elice",
         "addressExceptDetail": "서울시 강남구 테헤란로 12길",
         "detail": "7000호",
-        "createdAt": "2023-10-10T02:19:24.124Z",
-        "updatedAt": "2023-10-10T02:19:24.124Z",
+        "createdAt": "2023-10-11T05:45:28.767Z",
+        "updatedAt": "2023-10-11T05:45:28.767Z",
         "__v": 0
       },
-      "totalPrice": 500000,
+      "totalPrice": 3000,
       "payMethod": "가상계좌",
       "status": "주문대기",
       "message": "관리실에 맡겨주세요.",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:19:24.130Z",
-      "updatedAt": "2023-10-10T02:19:24.130Z",
+      "createdAt": "2023-10-11T05:45:28.768Z",
+      "updatedAt": "2023-10-11T05:45:28.768Z",
       "__v": 0
     },
     {
-      "_id": "6524b5f2a99e38fa84892cad",
+      "_id": "6526344297727a73d0aac152",
       "user": {
-        "_id": "652420f71abbf69029572558",
-        "name": "elice",
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
         "phonenumber": "123-4567-8901",
-        "email": "elice@asd.com",
-        "password": "$2b$10$hixQ69sABCaXA3t6ffnsMOfrRDVNImTQHeTnoyLZLmMA8lplyVMCe",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
         "role": "user",
-        "createdAt": "2023-10-09T15:49:11.497Z",
-        "updatedAt": "2023-10-09T15:49:11.497Z",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
         "__v": 0
       },
-      "orderItems": [],
+      "orderItems": [
+        {
+          "_id": "6526344297727a73d0aac14c",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:36:02.539Z",
+          "updatedAt": "2023-10-11T05:36:02.539Z",
+          "__v": 0
+        },
+        {
+          "_id": "6526344297727a73d0aac14d",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:36:02.539Z",
+          "updatedAt": "2023-10-11T05:36:02.539Z",
+          "__v": 0
+        }
+      ],
       "address": {
-        "_id": "6524b5f2a99e38fa84892cab",
+        "_id": "6526344297727a73d0aac150",
         "postnumber": 50000,
-        "addressee": "lee tom",
+        "addressee": "elice",
         "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "9900호",
-        "createdAt": "2023-10-10T02:24:50.303Z",
-        "updatedAt": "2023-10-10T02:39:33.013Z",
+        "detail": "7000호",
+        "createdAt": "2023-10-11T05:36:02.544Z",
+        "updatedAt": "2023-10-11T05:36:02.544Z",
         "__v": 0
       },
-      "totalPrice": 500000,
+      "totalPrice": 3000,
       "payMethod": "가상계좌",
       "status": "주문대기",
-      "message": "문 앞에 놔주세요",
-      "deletedAt": null,
-      "createdAt": "2023-10-10T02:24:50.310Z",
-      "updatedAt": "2023-10-10T02:39:33.027Z",
+      "message": "관리실에 맡겨주세요.",
+      "createdAt": "2023-10-11T05:36:02.548Z",
+      "updatedAt": "2023-10-11T05:36:02.548Z",
+      "__v": 0
+    },
+    {
+      "_id": "6526337497727a73d0aac148",
+      "user": {
+        "_id": "6526336997727a73d0aac101",
+        "name": "햄스터",
+        "phonenumber": "123-4567-8901",
+        "email": "elice1@asd.com",
+        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
+        "role": "user",
+        "createdAt": "2023-10-11T05:32:25.496Z",
+        "updatedAt": "2023-10-11T05:32:25.496Z",
+        "__v": 0
+      },
+      "orderItems": [
+        {
+          "_id": "6526337497727a73d0aac142",
+          "quantity": 2,
+          "item": "652569f629ecbc65fa01f04d",
+          "createdAt": "2023-10-11T05:32:36.922Z",
+          "updatedAt": "2023-10-11T05:32:36.922Z",
+          "__v": 0
+        },
+        {
+          "_id": "6526337497727a73d0aac143",
+          "quantity": 3,
+          "item": "65256a1229ecbc65fa01f052",
+          "createdAt": "2023-10-11T05:32:36.922Z",
+          "updatedAt": "2023-10-11T05:32:36.922Z",
+          "__v": 0
+        }
+      ],
+      "address": {
+        "_id": "6526337497727a73d0aac146",
+        "postnumber": 50000,
+        "addressee": "elice",
+        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+        "detail": "7000호",
+        "createdAt": "2023-10-11T05:32:36.928Z",
+        "updatedAt": "2023-10-11T05:32:36.928Z",
+        "__v": 0
+      },
+      "totalPrice": 3000,
+      "payMethod": "가상계좌",
+      "status": "주문대기",
+      "message": "관리실에 맡겨주세요.",
+      "createdAt": "2023-10-11T05:32:36.936Z",
+      "updatedAt": "2023-10-11T05:32:36.936Z",
       "__v": 0
     }
-  ]
+  ],
+  "totalPages": 1,
+  "currentPage": "1"
 }
