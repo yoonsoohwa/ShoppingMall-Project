@@ -18,9 +18,13 @@ function Header() {
               <ul class="dropdown-menu p-0"></ul>
             </li>
             <li class="admin nav-item dropdown" style="display:none">
-              <a href="/admin/product">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
               </a>
+              <ul class="dropdown-menu p-0">
+                <li><a class="dropdown-item" href="/admin/product">상품 관리</a></li>
+                <li><a class="dropdown-item" href="/admin/order">주문 관리</a></li>
+              </ul>
             </li>
           </ul>
           <ul class="navbar-nav d-flex justify-content-end">
