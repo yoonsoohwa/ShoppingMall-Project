@@ -30,13 +30,21 @@ function selectAllCheckboxes() {
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
+    let totalQuantity = 0;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity];
+    });
+    const itemText = productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
+
     const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="pre-shipping-date">${date.replace(' ', '<br>')}</td>
               <td id="pre-shipping-id">${id}</td>
               <td id="pre-shipping-username">${addressee}</td>
-              <td id="pre-shipping-product">${orderItems}</td>
-              <td id="pre-shipping-vertify">${orderItems.length}</td>
+              <td id="pre-shipping-product">${itemText}</td>
+              <td id="pre-shipping-vertify">${totalQuantity}</td>
               <td id="pre-shipping-price">${totalPrice}</td>
             </tr>`
 
@@ -122,6 +130,7 @@ function orderDelivery() {
         return;
     }
 
+    // eslint-disable-next-line no-alert
     if (window.confirm('선택한 주문의 배송상태를 "배송중"으로 변경하시겠습니까?')) {
         changeStatus(checkedOrders);
 

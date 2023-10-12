@@ -10,14 +10,21 @@ function formatDate(createdAt) {
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
-    const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+    let totalQuantity = 0 ;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity];
+    });
+    const itemText = productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
+
 
     const element = `<tr>
                 <td id="delivered-date">${date}</td>
                 <td id="delivered-id">${id}</td>
                 <td id="delivered-username">${addressee}</td>
                 <td id="delivered-product">${itemText}</td>
-                <td id="delivered-vertify">${orderItems.length}</td>
+                <td id="delivered-vertify">${totalQuantity}</td>
                 <td id="delivered-price">${totalPrice.toLocaleString()}</td>
               </tr>`
 

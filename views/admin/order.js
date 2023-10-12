@@ -55,7 +55,13 @@ async function deleteOrder(idList) {
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
-    const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+    let totalQuantity = 0;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity];
+    });
+    const itemText = productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
 
     const element = `<tr id="order-${orderId}">
               <td><input class="form-check-input" type="checkbox" id="check-item"></td>
@@ -63,6 +69,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
               <td id="order-id">${id}</td>
               <td id="order-username">${addressee}</td>
               <td id="order-product">${itemText}</td>
+              <td id="order-product">${totalQuantity}</td>
               <td id="order-price">${totalPrice.toLocaleString()}</td>
               <td id="order-status">${status}</td>
             </tr>`
@@ -72,7 +79,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
 }
 
 async function insertOrderList() {
-    // const url = './orderlistdata.json';    // 임시 데이터
+    // const url = './order/orderlistdata.json';    // 임시 데이터
     const url = '/api/v1/orders';
 
     try {

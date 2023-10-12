@@ -2,59 +2,16 @@
   "message": "주문 조회에 성공하였습니다.",
   "orders": [
     {
-      "_id": "65263765cf91d8ad42a7e9b6",
-      "orderItems": [
-        {
-          "option": {
-            "size": "M",
-            "color": "black"
-          },
-          "_id": "65263765cf91d8ad42a7e9b0",
-          "quantity": 2,
-          "item": "652569f629ecbc65fa01f04d",
-          "createdAt": "2023-10-11T05:49:25.864Z",
-          "updatedAt": "2023-10-11T05:49:25.864Z",
-          "__v": 0
-        },
-        {
-          "_id": "65263765cf91d8ad42a7e9b1",
-          "quantity": 3,
-          "item": "65256a1229ecbc65fa01f052",
-          "createdAt": "2023-10-11T05:49:25.864Z",
-          "updatedAt": "2023-10-11T05:49:25.864Z",
-          "__v": 0
-        }
-      ],
-      "address": {
-        "_id": "65263765cf91d8ad42a7e9b4",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "5000호",
-        "createdAt": "2023-10-11T05:49:25.869Z",
-        "updatedAt": "2023-10-11T05:49:25.869Z",
-        "__v": 0
-      },
-      "totalPrice": 300000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "orderPassword": "elice123",
-      "createdAt": "2023-10-11T05:49:25.873Z",
-      "updatedAt": "2023-10-11T05:49:25.873Z",
-      "__v": 0
-    },
-    {
-      "_id": "65263678e487d23d867074dd",
+      "_id": "65282ad482fdc1686eb070bf",
       "user": {
-        "_id": "6526336997727a73d0aac101",
-        "name": "햄스터",
+        "_id": "65282a7882fdc1686eb06f68",
+        "name": "유재석",
         "phonenumber": "123-4567-8901",
-        "email": "elice1@asd.com",
-        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
-        "role": "user",
-        "createdAt": "2023-10-11T05:32:25.496Z",
-        "updatedAt": "2023-10-11T05:32:25.496Z",
+        "email": "admin1@asd.com",
+        "password": "$2b$10$p3QjW4.So1KKm8aWHXz/6uCPrd1aNYhd9ou2XWELm42g.ZtnsrM.S",
+        "role": "admin",
+        "createdAt": "2023-10-12T17:18:48.074Z",
+        "updatedAt": "2023-10-12T17:18:48.074Z",
         "__v": 0
       },
       "orderItems": [
@@ -63,11 +20,41 @@
             "size": "L",
             "color": "blue"
           },
-          "_id": "65263678e487d23d867074d7",
+          "_id": "65282ad482fdc1686eb070b9",
           "quantity": 2,
-          "item": "652569f629ecbc65fa01f04d",
-          "createdAt": "2023-10-11T05:45:28.765Z",
-          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "item": {
+            "option": {
+              "size": ["FREE"],
+              "color": ["YELLOW"]
+            },
+            "_id": "65282a7882fdc1686eb06f93",
+            "category": "Bag",
+            "image": {
+              "imageType": "thumbnail",
+              "url": "img/crosscluchbag.jpg",
+              "_id": "65282a7882fdc1686eb06f94"
+            },
+            "detail_image": [
+              {
+                "imageType": "detail",
+                "url": "img/crosscluchbag2.jpg",
+                "_id": "65282a7882fdc1686eb06f95"
+              },
+              {
+                "imageType": "detail",
+                "url": "img/crosscluchbag3.jpg",
+                "_id": "65282a7882fdc1686eb06f96"
+              }
+            ],
+            "name": "Cross Clutch bag",
+            "price": 359000,
+            "content": "Polyurethane 50%, Recycling polyester 50%",
+            "createdAt": "2023-10-12T17:18:48.079Z",
+            "updatedAt": "2023-10-12T17:18:48.079Z",
+            "__v": 0
+          },
+          "createdAt": "2023-10-12T17:20:20.763Z",
+          "updatedAt": "2023-10-12T17:20:20.763Z",
           "__v": 0
         },
         {
@@ -75,131 +62,60 @@
             "size": "S",
             "color": "red"
           },
-          "_id": "65263678e487d23d867074d8",
+          "_id": "65282ad482fdc1686eb070ba",
           "quantity": 3,
-          "item": "65256a1229ecbc65fa01f052",
-          "createdAt": "2023-10-11T05:45:28.765Z",
-          "updatedAt": "2023-10-11T05:45:28.765Z",
+          "item": {
+            "option": {
+              "size": ["FREE"],
+              "color": ["YELLOW"]
+            },
+            "_id": "65282a7882fdc1686eb06f93",
+            "category": "Bag",
+            "image": {
+              "imageType": "thumbnail",
+              "url": "img/crosscluchbag.jpg",
+              "_id": "65282a7882fdc1686eb06f94"
+            },
+            "detail_image": [
+              {
+                "imageType": "detail",
+                "url": "img/crosscluchbag2.jpg",
+                "_id": "65282a7882fdc1686eb06f95"
+              },
+              {
+                "imageType": "detail",
+                "url": "img/crosscluchbag3.jpg",
+                "_id": "65282a7882fdc1686eb06f96"
+              }
+            ],
+            "name": "Cross Clutch bag",
+            "price": 359000,
+            "content": "Polyurethane 50%, Recycling polyester 50%",
+            "createdAt": "2023-10-12T17:18:48.079Z",
+            "updatedAt": "2023-10-12T17:18:48.079Z",
+            "__v": 0
+          },
+          "createdAt": "2023-10-12T17:20:20.764Z",
+          "updatedAt": "2023-10-12T17:20:20.764Z",
           "__v": 0
         }
       ],
       "address": {
-        "_id": "65263678e487d23d867074db",
+        "_id": "65282ad482fdc1686eb070bd",
         "postnumber": 50000,
         "addressee": "elice",
         "addressExceptDetail": "서울시 강남구 테헤란로 12길",
         "detail": "7000호",
-        "createdAt": "2023-10-11T05:45:28.767Z",
-        "updatedAt": "2023-10-11T05:45:28.767Z",
+        "createdAt": "2023-10-12T17:20:20.780Z",
+        "updatedAt": "2023-10-12T17:20:20.780Z",
         "__v": 0
       },
       "totalPrice": 3000,
-      "payMethod": "가상계좌",
       "status": "주문대기",
       "message": "관리실에 맡겨주세요.",
-      "createdAt": "2023-10-11T05:45:28.768Z",
-      "updatedAt": "2023-10-11T05:45:28.768Z",
-      "__v": 0
-    },
-    {
-      "_id": "6526344297727a73d0aac152",
-      "user": {
-        "_id": "6526336997727a73d0aac101",
-        "name": "햄스터",
-        "phonenumber": "123-4567-8901",
-        "email": "elice1@asd.com",
-        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
-        "role": "user",
-        "createdAt": "2023-10-11T05:32:25.496Z",
-        "updatedAt": "2023-10-11T05:32:25.496Z",
-        "__v": 0
-      },
-      "orderItems": [
-        {
-          "_id": "6526344297727a73d0aac14c",
-          "quantity": 2,
-          "item": "652569f629ecbc65fa01f04d",
-          "createdAt": "2023-10-11T05:36:02.539Z",
-          "updatedAt": "2023-10-11T05:36:02.539Z",
-          "__v": 0
-        },
-        {
-          "_id": "6526344297727a73d0aac14d",
-          "quantity": 3,
-          "item": "65256a1229ecbc65fa01f052",
-          "createdAt": "2023-10-11T05:36:02.539Z",
-          "updatedAt": "2023-10-11T05:36:02.539Z",
-          "__v": 0
-        }
-      ],
-      "address": {
-        "_id": "6526344297727a73d0aac150",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-11T05:36:02.544Z",
-        "updatedAt": "2023-10-11T05:36:02.544Z",
-        "__v": 0
-      },
-      "totalPrice": 3000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "createdAt": "2023-10-11T05:36:02.548Z",
-      "updatedAt": "2023-10-11T05:36:02.548Z",
-      "__v": 0
-    },
-    {
-      "_id": "6526337497727a73d0aac148",
-      "user": {
-        "_id": "6526336997727a73d0aac101",
-        "name": "햄스터",
-        "phonenumber": "123-4567-8901",
-        "email": "elice1@asd.com",
-        "password": "$2b$10$2/d2qORL5HKfwo8X80mYQO.yaC5KgPyCoQcipWRg3QxqyetSZugwq",
-        "role": "user",
-        "createdAt": "2023-10-11T05:32:25.496Z",
-        "updatedAt": "2023-10-11T05:32:25.496Z",
-        "__v": 0
-      },
-      "orderItems": [
-        {
-          "_id": "6526337497727a73d0aac142",
-          "quantity": 2,
-          "item": "652569f629ecbc65fa01f04d",
-          "createdAt": "2023-10-11T05:32:36.922Z",
-          "updatedAt": "2023-10-11T05:32:36.922Z",
-          "__v": 0
-        },
-        {
-          "_id": "6526337497727a73d0aac143",
-          "quantity": 3,
-          "item": "65256a1229ecbc65fa01f052",
-          "createdAt": "2023-10-11T05:32:36.922Z",
-          "updatedAt": "2023-10-11T05:32:36.922Z",
-          "__v": 0
-        }
-      ],
-      "address": {
-        "_id": "6526337497727a73d0aac146",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-11T05:32:36.928Z",
-        "updatedAt": "2023-10-11T05:32:36.928Z",
-        "__v": 0
-      },
-      "totalPrice": 3000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "createdAt": "2023-10-11T05:32:36.936Z",
-      "updatedAt": "2023-10-11T05:32:36.936Z",
+      "createdAt": "2023-10-12T17:20:20.797Z",
+      "updatedAt": "2023-10-12T17:20:20.797Z",
       "__v": 0
     }
-  ],
-  "totalPages": 1,
-  "currentPage": "1"
+  ]
 }
