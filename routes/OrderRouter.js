@@ -138,8 +138,7 @@ orderRouter.get('/page/:page/:limit', authenticateUser, async (req, res, next) =
   const { page = 1, limit = 20 } = req.params;
 
   try {
-    const user = await UserService.getUserById(userId);
-    const { orders, count } = await OrderService.getPagination({ user, page, limit });
+    const { orders, count } = await OrderService.getPaginationByUser({ userId, page, limit });
 
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
