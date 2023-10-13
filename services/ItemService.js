@@ -12,8 +12,10 @@ class ItemService {
     return item;
   }
 
-  async addItem(category, name, price, option, content, image, detailImages) {
-    const newItem = new Item({ category, name, price, option, content });
+  async addItem(category, name, price, parsedOption, content, image, detailImages) {
+    const newItem = new Item({ category, name, price, option: parsedOption, content });
+
+    console.log(newItem);
 
     const thumbnail = { imageType: 'thumbnail', url: image.location };
     const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
@@ -42,13 +44,13 @@ class ItemService {
     return deletedItem;
   }
 
-  async updateItem(id, category, name, price, option, content, image, detailImages) {
+  async updateItem(id, category, name, price, parsedOption, content, image, detailImages) {
     const thumbnail = { imageType: 'thumbnail', url: image.location };
     const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
 
     const updatedItem = await Item.findByIdAndUpdate(
       id,
-      { category, name, price, option, content, image: thumbnail, detail_image: details },
+      { category, name, price, option: parsedOption, content, image: thumbnail, detail_image: details },
       {
         new: true,
       },
