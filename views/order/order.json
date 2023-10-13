@@ -1,64 +1,26 @@
 {
-  "message": "주문 조회에 성공하였습니다.",
-  "orders": [
-    {
-      "_id": "652665bb90e08cc459755ed9",
-      "user": {
-        "_id": "6526336997727a73d0aac102",
-        "name": "고양이",
-        "phonenumber": "123-4567-8901",
-        "email": "elice2@asd.com",
-        "password": "$2b$10$Olhvsumae/dnCnDIoq.0Xuyq7HWtBRn/TBqsB1j448YsolIvQqXOy",
-        "role": "user",
-        "createdAt": "2023-10-11T05:32:25.496Z",
-        "updatedAt": "2023-10-11T05:32:25.496Z",
-        "__v": 0
-      },
-      "orderItems": [
-        {
-          "option": {
-            "size": "L",
-            "color": "blue"
-          },
-          "_id": "652665ba90e08cc459755ed3",
-          "quantity": 2,
-          "item": "652569f629ecbc65fa01f04d",
-          "createdAt": "2023-10-11T09:07:06.990Z",
-          "updatedAt": "2023-10-11T09:07:06.990Z",
-          "__v": 0
-        },
-        {
-          "option": {
-            "size": "S",
-            "color": "red"
-          },
-          "_id": "652665ba90e08cc459755ed4",
-          "quantity": 3,
-          "item": "65256a1229ecbc65fa01f052",
-          "createdAt": "2023-10-11T09:07:06.990Z",
-          "updatedAt": "2023-10-11T09:07:06.990Z",
-          "__v": 0
-        }
-      ],
-      "address": {
-        "_id": "652665ba90e08cc459755ed7",
-        "postnumber": 50000,
-        "addressee": "elice",
-        "addressExceptDetail": "서울시 강남구 테헤란로 12길",
-        "detail": "7000호",
-        "createdAt": "2023-10-11T09:07:06.996Z",
-        "updatedAt": "2023-10-11T09:07:06.996Z",
-        "__v": 0
-      },
-      "totalPrice": 3000,
-      "payMethod": "가상계좌",
-      "status": "주문대기",
-      "message": "관리실에 맡겨주세요.",
-      "createdAt": "2023-10-11T09:07:07.003Z",
-      "updatedAt": "2023-10-11T09:07:07.003Z",
+  "message": "주문이 성공적으로 조회되었습니다.",
+  "order": {
+    "_id": "65251346471e46efdb14c84d",
+    "orderItems": [],
+    "address": {
+      "_id": "65251346471e46efdb14c84b",
+      "postnumber": 50000,
+      "addressee": "elice",
+      "addressExceptDetail": "서울시 강남구 테헤란로 12길",
+      "detail": "5000호",
+      "createdAt": "2023-10-10T09:03:02.309Z",
+      "updatedAt": "2023-10-10T09:03:02.309Z",
       "__v": 0
-    }
-  ],
-  "totalPages": 1,
-  "currentPage": "1"
+    },
+    "totalPrice": 300000,
+    "payMethod": "가상계좌",
+    "status": "주문대기",
+    "message": "관리실에 맡겨주세요.",
+    "orderPassword": "elice123",
+    "deletedAt": null,
+    "createdAt": "2023-10-10T09:03:02.312Z",
+    "updatedAt": "2023-10-10T09:03:02.312Z",
+    "__v": 0
+  }
 }

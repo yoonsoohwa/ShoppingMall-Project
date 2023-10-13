@@ -12,18 +12,16 @@ function formatDate(createdAt) {
   return `${date} ${time}`;
 }
 
-function setUserOrderList(date, _id, orderItems, totalPrice, status) {
-  const productList = orderItems.map(({ option, quantity, item }) => {
+function setUserOrderList(date, status, orderItems, totalPrice, id) {
+  orderItems.forEach(({ option, quantity, item }) => {
+    //이미지 경로 수정되면 image 추가
     const productName = `${item.name} [${option.color} / ${option.size}]`;
-    return [productName, quantity];
-  });
-  orderItems.forEach(({ option, quantity }) => {
-    const productName = `[${option.color} / ${option.size}]`;
+    // const img = image.url ? image.url : '';
     const element = `<tr id="order-${orderId}">
-              <td id="order-date-id">${date}</br>[${_id}]</td>
+              <td id="order-date-id">${date}</br>[${id}]</td>
               <td id="order-img">img</td>
               <td id="order-product">${productName}</td>
-              <td id="order-quatity">${quantity}</td>
+              <td id="order-quantity">${quantity}</td>
               <td id="order-price">${totalPrice.toLocaleString()}</td>
               <td id="order-status">${status}</td>
             </tr>`;
@@ -31,12 +29,11 @@ function setUserOrderList(date, _id, orderItems, totalPrice, status) {
     userOrderListElement.insertAdjacentHTML('beforeend', element);
     orderId += 1;
   });
-  // const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
 }
 
 async function userApi() {
-  // const userApiUrl = '/api/v1/orders/page/1/20';
-  const guestApiUrl = './order.json';
+  const userApiUrl = '/api/v1/orders/page/1/20';
+  // const userApiUrl = './order.json';
   try {
     const res = await fetch(userApiUrl);
 
@@ -46,10 +43,10 @@ async function userApi() {
     console.log(orders);
 
     orders.forEach((order) => {
-      const { _id, createdAt, orderItems, totalPrice, status } = order;
-
+      const { createdAt, status, orderItems, totalPrice, _id: id } = order;
       const date = formatDate(createdAt);
-      setUserOrderList(date, _id, orderItems, totalPrice, status);
+
+      setUserOrderList(date, status, orderItems, totalPrice, id);
     });
   } catch (err) {
     // eslint-disable-next-line no-console
