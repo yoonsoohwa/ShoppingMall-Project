@@ -14,6 +14,7 @@ const itemsRouter = require('./routes/ItemsRouter');
 const userRouter = require('./routes/UserRouter');
 const viewsRouter = require('./routes/viewsRouter');
 const adminRouter = require('./routes/AdminRouter');
+const s3Router = require('./routes/s3Router');
 
 const { User } = require('./models/User');
 const Item = require('./models/Item');
@@ -25,8 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/views', express.static('views')); 
-app.use('/dummy', express.static('dummy')); 
+app.use('/views', express.static('views'));
+app.use('/dummy', express.static('dummy'));
 
 // dotenv
 console.log(`어플리케이션 서버를 다음 환경으로 시작합니다: ${process.env.NODE_ENV}`);
@@ -61,6 +62,7 @@ app.use('/api/v1/orders', orderRouter);
 app.use('/api/v1/items', itemsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/admins', adminRouter);
+app.use('/api/v1/s3', s3Router);
 app.use(viewsRouter);
 
 // error handling

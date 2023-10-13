@@ -42,7 +42,7 @@ class OrderService {
     return createdOrder;
   }
 
-  async getPagination() {
+  async getPagination(page, limit) {
     const orders = await Order.find()
       .populate('user')
       .populate('address')
@@ -51,9 +51,14 @@ class OrderService {
         populate: {
           path: 'item',
         },
-      });
+      })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit);
 
-    return orders;
+    const count = await Order.countDocuments();
+
+    return { orders, count };
   }
 
   async getOrderById(id) {
@@ -74,14 +79,20 @@ class OrderService {
     return order;
   }
 
-  async getOrdersByStatus(userId, status) {
-    const orders = await Order.find({ status }).populate({ path: 'user', match: { _id: userId } });
+  async getOrdersByStatus(userId, status, page, limit) {
+    const orders = await Order.find({ status })
+      .populate({ path: 'user', match: { _id: userId } })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit);
 
     if (!orders) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    return orders;
+    const count = await Order.countDocuments({ status });
+
+    return { orders, count };
   }
 
   async getOrderByGuest(orderId, orderPassword) {
