@@ -3,9 +3,9 @@ async function insertProductData() {
   try {
     const res = await fetch(`/api/v1/items`);
     const data = await res.json();
-
+    const tableBody = document.querySelector('#table-body');
+    tableBody.innerHTML = '';
     data.forEach((product) => {
-      const tableBody = document.querySelector('#table-body');
       const rowHTML = `
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product._id}</td>
@@ -16,7 +16,6 @@ async function insertProductData() {
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
         <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
       `;
-      tableBody.innerHTML = '';
       tableBody.insertAdjacentHTML('beforeend', `<tr>${rowHTML}</tr>`);
     });
 
