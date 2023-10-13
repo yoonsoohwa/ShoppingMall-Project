@@ -102,8 +102,8 @@ class OrderService {
     return { orders, count };
   }
 
-  async getOrderByGuest(id, orderPassword) {
-    const order = await Order.findOne({ _id: id, orderPassword })
+  async getOrderByGuest(orderId, orderPassword) {
+    const order = await Order.findOne({ _id: orderId, orderPassword })
       .populate({
         path: 'orderItems',
         populate: {
