@@ -2,11 +2,8 @@ const orderListEl = document.getElementById('order-list');
 const checkAll = document.getElementById('check-all');
 const totalEl = document.getElementById('total');
 const cancelBtn = document.getElementById('order-cancel');
-const paginationEl = document.getElementsByClassName('pagination')[0];
 
 let orderId;
-let page = 1;
-const postLimit = 20;
 
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
@@ -57,50 +54,17 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     orderId += 1;
 }
 
-function pagination(e, pageItemEl) {
-    e.preventDefault();
-
-    page = Number(e.target.textContent);
-    pageItemEl.forEach(el => el.classList.remove('active'));
-    e.target.classList.add('active');
-    while (orderListEl.firstChild) {
-        orderListEl.removeChild(orderListEl.firstChild);
-    }
-    insertOrderList();
-}
-
-function setPage(totalPages) {
-    let element = `<li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>`
-
-    for (let i = 1; i <= totalPages; i += 1) {
-        element += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`
-    }
-
-    element += `<li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>`;
-
-    paginationEl.insertAdjacentHTML('beforeend', element);
-    const pageItemEl = Array.from(document.getElementsByClassName('page-link')).slice(1, -1);
-    pageItemEl.forEach(el => el.addEventListener('click', (e) => pagination(e, pageItemEl)));
-}
-
 async function insertOrderList() {
     // const url = './order/orderlistdata.json';    // 임시 데이터
-    const url = `/api/v1/orders/${page}/${postLimit}`;
+    const url = `/api/v1/orders/1/30`;
 
     try {
         const res = await fetch(url);
         const data = await res.json();
 
         orderId = 0;
-        const { orders, totalPages, count } = data;
+        const { orders, count } = data;
+        totalEl.innerText = `[총 ${count}개]`;
         orders.forEach((order) => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
 
@@ -108,11 +72,6 @@ async function insertOrderList() {
             const date = formatDate(createdAt);
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
         });
-
-        if (!paginationEl.hasChildNodes()) {
-            totalEl.innerText = `[총 ${count}개]`;
-            setPage(totalPages);
-        }
 
     } catch (err) {
         // eslint-disable-next-line no-console
