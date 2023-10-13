@@ -25,7 +25,7 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
 
   const element = `<tr id="order-${orderId}">
               <td id="order-date-id">${date}</br>[${id}]</td>
-              <td id="order-img"><img src={${productList[0][2]}}/></td>
+              <td id="order-img"><img src=${productList[0][2]}/></td>
               <td id="order-product">${itemText}</td>
               <td id="order-quantity">${totalQuantity}</td>
               <td id="order-price">${Number(totalPrice).toLocaleString()}원</td>
@@ -54,7 +54,6 @@ async function getListData(isLogin) {
       const { orders } = data;
 
       orders.forEach((orderItem) => {
-        console.log(orderItem)
       const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
         const date = formatDate(createdAt);
 
