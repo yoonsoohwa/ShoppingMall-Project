@@ -12,9 +12,17 @@ class ItemService {
     return item;
   }
 
-  async addItem(itemData) {
-    const newItem = new Item(itemData);
+  async addItem(category, name, price, option, content, image, detailImages) {
+    const newItem = new Item({ category, name, price, option, content });
+
+    const thumbnail = { imageType: 'thumbnail', url: image.location };
+    const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
+
+    newItem.image = thumbnail;
+    newItem.detail_image = details;
+
     await newItem.save();
+
     return newItem;
   }
 
