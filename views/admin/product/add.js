@@ -161,16 +161,12 @@ function formDataFunc() {
   }
 
   const options = {
-    color: colorInput.value.replace(/\s/g, '').split(','),
-    size: sizeInput.value.replace(/\s/g, '').split(','),
+    color: colorInput.value ? colorInput.value.replace(/\s/g, '').split(',') : null,
+    size: sizeInput.value ? sizeInput.value.replace(/\s/g, '').split(',') : null,
   };
 
   formData.append('option', JSON.stringify(options));
   formData.append('content', contentInput.value);
 
-  // formData 확인
-  for (const pair of formData.entries()) {
-    console.log('Key: ', pair[0], 'Value: ', pair[1]);
-  }
   return formData;
 }
