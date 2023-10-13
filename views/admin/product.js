@@ -18,32 +18,23 @@ async function insertProductData() {
       `;
       tableBody.insertAdjacentHTML('beforeend', `<tr>${rowHTML}</tr>`);
     });
+
+    /* 총 개수 */
+    const total = document.querySelector('.total');
+    const allRow = document.querySelectorAll('#table-body tr');
+    console.log(allRow);
+    total.innerHTML = allRow.length > 0 ? `[총 ${allRow.length}개]` : `[총 0개]`;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 insertProductData();
 
-/* 총 개수 */
-const total = document.querySelector('.total');
-const allRow = document.querySelectorAll('#table-body tr');
-total.innerHTML = allRow.length > 1 ? `[총 ${allRow.length - 1}개]` : `[총 0개]`;
+// ----------------------------------------------
 
 /* 상품 삭제 */
 const checkAllBtn = document.querySelector('#check-all');
 const checkboxes = document.querySelectorAll('#check-item');
-
-checkAllBtn.addEventListener('change', () => {
-  if (checkAllBtn.checked) {
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = true;
-    });
-  } else {
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-  }
-});
 
 const deleteBtn = document.querySelector('.pro-delete');
 deleteBtn.addEventListener('click', async (e) => {
