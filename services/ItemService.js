@@ -42,10 +42,17 @@ class ItemService {
     return deletedItem;
   }
 
-  async updateItem(itemId, updatedItemData) {
-    const updatedItem = await Item.findByIdAndUpdate(itemId, updatedItemData, {
-      new: true,
-    });
+  async updateItem(id, category, name, price, option, content, image, detailImages) {
+    const thumbnail = { imageType: 'thumbnail', url: image.location };
+    const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
+
+    const updatedItem = await Item.findByIdAndUpdate(
+      id,
+      { category, name, price, option, content, image: thumbnail, detail_image: details },
+      {
+        new: true,
+      },
+    );
     if (!updatedItem) {
       throw new NotFoundError('해당 아이템을 찾을 수 없습니다.');
     }
