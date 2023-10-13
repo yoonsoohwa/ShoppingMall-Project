@@ -1,6 +1,5 @@
 import { getBasket, isEmptyBasket } from './addBasket.js';
 import { drawTotalPrice } from './bottom.js';
-import { products } from './products.js';
 
 export let baskets = getBasket();
 
@@ -207,7 +206,6 @@ const clearCart = document.getElementById('clear-cart');
 const clearBasket = () => {
   localStorage.setItem('basket', '[]');
   baskets = [];
-  localStorage.removeItem('basket');
   drawBasket();
 };
 
@@ -252,112 +250,116 @@ const upDown = (type, inputElement, index) => {
 };
 
 //////////////////////////////////////////////////
-/////모달//////
+// /////모달//////
 
-// 모달창 옵션
-let selectedProduct = {};
+// // 모달창 옵션
+// let selectedProduct = {};
 
-const handleClickModal = (event) => {
-  const productName = event.target.dataset.productName;
-  selectedProduct = products.find((product) => product.name === productName);
+// const handleClickModal = (event) => {
+//   const basketId = event.target.dataset.basketId;
+//   const products = getBasket();
 
-  // 프로덕트 이름 변경
-  const modalElement = document.querySelector('.goods-name');
-  modalElement.innerHTML = productName;
+//   selectedProduct = products.find((product) => product.basketId === Number(basketId));
 
-  // 셀렉트 박스 옵션 추가
-  const colorSelectBoxElement = document.querySelector('#color-select');
-  const sizeSelectBoxElement = document.querySelector('#size-select');
+//   // 프로덕트 이름 변경
+//   const modalElement = document.querySelector('.goods-name');
+//   modalElement.innerHTML = selectedProduct.name;
 
-  while (colorSelectBoxElement.firstChild) {
-    colorSelectBoxElement.removeChild(colorSelectBoxElement.firstChild);
-  }
+//   // 셀렉트 박스 옵션 추가
+//   const colorSelectBoxElement = document.querySelector('#color-select');
+//   const sizeSelectBoxElement = document.querySelector('#size-select');
 
-  while (sizeSelectBoxElement.firstChild) {
-    sizeSelectBoxElement.removeChild(sizeSelectBoxElement.firstChild);
-  }
+//   while (colorSelectBoxElement.firstChild) {
+//     colorSelectBoxElement.removeChild(colorSelectBoxElement.firstChild);
+//   }
 
-  // 색상 옵션과 사이즈 옵션이 정의되어 있는지 확인 후 추가
-  if (selectedProduct && selectedProduct.option && selectedProduct.option.color) {
-    const initialOption = document.createElement('option');
-    initialOption.setAttribute('value', '');
-    initialOption.setAttribute('disabled', true);
-    initialOption.setAttribute('selected', true);
-    initialOption.text = '-[필수] 옵션을 선택해주세요-';
-    colorSelectBoxElement.add(initialOption);
+//   while (sizeSelectBoxElement.firstChild) {
+//     sizeSelectBoxElement.removeChild(sizeSelectBoxElement.firstChild);
+//   }
 
-    selectedProduct.option.color.forEach((_option) => {
-      const option = document.createElement('option');
-      option.text = _option;
-      option.value = _option;
-      colorSelectBoxElement.add(option);
-    });
-  }
+//   console.log('selectedProduct.option', selectedProduct);
 
-  if (selectedProduct && selectedProduct.option && selectedProduct.option.size) {
-    const _initialOption = document.createElement('option');
-    _initialOption.setAttribute('value', '');
-    _initialOption.setAttribute('disabled', true);
-    _initialOption.setAttribute('selected', true);
-    _initialOption.text = '-[필수] 옵션을 선택해주세요-';
-    sizeSelectBoxElement.add(_initialOption);
+//   // 색상 옵션과 사이즈 옵션이 정의되어 있는지 확인 후 추가
+//   if (selectedProduct && selectedProduct.option && selectedProduct.option.color) {
+//     const initialOption = document.createElement('option');
+//     initialOption.setAttribute('value', '');
+//     initialOption.setAttribute('disabled', true);
+//     initialOption.setAttribute('selected', true);
+//     initialOption.text = '-[필수] 옵션을 선택해주세요-';
+//     colorSelectBoxElement.add(initialOption);
 
-    selectedProduct.option.size.forEach((_option) => {
-      const option = document.createElement('option');
-      option.text = _option;
-      option.value = _option;
-      sizeSelectBoxElement.add(option);
-    });
-  }
+//     selectedProduct.option.color.forEach((_option) => {
+//       const option = document.createElement('option');
+//       option.text = _option;
+//       option.value = _option;
+//       colorSelectBoxElement.add(option);
+//     });
+//   }
 
-  // 모달 열기
-  const modalContainer = document.getElementById('modal-container');
-  modalContainer.classList.remove('hidden');
-};
+//   if (selectedProduct && selectedProduct.option && selectedProduct.option.size) {
+//     const _initialOption = document.createElement('option');
+//     _initialOption.setAttribute('value', '');
+//     _initialOption.setAttribute('disabled', true);
+//     _initialOption.setAttribute('selected', true);
+//     _initialOption.text = '-[필수] 옵션을 선택해주세요-';
+//     sizeSelectBoxElement.add(_initialOption);
 
-///
-const modal = document.querySelector('#modal-container');
-document.getElementById('modal-change-button').addEventListener('click', () => {
-  const colorSelectBoxElement = document.querySelector('#color-select');
-  const sizeSelectBoxElement = document.querySelector('#size-select');
+//     selectedProduct.option.size.forEach((_option) => {
+//       const option = document.createElement('option');
+//       option.text = _option;
+//       option.value = _option;
+//       sizeSelectBoxElement.add(option);
+//     });
+//   }
 
-  const selectedColor = colorSelectBoxElement.value;
-  const selectedSize = sizeSelectBoxElement.value;
+//   // 모달 열기
+//   const modalContainer = document.getElementById('modal-container');
+//   modalContainer.classList.remove('hidden');
+// };
 
-  // 'selectedProduct'가 정의되어 있고 'option' 속성이 존재하는지 확인
-  if (selectedProduct && selectedProduct.option) {
-    // 선택한 제품의 이름
-    const productName = selectedProduct.name;
+// ///
+// const modal = document.querySelector('#modal-container');
+// document.getElementById('modal-change-button').addEventListener('click', () => {
+//   const colorSelectBoxElement = document.querySelector('#color-select');
+//   const sizeSelectBoxElement = document.querySelector('#size-select');
 
-    // 새로운 장바구니 배열 생성
-    const updatedBasket = baskets.map((product) => {
-      if (product.name === productName) {
-        return {
-          ...product,
-          option: {
-            color: selectedColor,
-            size: selectedSize,
-          },
-        };
-      }
-      return product;
-    });
+//   const selectedColor = colorSelectBoxElement.value;
+//   const selectedSize = sizeSelectBoxElement.value;
 
-    // baskets를 업데이트하고 로컬 스토리지에도 저장
-    baskets = updatedBasket;
-    localStorage.setItem('basket', JSON.stringify(updatedBasket));
+//   // 'selectedProduct'가 정의되어 있고 'option' 속성이 존재하는지 확인
+//   if (selectedProduct && selectedProduct.option) {
+//     // 선택한 제품의 이름
+//     const productName = selectedProduct.name;
 
-    // 모달 닫기
-    const modalContainer = document.getElementById('modal-container');
-    modalContainer.classList.add('hidden');
+//     // 새로운 장바구니 배열 생성
+//     const updatedBasket = baskets.map((product) => {
+//       if (product.name === productName) {
+//         return {
+//           ...product,
+//           option: {
+//             color: selectedColor,
+//             size: selectedSize,
+//           },
+//         };
+//       }
+//       return product;
+//     });
 
-    // 장바구니 다시 그리기
-    drawBasket();
-  } else {
-    // 'selectedProduct'가 없거나 'option' 속성이 없는 경우 에러 메시지 표시
-    console.error('상품 정보 또는 옵션 정보를 찾을 수 없습니다.');
-  }
-});
+//     // baskets를 업데이트하고 로컬 스토리지에도 저장
+//     baskets = updatedBasket;
+//     localStorage.setItem('basket', JSON.stringify(updatedBasket));
+
+//     // 모달 닫기
+//     const modalContainer = document.getElementById('modal-container');
+//     modalContainer.classList.add('hidden');
+
+//     // 장바구니 다시 그리기
+//     drawBasket();
+//   } else {
+//     // 'selectedProduct'가 없거나 'option' 속성이 없는 경우 에러 메시지 표시
+//     console.error('상품 정보 또는 옵션 정보를 찾을 수 없습니다.');
+//   }
+// });
 
 ///////
 
@@ -388,9 +390,6 @@ export const drawBasket = () => {
         <div class="pname">
           <span>${product.name}</span></br>
           <span>[ ${color} ${color ? '/' : ''} ${size}]</span></br>
-          <button type="button" class="btn btn-light opt-btn" id="modal-open-button" data-product-name="${
-            product.name
-          }">옵션 변경</button>
         </div>
         <!-- 수량 -->
         <div class="num">
@@ -454,103 +453,25 @@ export const drawBasket = () => {
     countDownButton.addEventListener('click', () => upDown('DOWN', inputElements, index));
   });
 
-  // 모달
-  const modalOpenButtons = basketWrapperElement.querySelectorAll('#modal-open-button');
+  // // 모달
+  // const modalOpenButtons = basketWrapperElement.querySelectorAll('#modal-open-button');
 
-  const modalCloseButtons = basketWrapperElement.querySelectorAll('#modal-close-button');
+  // const modalCloseButtons = basketWrapperElement.querySelectorAll('#modal-close-button');
 
-  modalOpenButtons.forEach((modalOpen) => {
-    modalOpen.addEventListener('click', (e) => {
-      handleClickModal(e);
-      modal.classList.remove('hidden');
-    });
-  });
+  // modalOpenButtons.forEach((modalOpen) => {
+  //   modalOpen.addEventListener('click', (e) => {
+  //     handleClickModal(e);
+  //     modal.classList.remove('hidden');
+  //   });
+  // });
 
-  modalCloseButtons.forEach((modalClose) => {
-    modalClose.addEventListener('click', () => {
-      modal.classList.add('hidden');
-    });
-  });
+  // modalCloseButtons.forEach((modalClose) => {
+  //   modalClose.addEventListener('click', () => {
+  //     modal.classList.add('hidden');
+  //   });
+  // });
 
-  ////옵션 추가
-  document.addEventListener('DOMContentLoaded', function () {
-    // 모달 열기 버튼 클릭 이벤트 핸들러
-    document.getElementById('modal-open-button').addEventListener('click', function () {
-      // 모달 열 때 선택된 상품 정보를 가져와서 모달 내용 업데이트
-      const selectedProductName = this.getAttribute('data-product-name');
-      const selectedProduct = products.find((product) => product.name === selectedProductName);
-
-      // 모달 내용 업데이트
-      const modalProductName = document.querySelector('.goods-name');
-      modalProductName.innerText = selectedProductName;
-
-      const colorSelect = document.querySelector('#color-select');
-      const sizeSelect = document.querySelector('#size-select');
-
-      // 옵션 선택 상자 초기화
-      colorSelect.innerHTML = '<option value="" disabled selected>-[필수] 옵션을 선택해주세요-</option>';
-      sizeSelect.innerHTML = '<option value="" disabled selected>-[필수] 옵션을 선택해주세요-</option>';
-
-      // 옵션 정보가 있으면 각 옵션을 옵션 선택 상자에 추가
-      if (selectedProduct.option && selectedProduct.option.color) {
-        selectedProduct.option.color.forEach((color) => {
-          const option = document.createElement('option');
-          option.value = color;
-          option.innerText = color;
-          colorSelect.appendChild(option);
-        });
-      }
-
-      if (selectedProduct.option && selectedProduct.option.size) {
-        selectedProduct.option.size.forEach((size) => {
-          const option = document.createElement('option');
-          option.value = size;
-          option.innerText = size;
-          sizeSelect.appendChild(option);
-        });
-      }
-
-      // 모달 열기
-      const modalContainer = document.getElementById('modal-container');
-      modalContainer.classList.remove('hidden');
-    });
-
-    // 모달 닫기 버튼 클릭 이벤트 핸들러
-    document.getElementById('modal-close-button').addEventListener('click', function () {
-      // 모달 초기화
-      const modalContainer = document.getElementById('modal-container');
-      modalContainer.classList.add('hidden');
-    });
-
-    // 모달에서 '옵션 추가' 버튼 클릭 이벤트 핸들러
-    document.getElementById('modal-add-button').addEventListener('click', function () {
-      const selectedProductName = document.querySelector('.goods-name').innerText;
-      const selectedColor = document.getElementById('color-select').value;
-      const selectedSize = document.getElementById('size-select').value;
-
-      // 선택한 옵션으로 새 상품 생성
-      const newProduct = {
-        ...selectedProduct,
-        name: selectedProductName,
-        option: {
-          color: selectedColor,
-          size: selectedSize,
-        },
-        // 다른 상품 정보 추가
-      };
-
-      // 장바구니에 새 상품 추가
-      baskets.push(newProduct);
-      localStorage.setItem('basket', JSON.stringify(baskets));
-
-      // 모달 닫기
-      const modalContainer = document.getElementById('modal-container');
-      modalContainer.classList.add('hidden');
-
-      // 장바구니 다시 그리기
-      drawBasket();
-    });
-  });
+  // ////옵션 추가
 };
 
 drawBasket();
