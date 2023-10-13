@@ -33,7 +33,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
 
 async function insertOrderList() {
     // const url = './orderlistdata.json';    // 임시 데이터
-    const url = '/api/v1/orders/shipping';
+    const url = '/api/v1/orders/shipping/1/20';
 
     try {
         const res = await fetch(url, {
