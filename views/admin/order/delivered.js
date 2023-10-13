@@ -9,7 +9,7 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
-function setOrderList(date, id, addressee, orderItems, totalPrice) {
+function setOrderList(orderTime, deliveredTime, id, addressee, orderItems, totalPrice) {
     let totalQuantity = 0 ;
     const productList = orderItems.map(({ option, quantity, item }) => {
         const productName = `${item.name} [${option.color} / ${option.size}]`;
@@ -20,7 +20,8 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
 
 
     const element = `<tr>
-                <td id="delivered-date">${date}</td>
+                <td id="delivered-order-time">${orderTime}</td>
+                <td id="delivered-delivered-time">${deliveredTime}</td>
                 <td id="delivered-id">${id}</td>
                 <td id="delivered-username">${addressee}</td>
                 <td id="delivered-product">${itemText}</td>
@@ -50,11 +51,12 @@ async function insertOrderList() {
 
         const { orders } = data;
         orders.forEach(order => {
-            const { createdAt, address, orderItems, totalPrice, _id: id } = order;
+            const { createdAt, updatedAt, address, orderItems, totalPrice, _id: id } = order;
             const { addressee } = address;
-            const date = formatDate(createdAt);
+            const orderTime = formatDate(createdAt);
+            const deliveredTime = formatDate(updatedAt);
 
-            setOrderList(date, id, addressee, orderItems, totalPrice);
+            setOrderList(orderTime, deliveredTime, id, addressee, orderItems, totalPrice);
         });
 
         totalEl.innerText = `[총 ${orders.length}개]`;
