@@ -31,21 +31,21 @@ export class BestProductList {
     this.bestProductListElement = xmlStringToDom(xmlString);
     
     // 스와이퍼 자동 넘기기
-    // this.loopInterval = setInterval((e) => {
-    //   this.next();
-    // }, 3000);
+    this.loopInterval = setInterval((e) => {
+      this.next();
+    }, 3000);
 
-    // // 슬라이드에 마우스가 올라간 경우 루프 멈추기
-    // this.bestProductListElement.addEventListener("mouseover", () => {
-    //   clearInterval(this.loopInterval);
-    // });
+    // 슬라이드에 마우스가 올라간 경우 루프 멈추기
+    this.bestProductListElement.addEventListener("mouseover", () => {
+      clearInterval(this.loopInterval);
+    });
 
-    // // 슬라이드에서 마우스가 나온 경우 루프 재시작하기
-    // this.bestProductListElement.addEventListener("mouseout", () => {
-    //   this.loopInterval = setInterval((e) => {
-    //     this.next();
-    //   }, 3000);
-    // });
+    // 슬라이드에서 마우스가 나온 경우 루프 재시작하기
+    this.bestProductListElement.addEventListener("mouseout", () => {
+      this.loopInterval = setInterval((e) => {
+        this.next();
+      }, 3000);
+    });
   }
 
   onPrevButtonClick() {
