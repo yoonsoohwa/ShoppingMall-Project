@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const itemService = require('../services/ItemService');
 const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
-const { upload } = require('../services/s3Service');
+const { upload } = require('../middlewares/s3Middleware');
 const { BadRequestError } = require('../common/BadRequestError');
 
 const itemsRouter = Router();
@@ -61,22 +61,41 @@ itemsRouter.delete('/', authenticateAdmin, async (req, res, next) => {
 });
 
 // 상품 수정, PUT /api/v1/items/:id
-itemsRouter.put('/:id', authenticateAdmin, async (req, res, next) => {
-  const { id } = req.params;
-  const updatedItemData = req.body;
-  try {
-    const updatedItem = await itemService.updateItem(id, updatedItemData);
-    if (!updatedItem) {
-      res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
+itemsRouter.put(
+  '/:id',
+  authenticateAdmin,
+  upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image[]' }]),
+  async (req, res, next) => {
+    console.log(req.files);
+
+    const { category, name, price, option, content } = req.body;
+    const { detailCount } = req.query;
+    const { id } = req.params;
+    const image = req.files.image[0];
+    const detailImages = req.files['detail_image[]'];
+
+    try {
+      if (!image) {
+        throw new BadRequestError('이미지가 존재하지 않습니다.');
+      }
+      if (image.length > detailCount) {
+        throw new BadRequestError('이미지의 수가 너무 많습니다.');
+      }
+
+      const updatedItem = await itemService.updateItem(id, category, name, price, option, content, image, detailImages);
+
+      if (!updatedItem) {
+        res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
+      }
+      res.status(200).json({
+        message: '아이템이 성공적으로 수정되었습니다.',
+        item: updatedItem,
+      });
+    } catch (err) {
+      next(err);
     }
-    res.status(200).json({
-      message: '아이템이 성공적으로 수정되었습니다.',
-      item: updatedItem,
-    });
-  } catch (err) {
-    next(err);
-  }
-});
+  },
+);
 
 // GET /api/v1/items/:categoryName/:page/:limit - categoryName에 해당하는 아이템 반환
 itemsRouter.get('/:categoryName/:page/:limit', async (req, res, next) => {

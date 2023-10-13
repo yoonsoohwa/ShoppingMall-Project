@@ -38,12 +38,12 @@ async function handleSubmit() {
       body: dataJson,
     });
 
+    const result = await res.json();
     if (res.status === 200) {
-      const result = await res.json();
       alert(result.message);
       window.location.href = '/order';
     } else {
-      alert('로그인에 실패하였습니다.');
+      alert(result.message);
     }
   } catch (error) {
     alert('요청 오류:', error);

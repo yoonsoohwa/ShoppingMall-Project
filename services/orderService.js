@@ -14,11 +14,7 @@ class OrderService {
       throw new BadRequestError(`이미 배송중인 제품은 변경 또는 취소할 수 없습니다.`);
   }
 
-  async createOrder({ user, orderItems, address, totalPrice, status, message, orderPassword }) {
-    if (!/^[a-zA-Z0-9]{8,}$/.test(orderPassword) && !user) {
-      throw new BadRequestError('주문 비밀번호는 최소 8자리의 숫자와 영문자의 조합이어야 합니다.');
-    }
-
+  async createOrder({ user, orderItems, address, totalPrice, status, message }) {
     const order = await Order.create({
       user,
       orderItems,
@@ -26,7 +22,6 @@ class OrderService {
       totalPrice,
       status,
       message,
-      orderPassword,
     });
 
     const createdOrder = await Order.find(order._id)
@@ -102,8 +97,8 @@ class OrderService {
     return { orders, count };
   }
 
-  async getOrderByGuest(orderId, orderPassword) {
-    const order = await Order.findOne({ _id: orderId, orderPassword })
+  async getOrderByGuest(orderId) {
+    const order = await Order.findOne({ _id: orderId })
       .populate({
         path: 'orderItems',
         populate: {

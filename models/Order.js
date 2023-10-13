@@ -30,9 +30,6 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    orderPassword: {
-      type: String,
-    },
   },
   {
     timestamps: true,

@@ -224,7 +224,6 @@ deleteInfoButton.addEventListener('click', () => {
       if (data.message === '회원 탈퇴가 완료되었습니다.') {
         window.location.href = 'http://localhost:5001/';
       }
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -242,10 +241,10 @@ logoutButton.addEventListener('click', async () => {
         },
       });
 
-      const data = await res.json(); // 비동기 -> 동기 처리
+      const data = await res.json();
 
       alert(data.message);
-      window.location.href = 'http://localhost:5001/';
+      window.location.href = '/';
     } catch (error) {
       console.error(error);
     }
