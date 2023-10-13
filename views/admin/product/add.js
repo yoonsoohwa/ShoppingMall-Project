@@ -126,17 +126,8 @@ async function handleSubmit(e) {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('category', categoryInput.value);
-  formData.append('name', nameInput.value);
-  formData.append('price', Number(priceInput.value));
-  formData.append('image', mainImage);
-  for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detail_image', detailImages[i]);
-  }
-  formData.append('option[color]', colorInput.value.replace(/\s/g, '').split(','));
-  formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
-  formData.append('content', contentInput.value);
+  // formData 생성
+  const formData = formDataFunc();
 
   const apiUrl = `/api/v1/items`;
 
@@ -155,4 +146,32 @@ async function handleSubmit(e) {
   } catch (error) {
     alert('생성 요청 중 오류 발생:', error);
   }
+}
+
+/* Form Data 생성 */
+function formDataFunc() {
+  const formData = new FormData();
+
+  formData.append('category', categoryInput.value);
+  formData.append('name', nameInput.value);
+  formData.append('price', Number(priceInput.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detail_image[]', detailImages[i]);
+  }
+
+  const options = {
+    color: colorInput.value.replace(/\s/g, '').split(','),
+    size: sizeInput.value.replace(/\s/g, '').split(','),
+  };
+
+  formData.append('option', JSON.stringify(options));
+  formData.append('content', contentInput.value);
+
+  // formData 확인
+  for (const pair of formData.entries()) {
+    console.log('Key: ', pair[0], 'Value: ', pair[1]);
+  }
+
+  return formData;
 }

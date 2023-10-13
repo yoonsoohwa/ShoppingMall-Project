@@ -10,7 +10,7 @@ async function insertProductData() {
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product._id}</td>
         <td id="product-category">${product.category}</td>
-        <td id="product-image"><img src="${product.image.url}" class="img-fluid"></td>
+        <td id="product-image"><img src="https://elice-shopping.s3.ap-northeast-2.amazonaws.com/image/elice-study_v2.png" class="img-fluid"></td>
         <td id="product-name">${product.name}</td>
         <td id="product-price">${product.price}</td>
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
@@ -84,7 +84,7 @@ deleteBtn.addEventListener('click', async (e) => {
 
       // db에 삭제한 정보 전달 (delete)
       const apiUrl = `/api/v1/items`;
-      const reqData = JSON.stringify({ items: checkedItemsId });
+      const reqData = JSON.stringify({ itemIds: checkedItemsId });
 
       try {
         const res = await fetch(apiUrl, {
