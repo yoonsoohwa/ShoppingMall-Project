@@ -88,7 +88,7 @@ deleteBtn.addEventListener('click', async (e) => {
         const result = await res.json();
         if (res.status === 200) {
           alert(result.message);
-          // await insertProductData(); // 데이터 다시 불러오기
+          await insertProductData(); // 데이터 다시 불러오기
         } else {
           alert(result.message);
         }
