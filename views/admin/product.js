@@ -16,6 +16,7 @@ async function insertProductData() {
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
         <td id="product-modify"><button type="button" class="pro-modify btn btn-secondary btn-sm">수정</button></td>
       `;
+      tableBody.innerHTML = '';
       tableBody.insertAdjacentHTML('beforeend', `<tr>${rowHTML}</tr>`);
     });
 
