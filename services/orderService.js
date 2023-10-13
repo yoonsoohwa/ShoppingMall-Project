@@ -118,7 +118,7 @@ class OrderService {
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const count = await Order.countDocuments({ user });
+    const count = orders.length;
 
     return { orders, count };
   }
