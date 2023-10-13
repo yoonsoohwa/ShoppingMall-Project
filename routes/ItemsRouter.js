@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const itemService = require('../services/ItemService');
 const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
+const { upload } = require('../services/s3Service');
+const { BadRequestError } = require('../common/BadRequestError');
 
 const itemsRouter = Router();
 
@@ -17,14 +19,31 @@ itemsRouter.get('/', async (req, res, next) => {
 
 // 관리자
 // 상품 추가, POST /api/v1/items
-itemsRouter.post('/', authenticateAdmin, async (req, res, next) => {
-  try {
-    const newItem = await itemService.addItem(req.body);
-    res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
-  } catch (err) {
-    next(err);
-  }
-});
+itemsRouter.post(
+  '/',
+  authenticateAdmin,
+  upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image[]' }]),
+  async (req, res, next) => {
+    const { category, name, price, option, content } = req.body;
+    const { detailCount } = req.query;
+    const image = req.files.image[0];
+    const detailImages = req.files['detail_image[]'];
+
+    try {
+      if (!image) {
+        throw new BadRequestError('이미지가 존재하지 않습니다.');
+      }
+      if (image.length > detailCount) {
+        throw new BadRequestError('이미지의 수가 너무 많습니다.');
+      }
+
+      const newItem = await itemService.addItem(category, name, price, option, content, image, detailImages);
+      res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 // 관리자
 // 상품 삭제, DELETE /api/v1/items/delete 여러개

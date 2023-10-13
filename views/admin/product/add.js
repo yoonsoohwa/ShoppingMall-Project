@@ -172,6 +172,5 @@ function formDataFunc() {
   for (const pair of formData.entries()) {
     console.log('Key: ', pair[0], 'Value: ', pair[1]);
   }
-
   return formData;
 }

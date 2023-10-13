@@ -165,7 +165,6 @@ function isColorSelected() {
 
 // 상품 이미지 설정
 function setImage(image, detailImage) {
-    console.log(image);
   mainImage = image.url;
   const imgList = detailImage.map((img) => img.url);
   imgList.unshift(mainImage);
@@ -183,7 +182,7 @@ function setInfo(name, price, content) {
   productName = name;
   productNameEl.innerText = productName;
   productPriceEl.innerText = `${productPrice.toLocaleString()}원`;
-  productDescriptionEl.innerText = content.replaceAll('. ', ".\n");
+  productDescriptionEl.innerText = content.replaceAll('. ', '.\n');
 }
 
 // 옵션(color, size)을 선택했을 때 발생하는 이벤트 설정
@@ -288,10 +287,9 @@ function addToCart() {
     // eslint-disable-next-line no-alert
     alert('필수 옵션을 선택해주세요.');
     return;
-    }
-    
+  }
 
-  const basket = JSON.parse(localStorage.getItem('basket'));
+  const basket = JSON.parse(localStorage.getItem('basket')) || [];
   basketId = basket.length === 0 ? 0 : basket[basket.length - 1].basketId + 1;
   const itemList = convertItemsToProductList(items);
 
@@ -309,12 +307,12 @@ function addToCart() {
 }
 
 async function checkLogin() {
-    try {
-        const res = await fetch(`/api/v1/users/check-login`, {
-            credentials: 'include',
-        });
-        const data = await res.json();
-        const { isLoggedIn } = data;
+  try {
+    const res = await fetch(`/api/v1/users/check-login`, {
+      credentials: 'include',
+    });
+    const data = await res.json();
+    const { isLoggedIn } = data;
 
         // 로그인 여부 클릭 이벤트
         if (isLoggedIn) {

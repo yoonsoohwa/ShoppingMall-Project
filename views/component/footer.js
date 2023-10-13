@@ -1,7 +1,7 @@
 function Footer() {
   const footerText = `
     <div id="footer" class="p-3">
-      <div class="footer-logo" style="font-size: 32px"><img src='https://ifh.cc/g/7vx729.png' style="width:130px"></div>
+      <div class="footer-logo" style="font-size: 32px"><a href="/"><img src='https://ifh.cc/g/7vx729.png' style="width:130px"></a></div>
       <div class="footer-description mt-2">
         <p>
           Based on upcycling art, deconstruction and hybrid, 'RE:Birth' delivers messages of each season which metaphorically expressed via fashion defiantly and innovatively.<br/>

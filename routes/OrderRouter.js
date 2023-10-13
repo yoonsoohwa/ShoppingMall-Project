@@ -75,6 +75,7 @@ orderRouter.get('/:page/:limit', authenticateAdmin, async (req, res, next) => {
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
+      count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
     });
@@ -114,6 +115,7 @@ orderRouter.post('/shipping/:page/:limit', authenticateUser, async (req, res, ne
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
+      count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
     });
@@ -149,6 +151,7 @@ orderRouter.get('/page/:page/:limit', authenticateUser, async (req, res, next) =
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
+      count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
     });
