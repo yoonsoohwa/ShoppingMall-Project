@@ -8,8 +8,10 @@ export const getProductList = async() => {
         })
         const dataList = await res.json();
         return dataList.map(data => ({
-            img: `/dummy/${data.image.url}`,
-            detailImage: `/dummy/${data.detail_image[0].url}`,
+            // img: `/dummy/${data.image.url}`,
+            // detailImage: `/dummy/${data.detail_image[0].url}`,
+            img: data.image.url,
+            detailImage: data.detail_image[0].url,
             price: data.price,
             category: data.category,
             date: data.updatedAt,
