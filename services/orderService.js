@@ -106,14 +106,12 @@ class OrderService {
 
   async getPaginationByUser({ user, page, limit }) {
     const orders = await Order.find(user)
-      .populate('user')
       .populate({
         path: 'orderItems',
         populate: {
           path: 'item',
         },
       })
-      .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);

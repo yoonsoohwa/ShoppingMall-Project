@@ -140,7 +140,7 @@ orderRouter.post('/get/guest', async (req, res, next) => {
 });
 
 // GET /api/v1/orders/order-list  pagination
-orderRouter.get('/page/:page/:limit', authenticateUser, async (req, res, next) => {
+orderRouter.post('/page/:page/:limit', authenticateUser, async (req, res, next) => {
   const userId = req.user._id;
   const { page = 1, limit = 20 } = req.params;
 
