@@ -1,0 +1,31 @@
+{
+  "option": {
+    "size": ["S"],
+    "color": ["BLACK"]
+  },
+  "_id": "65275798e8682edbbb6ce184",
+  "category": "Bottom",
+  "image": {
+    "imageType": "thumbnail",
+    "url": "Bottom4",
+    "_id": "65275798e8682edbbb6ce185"
+  },
+  "detail_image": [
+    {
+      "imageType": "detail",
+      "url": "Bottom4",
+      "_id": "65275798e8682edbbb6ce186"
+    },
+    {
+      "imageType": "detail",
+      "url": "Bottom4",
+      "_id": "65275798e8682edbbb6ce187"
+    }
+  ],
+  "name": "Bottom4",
+  "price": 100000,
+  "content": "상품 설명",
+  "createdAt": "2023-10-12T02:19:04.622Z",
+  "updatedAt": "2023-10-12T02:19:04.622Z",
+  "__v": 0
+}

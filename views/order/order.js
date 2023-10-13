@@ -123,68 +123,68 @@
 
 //비회원
 
-const guestOrderListElement = document.getElementById('order-wrapper');
+// const guestOrderListElement = document.getElementById('order-wrapper');
 
-let orderId;
+// let guestOrderId;
 
-function formatDate(createdAt) {
-  const orderDate = createdAt.split('.')[0];
-  const date = orderDate.split('T')[0];
-  const time = orderDate.split('T')[1];
+// function formatDate(createdAt) {
+//   const orderDate = createdAt.split('.')[0];
+//   const date = orderDate.split('T')[0];
+//   const time = orderDate.split('T')[1];
 
-  return `${date} ${time}`;
-}
+//   return `${date} ${time}`;
+// }
 
-function setGuestOrderList(date, _id, orderItems, totalPrice, status) {
-  // const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+// function setGuestOrderList(date, _id, orderItems, totalPrice, status) {
+//   // const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
 
-  const element = `<tr id="order-${orderId}">
-              <td id="order-date-id">${date}</br>[${_id}]</td>
-              <td id="order-img">img</td>
-              <td id="order-product">${orderItems}</td>
-              <td id="order-quatity">1</td>
-              <td id="order-price">${totalPrice.toLocaleString()}</td>
-              <td id="order-status">${status}</td>
-            </tr>`;
+//   const element = `<tr id="order-${guestOrderId}">
+//               <td id="order-date-id">${date}</br>[${_id}]</td>
+//               <td id="order-img">img</td>
+//               <td id="order-product">${orderItems}</td>
+//               <td id="order-quatity">1</td>
+//               <td id="order-price">${totalPrice.toLocaleString()}</td>
+//               <td id="order-status">${status}</td>
+//             </tr>`;
 
-  guestOrderListElement.insertAdjacentHTML('beforeend', element);
-  orderId += 1;
-}
+//   guestOrderListElement.insertAdjacentHTML('beforeend', element);
+//   guestOrderId += 1;
+// }
 
-async function guestApi() {
-  const guestApiUrl = '/api/v1/orders/get/guest';
-  // const guestApiUrl = './order.json';
-  try {
-    const res = await fetch(guestApiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ orderId: sessionStorage.getItem('loginId') }),
-    });
-    // const res = await fetch(guestApiUrl);
+// async function guestApi() {
+//   const guestApiUrl = '/api/v1/orders/get/guest';
+//   // const guestApiUrl = './order.json';
+//   try {
+//     const res = await fetch(guestApiUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ GuestOrderId: sessionStorage.getItem('loginId') }),
+//     });
+//     // const res = await fetch(guestApiUrl);
 
-    const data = await res.json(); //받아올 데이터
+//     const data = await res.json(); //받아올 데이터
 
-    const { order: orders } = data;
-    console.log(orders);
+//     const { order: orders } = data;
+//     console.log(orders);
 
-    orders.forEach((order) => {
-      const { _id, createdAt, orderItems, totalPrice, status } = order;
-      const date = formatDate(createdAt);
-      setGuestOrderList(date, _id, orderItems, totalPrice, status);
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-    // eslint-disable-next-line no-alert
-    alert('주문 조회 중 오류 발생 : ', err);
+//     orders.forEach((order) => {
+//       const { _id, createdAt, orderItems, totalPrice, status } = order;
+//       const date = formatDate(createdAt);
+//       setGuestOrderList(date, _id, orderItems, totalPrice, status);
+//     });
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.log(err);
+//     // eslint-disable-next-line no-alert
+//     alert('주문 조회 중 오류 발생 : ', err);
 
-    // 주문 일자 바꿔주는 함수
-  }
-}
+//     // 주문 일자 바꿔주는 함수
+//   }
+// }
 
-guestApi();
+// guestApi();
 
 //회원
 
@@ -201,6 +201,10 @@ function formatDate(createdAt) {
 }
 
 function setUserOrderList(date, _id, orderItems, totalPrice, status) {
+  const productList = orderItems.map(({ option, quantity, item }) => {
+    const productName = `${item.name} [${option.color} / ${option.size}]`;
+    return [productName, quantity];
+  });
   orderItems.forEach(({ option, quantity }) => {
     const productName = `[${option.color} / ${option.size}]`;
     const element = `<tr id="order-${orderId}">
@@ -219,10 +223,10 @@ function setUserOrderList(date, _id, orderItems, totalPrice, status) {
 }
 
 async function userApi() {
-  const userApiUrl = '/api/v1/orders/page/1/20';
-  // const guestApiUrl = './order.json';
+  // const userApiUrl = '/api/v1/orders/page/1/20';
+  const userApiUrl = './order.json';
   try {
-    const res = await fetch(guestApiUrl);
+    const res = await fetch(userApiUrl);
 
     const userData = await res.json(); //받아올 데이터
 
@@ -240,8 +244,6 @@ async function userApi() {
     console.log(err);
     // eslint-disable-next-line no-alert
     alert('주문 조회 중 오류 발생 : ', err);
-
-    // 주문 일자 바꿔주는 함수
   }
 }
 

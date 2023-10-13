@@ -13,6 +13,10 @@ function formatDate(createdAt) {
 }
 
 function setUserOrderList(date, _id, orderItems, totalPrice, status) {
+  const productList = orderItems.map(({ option, quantity, item }) => {
+    const productName = `${item.name} [${option.color} / ${option.size}]`;
+    return [productName, quantity];
+  });
   orderItems.forEach(({ option, quantity }) => {
     const productName = `[${option.color} / ${option.size}]`;
     const element = `<tr id="order-${orderId}">
@@ -31,10 +35,10 @@ function setUserOrderList(date, _id, orderItems, totalPrice, status) {
 }
 
 async function userApi() {
-  const userApiUrl = '/api/v1/orders/page/1/20';
-  // const guestApiUrl = './order.json';
+  // const userApiUrl = '/api/v1/orders/page/1/20';
+  const guestApiUrl = './order.json';
   try {
-    const res = await fetch(guestApiUrl);
+    const res = await fetch(userApiUrl);
 
     const userData = await res.json(); //받아올 데이터
 
@@ -52,8 +56,6 @@ async function userApi() {
     console.log(err);
     // eslint-disable-next-line no-alert
     alert('주문 조회 중 오류 발생 : ', err);
-
-    // 주문 일자 바꿔주는 함수
   }
 }
 
