@@ -145,6 +145,7 @@ u {
 
 .product-card:hover > .product-card-image {
   opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .product-card:hover {
