@@ -17,7 +17,7 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
     const productList = orderItems.map(({ option, quantity, item }) => {
         const productName = `${item.name} [${option.color} / ${option.size}]`;
         totalQuantity += quantity;
-        return [productName, quantity, item.image];
+        return [productName, quantity, item.image.url];
     });
     const itemText =
         productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
