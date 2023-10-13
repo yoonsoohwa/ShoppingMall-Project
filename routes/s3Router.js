@@ -16,12 +16,16 @@ s3Router.post('/thumbnail', upload.single('image'), async (req, res, next) => {
   }
 });
 
-s3Router.post('/details', upload.array('image', 4), async (req, res, next) => {
+s3Router.post('/details', upload.array('image'), async (req, res, next) => {
   try {
+    const count = req.query.count || 10;
     const image = req.files;
     const path = image.map((img) => img.location);
     if (!image) {
       throw new BadRequestError('이미지가 존재하지 않습니다.');
+    }
+    if (image.length > count) {
+      throw new BadRequestError('이미지의 수가 너무 많습니다.');
     }
     res.status(201).json({ message: '이미지가 저장되었습니다.', path });
   } catch (err) {
