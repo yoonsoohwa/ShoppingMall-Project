@@ -3,9 +3,9 @@ async function insertProductData() {
   try {
     const res = await fetch(`/api/v1/items`);
     const data = await res.json();
-
+    const tableBody = document.querySelector('#table-body');
+    tableBody.innerHTML = '';
     data.forEach((product) => {
-      const tableBody = document.querySelector('#table-body');
       const rowHTML = `
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product._id}</td>
@@ -22,6 +22,7 @@ async function insertProductData() {
     /* 총 개수 */
     const total = document.querySelector('.total');
     const allRow = document.querySelectorAll('#table-body tr');
+    console.log(allRow);
     total.innerHTML = allRow.length > 0 ? `[총 ${allRow.length}개]` : `[총 0개]`;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
@@ -33,12 +34,11 @@ insertProductData();
 
 /* 상품 삭제 */
 const checkAllBtn = document.querySelector('#check-all');
+
 const deleteBtn = document.querySelector('.pro-delete');
-
 deleteBtn.addEventListener('click', async (e) => {
-  const checkboxes = document.querySelectorAll('#check-item');
   e.preventDefault();
-
+  const checkboxes = document.querySelectorAll('#check-item');
   // 체크된 항목의 index를 저장할 배열
   const checkedItemsIndex = [];
 
