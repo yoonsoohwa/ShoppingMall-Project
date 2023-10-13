@@ -67,12 +67,16 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
 });
 
 // GET /api/v1/orders
-orderRouter.get('/', authenticateAdmin, async (req, res, next) => {
+orderRouter.get('/:page/:limit', authenticateAdmin, async (req, res, next) => {
+  const { page = 1, limit = 20 } = req.params;
+
   try {
-    const orders = await OrderService.getPagination();
+    const { orders, count } = await OrderService.getPagination(page, limit);
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
     });
   } catch (err) {
     next(err);
@@ -99,17 +103,19 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
   }
 });
 
-// GET /api/v1/orders/get/guest 배송현황별 주문조회
+// GET /api/v1/orders/shipping 배송현황별 주문조회
 orderRouter.post('/shipping', authenticateUser, async (req, res, next) => {
   const userId = req.user._id;
-  const { status } = req.body;
+  const { status, page = 1, limit = 20 } = req.body;
 
   try {
-    const orders = await OrderService.getOrdersByStatus(userId, status);
+    const { orders, count } = await OrderService.getOrdersByStatus(userId, status, page, limit);
 
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
       orders,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
     });
   } catch (err) {
     next(err);
