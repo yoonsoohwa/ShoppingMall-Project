@@ -30,7 +30,7 @@ async function getProductData(id) {
       detailImagePreview.insertAdjacentHTML(
         'beforeend',
         `
-          <div style="display: inline-block">
+          <div id="det-img" style="display: inline-block">
             <img src="${val.url}" style="max-width: 150px">
             <input type="checkbox" class="position-absolute" id="delete-check-btn">
           </div>
@@ -49,10 +49,12 @@ async function getProductData(id) {
 
 getProductData(queryId);
 
+// -----------------------------------------
+
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
-let mainImage = imagePreview.img.src;
+let mainImage;
 mImage.addEventListener('change', (e) => {
   const file = e.target.files[0];
   mainImage = file;
@@ -152,6 +154,7 @@ delDetailImgBtn.addEventListener('click', () => {
 });
 
 // --------------------------------------------------
+
 /* db에 수정한 정보 전달 (put) */
 const submitBtn = document.querySelector('.submit');
 submitBtn.addEventListener('click', handleSubmit);
@@ -168,7 +171,7 @@ async function handleSubmit(e) {
   // formData 생성
   const formData = formDataFunc();
 
-  const apiUrl = `/api/v1/items/:${queryId}`;
+  const apiUrl = `/api/v1/items/${queryId}`;
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
@@ -206,11 +209,6 @@ function formDataFunc() {
 
   formData.append('option', JSON.stringify(options));
   formData.append('content', mContent.value);
-
-  // formData 확인
-  for (const pair of formData.entries()) {
-    console.log('Key: ', pair[0], 'Value: ', pair[1]);
-  }
 
   return formData;
 }
