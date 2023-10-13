@@ -62,10 +62,16 @@ export class BestProductList {
         this.x -= 1;
         swipe.style.transform = `translateX(${this.x * width}px)`;
 
-        if (Math.abs(this.x * width) > diff) {
+     if (Math.abs(this.x * width) > diff) {
+        for (let i = 0; i < viewCardCount - 1; i++) {
+          const productItem = this.productItems.pop();
+          this.productItems.unshift(productItem)
+          swipe.style.transition = '0s';
+        }
           this.x = 0;
           swipe.style.transform = `translateX(${this.x * width}px)`;
-        }
+          this.renderProductCardList()
+      }
       }, 3000);
     });
   }
@@ -73,11 +79,13 @@ export class BestProductList {
   onPrevButtonClick() {
     const prevButton = this.bestProductListElement.querySelector('.swiper-prev-controller');
     const swipe = this.bestProductListElement.querySelector('.best-products-swipe');
+    
     prevButton.addEventListener('click', (e) => {
       const swipeRect = swipe.getBoundingClientRect();
       const containerRect = this.bestProductListElement.getBoundingClientRect();
       const width = swipeRect.width / this.productItems.length;
       const diff = swipeRect.width - containerRect.width;
+      const viewCardCount = Math.ceil(containerRect.width / width);
 
       if (this.x === 0) {
         swipe.style.transform = `translateX(-${diff}px)`;
@@ -86,6 +94,17 @@ export class BestProductList {
         this.x += 1;
         swipe.style.transform = `translateX(${this.x * width}px)`;
       }
+
+      // if (Math.abs(this.x * width) > diff) {
+      //   for (let i = 0; i < viewCardCount - 1; i++) {
+      //     const productItem = this.productItems.splice(0,1)
+      //     this.productItems.push(productItem[0])
+      //     swipe.style.transition = '0s';
+      //   }
+      //   this.x = 0;
+      //   swipe.style.transform = `translateX(${this.x * width}px)`;
+      //   this.renderProductCardList()
+      // }
     });
   }
 
@@ -98,13 +117,22 @@ export class BestProductList {
       const containerRect = this.bestProductListElement.getBoundingClientRect();
       const width = swipeRect.width / this.productItems.length;
       const diff = swipeRect.width - containerRect.width;
+      const viewCardCount = Math.ceil(containerRect.width / width);
 
       this.x -= 1;
-      swipe.style.transform = `translateX(${this.x * width}px)`;
 
+      swipe.style.transition = '0.2s';
+      swipe.style.transform = `translateX(${this.x * width}px)`;
+      
       if (Math.abs(this.x * width) > diff) {
-        this.x = 0;
-        swipe.style.transform = `translateX(${this.x * width}px)`;
+        for (let i = 0; i < viewCardCount - 1; i++) {
+          const productItem = this.productItems.pop();
+          this.productItems.unshift(productItem)
+          swipe.style.transition = '0s';
+        }
+          this.x = 0;
+          swipe.style.transform = `translateX(${this.x * width}px)`;
+          this.renderProductCardList()
       }
     });
   }

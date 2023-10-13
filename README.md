@@ -42,3 +42,4 @@
 - 참조: [관련 블로그](https://velog.io/@tjdals9638/The-request-client-is-not-a-secure-context-and-the-resource-is-in-more-private-address-space)  
   ![CORS](https://velog.velcdn.com/images/limelimejiwon/post/4d4888e7-63d3-4a5b-9ccb-46a560be9fad/image.png)  
   출처: https://velog.io/@limelimejiwon/CORS-%EC%97%90%EB%9F%AC-%EC%82%BD%EC%A7%88-%EC%8B%9C%EC%9E%91
+
