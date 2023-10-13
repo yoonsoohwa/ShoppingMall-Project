@@ -314,18 +314,18 @@ async function checkLogin() {
     const data = await res.json();
     const { isLoggedIn } = data;
 
-    // 로그인 여부 클릭 이벤트
-    if (isLoggedIn) {
-      addToCart();
-    } else {
-      // eslint-disable-next-line no-alert
-      alert('장바구니 이용을 위해 로그인이 필요합니다. 아직 회원이 아니라면, 회원 가입을 해주세요.');
-      window.location.href('/login');
+        // 로그인 여부 클릭 이벤트
+        if (isLoggedIn) {
+            addToCart();
+        } else {
+            // eslint-disable-next-line no-alert
+            alert('장바구니 이용을 위해 로그인이 필요합니다. 아직 회원이 아니라면, 회원 가입을 해주세요.');
+            window.location.href = '/login';
+        }
+    } catch (error) {
+        // eslint-disable-next-line no-alert
+        alert('데이터를 가져오는 중 에러 발생:', error);
     }
-  } catch (error) {
-    // eslint-disable-next-line no-alert
-    alert('데이터를 가져오는 중 에러 발생:', error);
-  }
 }
 
 function redirectToOrderPage() {
