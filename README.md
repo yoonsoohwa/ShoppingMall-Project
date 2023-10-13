@@ -43,7 +43,9 @@
   ![CORS](https://velog.velcdn.com/images/limelimejiwon/post/4d4888e7-63d3-4a5b-9ccb-46a560be9fad/image.png)  
   출처: https://velog.io/@limelimejiwon/CORS-%EC%97%90%EB%9F%AC-%EC%82%BD%EC%A7%88-%EC%8B%9C%EC%9E%91
 
+
 ### **에러요청 본문 데이터 파싱 문제**
+
 
 **원인**
 - 백엔드 API에서 DELETE 요청을 수신할 때, JSON 형식으로 itemIds로 ID 값을 예상하고 있지만, 프론트엔드에서는 요청을 item: newItem와 같은 형식으로 보내는 경우, 서버는 요청을 정확하게 파싱하지 못하고 이로 인해 오류가 발생할 수 있습니다. 요청의 본문 형식과 서버의 예상 형식이 다르기 때문에 문제가 발생합니다.
