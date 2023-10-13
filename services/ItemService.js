@@ -15,8 +15,6 @@ class ItemService {
   async addItem(category, name, price, parsedOption, content, image, detailImages) {
     const newItem = new Item({ category, name, price, option: parsedOption, content });
 
-    console.log(newItem);
-
     const thumbnail = { imageType: 'thumbnail', url: image.location };
     const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
 
