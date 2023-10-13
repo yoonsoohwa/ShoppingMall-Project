@@ -29,30 +29,6 @@ function selectAllCheckboxes() {
     }
 }
 
-async function deleteOrder(idList) {
-    const url = `/api/v1/orders`;
-
-    try {
-        const res = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                orderIds: idList,
-            }),
-        });
-
-        if (res.status === 200) {
-            // eslint-disable-next-line no-alert
-            alert('선택하신 주문이 취소되었습니다');
-        }
-    } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert(`주문을 취소할 수 없습니다.`);
-    }
-}
-
 function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     let totalQuantity = 0;
     const productList = orderItems.map(({ option, quantity, item }) => {
@@ -88,7 +64,6 @@ async function insertOrderList() {
 
         orderId = 0;
         const { orders } = data;
-        console.log(data)
         orders.forEach((order) => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
 
@@ -124,13 +99,39 @@ function orderCancel() {
         return;
     }
 
+    // eslint-disable-next-line no-alert
     if (window.confirm('선택한 주문을 취소하시겠습니까?')) {
+        // eslint-disable-next-line no-use-before-define
         deleteOrder(checkedOrders);
         while (orderListEl.firstChild) {
             orderListEl.removeChild(orderListEl.firstChild);
         }
         checkAll.checked = false;
-        insertOrderList();
+    }
+}
+
+async function deleteOrder(idList) {
+    const url = `/api/v1/orders/delete`;
+
+    try {
+        const res = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderIds: idList,
+            }),
+        });
+
+        if (res.status === 200) {
+            // eslint-disable-next-line no-alert
+            alert('선택하신 주문이 취소되었습니다');
+            insertOrderList();
+        }
+    } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert(`주문을 취소할 수 없습니다.`);
     }
 }
 
