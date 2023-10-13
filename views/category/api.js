@@ -7,7 +7,6 @@ export const getProductList = async() => {
             }
         })
         const dataList = await res.json();
-        console.log(dataList)
         return dataList.map(data => ({
             img: `/dummy/${data.image.url}`,
             detailImage: `/dummy/${data.detail_image[0].url}`,
@@ -18,7 +17,7 @@ export const getProductList = async() => {
             title: data.name,
         }))
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 
 }
