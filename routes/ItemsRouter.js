@@ -3,6 +3,7 @@ const itemService = require('../services/ItemService');
 const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 const { upload } = require('../middlewares/s3Middleware');
 const { BadRequestError } = require('../common/BadRequestError');
+const formidable = require('formidable');
 
 const itemsRouter = Router();
 
@@ -28,6 +29,7 @@ itemsRouter.post(
     const { detailCount } = req.query;
     const image = req.files.image[0];
     const detailImages = req.files['detail_image[]'];
+    const parsedOption = JSON.parse(option);
 
     try {
       if (!image) {
@@ -37,7 +39,7 @@ itemsRouter.post(
         throw new BadRequestError('이미지의 수가 너무 많습니다.');
       }
 
-      const newItem = await itemService.addItem(category, name, price, option, content, image, detailImages);
+      const newItem = await itemService.addItem(category, name, price, parsedOption, content, image, detailImages);
       res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
     } catch (err) {
       next(err);
@@ -66,13 +68,12 @@ itemsRouter.put(
   authenticateAdmin,
   upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image[]' }]),
   async (req, res, next) => {
-    console.log(req.files);
-
     const { category, name, price, option, content } = req.body;
     const { detailCount } = req.query;
     const { id } = req.params;
     const image = req.files.image[0];
     const detailImages = req.files['detail_image[]'];
+    const parsedOption = JSON.parse(option);
 
     try {
       if (!image) {
@@ -82,7 +83,16 @@ itemsRouter.put(
         throw new BadRequestError('이미지의 수가 너무 많습니다.');
       }
 
-      const updatedItem = await itemService.updateItem(id, category, name, price, option, content, image, detailImages);
+      const updatedItem = await itemService.updateItem(
+        id,
+        category,
+        name,
+        price,
+        parsedOption,
+        content,
+        image,
+        detailImages,
+      );
 
       if (!updatedItem) {
         res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
