@@ -206,8 +206,12 @@ function removePriceFromArray(pricesArray, priceEle) {
 
 /* db에 데이터 전달 (post) */
 
-submitBtn.addEventListener('click', () => {
-  isuser ? userHandleSubmit : unuserHandleSubmit;
+submitBtn.addEventListener('click', (e) => {
+  if (isuser) {
+    userHandleSubmit(e);
+  } else {
+    unuserHandleSubmit(e);
+  }
 });
 
 /* 회원일때, */
