@@ -57,10 +57,12 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     orderId += 1;
 }
 
-function pagination(e) {
+function pagination(e, pageItemEl) {
     e.preventDefault();
 
     page = Number(e.target.textContent);
+    pageItemEl.forEach(el => el.classList.remove('active'));
+    e.target.classList.add('active');
     while (orderListEl.firstChild) {
         orderListEl.removeChild(orderListEl.firstChild);
     }
@@ -75,7 +77,7 @@ function setPage(totalPages) {
             </li>`
 
     for (let i = 1; i <= totalPages; i += 1) {
-        element += `<li class="page-item"><a class="page-link" href="">${i}</a></li>`
+        element += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`
     }
 
     element += `<li class="page-item">
@@ -85,8 +87,8 @@ function setPage(totalPages) {
             </li>`;
 
     paginationEl.insertAdjacentHTML('beforeend', element);
-    const pageItemEl = Array.from(document.getElementsByClassName('page-link'));
-    pageItemEl.forEach(el => el.addEventListener('click', pagination));
+    const pageItemEl = Array.from(document.getElementsByClassName('page-link')).slice(1, -1);
+    pageItemEl.forEach(el => el.addEventListener('click', (e) => pagination(e, pageItemEl)));
 }
 
 async function insertOrderList() {
@@ -106,10 +108,9 @@ async function insertOrderList() {
             const date = formatDate(createdAt);
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
         });
-        console.log(count);
 
         if (!paginationEl.hasChildNodes()) {
-            totalEl.innerText = `[총 ${orders.length}개]`;
+            totalEl.innerText = `[총 ${count}개]`;
             setPage(totalPages);
         }
 
