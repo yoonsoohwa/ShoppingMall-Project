@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 const { NotFoundError } = require('../common/NotFoundError');
+const imageService = require('./imageService');
 
 class ItemService {
   async getItems() {
@@ -12,9 +13,18 @@ class ItemService {
     return item;
   }
 
-  async addItem(itemData) {
+  async addItem(itemData, image) {
     const newItem = new Item(itemData);
+    const { thumbnail, details } = image;
+
+    const thumbnailImage = await imageService.createImage({ imageType: 'thumbnail', url: thumbnail.location });
+    const detailImages = await Promise.all(details.map(imageService.createImage));
+
+    newItem.image = thumbnailImage;
+    newItem.detail_image = detailImages;
+
     await newItem.save();
+
     return newItem;
   }
 
