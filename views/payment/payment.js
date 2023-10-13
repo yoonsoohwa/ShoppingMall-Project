@@ -233,7 +233,7 @@ async function userHandleSubmit(e) {
 
   const items = document.querySelectorAll('.product');
   const orderItems = [];
-    items.forEach((item) => {
+  items.forEach((item) => {
     const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
@@ -326,7 +326,7 @@ async function unuserHandleSubmit(e) {
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proId = item.querySelector('pro-id').textContent;
+    const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
 
