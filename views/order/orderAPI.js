@@ -12,20 +12,22 @@ function formatDate(createdAt) {
   return `${date} ${time}`;
 }
 
-function setOrderList(date, status, orderItem, totalPrice, id) {
-  const { option, quantity, item } = orderItem;
+function setOrderList(date, id, orderItems, status, totalPrice) {
+    let totalQuantity = 0;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity, item.image];
+    });
+    const itemText =
+        productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
 
-  const color = option?.color ? `${option.color} ` : '';
-  const size = option?.size ? `${option.size} ` : '';
-  const optionString = option === '' ? '' : `[${color} / ${size}]`;
-  const productName = `${item.name} ${optionString}`;
 
-  const img = item.image.url ? item.image.url : '';
   const element = `<tr id="order-${orderId}">
               <td id="order-date-id">${date}</br>[${id}]</td>
-              <td id="order-img"><img src={${img}}/></td>
-              <td id="order-product">${productName}</td>
-              <td id="order-quantity">${quantity}</td>
+              <td id="order-img"><img src={${productList[0][2]}}/></td>
+              <td id="order-product">${itemText}</td>
+              <td id="order-quantity">${totalQuantity}</td>
               <td id="order-price">${Number(totalPrice).toLocaleString()}원</td>
               <td id="order-status">${status}</td>
             </tr>`;
@@ -49,13 +51,14 @@ async function getListData(isLogin) {
 
     const data = await response.json(); //받아올 데이터
 
-    const { order } = data;
+      const { orders } = data;
 
-    order.orderItems.forEach((orderItem) => {
-      const { createdAt, _id: id } = orderItem;
-      const date = formatDate(createdAt);
+      orders.forEach((orderItem) => {
+        console.log(orderItem)
+      const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
+        const date = formatDate(createdAt);
 
-      setOrderList(date, order.status, orderItem, order.totalPrice, id);
+          setOrderList(date, id, orderItems, status, totalPrice);
     });
   } catch (err) {
     console.error(err);
