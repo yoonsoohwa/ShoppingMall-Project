@@ -168,5 +168,9 @@ function formDataFunc() {
   formData.append('option', JSON.stringify(options));
   formData.append('content', contentInput.value);
 
+  // formData 확인
+  for (const pair of formData.entries()) {
+    console.log('Key: ', pair[0], 'Value: ', pair[1]);
+  }
   return formData;
 }
