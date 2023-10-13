@@ -49,19 +49,7 @@ export const getCategoryDataList = () => {
             "__v": 0
         },
         {
-            "name": "Dress",
-            "__v": 0
-        },
-        {
             "name": "Bag",
-            "__v": 0
-        },
-        {
-            "name": "Shoes",
-            "__v": 0
-        },
-        {
-            "name": "Hat",
             "__v": 0
         },
         {
