@@ -42,7 +42,7 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, email, address, totalPrice, status, message, orderPassword } = req.body;
+  const { orderItems, email, address, totalPrice, status, message } = req.body;
 
   try {
     const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
@@ -54,7 +54,6 @@ orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) =
       totalPrice,
       status,
       message,
-      orderPassword,
     });
 
     // 이메일 전송
@@ -126,10 +125,10 @@ orderRouter.post('/shipping/:page/:limit', authenticateUser, async (req, res, ne
 
 // GET /api/v1/orders/get/guest 비회원 주문조회
 orderRouter.post('/get/guest', async (req, res, next) => {
-  const { orderId, orderPassword } = req.body;
+  const { orderId } = req.body;
 
   try {
-    const order = await OrderService.getOrderByGuest(orderId, orderPassword);
+    const order = await OrderService.getOrderByGuest(orderId);
 
     res.status(200).json({
       message: '주문 조회에 성공하였습니다.',
