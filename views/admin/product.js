@@ -8,7 +8,7 @@ async function insertProductData() {
       const tableBody = document.querySelector('#table-body');
       const rowHTML = `
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
-        <td id="product-id">${product.id}</td>
+        <td id="product-id">${product._id}</td>
         <td id="product-category">${product.category}</td>
         <td id="product-image"><img src="${product.image.url}" class="img-fluid"></td>
         <td id="product-name">${product.name}</td>
@@ -26,7 +26,7 @@ insertProductData();
 
 /* 총 개수 */
 const total = document.querySelector('.total');
-const allRow = document.querySelectorAll('tr');
+const allRow = document.querySelectorAll('#table-body tr');
 total.innerHTML = allRow.length > 1 ? `[총 ${allRow.length - 1}개]` : `[총 0개]`;
 
 /* 상품 삭제 */
