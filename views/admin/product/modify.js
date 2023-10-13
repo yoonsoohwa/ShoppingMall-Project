@@ -37,11 +37,11 @@ async function getProductData(id) {
         `,
       );
     });
-    mName.placeholder = data.name;
-    mPrice.placeholder = data.price;
-    mColor.placeholder = data.option.color.join(', ');
-    mSize.placeholder = data.option.color.join(', ');
-    mContent.placeholder = data.content;
+    mName.value = data.name;
+    mPrice.value = data.price;
+    mColor.value = data.option.color.join(', ');
+    mSize.value = data.option.color.join(', ');
+    mContent.value = data.content;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
   }
