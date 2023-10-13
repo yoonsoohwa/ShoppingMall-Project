@@ -4,7 +4,7 @@ const { BadRequestError } = require('../common/BadRequestError');
 
 const s3Router = Router();
 
-s3Router.post('/photo/thumbnail', upload.single('image'), async (req, res, next) => {
+s3Router.post('/thumbnail', upload.single('image'), async (req, res, next) => {
   try {
     const image = req.file.location;
     if (!image) {
@@ -16,7 +16,7 @@ s3Router.post('/photo/thumbnail', upload.single('image'), async (req, res, next)
   }
 });
 
-s3Router.post('/photo/details', upload.array('image', 4), async (req, res, next) => {
+s3Router.post('/details', upload.array('image', 4), async (req, res, next) => {
   try {
     const image = req.files;
     const path = image.map((img) => img.location);
