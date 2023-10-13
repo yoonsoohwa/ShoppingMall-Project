@@ -54,7 +54,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice) {
 
 async function insertOrderList() {
     // const url = './orderlistdata.json';    // 임시 데이터
-    const url = '/api/v1/orders/shipping';
+    const url = '/api/v1/orders/shipping/1/20';
 
     try {
         const res = await fetch(url, {
@@ -104,7 +104,8 @@ async function changeStatus(idList) {
             })
         });
 
-        if (res.status === 200) {
+        if (res.ok) {
+            insertOrderList();
             // eslint-disable-next-line no-alert
             alert('선택하신 주문의 배송상태가 변경되었습니다.');
         }
@@ -132,13 +133,12 @@ function orderDelivery() {
 
     // eslint-disable-next-line no-alert
     if (window.confirm('선택한 주문의 배송상태를 "배송중"으로 변경하시겠습니까?')) {
-        changeStatus(checkedOrders);
 
         while (shipptingListEl.firstChild) {
             shipptingListEl.removeChild(shipptingListEl.firstChild);
         }
         checkAll.checked = false;
-        insertOrderList();
+        changeStatus(checkedOrders);
     }
 }
 

@@ -101,12 +101,12 @@ function orderCancel() {
 
     // eslint-disable-next-line no-alert
     if (window.confirm('선택한 주문을 취소하시겠습니까?')) {
-        // eslint-disable-next-line no-use-before-define
-        deleteOrder(checkedOrders);
         while (orderListEl.firstChild) {
             orderListEl.removeChild(orderListEl.firstChild);
         }
         checkAll.checked = false;
+        // eslint-disable-next-line no-use-before-define
+        deleteOrder(checkedOrders);
     }
 }
 
@@ -124,10 +124,10 @@ async function deleteOrder(idList) {
             }),
         });
 
-        if (res.status === 200) {
+        if (res.ok) {
             // eslint-disable-next-line no-alert
-            alert('선택하신 주문이 취소되었습니다');
             insertOrderList();
+            alert('선택하신 주문이 취소되었습니다');
         }
     } catch (err) {
         // eslint-disable-next-line no-alert
