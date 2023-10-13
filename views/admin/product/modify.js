@@ -203,8 +203,8 @@ function formDataFunc() {
   }
 
   const options = {
-    color: mColor.value.replace(/\s/g, '').split(','),
-    size: mSize.value.replace(/\s/g, '').split(','),
+    color: mColor.value ? mColor.value.replace(/\s/g, '').split(',') : null,
+    size: mSize.value ? mSize.value.replace(/\s/g, '').split(',') : null,
   };
 
   formData.append('option', JSON.stringify(options));
