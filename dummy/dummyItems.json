@@ -719,6 +719,33 @@
         "color": ["GRAY"]
       },
       "content": "Grid pattern knit cardigan in grey. Standard-fit, Unisex. Ribbed knit at collar, sleeves, and bottom hem"
+    },
+    {
+      "category": "Bottom",
+      "image": {
+        "imageType": "thumbnail",
+        "url": "/dummy/img/DenimPants_LightBlue.jpg"
+      },
+      "detail_image": [
+        {
+          "imageType": "detail",
+          "url": "/dummy/img/DenimPants_LightBlue1.jpg"
+        },
+        {
+          "imageType": "detail",
+          "url": "/dummy/img/DenimPants_LightBlue2.jpg"
+        },
+        {
+          "imageType": "detail",
+          "url": "/dummy/img/DenimPants_LightBlue3.jpg"
+        }
+      ],
+      "name": "[Runway] Upcycling Denim Artisan Pants_Light Blue",
+      "price": 237000,
+      "option": {
+        "size": ["XS", "S", "M", "L"]
+      },
+      "content": "Made with a denim patchwork design, there are cutout details throughout.These are straight-fit pants, with a front zipper and a logo button closure. There is a logo imprinted upcycling leather label on the back. The front closure has zigzag stitch details and front/rear center double stitch points."
     }
   ]
 }
