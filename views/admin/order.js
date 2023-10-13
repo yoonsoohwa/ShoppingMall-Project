@@ -5,6 +5,8 @@ const cancelBtn = document.getElementById('order-cancel');
 const paginationEl = document.getElementsByClassName('pagination')[0];
 
 let orderId;
+let page = 1;
+const postLimit = 20;
 
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
@@ -55,14 +57,23 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     orderId += 1;
 }
 
+function pagination(e) {
+    e.preventDefault();
+
+    page = Number(e.target.textContent);
+    while (orderListEl.firstChild) {
+        orderListEl.removeChild(orderListEl.firstChild);
+    }
+    insertOrderList();
+}
+
 function setPage(totalPages) {
     let element = `<li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>`
-    
-    console.log(totalPages)
+
     for (let i = 1; i <= totalPages; i += 1) {
         element += `<li class="page-item"><a class="page-link" href="">${i}</a></li>`
     }
@@ -72,21 +83,22 @@ function setPage(totalPages) {
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>`;
-    
+
     paginationEl.insertAdjacentHTML('beforeend', element);
-    const pageItemEl = document.getElementsByClassName('page-link')
+    const pageItemEl = Array.from(document.getElementsByClassName('page-link'));
+    pageItemEl.forEach(el => el.addEventListener('click', pagination));
 }
 
 async function insertOrderList() {
     // const url = './order/orderlistdata.json';    // 임시 데이터
-    const url = '/api/v1/orders/1/20';
+    const url = `/api/v1/orders/${page}/${postLimit}`;
 
     try {
         const res = await fetch(url);
         const data = await res.json();
 
         orderId = 0;
-        const { orders, totalPages } = data;
+        const { orders, totalPages, count } = data;
         orders.forEach((order) => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
 
@@ -94,9 +106,13 @@ async function insertOrderList() {
             const date = formatDate(createdAt);
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
         });
+        console.log(count);
 
-        totalEl.innerText = `[총 ${orders.length}개]`;
-        setPage(totalPages);
+        if (!paginationEl.hasChildNodes()) {
+            totalEl.innerText = `[총 ${orders.length}개]`;
+            setPage(totalPages);
+        }
+
     } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
@@ -149,8 +165,8 @@ async function deleteOrder(idList) {
         });
 
         if (res.ok) {
-            // eslint-disable-next-line no-alert
             insertOrderList();
+            // eslint-disable-next-line no-alert
             alert('선택하신 주문이 취소되었습니다');
         }
     } catch (err) {

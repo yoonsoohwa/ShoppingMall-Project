@@ -165,6 +165,7 @@ function isColorSelected() {
 
 // 상품 이미지 설정
 function setImage(image, detailImage) {
+    console.log(image);
   mainImage = image.url;
   const imgList = detailImage.map((img) => img.url);
   imgList.unshift(mainImage);
@@ -321,7 +322,7 @@ async function checkLogin() {
         } else {
             // eslint-disable-next-line no-alert
             alert('장바구니 이용을 위해 로그인이 필요합니다. 아직 회원이 아니라면, 회원 가입을 해주세요.');
-            window.location.href('/login');
+            window.location.href = '/login';
         }
     } catch (error) {
         // eslint-disable-next-line no-alert
