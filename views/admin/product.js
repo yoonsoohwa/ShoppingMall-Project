@@ -84,7 +84,7 @@ deleteBtn.addEventListener('click', async (e) => {
 
       // db에 삭제한 정보 전달 (delete)
       const apiUrl = `/api/v1/items`;
-      const reqData = JSON.stringify({ items: checkedItemsId });
+      const reqData = JSON.stringify({ itemIds: checkedItemsId });
 
       try {
         const res = await fetch(apiUrl, {

@@ -68,7 +68,7 @@ router.post('/logout', async (req, res, next) => {
 router.get('/check-login', checkLoginStatus, async (req, res, next) => {
   try {
     if (req.user) {
-      res.status(200).json({ isLoggedIn: true });
+      res.status(200).json({ isLoggedIn: true, user: req.user });
     } else {
       res.status(200).json({ isLoggedIn: false });
     }
