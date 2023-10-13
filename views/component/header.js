@@ -45,7 +45,7 @@ const pListGroup = document.querySelector('.product .dropdown-menu');
 const aListGroup = document.querySelector('.account .dropdown-menu');
 
 /* product 카테고리 추가 */
-const categoryList = ['All', 'Top', 'Outer', 'Bottom', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'];
+const categoryList = ['All', 'Top', 'Outer', 'Bottom', 'Bag', 'Acc', 'Etc'];
 for (let i = 0; i < categoryList.length; i++) {
   const item = `
         <li><a class="dropdown-item" href="/category?filter=${categoryList[i]}">${categoryList[i]}</a></li>
