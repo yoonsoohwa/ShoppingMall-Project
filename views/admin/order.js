@@ -34,6 +34,7 @@ function selectAllCheckboxes() {
 
 function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     let totalQuantity = 0;
+    console.log(orderItems);
     const productList = orderItems.map(({ option, quantity, item }) => {
         const productName = `${item.name} [${option.color} / ${option.size}]`;
         totalQuantity += quantity;
