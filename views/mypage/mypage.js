@@ -244,7 +244,7 @@ logoutButton.addEventListener('click', async () => {
       const data = await res.json();
 
       alert(data.message);
-      window.location.href = 'http://localhost:5001/';
+      window.location.href = '/';
     } catch (error) {
       console.error(error);
     }
