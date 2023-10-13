@@ -1,5 +1,4 @@
 import { drawBasket, baskets } from './index.js';
-import { products } from './products.js';
 
 // 로컬 스토리지에 있는 basket 장바구니를 리턴 해주는 함수
 export const getBasket = () => {
