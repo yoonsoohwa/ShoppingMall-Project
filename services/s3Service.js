@@ -13,7 +13,7 @@ const upload = multer({
     s3,
     bucket: 'elice-shopping',
     key(req, file, cb) {
-      cb(null, `image/${file.originalname}`);
+      cb(null, `${file.originalname}`);
     },
   }),
 });
