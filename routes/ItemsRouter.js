@@ -22,21 +22,21 @@ itemsRouter.get('/', async (req, res, next) => {
 itemsRouter.post(
   '/',
   authenticateAdmin,
-  upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: 'details' }]),
+  upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image' }]),
   async (req, res, next) => {
-    const { itemData } = req.body;
-    const { count } = req.query;
-    const { image } = req.files;
+    const { category, name, price, option, content } = req.body;
+    const { detailCount } = req.query;
+    const { image, detail_image } = req.files;
 
     try {
       if (!image) {
         throw new BadRequestError('이미지가 존재하지 않습니다.');
       }
-      if (image.length > count) {
+      if (image.length > detailCount) {
         throw new BadRequestError('이미지의 수가 너무 많습니다.');
       }
 
-      const newItem = await itemService.addItem(itemData, image);
+      const newItem = await itemService.addItem(category, name, price, option, content, image[0], detail_image);
       res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
     } catch (err) {
       next(err);
