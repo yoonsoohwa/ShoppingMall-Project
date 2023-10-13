@@ -46,15 +46,6 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
-// Add dummy data
-dummy.users.forEach(async (user) => {
-  const newUser = new User(user);
-  await newUser.save();
-});
-dummyItems.items.forEach(async (item) => {
-  const newItem = new Item(item);
-  await newItem.save();
-});
 
 // router
 app.use('/api/v1/ping', pingRouter);
