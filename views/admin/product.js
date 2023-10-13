@@ -10,7 +10,7 @@ async function insertProductData() {
         <td><input class="form-check-input" type="checkbox" id="check-item"></td>
         <td id="product-id">${product._id}</td>
         <td id="product-category">${product.category}</td>
-        <td id="product-image"><img src="${product.image.url}" class="img-fluid"></td>
+        <td id="product-image"><img src="https://elice-shopping.s3.ap-northeast-2.amazonaws.com/image/elice-study_v2.png" class="img-fluid"></td>
         <td id="product-name">${product.name}</td>
         <td id="product-price">${product.price}</td>
         <td id="product-option">color: ${product.option.color}<br/>size: ${product.option.size}</td>
@@ -22,7 +22,6 @@ async function insertProductData() {
     /* 총 개수 */
     const total = document.querySelector('.total');
     const allRow = document.querySelectorAll('#table-body tr');
-    console.log(allRow);
     total.innerHTML = allRow.length > 0 ? `[총 ${allRow.length}개]` : `[총 0개]`;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
@@ -34,10 +33,10 @@ insertProductData();
 
 /* 상품 삭제 */
 const checkAllBtn = document.querySelector('#check-all');
-const checkboxes = document.querySelectorAll('#check-item');
-
 const deleteBtn = document.querySelector('.pro-delete');
+
 deleteBtn.addEventListener('click', async (e) => {
+  const checkboxes = document.querySelectorAll('#check-item');
   e.preventDefault();
 
   // 체크된 항목의 index를 저장할 배열
