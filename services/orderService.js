@@ -82,6 +82,13 @@ class OrderService {
   async getOrdersByStatus(userId, status, page, limit) {
     const orders = await Order.find({ status })
       .populate({ path: 'user', match: { _id: userId } })
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);

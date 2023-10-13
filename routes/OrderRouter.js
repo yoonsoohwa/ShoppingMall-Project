@@ -104,7 +104,7 @@ orderRouter.get('/:id', authenticateUser, async (req, res, next) => {
 });
 
 // GET /api/v1/orders/shipping 배송현황별 주문조회
-orderRouter.post('/shipping', authenticateUser, async (req, res, next) => {
+orderRouter.post('/shipping/:page/:limit', authenticateUser, async (req, res, next) => {
   const userId = req.user._id;
   const { status, page = 1, limit = 20 } = req.body;
 
