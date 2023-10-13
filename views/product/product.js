@@ -291,10 +291,10 @@ function addToCart() {
     
 
   const basket = JSON.parse(localStorage.getItem('basket'));
-  basketId = basket === null ? 0 : basket[basket.length - 1].basketId + 1;
+  basketId = basket.length === 0 ? 0 : basket[basket.length - 1].basketId + 1;
   const itemList = convertItemsToProductList(items);
 
-  if (basket === null) {
+  if (basket.length === 0) {
     localStorage.setItem('basket', JSON.stringify(itemList));
   } else {
     const newBasket = basket.concat(itemList);
