@@ -206,8 +206,12 @@ function removePriceFromArray(pricesArray, priceEle) {
 
 /* db에 데이터 전달 (post) */
 
-submitBtn.addEventListener('click', () => {
-  isuser ? userHandleSubmit : unuserHandleSubmit;
+submitBtn.addEventListener('click', (e) => {
+  if (isuser) {
+    userHandleSubmit(e);
+  } else {
+    unuserHandleSubmit(e);
+  }
 });
 
 /* 회원일때, */
@@ -230,7 +234,7 @@ async function userHandleSubmit(e) {
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proId = item.querySelector('pro-id').textContent;
+    const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
 
@@ -322,7 +326,7 @@ async function unuserHandleSubmit(e) {
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proId = item.querySelector('pro-id').textContent;
+    const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
 

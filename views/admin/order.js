@@ -56,14 +56,15 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
 
 async function insertOrderList() {
     // const url = './order/orderlistdata.json';    // 임시 데이터
-    const url = '/api/v1/orders/1/20';
+    const url = `/api/v1/orders/1/30`;
 
     try {
         const res = await fetch(url);
         const data = await res.json();
 
         orderId = 0;
-        const { orders } = data;
+        const { orders, count } = data;
+        totalEl.innerText = `[총 ${count}개]`;
         orders.forEach((order) => {
             const { createdAt, address, orderItems, totalPrice, status, _id: id } = order;
 
@@ -72,7 +73,6 @@ async function insertOrderList() {
             setOrderList(date, id, addressee, orderItems, totalPrice, status);
         });
 
-        totalEl.innerText = `[총 ${orders.length}개]`;
     } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
@@ -125,8 +125,8 @@ async function deleteOrder(idList) {
         });
 
         if (res.ok) {
-            // eslint-disable-next-line no-alert
             insertOrderList();
+            // eslint-disable-next-line no-alert
             alert('선택하신 주문이 취소되었습니다');
         }
     } catch (err) {

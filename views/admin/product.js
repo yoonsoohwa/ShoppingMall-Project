@@ -7,6 +7,7 @@ async function insertProductData() {
   try {
     const res = await fetch(`/api/v1/items`);
     const data = await res.json();
+    console.log(data);
     tableBody.innerHTML = '';
 
     data.forEach((product) => {
@@ -24,7 +25,7 @@ async function insertProductData() {
 
       // 총 개수 update
       const allRow = document.querySelectorAll('#table-body tr');
-      total.innerText = allRow.length > 1 ? `[총 ${allRow.length - 1}개]` : `[총 0개]`;
+      total.innerText = allRow.length > 1 ? `[총 ${allRow.length}개]` : `[총 0개]`;
     });
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);

@@ -1,4 +1,6 @@
-export const getProductList = async() => {
+// import { ProductCard } from "./ProductCard";
+
+export const getProductList = async () => {
     try {
         const res = await fetch('/api/v1/items', {
             method: 'GET',
@@ -6,8 +8,11 @@ export const getProductList = async() => {
                 'Content-Type': 'application/json'
             }
         })
+        // document.querySelector('.product-card-image').src = img
+        // document.querySelector('.detail-image').src = detailImage
         const dataList = await res.json();
         return dataList.map(data => ({
+            
             // img: `/dummy/${data.image.url}`,
             // detailImage: `/dummy/${data.detail_image[0].url}`,
             img: data.image.url,

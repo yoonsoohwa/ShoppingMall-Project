@@ -4,16 +4,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/topnavyL.jpg"
+        "url": "/dummy/img/topnavyL.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/topnavyL2.jpg"
+          "url": "/dummy/img/topnavyL2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/topnavyL3.jpg"
+          "url": "/dummy/img/topnavyL3.jpg"
         }
       ],
       "name": "Meditation Graphic Oversized Hoodie_Navy",
@@ -28,16 +28,16 @@
       "category": "Bag",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/bagflower.jpg"
+        "url": "/dummy/img/bagflower.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/bagflower2.jpg"
+          "url": "/dummy/img/bagflower2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/bagflower3.jpg"
+          "url": "/dummy/img/bagflower3.jpg"
         }
       ],
       "name": "Horizontal Frame Shoulder Bag",
@@ -52,16 +52,16 @@
       "category": "Bag",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/bagblack.jpg"
+        "url": "/dummy/img/bagblack.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/bagblack2.jpg"
+          "url": "/dummy/img/bagblack2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/bagblack3.jpg"
+          "url": "/dummy/img/bagblack3.jpg"
         }
       ],
       "name": "Cross Tote Bag",
@@ -76,16 +76,16 @@
       "category": "Bag",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/crosscluchbag.jpg"
+        "url": "/dummy/img/crosscluchbag.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/crosscluchbag2.jpg"
+          "url": "/dummy/img/crosscluchbag2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/crosscluchbag3.jpg"
+          "url": "/dummy/img/crosscluchbag3.jpg"
         }
       ],
       "name": "Cross Clutch bag",
@@ -100,16 +100,16 @@
       "category": "Outer",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/SprayCardigan.jpg"
+        "url": "/dummy/img/SprayCardigan.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/SprayCardigan2.jpg"
+          "url": "/dummy/img/SprayCardigan2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/SprayCardigan3.jpg"
+          "url": "/dummy/img/SprayCardigan3.jpg"
         }
       ],
       "name": "Spray Oversized Cardigan",
@@ -124,16 +124,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/topdestroyedlove.jpg"
+        "url": "/dummy/img/topdestroyedlove.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/topdestroyedlove2.jpg"
+          "url": "/dummy/img/topdestroyedlove2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/topdestroyedlove3.jpg"
+          "url": "/dummy/img/topdestroyedlove3.jpg"
         }
       ],
       "name": "Destroyed Love Safely Semi-crop Sweatshirt",
@@ -148,16 +148,16 @@
       "category": "Etc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/FrameHalfWallet.jpg"
+        "url": "/dummy/img/FrameHalfWallet.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/FrameHalfWallet2.jpg"
+          "url": "/dummy/img/FrameHalfWallet2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/FrameHalfWallet3.jpg"
+          "url": "/dummy/img/FrameHalfWallet3.jpg"
         }
       ],
       "name": "Frame Half Wallet",
@@ -172,16 +172,16 @@
       "category": "Bag",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/totebag.jpg"
+        "url": "/dummy/img/totebag.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/totebag2.jpg"
+          "url": "/dummy/img/totebag2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/totebag3.jpg"
+          "url": "/dummy/img/totebag3.jpg"
         }
       ],
       "name": "Frame Brief Tote Bag",
@@ -196,16 +196,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/SprayTurtleneck.jpg"
+        "url": "/dummy/img/SprayTurtleneck.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/SprayTurtleneck2.jpg"
+          "url": "/dummy/img/SprayTurtleneck2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/SprayTurtleneck3.jpg"
+          "url": "/dummy/img/SprayTurtleneck3.jpg"
         }
       ],
       "name": "[예약배송] [Runway] Spray Turtleneck Crop Sweater",
@@ -220,16 +220,16 @@
       "category": "Outer",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/UpcyclingKnitCardigan.jpg"
+        "url": "/dummy/img/UpcyclingKnitCardigan.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/UpcyclingKnitCardigan2.jpg"
+          "url": "/dummy/img/UpcyclingKnitCardigan2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/UpcyclingKnitCardigan3.jpg"
+          "url": "/dummy/img/UpcyclingKnitCardigan3.jpg"
         }
       ],
       "name": "[주문제작][Runway]Rope Edge Upcycling Knit Cardigan",
@@ -244,16 +244,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/KnitPullover.jpg"
+        "url": "/dummy/img/KnitPullover.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/KnitPullover2.jpg"
+          "url": "/dummy/img/KnitPullover2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/KnitPullover3.jpg"
+          "url": "/dummy/img/KnitPullover3.jpg"
         }
       ],
       "name": "[Runway] MUGUNG Knit Pullover_Blue",
@@ -268,16 +268,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/VintageSweatshirt.jpg"
+        "url": "/dummy/img/VintageSweatshirt.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/VintageSweatshirt2.jpg"
+          "url": "/dummy/img/VintageSweatshirt2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/VintageSweatshirt3.jpg"
+          "url": "/dummy/img/VintageSweatshirt3.jpg"
         }
       ],
       "name": "[예약배송] [Runway] MUGUNG Vintage Sweatshirt_2 Colors",
@@ -292,16 +292,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/VintageZipupHoodie.jpg"
+        "url": "/dummy/img/VintageZipupHoodie.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/VintageZipupHoodie2.jpg"
+          "url": "/dummy/img/VintageZipupHoodie2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/VintageZipupHoodie3.jpg"
+          "url": "/dummy/img/VintageZipupHoodie3.jpg"
         }
       ],
       "name": "[예약배송] [Runway] MUGUNG Vintage Zip-up Hoodie_2 Colors",
@@ -316,16 +316,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/DestroyedLove.jpg"
+        "url": "/dummy/img/DestroyedLove.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/DestroyedLove2.jpg"
+          "url": "/dummy/img/DestroyedLove2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/DestroyedLove3.jpg"
+          "url": "/dummy/img/DestroyedLove3.jpg"
         }
       ],
       "name": "Destroyed Love Safely hoodie_Ivory",
@@ -340,16 +340,16 @@
       "category": "Acc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/PlasterStatueNecklace.jpg"
+        "url": "/dummy/img/PlasterStatueNecklace.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/PlasterStatueNecklace2.jpg"
+          "url": "/dummy/img/PlasterStatueNecklace2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/PlasterStatueNecklace3.jpg"
+          "url": "/dummy/img/PlasterStatueNecklace3.jpg"
         }
       ],
       "name": "[Runway] Plaster Statue Necklace",
@@ -364,16 +364,16 @@
       "category": "Acc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/LogoNecklace.jpg"
+        "url": "/dummy/img/LogoNecklace.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/LogoNecklace2.jpg"
+          "url": "/dummy/img/LogoNecklace2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/LogoNecklace3.jpg"
+          "url": "/dummy/img/LogoNecklace3.jpg"
         }
       ],
       "name": "[Runway] Blade Logo Necklace",
@@ -388,16 +388,16 @@
       "category": "Acc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/LogoEarring.jpg"
+        "url": "/dummy/img/LogoEarring.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/LogoEarring2.jpg"
+          "url": "/dummy/img/LogoEarring2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/LogoEarring3.jpg"
+          "url": "/dummy/img/LogoEarring3.jpg"
         }
       ],
       "name": "[Runway] Blade Logo Earring",
@@ -412,16 +412,16 @@
       "category": "Acc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/KeyEarring.jpg"
+        "url": "/dummy/img/KeyEarring.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/KeyEarring2.jpg"
+          "url": "/dummy/img/KeyEarring2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/KeyEarring3.jpg"
+          "url": "/dummy/img/KeyEarring3.jpg"
         }
       ],
       "name": "[Runway] Z Hex Key Earring",
@@ -436,16 +436,16 @@
       "category": "Outer",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/CroppedBlazer.jpg"
+        "url": "/dummy/img/CroppedBlazer.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/CroppedBlazer2.jpg"
+          "url": "/dummy/img/CroppedBlazer2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/CroppedBlazer3.jpg"
+          "url": "/dummy/img/CroppedBlazer3.jpg"
         }
       ],
       "name": "Raw edge Cropped Blazer",
@@ -460,16 +460,16 @@
       "category": "Outer",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/LeatherJacket.jpg"
+        "url": "/dummy/img/LeatherJacket.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/LeatherJacket2.jpg"
+          "url": "/dummy/img/LeatherJacket2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/LeatherJacket3.jpg"
+          "url": "/dummy/img/LeatherJacket3.jpg"
         }
       ],
       "name": "[Runway] Cropped Artificial Leather Jacket",
@@ -484,16 +484,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/DenimKnitSkirt.jpg"
+        "url": "/dummy/img/DenimKnitSkirt.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/DenimKnitSkirt2.jpg"
+          "url": "/dummy/img/DenimKnitSkirt2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/DenimKnitSkirt3.jpg"
+          "url": "/dummy/img/DenimKnitSkirt3.jpg"
         }
       ],
       "name": "[Runway] Upcycling Denim Knit Skirt",
@@ -508,16 +508,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/CargoZipperSkirt.jpg"
+        "url": "/dummy/img/CargoZipperSkirt.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/CargoZipperSkirt2.jpg"
+          "url": "/dummy/img/CargoZipperSkirt2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/CargoZipperSkirt3.jpg"
+          "url": "/dummy/img/CargoZipperSkirt3.jpg"
         }
       ],
       "name": "[Runway] Cargo Zipper Skirt",
@@ -532,16 +532,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/CargoPants.jpg"
+        "url": "/dummy/img/CargoPants.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/CargoPants2.jpg"
+          "url": "/dummy/img/CargoPants2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/CargoPants3.jpg"
+          "url": "/dummy/img/CargoPants3.jpg"
         }
       ],
       "name": "[Runway] String detailed Cargo Pants",
@@ -556,16 +556,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/DenimSweatpants.jpg"
+        "url": "/dummy/img/DenimSweatpants.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/DenimSweatpants2.jpg"
+          "url": "/dummy/img/DenimSweatpants2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/DenimSweatpants3.jpg"
+          "url": "/dummy/img/DenimSweatpants3.jpg"
         }
       ],
       "name": "[Runway] Destroyed Denim Sweatpants",
@@ -580,16 +580,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/MiniSkirt.jpg"
+        "url": "/dummy/img/MiniSkirt.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/MiniSkirt2.jpg"
+          "url": "/dummy/img/MiniSkirt2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/MiniSkirt3.jpg"
+          "url": "/dummy/img/MiniSkirt3.jpg"
         }
       ],
       "name": "[Runway] Artificial Leather Mini Skirt",
@@ -604,16 +604,16 @@
       "category": "Bottom",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/DenimArtisanPants.jpg"
+        "url": "/dummy/img/DenimArtisanPants.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/DenimArtisanPants2.jpg"
+          "url": "/dummy/img/DenimArtisanPants2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/DenimArtisanPants3.jpg"
+          "url": "/dummy/img/DenimArtisanPants3.jpg"
         }
       ],
       "name": "[Runway] Upcycling Denim Artisan Pants_Dark Blue",
@@ -628,16 +628,16 @@
       "category": "Etc",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/PatchCardWallet.jpg"
+        "url": "/dummy/img/PatchCardWallet.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/PatchCardWallet2.jpg"
+          "url": "/dummy/img/PatchCardWallet2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/PatchCardWallet3.jpg"
+          "url": "/dummy/img/PatchCardWallet3.jpg"
         }
       ],
       "name": "Patch Card Wallet",
@@ -652,16 +652,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/topTeachPeace.jpg"
+        "url": "/dummy/img/topTeachPeace.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/topTeachPeace2.jpg"
+          "url": "/dummy/img/topTeachPeace2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/topTeachPeace3.jpg"
+          "url": "/dummy/img/topTeachPeace3.jpg"
         }
       ],
       "name": "Teach Peace Semi-Crop Graphic Sweatshirt_Black",
@@ -676,16 +676,16 @@
       "category": "Top",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/GraphicTshirt.jpg"
+        "url": "/dummy/img/GraphicTshirt.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/GraphicTshirt2.jpg"
+          "url": "/dummy/img/GraphicTshirt2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/GraphicTshirt3.jpg"
+          "url": "/dummy/img/GraphicTshirt3.jpg"
         }
       ],
       "name": "[Runway]David Skulls Graphic T-shirt_White",
@@ -700,16 +700,16 @@
       "category": "Outer",
       "image": {
         "imageType": "thumbnail",
-        "url": "img/outergridknit.jpg"
+        "url": "/dummy/img/outergridknit.jpg"
       },
       "detail_image": [
         {
           "imageType": "detail",
-          "url": "img/outergridknit2.jpg"
+          "url": "/dummy/img/outergridknit2.jpg"
         },
         {
           "imageType": "detail",
-          "url": "img/outergridknit3.jpg"
+          "url": "/dummy/img/outergridknit3.jpg"
         }
       ],
       "name": "[Runway] Grid Knit Cardigan",

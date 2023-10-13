@@ -12,70 +12,50 @@ function formatDate(createdAt) {
   return `${date} ${time}`;
 }
 
-function setUserOrderList(date, status, orderItems, totalPrice, id) {
-  orderItems.forEach(({ option, quantity, item }) => {
-    //이미지 경로 수정되면 image 추가
-    const productName = `${item.name} [${option.color} / ${option.size}]`;
-    // const img = image.url ? image.url : '';
-    const element = `<tr id="order-${orderId}">
+function setOrderList(date, status, orderItem, totalPrice, id) {
+  const { option, quantity, item } = orderItem;
+
+  const color = option?.color ? `${option.color} ` : '';
+  const size = option?.size ? `${option.size} ` : '';
+  const optionString = option === '' ? '' : `[${color} / ${size}]`;
+  const productName = `${item.name} ${optionString}`;
+
+  const img = item.image.url ? item.image.url : '';
+  const element = `<tr id="order-${orderId}">
               <td id="order-date-id">${date}</br>[${id}]</td>
-              <td id="order-img">img</td>
+              <td id="order-img"><img src={${img}}/></td>
               <td id="order-product">${productName}</td>
               <td id="order-quantity">${quantity}</td>
-              <td id="order-price">${totalPrice.toLocaleString()}</td>
+              <td id="order-price">${Number(totalPrice).toLocaleString()}원</td>
               <td id="order-status">${status}</td>
             </tr>`;
 
-    userOrderListElement.insertAdjacentHTML('beforeend', element);
-    orderId += 1;
-  });
+  userOrderListElement.insertAdjacentHTML('beforeend', element);
+  orderId += 1;
 }
 
-async function userApi() {
-  const userApiUrl = '/api/v1/orders/page/1/20';
-  // const userApiUrl = './order.json';
-  try {
-    const res = await fetch(userApiUrl);
-
-    const userData = await res.json(); //받아올 데이터
-
-    const { orders } = userData;
-
-    orders.forEach((order) => {
-      const { createdAt, status, orderItems, totalPrice, _id: id } = order;
-      const date = formatDate(createdAt);
-
-      setUserOrderList(date, status, orderItems, totalPrice, id);
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-    // eslint-disable-next-line no-alert
-    alert('주문 조회 중 오류 발생 유저 : ', err);
-  }
-}
-
-async function guestApi() {
-  const guestApiUrl = '/api/v1/orders/get/guest';
+async function getListData(isLogin) {
+  const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
   // const guestApiUrl = './order.json';
   try {
     const response = await fetch(guestApiUrl, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ GuestOrderId: sessionStorage.getItem('loginId') }),
+      body: JSON.stringify({ orderId: sessionStorage.getItem('loginId') }),
+      // body: JSON.stringify({ orderId: '65298d406e68f86b33c7fc47' }),
     });
 
     const data = await response.json(); //받아올 데이터
 
-    const { orders } = data;
+    const { order } = data;
 
-    orders.forEach((order) => {
-      const { createdAt, status, orderItems, totalPrice, _id: id } = order;
+    order.orderItems.forEach((orderItem) => {
+      const { createdAt, _id: id } = orderItem;
       const date = formatDate(createdAt);
 
-      setGuestOrderList(date, status, orderItems, totalPrice, id);
+      setOrderList(date, order.status, orderItem, order.totalPrice, id);
     });
   } catch (err) {
     console.error(err);
@@ -90,11 +70,16 @@ async function checkLogin() {
     });
     const data = await res.json();
     const { isLoggedIn } = data;
-
     return isLoggedIn;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
   }
 }
 
-checkLogin() ? userApi() : guestApi();
+const getData = async () => {
+  const response = await checkLogin();
+
+  getListData(response);
+};
+
+getData();
