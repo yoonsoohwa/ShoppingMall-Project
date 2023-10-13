@@ -42,7 +42,7 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
 // POST /api/v1/orders/guest
 orderRouter.post('/guest', validateOrderStatus('body'), async (req, res, next) => {
-  const { orderItems, email, address, totalPrice, status, message } = req.body;
+  const { orderItems, totalPrice, email, status, message, address } = req.body;
 
   try {
     const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));

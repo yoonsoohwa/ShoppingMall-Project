@@ -24,17 +24,7 @@ class OrderService {
       message,
     });
 
-    const createdOrder = await Order.find(order._id)
-      .populate('user')
-      .populate('address')
-      .populate({
-        path: 'orderItems',
-        populate: {
-          path: 'item',
-        },
-      });
-
-    return createdOrder;
+    return order;
   }
 
   async getPagination(page, limit) {
