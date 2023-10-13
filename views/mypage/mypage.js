@@ -18,7 +18,9 @@ getInfoButton.addEventListener('click', async () => {
     });
     const data = await res.json();
     infoContainer.innerHTML = `
-            <table>
+          <h1 class='infoContainer-title'>Profile</h1>
+          <div class='infoContainer-inputbox-profile'>
+            <table class="table-container">
                 <tr>
                     <td>이름</td>
                     <td>${data.user.name}</td>
@@ -32,6 +34,7 @@ getInfoButton.addEventListener('click', async () => {
                     <td>${data.user.email}</td>
                 </tr>
             </table>
+          </div>
         `;
   } catch (error) {
     infoContainer.innerHTML = `다시 시도해 주세요.`;
@@ -52,6 +55,8 @@ updateInfoButton.addEventListener('click', async () => {
   const data = await res.json();
 
   infoContainer.innerHTML = `
+      <h1 class='infoContainer-title'>Update Profile</h1>
+      <div class='infoContainer-inputbox-profileUpdate'>
         <table class="table-container">
             <tr>
                 <td>이메일</td>
@@ -78,6 +83,7 @@ updateInfoButton.addEventListener('click', async () => {
                 <td><input type="password" id="confirmPassword"></td>
             </tr>
         </table>
+      </div>
 
         <div class="confirm-button-container">
             <button class="confirm-button">수정하기</button>
@@ -113,7 +119,7 @@ updateInfoButton.addEventListener('click', async () => {
 
     if (newPassword) {
       if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{8,}$/.test(newPassword)) {
-        alert('비밀번호는 최소 8자, 하나의 문자, 하나의 숫자, 하나의 특수 문자를 포함해야 합니다.');
+        alert('8자 이상의 영문 대소문자, 숫자, 특수문자를 입력하세요.');
         return;
       }
     }
@@ -142,7 +148,9 @@ updateInfoButton.addEventListener('click', async () => {
 
     alert(data.message);
     infoContainer.innerHTML = `
-        <table>
+      <h1 class='infoContainer-title'>Update Profile</h1>
+      <div class='infoContainer-inputbox-profileUpdate'>
+        <table class="table-container">
             <tr>
                 <td>이름</td>
                 <td>${data.user.name}</td>
@@ -156,6 +164,7 @@ updateInfoButton.addEventListener('click', async () => {
                 <td>${data.user.email}</td>
             </tr>
         </table>
+      </div>
         `;
   });
 
@@ -168,11 +177,9 @@ updateInfoButton.addEventListener('click', async () => {
 deleteInfoButton.addEventListener('click', () => {
   infoContainer.innerHTML = ''; // 정보 초기화
   infoContainer.innerHTML = `
-        <span>
-            회원을 탈퇴하시겠습니까?
-        </span>
-
-        <table>
+      <h1 class='infoContainer-title'>Delete Profile</h1>
+      <div class='infoContainer-inputbox-profileDelete'>
+        <table class="table-container">
             <tr>
                 <td>비밀번호</td>
                 <td><input type="password" id="password"></td>
@@ -182,6 +189,7 @@ deleteInfoButton.addEventListener('click', () => {
                 <td><input type="password" id="confirmPassword"></td>
             </tr>
         </table>
+      </div>
 
         <button class="quit-button">
             회원 탈퇴

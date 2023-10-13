@@ -33,7 +33,7 @@ function Header() {
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>    
   `;
 
   const header = document.querySelector('#header-container');
@@ -48,7 +48,7 @@ const aListGroup = document.querySelector('.account .dropdown-menu');
 const categoryList = ['All', 'Top', 'Outer', 'Bottom', 'Dress', 'Bag', 'Shoes', 'Hat', 'Acc', 'Etc'];
 for (let i = 0; i < categoryList.length; i++) {
   const item = `
-        <li><a class="dropdown-item" href="/category">${categoryList[i]}</a></li>
+        <li><a class="dropdown-item" href="/category?filter=${categoryList[i]}">${categoryList[i]}</a></li>
       `;
   pListGroup.insertAdjacentHTML('beforeend', item);
 }
@@ -90,8 +90,14 @@ async function checkLogin() {
       basketIcon.addEventListener('click', () => {
         window.location.href = '/basket';
       });
+      /* 관리자 계정으로 로그인 시, header에 Admin 생성 */
+      if (sessionStorage.getItem('role') === 'admin') {
+        document.querySelector('.admin').style.display = 'block';
+      }
     } else {
+      sessionStorage.clear(); // session 초기화
       accMypage.addEventListener('click', () => {
+        alert('로그인이 필요한 페이지입니다!');
         window.location.href = '/login';
       });
       accOrder.addEventListener('click', () => {
@@ -112,10 +118,3 @@ async function checkLogin() {
   }
 }
 checkLogin();
-
-// -------------------------------------------------------
-
-/* 관리자 계정으로 로그인 시, header에 Admin 생성 */
-if (sessionStorage.getItem('role') === 'admin') {
-  document.querySelector('.admin').style.display = 'block';
-}

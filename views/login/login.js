@@ -1,3 +1,5 @@
+// const { response } = require('express');
+
 /* 로그인 */
 const logEmailInput = document.querySelector('#logEmailInput');
 const logPasswordInput = document.querySelector('#logPasswordInput');
@@ -94,19 +96,9 @@ async function sendMail(e) {
     });
 
     const result = await res.json();
-    if (res.status === 201) {
+
+    if (res.status === 200) {
       alert(result.message);
-      verificationBtn.addEventListener('click', () => {
-        if (!certifyInput.value) {
-          certifyInput.focus();
-          return alert('인증번호를 입력해 주세요.');
-        }
-        if (certifyInput.value === result.emailVerificationCode) {
-          alert('인증이 확인되었습니다!');
-        } else if (certifyInput.value !== result.emailVerificationCode) {
-          alert('인증에 실패하였습니다.');
-        }
-      });
     } else {
       alert(result.message);
     }
@@ -114,6 +106,38 @@ async function sendMail(e) {
     alert('요청 오류:', error);
   }
 }
+
+verificationBtn.addEventListener('click', async () => {
+  const email = emailInput.value;
+  const code = certifyInput.value;
+  if (email && code) {
+    try {
+      if (!code) {
+        certifyInput.focus();
+        return alert('인증번호를 입력해 주세요.');
+      }
+      const response = await fetch('/api/v1/users/register/verify-email-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, code }),
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        alert(data.message);
+        emailInput.disabled = true;
+        certifyInput.disabled = true;
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  }
+});
 
 /* sign up post 요청 */
 submitBtn.addEventListener('click', handleSignupSubmit);

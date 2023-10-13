@@ -5,9 +5,9 @@ import { xmlStringToDom, removeChildren } from './utils.js';
 import { CATEGORY } from './constants.js';
 
 export class MainProductList {
-  let mainProductListElement = null;
+  mainProductListElement = null;
 
-  _filterName = 'ALL';
+  _filterName = 'All';
 
   pageOffset = 12;
 
@@ -46,7 +46,7 @@ export class MainProductList {
     const productsUl = this.mainProductListElement.querySelector('.products');
     let filteredArray;
     removeChildren(productsUl); // 부모 초기화
-    if (this.filterName === 'ALL') {
+    if (this.filterName === 'All') {
       filteredArray = this.productItems;
     } else {
       filteredArray = this.productItems.filter((productItem) => productItem.category === CATEGORY[this.filterName]);
@@ -96,7 +96,7 @@ export class MainProductList {
     const paginationContainer = this.mainProductListElement.querySelector('.pagination-container');
     removeChildren(paginationContainer);
     let filteredArray;
-    if (this.filterName === 'ALL') {
+    if (this.filterName === 'All') {
       filteredArray = this.productItems;
     } else {
       filteredArray = this.productItems.filter((productItem) => productItem.category === CATEGORY[this.filterName]);

@@ -30,13 +30,21 @@ function selectAllCheckboxes() {
 }
 
 function setOrderList(date, id, addressee, orderItems, totalPrice) {
+    let totalQuantity = 0;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity];
+    });
+    const itemText = productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
+
     const element = `<tr id="order-${orderId}">
     <td><input class="form-check-input" type="checkbox" id="check-item"></td>
               <td id="shipping-date">${date.replace(' ', '<br>')}</td>
               <td id="shipping-id">${id}</td>
               <td id="shipping-username">${addressee}</td>
-              <td id="shipping-product">${orderItems}</td>
-              <td id="shipping-vertify">${orderItems.length}</td>
+              <td id="shipping-product">${itemText}</td>
+              <td id="shipping-vertify">${totalQuantity}</td>
               <td id="shipping-price">${totalPrice}</td>
             </tr>`
 

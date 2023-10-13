@@ -19,7 +19,7 @@ export class ProductCard {
     this.img = img;
     this.date = date;
     const xmlString = `
-            <li class="product">
+            <li class="product-card">
                 <img width="300" height="300" src="${this.img}" alt="" />
                 <span class="main-product-name">${this.title}</span>
                 <span class="main-product-price">${this.price}₩</span>
