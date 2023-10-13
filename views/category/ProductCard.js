@@ -22,7 +22,7 @@ export class ProductCard {
             <li class="product-card">
                 <img width="300" height="300" src="${this.img}" alt="" />
                 <span class="main-product-name">${this.title}</span>
-                <span class="main-product-price">${this.price}₩</span>
+                <span class="main-product-price">${this.price.toLocaleString('ko-KR')}₩</span>
                 <span class="main-product-date">${this.date}</span>
             </li>
         `;
