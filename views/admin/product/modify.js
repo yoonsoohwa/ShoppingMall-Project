@@ -20,7 +20,7 @@ const delDetailImgBtn = document.querySelector('.delete-detimg');
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
   try {
-    const res = await fetch(`/api/v1/items/:${id}`);
+    const res = await fetch(`/api/v1/items/${id}`);
     const data = await res.json();
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
@@ -165,17 +165,8 @@ async function handleSubmit(e) {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('category', mCategory.value);
-  formData.append('name', mName.value);
-  formData.append('price', Number(mPrice.value));
-  formData.append('image', mainImage);
-  for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detail_image', detailImages[i]);
-  }
-  formData.append('option[color]', mColor.value.replace(/\s/g, '').split(','));
-  formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
-  formData.append('content', mContent.value);
+  // formData 생성
+  const formData = formDataFunc();
 
   const apiUrl = `/api/v1/items/:${queryId}`;
   try {
@@ -194,4 +185,32 @@ async function handleSubmit(e) {
   } catch (error) {
     alert('수정 요청 중 오류 발생:', error);
   }
+}
+
+/* Form Data 생성 */
+function formDataFunc() {
+  const formData = new FormData();
+
+  formData.append('category', mCategory.value);
+  formData.append('name', mName.value);
+  formData.append('price', Number(mPrice.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detail_image[]', detailImages[i]);
+  }
+
+  const options = {
+    color: mColor.value.replace(/\s/g, '').split(','),
+    size: mSize.value.replace(/\s/g, '').split(','),
+  };
+
+  formData.append('option', JSON.stringify(options));
+  formData.append('content', mContent.value);
+
+  // formData 확인
+  for (const pair of formData.entries()) {
+    console.log('Key: ', pair[0], 'Value: ', pair[1]);
+  }
+
+  return formData;
 }
