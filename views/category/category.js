@@ -28,7 +28,7 @@ const mainProductList = [...productList].sort((a, b) => {
   const aDate = new Date(a.date);
   const bDate = new Date(b.date);
   return bDate.getTime() - aDate.getTime();
-}).slice(12, productList.length);  // 12 ~ length
+})
   
   
 const mainProductListComponent = new MainProductList(mainProductList);
