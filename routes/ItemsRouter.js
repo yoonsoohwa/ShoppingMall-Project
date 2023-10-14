@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const itemService = require('../services/ItemService');
 const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
+const { validateItem, validateImage } = require('../middlewares/itemMiddleware');
 const { upload } = require('../middlewares/s3Middleware');
-const { BadRequestError } = require('../common/BadRequestError');
+const itemService = require('../services/ItemService');
 
 const itemsRouter = Router();
 
@@ -23,21 +23,16 @@ itemsRouter.post(
   '/',
   authenticateAdmin,
   upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image[]' }]),
+  validateImage,
   async (req, res, next) => {
     const { category, name, price, option, content } = req.body;
-    const { detailCount } = req.query;
     const image = req.files.image[0];
     const detailImages = req.files['detail_image[]'];
-    const parsedOption = JSON.parse(option);
+
+    let parsedOption = [];
+    if (option) parsedOption = JSON.parse(option);
 
     try {
-      if (!image) {
-        throw new BadRequestError('이미지가 존재하지 않습니다.');
-      }
-      if (image.length > detailCount) {
-        throw new BadRequestError('이미지의 수가 너무 많습니다.');
-      }
-
       const newItem = await itemService.addItem(category, name, price, parsedOption, content, image, detailImages);
       res.status(201).json({ message: '아이템이 성공적으로 추가되었습니다.', item: newItem });
     } catch (err) {
@@ -66,22 +61,18 @@ itemsRouter.put(
   '/:id',
   authenticateAdmin,
   upload.fields([{ name: 'image', maxCount: 1 }, { name: 'detail_image[]' }]),
+  validateImage,
+  validateItem,
   async (req, res, next) => {
     const { category, name, price, option, content } = req.body;
-    const { detailCount } = req.query;
     const { id } = req.params;
     const image = req.files.image[0];
     const detailImages = req.files['detail_image[]'];
-    const parsedOption = JSON.parse(option);
+
+    let parsedOption = [];
+    if (option) parsedOption = JSON.parse(option);
 
     try {
-      if (!image) {
-        throw new BadRequestError('이미지가 존재하지 않습니다.');
-      }
-      if (image.length > detailCount) {
-        throw new BadRequestError('이미지의 수가 너무 많습니다.');
-      }
-
       const updatedItem = await itemService.updateItem(
         id,
         category,
@@ -92,10 +83,6 @@ itemsRouter.put(
         image,
         detailImages,
       );
-
-      if (!updatedItem) {
-        res.status(404).json({ message: '해당 아이템을 찾을 수 없습니다.' });
-      }
       res.status(200).json({
         message: '아이템이 성공적으로 수정되었습니다.',
         item: updatedItem,
@@ -130,18 +117,11 @@ itemsRouter.get('/:page/:limit', async (req, res, next) => {
 });
 
 // GET /api/v1/items/:id - 특정 아이템 조회
-itemsRouter.get('/:id', async (req, res, next) => {
+itemsRouter.get('/:id', validateItem, async (req, res, next) => {
   const { id } = req.params;
   try {
     const item = await itemService.getItemById(id);
-
-    if (!item) {
-      res.status(404).json({
-        message: '해당 아이템을 찾을 수 없습니다.',
-      });
-    } else {
-      res.status(200).json(item);
-    }
+    res.status(200).json(item);
   } catch (err) {
     next(err);
   }
