@@ -37,28 +37,38 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
 }
 
 async function getListData(isLogin) {
-  const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
-  // const guestApiUrl = './order.json';
+    const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
+    // const guestApiUrl = './order.json';
+    const loginId = sessionStorage.getItem('loginId');
+    console.log(loginId);
+
   try {
     const response = await fetch(guestApiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ orderId: sessionStorage.getItem('loginId') }),
+      body: JSON.stringify({ orderId: loginId }),
       // body: JSON.stringify({ orderId: '65298d406e68f86b33c7fc47' }),
     });
 
     const data = await response.json(); //받아올 데이터
+      if (isLogin) {
+          const { orders } = data;
+          orders.forEach((orderItem) => {
+              const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
+              const date = formatDate(createdAt);
 
-      const { orders } = data;
-
-      orders.forEach((orderItem) => {
-      const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
-        const date = formatDate(createdAt);
+              setOrderList(date, id, orderItems, status, totalPrice);
+          });
+      } else {
+          const { createdAt, _id: id, orderItems, status, totalPrice } = data.order;
+          const date = formatDate(createdAt);
 
           setOrderList(date, id, orderItems, status, totalPrice);
-    });
+        }
+
+      
   } catch (err) {
     console.error(err);
     alert('주문 조회 중 오류 발생 : ', err);
