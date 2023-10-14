@@ -38,14 +38,17 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
 
 async function getListData(isLogin) {
     const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
-  // const guestApiUrl = './order.json';
+    // const guestApiUrl = './order.json';
+    const loginId = sessionStorage.getItem('loginId');
+    console.log(loginId);
+
   try {
     const response = await fetch(guestApiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ orderId: sessionStorage.getItem('loginId') }),
+      body: JSON.stringify({ orderId: loginId }),
       // body: JSON.stringify({ orderId: '65298d406e68f86b33c7fc47' }),
     });
 
