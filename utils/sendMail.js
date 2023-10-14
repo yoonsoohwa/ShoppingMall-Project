@@ -26,11 +26,9 @@ const sendMail = async (to, subject, text) => {
       subject,
       text,
     };
-    console.log(message);
     const info = await transport.sendMail(message);
     return info;
   } catch (err) {
-    console.log(err);
     throw new NotFoundError('이메일을 보낼 수 없습니다.');
   }
 };
