@@ -38,7 +38,6 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
 
 async function getListData(isLogin) {
     const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
-    let order;
   // const guestApiUrl = './order.json';
   try {
     const response = await fetch(guestApiUrl, {
@@ -52,17 +51,21 @@ async function getListData(isLogin) {
 
     const data = await response.json(); //받아올 데이터
       if (isLogin) {
-          order = data.orders;
-      } else {
-          order = data.order;
-        }
+          const { orders } = data;
+          orders.forEach((orderItem) => {
+              const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
+              const date = formatDate(createdAt);
 
-      order.forEach((orderItem) => {
-      const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
-        const date = formatDate(createdAt);
+              setOrderList(date, id, orderItems, status, totalPrice);
+          });
+      } else {
+          const { createdAt, _id: id, orderItems, status, totalPrice } = data.order;
+          const date = formatDate(createdAt);
 
           setOrderList(date, id, orderItems, status, totalPrice);
-    });
+        }
+
+      
   } catch (err) {
     console.error(err);
     alert('주문 조회 중 오류 발생 : ', err);
