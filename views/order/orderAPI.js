@@ -37,7 +37,8 @@ function setOrderList(date, id, orderItems, status, totalPrice) {
 }
 
 async function getListData(isLogin) {
-  const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
+    const guestApiUrl = isLogin ? '/api/v1/orders/page/1/20' : '/api/v1/orders/get/guest';
+    let order;
   // const guestApiUrl = './order.json';
   try {
     const response = await fetch(guestApiUrl, {
@@ -50,10 +51,13 @@ async function getListData(isLogin) {
     });
 
     const data = await response.json(); //받아올 데이터
+      if (isLogin) {
+          order = data.orders;
+      } else {
+          order = data.order;
+        }
 
-      const { orders } = data;
-
-      orders.forEach((orderItem) => {
+      order.forEach((orderItem) => {
       const { createdAt, _id: id, orderItems, status, totalPrice } = orderItem;
         const date = formatDate(createdAt);
 
