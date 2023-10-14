@@ -41,7 +41,8 @@ async function handleSubmit() {
     const result = await res.json();
     if (res.status === 200) {
       alert(result.message);
-      window.location.href = '/order';
+      const orderId = result.order._id;
+      window.location.href = `/order?${orderId}`;
     } else {
       alert(result.message);
     }
