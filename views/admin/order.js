@@ -5,6 +5,7 @@ const cancelBtn = document.getElementById('order-cancel');
 
 let orderId;
 
+// 날짜, 시간 설정
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
     const date = orderDate.split('T')[0];
@@ -13,6 +14,7 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
+// 전체 선택 체크박스 설정
 function selectAllCheckboxes() {
     const checkBoxElList = Array.from(document.querySelectorAll('#check-item'));
 
@@ -29,6 +31,7 @@ function selectAllCheckboxes() {
     }
 }
 
+// 주문목록 설정
 function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     let totalQuantity = 0;
     const productList = orderItems.map(({ option, quantity, item }) => {
@@ -54,6 +57,7 @@ function setOrderList(date, id, addressee, orderItems, totalPrice, status) {
     orderId += 1;
 }
 
+// 전체 주문 조회
 async function insertOrderList() {
     // const url = './order/orderlistdata.json';    // 임시 데이터
     const url = `/api/v1/orders/1/30`;
@@ -81,6 +85,7 @@ async function insertOrderList() {
     }
 }
 
+// 주문 취소 버튼 클릭 시
 function orderCancel() {
     const checkList = document.querySelectorAll('#check-item');
 
@@ -110,6 +115,7 @@ function orderCancel() {
     }
 }
 
+// 주문 취소(삭제) 요청
 async function deleteOrder(idList) {
     const url = `/api/v1/orders/delete`;
 

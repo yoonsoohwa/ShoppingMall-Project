@@ -1,6 +1,7 @@
 const deliveredListEl = document.getElementById('delivered-list');
 const totalEl = document.getElementById('total');
 
+// 날짜 시간 설정
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
     const date = orderDate.split('T')[0];
@@ -9,6 +10,7 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
+// 배송현황별 주문 목록 생성
 function setOrderList(orderTime, deliveredTime, id, addressee, orderItems, totalPrice) {
     let totalQuantity = 0 ;
     const productList = orderItems.map(({ option, quantity, item }) => {
@@ -32,6 +34,7 @@ function setOrderList(orderTime, deliveredTime, id, addressee, orderItems, total
     deliveredListEl.insertAdjacentHTML('beforeend', element);
 }
 
+// 배송완료된 주문 요청
 async function insertOrderList() {
     // const url = './orderlistdata.json';    // 임시 데이터
     const url = '/api/v1/orders/shipping/1/20';
