@@ -67,29 +67,3 @@ a {
 #delete-check-btn {
     margin: 3px 0 0 -15px;
 }
-
-.page-item:first-child .page-link {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.page-item:last-child .page-link {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-
-.page-item .page-link {
-    border: 1px solid #f5f5dc;
-    color: #333;
-}
-
-.page-item .page-link  span{
-    color: #d5d59c;
-}
-
-.page-item .page-link.active {
-    background: #f5f5dc;
-    border: 1px solid #f5f5dc;
-}
-

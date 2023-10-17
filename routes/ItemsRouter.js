@@ -3,7 +3,6 @@ const itemService = require('../services/ItemService');
 const { authenticateAdmin } = require('../middlewares/authUserMiddlewares');
 const { upload } = require('../middlewares/s3Middleware');
 const { BadRequestError } = require('../common/BadRequestError');
-const formidable = require('formidable');
 
 const itemsRouter = Router();
 

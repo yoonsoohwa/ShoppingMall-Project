@@ -8,6 +8,7 @@ const { authenticateUser, authenticateAdmin } = require('../middlewares/authUser
 const { validateOrderStatus, validateOnShipping } = require('../middlewares/orderMiddleware');
 const { UnauthorizedError } = require('../common/UnauthorizedError');
 const { sendMail } = require('../utils/sendMail');
+const { BadRequestError } = require('../common/BadRequestError');
 
 const orderRouter = Router();
 
@@ -21,6 +22,9 @@ orderRouter.post('/', authenticateUser, validateOrderStatus('body'), async (req,
 
     const newOrderItems = await Promise.all(orderItems.map(OrderItemService.createOrderItem));
     const newAddress = await AddressService.createAddress(address);
+
+    if (newOrderItems.length === 0) throw new BadRequestError('상품을 선택하지 않으셨습니다.');
+    if (!newAddress) throw new BadRequestError('주소를 입력해주세요.');
 
     const order = await OrderService.createOrder({
       user,
