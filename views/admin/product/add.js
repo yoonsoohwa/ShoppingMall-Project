@@ -127,7 +127,7 @@ async function handleSubmit(e) {
   }
 
   // formData 생성
-  const formData = formDataFunc();
+  const formData = useFormData();
 
   const apiUrl = `/api/v1/items`;
 
@@ -149,7 +149,7 @@ async function handleSubmit(e) {
 }
 
 /* Form Data 생성 */
-function formDataFunc() {
+function useFormData() {
   const formData = new FormData();
 
   formData.append('category', categoryInput.value);
