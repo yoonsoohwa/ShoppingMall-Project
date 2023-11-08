@@ -13,6 +13,9 @@ const transport = nodemailer.createTransport({
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false, // Bypass SSL certificate validation
+  },
 });
 
 const sendMail = async (to, subject, text) => {

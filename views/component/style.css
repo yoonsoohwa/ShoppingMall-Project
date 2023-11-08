@@ -28,6 +28,7 @@ li {
   font-size: 24px;
   align-items: center;
   background-color: rgba(249, 248, 244, 1);
+  z-index: 10;
 }
 
 .navbar-brand img {
@@ -40,6 +41,7 @@ li {
 }
 
 .dropdown-item:hover {
+  cursor: pointer;
   background-color: #c0c0c0;
   color: #fff;
 }

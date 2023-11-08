@@ -25,56 +25,61 @@
     <!-- 폰트 연결이에용 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lilita+One&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- 공통 css -->
-    <link rel="stylesheet" href="/views/component/style.css" />
+    <link rel="stylesheet" href="../component/style.css" />
 
     <!-- css 연결이에용 -->
-    <link rel="stylesheet" href="/views/order/order.css" />
+    <link rel="stylesheet" href="./order.css" />
 
     <!-- index js -->
 
-    <script src="/views/order/order.js" defer></script>
-    <script src="/views/order/api.js" defer type="module"></script>
+    <!-- <script src="./order.js" defer></script> -->
+    <script src="./orderAPI.js" defer></script>
   </head>
 
   <body>
     <!-- header -->
     <div id="header-container"></div>
-    <script src="/views/component/header.js"></script>
+    <script src="../component/header.js"></script>
 
     <!-- 주문 조회 -->
     <div class="order-wrap">
       <p class="order-count">주문 조회</p>
 
       <div class="orderdiv" id="basket">
-        <!-- 칼럼명 -->
-        <div class="row head">
-          <!-- 첫번째 블록 -->
-          <div class="subdiv">
-            <div id="order-date-wrap">주문일자 [주문번호]</div>
-            <div id="order-img">이미지</div>
-            <div id="order-pname">상품 정보</div>
-          </div>
-          <!-- 두번째 블록 -->
-          <div class="subdiv">
-            <div id="order-num">수량</div>
-            <div id="order-price">상품 구매 금액</div>
-            <div id="order-status">주문 처리 상태</div>
-          </div>
-        </div>
-
-        <!-- 상품 목록 -->
-        <div class="basket-wrapper">
-          <!-- row data -->
-        </div>
+        <table class="table table-hover text-center align-middle">
+          <colgroup>
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 10%" />
+            <col style="width: 20%" />
+            <col style="width: 10%" />
+          </colgroup>
+          <thead>
+            <tr id="tr-head">
+              <th scope="col">주문일자 [주문번호]</th>
+              <th scope="col">이미지</th>
+              <th scope="col">상품 정보</th>
+              <th scope="col">수량</th>
+              <th scope="col">상품 구매 금액</th>
+              <th scope="col">주문 처리 상태</th>
+            </tr>
+          </thead>
+          <tbody id="order-wrapper" class="table-group-divider"></tbody>
+        </table>
       </div>
 
-      <div class="pagination-wrap"></div>
+      <!-- <div class="pagination-wrap"></div> -->
     </div>
 
     <!-- footer -->
     <div id="footer-container"></div>
-    <script src="/views/component/footer.js"></script>
+    <script src="../component/footer.js"></script>
   </body>
 </html>

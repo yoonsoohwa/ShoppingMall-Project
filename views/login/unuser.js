@@ -2,6 +2,9 @@ const orderIdInput = document.querySelector('#order-id');
 const orderPwdInput = document.querySelector('#order-password');
 const submitBtn = document.querySelector('#submit-btn');
 
+/* 결제 후 자동으로 주문 ID  */
+
+/* 비회원 로그인 post 요청 */
 submitBtn.addEventListener('click', handleSubmit);
 
 async function handleSubmit() {
@@ -10,7 +13,7 @@ async function handleSubmit() {
 
   // 객체 만듦
   const data = {
-    id,
+    orderId: id,
     orderPassword: password,
   };
 
@@ -24,7 +27,7 @@ async function handleSubmit() {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = ``; // 주문정보 보내기 => how..?
+  const apiUrl = `/api/v1/orders/get/guest`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -35,11 +38,13 @@ async function handleSubmit() {
       body: dataJson,
     });
 
+    const result = await res.json();
     if (res.status === 200) {
-      alert('로그인에 성공하였습니다!');
-      window.location.href = '/order';
+      alert(result.message);
+      const orderId = result.order._id;
+      window.location.href = `/order?${orderId}`;
     } else {
-      alert('로그인에 실패하였습니다...');
+      alert(result.message);
     }
   } catch (error) {
     alert('요청 오류:', error);

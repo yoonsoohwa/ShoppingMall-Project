@@ -4,6 +4,8 @@ const { BadRequestError } = require('../common/BadRequestError');
 const { sendMail } = require('../utils/sendMail');
 
 class UserService {
+  emailVerificationCodes = {};
+
   // 회원가입
   async register({ name, phonenumber, email, password }) {
     const existingUser = await User.findOne({ email });
@@ -24,7 +26,7 @@ class UserService {
     return user;
   }
 
-  // 이메일 인증
+  // 이메일 인증코드 발송
   async sendEmailVerificationCode(email) {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -36,10 +38,24 @@ class UserService {
       .toString()
       .padStart(6, '0');
 
+    // 이메일 인증 코드 저장
+    this.emailVerificationCodes[email] = emailVerificationCode;
+
     // 이메일 전송
     await sendMail(email, '[RE: BIRTH] 회원가입 이메일 인증 메일입니다.', `이메일 인증 코드: ${emailVerificationCode}`);
 
-    return emailVerificationCode;
+    return true;
+  }
+
+  // 이메일 인증코드 확인
+  async verifyEmailCode(email, inputCode) {
+    const savedCode = this.emailVerificationCodes[email];
+
+    if (!savedCode || inputCode !== savedCode) {
+      throw new BadRequestError('이메일 인증 코드가 일치하지 않습니다.');
+    }
+
+    return true;
   }
 
   // 로그인

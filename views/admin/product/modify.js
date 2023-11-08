@@ -20,7 +20,7 @@ const delDetailImgBtn = document.querySelector('.delete-detimg');
 // db에서 id값과 일치하는 데이터 불러오기 (get)
 async function getProductData(id) {
   try {
-    const res = await fetch(`http://localhost:5001/api/v1/items/:${id}`);
+    const res = await fetch(`/api/v1/items/${id}`);
     const data = await res.json();
 
     // 상품목록에서 받아온 데이터를 default 값으로 두고 수정
@@ -30,18 +30,18 @@ async function getProductData(id) {
       detailImagePreview.insertAdjacentHTML(
         'beforeend',
         `
-          <div style="display: inline-block">
+          <div id="det-img" style="display: inline-block">
             <img src="${val.url}" style="max-width: 150px">
             <input type="checkbox" class="position-absolute" id="delete-check-btn">
           </div>
         `,
       );
     });
-    mName.placeholder = data.name;
-    mPrice.placeholder = data.price;
-    mColor.placeholder = data.option.color.join(', ');
-    mSize.placeholder = data.option.color.join(', ');
-    mContent.placeholder = data.content;
+    mName.value = data.name;
+    mPrice.value = data.price;
+    mColor.value = data.option.color.join(', ');
+    mSize.value = data.option.color.join(', ');
+    mContent.value = data.content;
   } catch (error) {
     alert('데이터를 가져오는 중 에러 발생:', error);
   }
@@ -49,10 +49,12 @@ async function getProductData(id) {
 
 getProductData(queryId);
 
+// -----------------------------------------
+
 /* 이미지 미리보기, 용량제한, 수정, 삭제 */
 
 // 대표 이미지
-let mainImage = imagePreview.img.src;
+let mainImage;
 mImage.addEventListener('change', (e) => {
   const file = e.target.files[0];
   mainImage = file;
@@ -151,6 +153,8 @@ delDetailImgBtn.addEventListener('click', () => {
   }
 });
 
+// --------------------------------------------------
+
 /* db에 수정한 정보 전달 (put) */
 const submitBtn = document.querySelector('.submit');
 submitBtn.addEventListener('click', handleSubmit);
@@ -164,32 +168,47 @@ async function handleSubmit(e) {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('category', mCategory.value);
-  formData.append('name', mName.value);
-  formData.append('price', Number(mPrice.value));
-  formData.append('image', mainImage);
-  for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detail_image', detailImages[i]);
-  }
-  formData.append('option[color]', mColor.value.replace(/\s/g, '').split(','));
-  formData.append('option[size]', mSize.value.replace(/\s/g, '').split(','));
-  formData.append('content', mContent.value);
+  // formData 생성
+  const formData = formDataFunc();
 
-  const apiUrl = `http://localhost:5001/api/v1/items/:${queryId}`;
+  const apiUrl = `/api/v1/items/${queryId}`;
   try {
     const res = await fetch(apiUrl, {
       method: 'PUT',
       body: formData,
     });
+
+    const result = await res.json();
     if (res.status === 200) {
-      const result = await res.json();
       alert(result.message);
       window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
-      alert('수정 요청 실패:', res.status);
+      alert(result.message);
     }
   } catch (error) {
     alert('수정 요청 중 오류 발생:', error);
   }
+}
+
+/* Form Data 생성 */
+function formDataFunc() {
+  const formData = new FormData();
+
+  formData.append('category', mCategory.value);
+  formData.append('name', mName.value);
+  formData.append('price', Number(mPrice.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detail_image[]', detailImages[i]);
+  }
+
+  const options = {
+    color: mColor.value ? mColor.value.replace(/\s/g, '').split(',') : null,
+    size: mSize.value ? mSize.value.replace(/\s/g, '').split(',') : null,
+  };
+
+  formData.append('option', JSON.stringify(options));
+  formData.append('content', mContent.value);
+
+  return formData;
 }

@@ -7,7 +7,7 @@ import { CATEGORY } from './constants.js';
 export class MainProductList {
   mainProductListElement = null;
 
-  _filterName = 'ALL';
+  _filterName = 'All';
 
   pageOffset = 12;
 
@@ -46,7 +46,7 @@ export class MainProductList {
     const productsUl = this.mainProductListElement.querySelector('.products');
     let filteredArray;
     removeChildren(productsUl); // 부모 초기화
-    if (this.filterName === 'ALL') {
+    if (this.filterName === 'All') {
       filteredArray = this.productItems;
     } else {
       filteredArray = this.productItems.filter((productItem) => productItem.category === CATEGORY[this.filterName]);
@@ -60,7 +60,7 @@ export class MainProductList {
       const productCard = new ProductCard({ ...productItem });
       productCard.onClick = () => {
         sessionStorage.setItem('selectedProductId', productItem.id);
-        window.location.href = '../Productpage/product.html';
+        window.location.href = '/product';
       }; // 상품누르면 세션스토리지에 해당상품 id 주입. 상품디테일 페이지에 가져다가 상품찾아서 정보끌어와서 사용.
       productCard.render(productsUl);
     });
@@ -96,7 +96,7 @@ export class MainProductList {
     const paginationContainer = this.mainProductListElement.querySelector('.pagination-container');
     removeChildren(paginationContainer);
     let filteredArray;
-    if (this.filterName === 'ALL') {
+    if (this.filterName === 'All') {
       filteredArray = this.productItems;
     } else {
       filteredArray = this.productItems.filter((productItem) => productItem.category === CATEGORY[this.filterName]);

@@ -1,67 +1,67 @@
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 #sidebar {
-    width: 20%;
-    height: 100vh;
-    position: fixed;
-    background-color: #f0e8f9;
+  width: 20%;
+  height: 100vh;
+  position: fixed;
+  background-color: rgb(251, 248, 235);
 }
 
 ul,
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #sidebar {
-    font-size: 1.3rem;
-    font-weight: bold;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 #sidebar .main {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 #sidebar a {
-    color: rgb(143, 143, 143);
+  color: rgb(143, 143, 143);
 }
 
 #sidebar img {
-    border-radius: 13px;
-    box-shadow: -4px 4px 4px #808080;
+  border-radius: 13px;
+  box-shadow: -4px 4px 4px #808080;
 }
 
 .section {
-    margin-left: 20%;
+  margin-left: 20%;
 }
 
 .bi {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-#product-image>img,
-#image-default>img {
-    width: auto;
-    height: 150px;
-    /* 고정 (반응형X) 이미지 깨짐 => 수정 */
+#product-image > img,
+#image-default > img {
+  width: auto;
+  height: 150px;
+  /* 고정 (반응형X) 이미지 깨짐 => 수정 */
 }
 
 .help {
-    font-size: 0.8rem;
-    color: blueviolet;
+  font-size: 0.8rem;
+  color: blueviolet;
 }
 
 .bi-asterisk {
-    font-size: 0.3rem;
-    color: rgb(254, 104, 104);
+  font-size: 0.3rem;
+  color: rgb(254, 104, 104);
 }
 
 #delete-check-btn {

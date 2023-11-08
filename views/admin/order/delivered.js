@@ -1,6 +1,7 @@
 const deliveredListEl = document.getElementById('delivered-list');
 const totalEl = document.getElementById('total');
 
+// 날짜 시간 설정
 function formatDate(createdAt) {
     const orderDate = createdAt.split('.')[0];
     const date = orderDate.split('T')[0];
@@ -9,45 +10,56 @@ function formatDate(createdAt) {
     return `${date} ${time}`;
 }
 
-function setOrderList(date, id, addressee, orderItems, totalPrice) {
-    const itemText = orderItems.length <= 1 ? `${orderItems[0]}` : `${orderItems[0]} 외 ${orderItems.length - 1}개`;
+// 배송현황별 주문 목록 생성
+function setOrderList(orderTime, deliveredTime, id, addressee, orderItems, totalPrice) {
+    let totalQuantity = 0 ;
+    const productList = orderItems.map(({ option, quantity, item }) => {
+        const productName = `${item.name} [${option.color} / ${option.size}]`;
+        totalQuantity += quantity;
+        return [productName, quantity];
+    });
+    const itemText = productList.length <= 1 ? `${productList[0][0]}` : `${productList[0][0]} 외 ${productList.length - 1}개`;
+
 
     const element = `<tr>
-                <td id="delivered-date">${date}</td>
+                <td id="delivered-order-time">${orderTime}</td>
+                <td id="delivered-delivered-time">${deliveredTime}</td>
                 <td id="delivered-id">${id}</td>
                 <td id="delivered-username">${addressee}</td>
                 <td id="delivered-product">${itemText}</td>
-                <td id="delivered-vertify">${orderItems.length}</td>
+                <td id="delivered-vertify">${totalQuantity}</td>
                 <td id="delivered-price">${totalPrice.toLocaleString()}</td>
               </tr>`
 
     deliveredListEl.insertAdjacentHTML('beforeend', element);
 }
 
+// 배송완료된 주문 요청
 async function insertOrderList() {
-    const url = './orderlistdata.json';    // 임시 데이터
-    // const url = '';
+    // const url = './orderlistdata.json';    // 임시 데이터
+    const url = '/api/v1/orders/shipping/1/20';
 
     try {
-        // const res = await fetch(url, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         status: "배송완료"
-        //     })
-        // });
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "배송완료"
+            })
+        });
+        // const res = await fetch(url);
         const data = await res.json();
 
         const { orders } = data;
         orders.forEach(order => {
-            const { createdAt, address, orderItems, totalPrice, _id: id } = order;
+            const { createdAt, updatedAt, address, orderItems, totalPrice, _id: id } = order;
             const { addressee } = address;
-            const date = formatDate(createdAt);
+            const orderTime = formatDate(createdAt);
+            const deliveredTime = formatDate(updatedAt);
 
-            setOrderList(date, id, addressee, orderItems, totalPrice);
+            setOrderList(orderTime, deliveredTime, id, addressee, orderItems, totalPrice);
         });
 
         totalEl.innerText = `[총 ${orders.length}개]`;

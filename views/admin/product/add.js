@@ -126,19 +126,10 @@ async function handleSubmit(e) {
     return;
   }
 
-  const formData = new FormData();
-  formData.append('category', categoryInput.value);
-  formData.append('name', nameInput.value);
-  formData.append('price', Number(priceInput.value));
-  formData.append('image', mainImage);
-  for (let i = 0; i < detailImages.length; i++) {
-    formData.append('detail_image', detailImages[i]);
-  }
-  formData.append('option[color]', colorInput.value.replace(/\s/g, '').split(','));
-  formData.append('option[size]', sizeInput.value.replace(/\s/g, '').split(','));
-  formData.append('content', contentInput.value);
+  // formData 생성
+  const formData = useFormData();
 
-  const apiUrl = 'http://localhost:5001/api/v1/items';
+  const apiUrl = `/api/v1/items`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -150,9 +141,32 @@ async function handleSubmit(e) {
       alert(result.message);
       window.location.href = '/admin/product'; // 상품 목록 페이지로 이동
     } else {
-      alert('생성 요청 실패:', res.status);
+      alert('아이템이 추가되지 않았습니다.');
     }
   } catch (error) {
     alert('생성 요청 중 오류 발생:', error);
   }
+}
+
+/* Form Data 생성 */
+function useFormData() {
+  const formData = new FormData();
+
+  formData.append('category', categoryInput.value);
+  formData.append('name', nameInput.value);
+  formData.append('price', Number(priceInput.value));
+  formData.append('image', mainImage);
+  for (let i = 0; i < detailImages.length; i++) {
+    formData.append('detail_image[]', detailImages[i]);
+  }
+
+  const options = {
+    color: colorInput.value ? colorInput.value.replace(/\s/g, '').split(',') : null,
+    size: sizeInput.value ? sizeInput.value.replace(/\s/g, '').split(',') : null,
+  };
+
+  formData.append('option', JSON.stringify(options));
+  formData.append('content', contentInput.value);
+
+  return formData;
 }

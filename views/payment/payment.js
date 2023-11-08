@@ -31,9 +31,11 @@ goBackBtn.addEventListener('click', () => {
 let isuser;
 async function checkLogin() {
   try {
-    const res = await fetch('http://localhost:5001/api/v1/users/check-login');
+    const res = await fetch(`/api/v1/users/check-login`, {
+      credentials: 'include',
+    });
     const data = await res.json();
-    const { isLoggedIn } = data.isLoggedIn;
+    const { isLoggedIn } = data;
 
     if (isLoggedIn) {
       isuser = true;
@@ -47,6 +49,12 @@ async function checkLogin() {
   }
 }
 checkLogin();
+
+/* user icon click */
+const userBtn = document.querySelector('.bi-person');
+userBtn.addEventListener('click', () => {
+  isuser ? (window.location.href = '/mypage') : (window.location.href = '/login');
+});
 
 /* radio btn value값 채워지기 */
 flexRadioDefault1.addEventListener('change', (e) => {
@@ -198,8 +206,12 @@ function removePriceFromArray(pricesArray, priceEle) {
 
 /* db에 데이터 전달 (post) */
 
-submitBtn.addEventListener('click', () => {
-  isuser ? userHandleSubmit : unuserHandleSubmit;
+submitBtn.addEventListener('click', (e) => {
+  if (isuser) {
+    userHandleSubmit(e);
+  } else {
+    unuserHandleSubmit(e);
+  }
 });
 
 /* 회원일때, */
@@ -212,6 +224,7 @@ async function userHandleSubmit(e) {
     return;
   }
 
+  const email = emailInput.value;
   const receiverName = receiverNameInput.value;
   const postalCode = postalCodeInput.value;
   const address1 = address1Input.value;
@@ -221,7 +234,7 @@ async function userHandleSubmit(e) {
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proId = item.querySelector('pro-id').textContent;
+    const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
 
@@ -252,8 +265,9 @@ async function userHandleSubmit(e) {
 
   const data = {
     orderItems,
+    email,
     totalPrice,
-    status: '주문대기',
+    status: '배송준비중',
     message: request,
     address: {
       postnumber: postalCode,
@@ -268,7 +282,7 @@ async function userHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = 'http://localhost:5001/api/v1/orders';
+  const apiUrl = `/api/v1/orders`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -284,10 +298,10 @@ async function userHandleSubmit(e) {
       alert(result.message);
       window.location.href = '/order'; // 주문조회 페이지로 이동
     } else {
-      alert('결제에 실패하였습니다.');
+      alert('주문에 실패하였습니다.');
     }
   } catch (error) {
-    alert(`${error} 결제 중 오류가 발생하였습니다.`);
+    alert(`${error} 주문 중 오류가 발생하였습니다.`);
   }
 }
 
@@ -301,6 +315,7 @@ async function unuserHandleSubmit(e) {
     return;
   }
 
+  const email = emailInput.value;
   const password = passwordInput.value;
   const receiverName = receiverNameInput.value;
   const postalCode = postalCodeInput.value;
@@ -311,7 +326,7 @@ async function unuserHandleSubmit(e) {
   const items = document.querySelectorAll('.product');
   const orderItems = [];
   items.forEach((item) => {
-    const proId = item.querySelector('pro-id').textContent;
+    const proId = item.querySelector('.pro-id').textContent;
     const proOptions = item.querySelector('.pro-option').textContent;
     const proCount = item.querySelector('.pro-count').textContent.split('개')[0];
 
@@ -342,8 +357,9 @@ async function unuserHandleSubmit(e) {
 
   const data = {
     orderItems,
+    email,
     totalPrice,
-    status: '주문대기',
+    status: '배송준비중',
     message: request,
     orderPassword: password,
     address: {
@@ -359,7 +375,7 @@ async function unuserHandleSubmit(e) {
   }
 
   const dataJson = JSON.stringify(data);
-  const apiUrl = 'http://localhost:5001/api/v1/orders/guest';
+  const apiUrl = `/api/v1/orders/guest`;
 
   try {
     const res = await fetch(apiUrl, {
@@ -375,13 +391,14 @@ async function unuserHandleSubmit(e) {
       alert(result.message);
       window.location.href = '/login/unuser'; // 비회원 주문조회 페이지로 이동
     } else {
-      alert('결제에 실패하였습니다.');
+      alert('주문에 실패하였습니다.');
     }
   } catch (error) {
-    alert(`${error} 결제 중 오류가 발생하였습니다.`);
+    alert(`${error} 주문 중 오류가 발생하였습니다.`);
   }
 }
 
+// ----------------------------------------------------
 /* 유효성 검사 */
 
 // 회원

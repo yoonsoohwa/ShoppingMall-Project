@@ -12,17 +12,17 @@ class ItemService {
     return item;
   }
 
-  async getitemsByCategory(category, page, limit) {
-    const skip = (page - 1) * limit;
-    const totalProducts = await Item.countDocuments({ category });
-    const totalPages = Math.ceil(totalProducts / limit);
-    const products = await Item.find({ category }).skip(skip).limit(limit);
-    return { items: products, totalPages };
-  }
+  async addItem(category, name, price, parsedOption, content, image, detailImages) {
+    const newItem = new Item({ category, name, price, option: parsedOption, content });
 
-  async addItem(itemData) {
-    const newItem = new Item(itemData);
+    const thumbnail = { imageType: 'thumbnail', url: image.location };
+    const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
+
+    newItem.image = thumbnail;
+    newItem.detail_image = details;
+
     await newItem.save();
+
     return newItem;
   }
 
@@ -34,25 +34,45 @@ class ItemService {
     return deletedItem;
   }
 
-  async updateItem(itemId, updatedItemData) {
-    const updatedItem = await Item.findByIdAndUpdate(itemId, updatedItemData, {
-      new: true,
-    });
+  async deleteItems(itemIds) {
+    const deletedItem = await Item.deleteMany({ _id: itemIds });
+    if (!deletedItem) {
+      throw new NotFoundError('해당 아이템을 찾을 수 없습니다.');
+    }
+    return deletedItem;
+  }
+
+  async updateItem(id, category, name, price, parsedOption, content, image, detailImages) {
+    const thumbnail = { imageType: 'thumbnail', url: image.location };
+    const details = detailImages.map((detail) => ({ imageType: 'detail', url: detail.location }));
+
+    const updatedItem = await Item.findByIdAndUpdate(
+      id,
+      { category, name, price, option: parsedOption, content, image: thumbnail, detail_image: details },
+      {
+        new: true,
+      },
+    );
     if (!updatedItem) {
       throw new NotFoundError('해당 아이템을 찾을 수 없습니다.');
     }
     return updatedItem;
   }
 
-  async getItemsByPage(page = 1, limit = 20) {
+  async getItemsByPage(page, limit) {
     const skip = (page - 1) * limit;
-    const items = await Item.find().skip(skip).limit(limit);
     const totalItems = await Item.countDocuments();
     const totalPages = Math.ceil(totalItems / limit);
-    return {
-      items,
-      totalPages,
-    };
+    const items = await Item.find().skip(skip).limit(limit);
+    return { items, totalPages };
+  }
+
+  async getitemsByCategory(category, page, limit) {
+    const skip = (page - 1) * limit;
+    const totalItems = await Item.countDocuments({ category });
+    const totalPages = Math.ceil(totalItems / limit);
+    const items = await Item.find({ category }).skip(skip).limit(limit);
+    return { items, totalPages };
   }
 }
 

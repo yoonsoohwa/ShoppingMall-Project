@@ -6,13 +6,21 @@
   --bs-pagination-hover-color: #333;
 }
 
-/* 장바구니 공통 css */
+.table {
+  --bs-table-bg: none;
+}
+
+.table > :not(caption) > * > * {
+  padding: 20px;
+}
+
+/* 주문조회 공통 css */
 
 .order-wrap {
   width: 100%;
   display: block;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 #bag-icon {
@@ -31,88 +39,8 @@
   margin-left: 10px;
 }
 
-/* 채워진 장바구니 */
-
-.orderdiv {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.orderdiv .row.head {
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
-  box-sizing: border-box;
+#tr-head {
   background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.orderdiv .row.data {
-  border-bottom: 1px dashed #888;
-  box-sizing: border-box;
-  line-height: 40px;
-  display: flex;
-}
-
-.orderdiv .row .subdiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
-.orderdiv .row.head .subdiv {
-  padding: 12px 0;
-}
-
-.orderdiv .row.data .subdiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 0;
-}
-
-.orderdiv .row .subdiv:nth-child(1) {
-  width: 50%;
-}
-
-.orderdiv .row .subdiv:nth-child(2) {
-  width: 50%;
-}
-
-.orderdiv .row > div > div {
-  flex-direction: row;
-  text-align: center;
-  margin: 0;
-}
-
-/* 첫번째 블록 */
-
-#order-date-wrap {
-  width: 33%;
-}
-
-#order-img {
-  width: 33%;
-}
-
-#order-pname {
-  width: 33%;
-}
-
-/* 두번째 블록 */
-#order-num {
-  width: 20%;
-}
-
-#order-price {
-  width: 40%;
-}
-
-#order-status {
-  width: 40%;
 }
 
 /* 페이지네이션 */
@@ -161,4 +89,8 @@
   justify-content: center;
   align-items: center;
   margin-top: 24px;
+}
+
+#order-img > img {
+    width: 150px;
 }

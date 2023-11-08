@@ -14,11 +14,7 @@ class OrderService {
       throw new BadRequestError(`이미 배송중인 제품은 변경 또는 취소할 수 없습니다.`);
   }
 
-  async createOrder({ user, orderItems, address, totalPrice, status, message, orderPassword }) {
-    if (!/^[a-zA-Z0-9]{8,}$/.test(orderPassword) && !user) {
-      throw new BadRequestError('주문 비밀번호는 최소 8자리의 숫자와 영문자의 조합이어야 합니다.');
-    }
-
+  async createOrder({ user, orderItems, address, totalPrice, status, message }) {
     const order = await Order.create({
       user,
       orderItems,
@@ -26,7 +22,6 @@ class OrderService {
       totalPrice,
       status,
       message,
-      orderPassword,
     });
 
     return order;
@@ -35,6 +30,7 @@ class OrderService {
   async getPagination(page, limit) {
     const orders = await Order.find()
       .populate('user')
+      .populate('address')
       .populate({
         path: 'orderItems',
         populate: {
@@ -68,18 +64,31 @@ class OrderService {
     return order;
   }
 
-  async getOrdersByStatus(userId, status) {
-    const orders = await Order.find({ status }).populate({ path: 'user', match: { _id: userId } });
+  async getOrdersByStatus(userId, status, page, limit) {
+    const orders = await Order.find({ status })
+      .populate({ path: 'user', match: { _id: userId } })
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address')
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit);
 
     if (!orders) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
-    return orders;
+    const count = await Order.countDocuments({ status });
+
+    return { orders, count };
   }
 
-  async getOrderByGuest(orderId, orderPassword) {
-    const order = await Order.findOne({ _id: orderId, orderPassword })
+  async getOrderByGuest(orderId) {
+    const order = await Order.findOne({ _id: orderId })
       .populate({
         path: 'orderItems',
         populate: {
@@ -95,21 +104,19 @@ class OrderService {
     return order;
   }
 
-  async getPaginationByUser(user, page, limit) {
-    const orders = await Order.find({ user })
-      .populate('user')
+  async getPaginationByUser({ user, page, limit }) {
+    const orders = await Order.find(user)
       .populate({
         path: 'orderItems',
         populate: {
           path: 'item',
         },
       })
-      .populate('address')
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const count = await Order.countDocuments({ user });
+    const count = orders.length;
 
     return { orders, count };
   }
@@ -138,15 +145,30 @@ class OrderService {
     return updatedOrder;
   }
 
-  async deleteOrder(id) {
-    const order = await Order.findByIdAndDelete(id);
+  async updateStatuses(orderIds, status) {
+    const updatedOrder = await Order.updateMany({ _id: orderIds }, { status }, { new: true })
+      .populate('user')
+      .populate({
+        path: 'orderItems',
+        populate: {
+          path: 'item',
+        },
+      })
+      .populate('address');
+
+    return updatedOrder;
+  }
+
+  async deleteOrders(orderIds) {
+    const order = await Order.find({ _id: orderIds });
+
     if (!order) {
       throw new NotFoundError('해당 주문을 찾을 수 없습니다.');
     }
 
     this.validateOnShipping(order.status);
 
-    await order.delete();
+    await Order.deleteMany({ _id: orderIds });
   }
 }
 

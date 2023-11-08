@@ -5,12 +5,23 @@ const { checkLoginStatus } = require('../middlewares/authUserMiddlewares');
 
 const router = express.Router();
 
-// 회원가입(이메일 인증)
+// 회원가입(이메일 인증코드 발송)
 router.post('/register/send-mail', async (req, res, next) => {
   try {
     const { email } = req.body;
-    const emailVerificationCode = await UserService.sendEmailVerificationCode(email);
-    res.status(200).json({ message: '인증번호가 이메일로 전송되었습니다.', emailVerificationCode });
+    await UserService.sendEmailVerificationCode(email);
+    res.status(200).json({ message: '인증번호가 이메일로 전송되었습니다.' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// 회원가입(이메일 인증코드 확인)
+router.post('/register/verify-email-code', async (req, res, next) => {
+  try {
+    const { email, code } = req.body;
+    await UserService.verifyEmailCode(email, code);
+    res.status(200).json({ message: '이메일 인증이 완료되었습니다.' });
   } catch (err) {
     next(err);
   }
@@ -57,7 +68,7 @@ router.post('/logout', async (req, res, next) => {
 router.get('/check-login', checkLoginStatus, async (req, res, next) => {
   try {
     if (req.user) {
-      res.status(200).json({ isLoggedIn: true });
+      res.status(200).json({ isLoggedIn: true, user: req.user });
     } else {
       res.status(200).json({ isLoggedIn: false });
     }

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="../admin.css" />
   </head>
+
   <body>
     <div id="container">
       <div id="sidebar-container"></div>
@@ -35,99 +36,112 @@
         <div class="title mb-2">
           <h2>상품 등록</h2>
         </div>
-        <div class="board pt-2">
-          <table class="table">
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">상품코드</th>
-                <td id="product-id">
-                  <p>자동생성</p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><i class="bi bi-asterisk mt-0"></i>카테고리</th>
-                <td id="product-category">
-                  <!-- 추후에 db에서 cate값들 가져오는 것으로 수정 -->
-                  <select class="form-select w-50" id="category-input" aria-label="Default select example">
-                    <option selected>--- 카테고리 선택 ---</option>
-                    <option value="Top">Top</option>
-                    <option value="Outer">Outer</option>
-                    <option value="Bottom">Bottom</option>
-                    <option value="Dress">Dress</option>
-                    <option value="Bag">Bag</option>
-                    <option value="Shoes">Shoes</option>
-                    <option value="Hat">Hat</option>
-                    <option value="Acc">Acc</option>
-                    <option value="Etc">Etc</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">이미지</th>
-                <td id="product-img">
-                  <div id="product-image">
-                    <p class="mb-1"><i class="bi bi-asterisk mt-0"></i>대표 이미지</p>
-                    <input class="input form-control w-50 mb-2" type="file" id="img-input" accept="image/*" />
-                    <div id="image-preview"></div>
-                    <button type="button" class="delete-img btn btn-secondary btn-sm mt-2" style="display: none">
-                      삭제
-                    </button>
-                  </div>
-                  <div id="product-detail-image" class="mt-2">
-                    <p class="mb-1">상세 이미지</p>
-                    <span class="help">* 이미지 용량의 최대 크기는 "5MB" 입니다.</span>
-                    <input
-                      type="file"
-                      class="input form-control w-50 mb-2"
-                      id="detail-img-input"
-                      multiple
-                      accept="image/*"
-                    />
-                    <div id="detail-image-preview"></div>
-                    <button type="button" class="delete-detimg btn btn-secondary btn-sm mt-2" style="display: none">
-                      삭제
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><i class="bi bi-asterisk mt-0"></i>상품명</th>
-                <td id="product-name">
-                  <input class="input form-control w-50" id="name-input" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><i class="bi bi-asterisk mt-0"></i>가격</th>
-                <td id="product-price">
-                  <input class="input form-control w-50" id="price-input" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">옵션</th>
-                <td id="product-option">
-                  <div id="product-color">
-                    색상<br /><span class="help">* 2개이상이면 쉼표를 사용하여 입력하세요. ex) black, white, pink</span>
-                    <input class="input form-control w-50 mb-2" id="color-input" type="text" />
-                  </div>
-                  <div id="product-size">
-                    사이즈<br /><span class="help">* 2개이상이면 쉼표를 사용하여 입력하세요. ex) S, M, L</span>
-                    <input class="input form-control w-50" id="size-input" type="text" />
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">상품설명</th>
-                <td id="product-content">
-                  <input class="input form-control w-50" id="content-input" type="text" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="submit" class="btn btn-dark submit float-end">등록하기</button>
-        </div>
+        <form id="formElem">
+          <div class="board pt-2">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">상품코드</th>
+                  <td id="product-id">
+                    <p>자동생성</p>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="bi bi-asterisk mt-0"></i>카테고리</th>
+                  <td id="product-category">
+                    <!-- 추후에 db에서 cate값들 가져오는 것으로 수정 -->
+                    <select
+                      class="form-select w-50"
+                      id="category-input"
+                      name="category"
+                      aria-label="Default select example"
+                    >
+                      <option selected>--- 카테고리 선택 ---</option>
+                      <option value="Top">Top</option>
+                      <option value="Outer">Outer</option>
+                      <option value="Bottom">Bottom</option>
+                      <option value="Dress">Dress</option>
+                      <option value="Bag">Bag</option>
+                      <option value="Shoes">Shoes</option>
+                      <option value="Hat">Hat</option>
+                      <option value="Acc">Acc</option>
+                      <option value="Etc">Etc</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">이미지</th>
+                  <td id="product-img">
+                    <div id="product-image">
+                      <p class="mb-1"><i class="bi bi-asterisk mt-0"></i>대표 이미지</p>
+                      <input
+                        class="input form-control w-50 mb-2"
+                        type="file"
+                        id="img-input"
+                        name="image"
+                        accept="image/*"
+                      />
+                      <div id="image-preview"></div>
+                      <button type="button" class="delete-img btn btn-secondary btn-sm mt-2" style="display: none">
+                        삭제
+                      </button>
+                    </div>
+                    <div id="product-detail-image" class="mt-2">
+                      <p class="mb-1">상세 이미지</p>
+                      <span class="help">* 이미지 용량의 최대 크기는 "5MB" 입니다.</span>
+                      <input
+                        type="file"
+                        class="input form-control w-50 mb-2"
+                        id="detail-img-input"
+                        name="detail_images"
+                        multiple
+                        accept="image/*"
+                      />
+                      <div id="detail-image-preview"></div>
+                      <button type="button" class="delete-detimg btn btn-secondary btn-sm mt-2" style="display: none">
+                        삭제
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="bi bi-asterisk mt-0"></i>상품명</th>
+                  <td id="product-name">
+                    <input class="input form-control w-50" id="name-input" name="name" type="text" />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"><i class="bi bi-asterisk mt-0"></i>가격</th>
+                  <td id="product-price">
+                    <input class="input form-control w-50" id="price-input" name="price" type="text" />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">옵션</th>
+                  <td id="product-option">
+                    <div id="product-color">
+                      색상<br /><span class="help"
+                        >* 2개이상이면 쉼표를 사용하여 입력하세요. ex) black, white, pink</span
+                      >
+                      <input class="input form-control w-50 mb-2" id="color-input" name="option[color]" type="text" />
+                    </div>
+                    <div id="product-size">
+                      사이즈<br /><span class="help">* 2개이상이면 쉼표를 사용하여 입력하세요. ex) S, M, L</span>
+                      <input class="input form-control w-50" id="size-input" name="option[size]" type="text" />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">상품설명</th>
+                  <td id="product-content">
+                    <input class="input form-control w-50" id="content-input" name="content" type="text" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="submit" class="btn btn-dark submit float-end">등록하기</button>
+          </div>
+        </form>
       </div>
     </div>
     <script src="../sidebar.js" type="module"></script>

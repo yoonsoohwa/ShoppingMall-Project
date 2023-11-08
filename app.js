@@ -15,15 +15,18 @@ const userRouter = require('./routes/UserRouter');
 const viewsRouter = require('./routes/viewsRouter');
 const adminRouter = require('./routes/AdminRouter');
 
-const { User } = require('./models/User');
-const Item = require('./models/Item');
+// const { User } = require('./models/User');
+// const Item = require('./models/Item');
 
-const dummy = require('./dummy/dummy.json');
-const dummyItems = require('./dummy/dummyItems.json');
+// const dummy = require('./dummy/dummy.json');
+// const dummyItems = require('./dummy/dummyItems.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use('/views', express.static('views'));
+// app.use('/dummy', express.static('dummy'));
 
 // dotenv
 console.log(`어플리케이션 서버를 다음 환경으로 시작합니다: ${process.env.NODE_ENV}`);
@@ -41,16 +44,6 @@ mongoose
   })
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
-
-// Add dummy data
-dummy.users.forEach(async (user) => {
-  const newUser = new User(user);
-  await newUser.save();
-});
-dummyItems.items.forEach(async (item) => {
-  const newItem = new Item(item);
-  await newItem.save();
-});
 
 // router
 app.use('/api/v1/ping', pingRouter);
