@@ -1,4 +1,4 @@
-# [Re: birth](http://kdt-sw-6-team02.elicecoding.com/)
+# Re: birth
 
 안녕하세요! 저희 엘리스 2팀의 **Re: birth**는 낡고 버려진 물건들을 되살리는 업사이클링 쇼핑몰입니다.  
 업사이클링의 매력과 가치를 **Re: birth**에서 경험해보세요!  
